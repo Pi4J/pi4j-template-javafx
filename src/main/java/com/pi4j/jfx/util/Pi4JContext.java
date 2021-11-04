@@ -1,4 +1,4 @@
-package com.pi4j.fxgl.util;
+package com.pi4j.jfx.util;
 
 import java.time.Duration;
 

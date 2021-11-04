@@ -18,10 +18,7 @@ open module com.pi4j.fxgl {
 
     // JavaFX
     requires javafx.controls;
-    requires javafx.media;
 
-    // FXGL
-    requires com.almasb.fxgl.all;
 
     // Module Exports
 

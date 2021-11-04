@@ -1,13 +1,10 @@
-package com.pi4j.fxgl.pi4jplain;
+package com.pi4j.pi4jplain;
 
 import java.time.Duration;
 
 import com.pi4j.Pi4J;
 import com.pi4j.io.gpio.digital.DigitalInput;
 import com.pi4j.io.gpio.digital.PullResistance;
-import com.pi4j.library.pigpio.PiGpio;
-import com.pi4j.plugin.pigpio.provider.gpio.digital.PiGpioDigitalInputProvider;
-import com.pi4j.plugin.raspberrypi.platform.RaspberryPiPlatform;
 
 /**
  * Minimal Example for accessing a Button via Pi4J.

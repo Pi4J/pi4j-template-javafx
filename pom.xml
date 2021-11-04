@@ -18,10 +18,8 @@
         <!--  <launcher.class>com.pi4j.fxgl/com.pi4j.fxgl.pi4jplain.HardwareButtonDemo</launcher.class> -->
         <!--  <launcher.class>com.pi4j.fxgl/com.pi4j.fxgl.pi4jplain.PicadeButtonDemo</launcher.class>   -->
 
-        <!--  <launcher.class>com.pi4j.fxgl/com.pi4j.fxgl.jfxplain.HelloFX</launcher.class>   -->
+        <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.jfxplain.HelloFX</launcher.class>
 
-        <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.fxgl.game.DropApp_Solution</launcher.class> -->
-        <launcher.class>com.pi4j.fxgl/com.pi4j.fxgl.game.mazelaman.MazelaManApp</launcher.class>
 
         <fxgl.launcher.args/>
 
@@ -36,16 +34,15 @@
         <java.version>11</java.version>
 
         <!-- Project Dependency Versions-->
-        <fxgl.version>dev-SNAPSHOT</fxgl.version>
-        <javafx.version>17-ea+16</javafx.version>
-        <pi4j.version>2.0-SNAPSHOT</pi4j.version>
+        <javafx.version>17.0.1</javafx.version>
+        <pi4j.version>2.1.0</pi4j.version>
 
         <slf4j.version>1.7.32</slf4j.version>
-        <junit.version>5.7.2</junit.version>
+        <junit.version>5.8.1</junit.version>
 
         <!-- Plugin Versions-->
-        <javafx.plugin.version>0.0.6</javafx.plugin.version>
-        <gluonfx.plugin.version>1.0.3</gluonfx.plugin.version>
+        <javafx.plugin.version>0.0.8</javafx.plugin.version>
+        <gluonfx.plugin.version>1.0.8</gluonfx.plugin.version>
         <gluonfx.target/>
 
         <!-- Maven Plugin Versions -->
@@ -100,31 +97,6 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
-        </dependency>
-
-        <!-- Needed by FXGL -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-media</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-
-        <!-- FXGL -->
-        <dependency>
-            <groupId>com.github.almasb</groupId>
-            <artifactId>fxgl</artifactId>
-            <version>${fxgl.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.openjfx</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!-- Pi4J  -->
