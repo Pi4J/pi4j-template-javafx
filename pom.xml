@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.pi4j.fxgl</groupId>
+    <artifactId>fxgl-workshop</artifactId>
+    <name>Pi4J FXGL Workshop</name>
+    <description>Learn how to integrate  JavaFX, FXGL and Pi4J to run JavaFX applications or FXGL games on Picade console and GameHAT in DRM.</description>
+    <version>0.0.1</version>
+
+    <!-- BUILD PROPERTIES -->
+    <properties>
+        <!-- The class that will be started, choose one and only one -->
+
+        <!--  <launcher.class>com.pi4j.fxgl/com.pi4j.fxgl.pi4jplain.MinimalPi4J</launcher.class> -->
+        <!--  <launcher.class>com.pi4j.fxgl/com.pi4j.fxgl.pi4jplain.HardwareButtonDemo</launcher.class> -->
+        <!--  <launcher.class>com.pi4j.fxgl/com.pi4j.fxgl.pi4jplain.PicadeButtonDemo</launcher.class>   -->
+
+        <!--  <launcher.class>com.pi4j.fxgl/com.pi4j.fxgl.jfxplain.HelloFX</launcher.class>   -->
+
+        <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.fxgl.game.DropApp_Solution</launcher.class> -->
+        <launcher.class>com.pi4j.fxgl/com.pi4j.fxgl.game.mazelaman.MazelaManApp</launcher.class>
+
+        <fxgl.launcher.args/>
+
+        <!-- Setup for the RaspPi -->
+        <pi.username>pi</pi.username>
+        <pi.password>crowpi</pi.password>
+        <pi.ipnumber/>
+        <pi.port>22</pi.port>
+        <pi.deploydirectory>/home/pi/deploy</pi.deploydirectory>
+
+        <!-- Java Compiler Version -->
+        <java.version>11</java.version>
+
+        <!-- Project Dependency Versions-->
+        <fxgl.version>dev-SNAPSHOT</fxgl.version>
+        <javafx.version>17-ea+16</javafx.version>
+        <pi4j.version>2.0-SNAPSHOT</pi4j.version>
+
+        <slf4j.version>1.7.32</slf4j.version>
+        <junit.version>5.7.2</junit.version>
+
+        <!-- Plugin Versions-->
+        <javafx.plugin.version>0.0.6</javafx.plugin.version>
+        <gluonfx.plugin.version>1.0.3</gluonfx.plugin.version>
+        <gluonfx.target/>
+
+        <!-- Maven Plugin Versions -->
+        <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
+        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+        <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+        <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
+
+        <!-- Maven Properties -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+
+        <!-- PROJECT ENCODING PROPERTIES -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Ant Dependencies -->
+        <ant-jsch.version>1.10.9</ant-jsch.version>
+    </properties>
+
+    <!-- DEPENDENCY REPOSITORIES -->
+    <repositories>
+        <repository>
+            <id>sonatype-snapshots</id>
+            <name>Sonatype OSS Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <!-- JavaFX basics -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <!-- Needed by FXGL -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <!-- FXGL -->
+        <dependency>
+            <groupId>com.github.almasb</groupId>
+            <artifactId>fxgl</artifactId>
+            <version>${fxgl.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Pi4J  -->
+
+        <!-- Pi4J Core -->
+        <dependency>
+            <groupId>com.pi4j</groupId>
+            <artifactId>pi4j-core</artifactId>
+            <version>${pi4j.version}</version>
+        </dependency>
+
+        <!-- Pi4J Raspberry Pi Platform -->
+        <dependency>
+            <groupId>com.pi4j</groupId>
+            <artifactId>pi4j-plugin-raspberrypi</artifactId>
+            <version>${pi4j.version}</version>
+        </dependency>
+
+        <!-- Pi4J Raspberry Pi GPIO -->
+        <dependency>
+            <groupId>com.pi4j</groupId>
+            <artifactId>pi4j-plugin-pigpio</artifactId>
+            <version>${pi4j.version}</version>
+        </dependency>
+
+        <!-- Pi4J Mock Platform -->
+        <dependency>
+            <groupId>com.pi4j</groupId>
+            <artifactId>pi4j-plugin-mock</artifactId>
+            <version>${pi4j.version}</version>
+            <!-- <scope>test</scope> -->
+        </dependency>
+
+        <!-- SLF4J  -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+
+        <!-- JUnit -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>${javafx.plugin.version}</version>
+                <configuration>
+                    <mainClass>${launcher.class}</mainClass>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.gluonhq</groupId>
+                <artifactId>gluonfx-maven-plugin</artifactId>
+                <version>${gluonfx.plugin.version}</version>
+                <configuration>
+                    <target>${gluonfx.target}</target>
+                    <mainClass>${launcher.class}</mainClass>
+                </configuration>
+            </plugin>
+
+            <!-- JAVA COMPILER -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <release>${java.version}</release>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                    <verbose>false</verbose>
+                </configuration>
+            </plugin>
+
+            <!-- DEFAULT JAR EXECUTABLE CLASS -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <executable>java</executable>
+                    <arguments>
+                        <argument>--module-path</argument>
+                        <argument>${project.build.directory}/distribution</argument>
+                        <argument>--module</argument>
+                        <argument>${launcher.class}</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+            <!-- Copy runtime dependencies into distribution folder -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/distribution</outputDirectory>
+                            <includeScope>runtime</includeScope>
+                            <excludeTransitive>false</excludeTransitive>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>true</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                            <!--
+                            On the Raspberry Pi we use specific JavaFX dependencies,
+                            so we exclude them here and they are added in the run-script.
+                            -->
+                            <excludeGroupIds>org.openjfx</excludeGroupIds>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Build final JAR file -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/distribution</outputDirectory>
+                </configuration>
+            </plugin>
+
+            <!-- Javadoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <additionalOptions>
+                        <additionalOption>--module-path</additionalOption>
+                        <additionalOption>${project.build.directory}/distribution</additionalOption>
+                    </additionalOptions>
+                </configuration>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>${maven-antrun-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${maven-dependency-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>${exec-maven-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <profiles>
+        <profile>
+            <id>jfx-remote-run-kiosk</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>transfer</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <!-- Ensure target directory exists on RaspPi -->
+                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
+                                                 username="${pi.username}" password="${pi.password}"
+                                                 trust="true" command="mkdir --parents ${pi.deploydirectory}; rm -f ${pi.deploydirectory}/*"/>
+
+                                        <!-- Transfer distribution folder to RaspPi via SCP -->
+                                        <scp trust="true"
+                                             todir="${pi.username}:${pi.password}@${pi.ipnumber}:${pi.deploydirectory}"
+                                             port="${pi.port}">
+                                            <fileset dir="${project.build.directory}/distribution">
+                                                <exclude name="javafx*.jar"/>/>
+                                            </fileset>
+                                        </scp>
+
+                                        <!-- Run JFX application on Raspberry Pi -->
+                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
+                                                 username="${pi.username}" password="${pi.password}" trust="true"
+                                                 failonerror="false" usepty="true" useSystemIn="true"
+                                                 command="sudo  java-kiosk -Xmx1G --module-path ${pi.deploydirectory} --module ${launcher.class} "/>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.apache.ant</groupId>
+                                <artifactId>ant-jsch</artifactId>
+                                <version>${ant-jsch.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>jfx-remote-run-X11</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>transfer</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <!-- Ensure target directory exists on RaspPi -->
+                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
+                                                 username="${pi.username}" password="${pi.password}"
+                                                 trust="true" command="mkdir --parents ${pi.deploydirectory}; rm -f ${pi.deploydirectory}/*"/>
+
+                                        <!-- Transfer distribution folder to RaspPi via SCP -->
+                                        <scp trust="true"
+                                             todir="${pi.username}:${pi.password}@${pi.ipnumber}:${pi.deploydirectory}"
+                                             port="${pi.port}">
+                                            <fileset dir="${project.build.directory}/distribution">
+                                                <exclude name="javafx*.jar"/>/>
+                                            </fileset>
+                                        </scp>
+
+                                        <!-- Run JFX application on Raspberry Pi -->
+                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
+                                                 username="${pi.username}" password="${pi.password}" trust="true"
+                                                 failonerror="false" usepty="true" useSystemIn="true"
+                                                 command="DISPLAY=:0 XAUTHORITY=/home/pi/.Xauthority sudo -E java --module-path /opt/javafx-sdk-17/lib:${pi.deploydirectory} --add-modules javafx.controls -Dglass.monocle=X11  -Dprism.verbose=true --module ${launcher.class}"/>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.apache.ant</groupId>
+                                <artifactId>ant-jsch</artifactId>
+                                <version>${ant-jsch.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

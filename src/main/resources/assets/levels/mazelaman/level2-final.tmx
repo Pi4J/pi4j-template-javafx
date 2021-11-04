@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="20" tileheight="20" infinite="0" nextlayerid="3" nextobjectid="187">
+ <tileset firstgid="1" name="tilemap" tilewidth="20" tileheight="20" spacing="1" tilecount="238" columns="17">
+  <image source="tilemap.png" width="356" height="293"/>
+ </tileset>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="1" name="player" type="Player" x="380" y="440" width="20" height="20"/>
+  <object id="2" type="Wall" x="200" y="463" width="380" height="17"/>
+  <object id="3" type="Wall" x="200" y="137" width="17" height="326"/>
+  <object id="4" type="Wall" x="563" y="137" width="17" height="326"/>
+  <object id="5" type="Wall" x="200" y="120" width="380" height="17"/>
+  <object id="6" type="Wall" x="243" y="423" width="134" height="14"/>
+  <object id="7" type="Wall" x="243" y="163" width="134" height="14"/>
+  <object id="8" type="Wall" x="403" y="163" width="134" height="14"/>
+  <object id="9" type="Wall" x="363" y="342" width="54" height="15"/>
+  <object id="10" type="Wall" x="243" y="203" width="17" height="194"/>
+  <object id="11" type="Wall" x="520" y="203" width="17" height="194"/>
+  <object id="12" type="Wall" x="363" y="177" width="14" height="165"/>
+  <object id="13" type="Wall" x="403" y="177" width="14" height="165"/>
+  <object id="36" type="Pill" x="400" y="440" width="20" height="20"/>
+  <object id="37" type="Pill" x="420" y="440" width="20" height="20"/>
+  <object id="38" type="Pill" x="440" y="440" width="20" height="20"/>
+  <object id="39" type="Pill" x="460" y="440" width="20" height="20"/>
+  <object id="40" type="Pill" x="480" y="440" width="20" height="20"/>
+  <object id="41" type="Pill" x="500" y="440" width="20" height="20"/>
+  <object id="42" type="Pill" x="520" y="440" width="20" height="20"/>
+  <object id="43" type="Pill" x="540" y="440" width="20" height="20"/>
+  <object id="44" type="Pill" x="220" y="440" width="20" height="20"/>
+  <object id="45" type="Pill" x="240" y="440" width="20" height="20"/>
+  <object id="46" type="Pill" x="260" y="440" width="20" height="20"/>
+  <object id="47" type="Pill" x="280" y="440" width="20" height="20"/>
+  <object id="48" type="Pill" x="300" y="440" width="20" height="20"/>
+  <object id="49" type="Pill" x="320" y="440" width="20" height="20"/>
+  <object id="50" type="Pill" x="340" y="440" width="20" height="20"/>
+  <object id="51" type="Pill" x="360" y="440" width="20" height="20"/>
+  <object id="52" type="Pill" x="220" y="140" width="20" height="20"/>
+  <object id="53" type="Pill" x="220" y="160" width="20" height="20"/>
+  <object id="54" type="Pill" x="220" y="180" width="20" height="20"/>
+  <object id="55" type="Pill" x="220" y="200" width="20" height="20"/>
+  <object id="56" type="Pill" x="220" y="220" width="20" height="20"/>
+  <object id="57" type="Pill" x="220" y="240" width="20" height="20"/>
+  <object id="58" type="Pill" x="220" y="260" width="20" height="20"/>
+  <object id="59" type="Pill" x="220" y="280" width="20" height="20"/>
+  <object id="60" type="Pill" x="220" y="300" width="20" height="20"/>
+  <object id="61" type="Pill" x="220" y="320" width="20" height="20"/>
+  <object id="62" type="Pill" x="220" y="340" width="20" height="20"/>
+  <object id="63" type="Pill" x="220" y="360" width="20" height="20"/>
+  <object id="64" type="Pill" x="220" y="380" width="20" height="20"/>
+  <object id="65" type="Pill" x="220" y="400" width="20" height="20"/>
+  <object id="66" type="Pill" x="220" y="420" width="20" height="20"/>
+  <object id="67" type="Pill" x="240" y="140" width="20" height="20"/>
+  <object id="68" type="Pill" x="260" y="140" width="20" height="20"/>
+  <object id="69" type="Pill" x="280" y="140" width="20" height="20"/>
+  <object id="70" type="Pill" x="300" y="140" width="20" height="20"/>
+  <object id="71" type="Pill" x="320" y="140" width="20" height="20"/>
+  <object id="72" type="Pill" x="340" y="140" width="20" height="20"/>
+  <object id="73" type="Pill" x="360" y="140" width="20" height="20"/>
+  <object id="74" type="Pill" x="380" y="140" width="20" height="20"/>
+  <object id="75" type="Pill" x="400" y="140" width="20" height="20"/>
+  <object id="76" type="Pill" x="420" y="140" width="20" height="20"/>
+  <object id="77" type="Pill" x="440" y="140" width="20" height="20"/>
+  <object id="78" type="Pill" x="460" y="140" width="20" height="20"/>
+  <object id="79" type="Pill" x="480" y="140" width="20" height="20"/>
+  <object id="80" type="Pill" x="500" y="140" width="20" height="20"/>
+  <object id="81" type="Pill" x="520" y="140" width="20" height="20"/>
+  <object id="82" type="Pill" x="540" y="140" width="20" height="20"/>
+  <object id="83" type="Pill" x="540" y="160" width="20" height="20"/>
+  <object id="84" type="Pill" x="540" y="180" width="20" height="20"/>
+  <object id="85" type="Pill" x="540" y="200" width="20" height="20"/>
+  <object id="86" type="Pill" x="540" y="220" width="20" height="20"/>
+  <object id="87" type="Pill" x="540" y="240" width="20" height="20"/>
+  <object id="88" type="Pill" x="540" y="260" width="20" height="20"/>
+  <object id="89" type="Pill" x="540" y="280" width="20" height="20"/>
+  <object id="90" type="Pill" x="540" y="300" width="20" height="20"/>
+  <object id="91" type="Pill" x="540" y="320" width="20" height="20"/>
+  <object id="92" type="Pill" x="540" y="340" width="20" height="20"/>
+  <object id="93" type="Pill" x="540" y="360" width="20" height="20"/>
+  <object id="94" type="Pill" x="540" y="380" width="20" height="20"/>
+  <object id="95" type="Pill" x="540" y="400" width="20" height="20"/>
+  <object id="96" type="Pill" x="540" y="420" width="20" height="20"/>
+  <object id="97" name="blinky" type="Ghost" x="380" y="320" width="20" height="20"/>
+  <object id="101" type="Wall" x="403" y="423" width="134" height="14"/>
+  <object id="102" type="Wall" x="323" y="383" width="134" height="14"/>
+  <object id="103" type="Wall" x="260" y="380" width="20" height="17"/>
+  <object id="104" type="Wall" x="260" y="203" width="20" height="14"/>
+  <object id="105" type="Wall" x="500" y="203" width="20" height="14"/>
+  <object id="106" type="Wall" x="500" y="380" width="20" height="17"/>
+  <object id="107" type="Wall" x="443" y="203" width="14" height="154"/>
+  <object id="108" type="Wall" x="323" y="203" width="14" height="154"/>
+  <object id="109" type="Wall" x="280" y="203" width="17" height="194"/>
+  <object id="110" type="Wall" x="483" y="203" width="17" height="194"/>
+  <object id="113" type="Pill" x="420" y="180" width="20" height="20"/>
+  <object id="114" type="Pill" x="440" y="180" width="20" height="20"/>
+  <object id="115" type="Pill" x="460" y="180" width="20" height="20"/>
+  <object id="116" type="Pill" x="480" y="180" width="20" height="20"/>
+  <object id="117" type="Pill" x="500" y="180" width="20" height="20"/>
+  <object id="118" type="Pill" x="520" y="180" width="20" height="20"/>
+  <object id="119" type="Pill" x="420" y="200" width="20" height="20"/>
+  <object id="120" type="Pill" x="420" y="220" width="20" height="20"/>
+  <object id="121" type="Pill" x="420" y="240" width="20" height="20"/>
+  <object id="122" type="Pill" x="420" y="260" width="20" height="20"/>
+  <object id="123" type="Pill" x="420" y="280" width="20" height="20"/>
+  <object id="124" type="Pill" x="420" y="300" width="20" height="20"/>
+  <object id="125" type="Pill" x="420" y="320" width="20" height="20"/>
+  <object id="126" type="Pill" x="420" y="340" width="20" height="20"/>
+  <object id="127" type="Pill" x="460" y="200" width="20" height="20"/>
+  <object id="128" type="Pill" x="460" y="220" width="20" height="20"/>
+  <object id="129" type="Pill" x="460" y="240" width="20" height="20"/>
+  <object id="130" type="Pill" x="460" y="260" width="20" height="20"/>
+  <object id="131" type="Pill" x="460" y="280" width="20" height="20"/>
+  <object id="132" type="Pill" x="460" y="300" width="20" height="20"/>
+  <object id="133" type="Pill" x="460" y="320" width="20" height="20"/>
+  <object id="134" type="Pill" x="460" y="340" width="20" height="20"/>
+  <object id="135" type="Pill" x="460" y="360" width="20" height="20"/>
+  <object id="136" type="Pill" x="460" y="380" width="20" height="20"/>
+  <object id="137" type="Pill" x="460" y="400" width="20" height="20"/>
+  <object id="138" type="Pill" x="480" y="400" width="20" height="20"/>
+  <object id="139" type="Pill" x="500" y="400" width="20" height="20"/>
+  <object id="140" type="Pill" x="520" y="400" width="20" height="20"/>
+  <object id="141" type="Pill" x="320" y="360" width="20" height="20"/>
+  <object id="142" type="Pill" x="340" y="360" width="20" height="20"/>
+  <object id="143" type="Pill" x="360" y="360" width="20" height="20"/>
+  <object id="144" type="Pill" x="380" y="360" width="20" height="20"/>
+  <object id="145" type="Pill" x="400" y="360" width="20" height="20"/>
+  <object id="146" type="Pill" x="420" y="360" width="20" height="20"/>
+  <object id="147" type="Pill" x="440" y="360" width="20" height="20"/>
+  <object id="148" type="Pill" x="440" y="400" width="20" height="20"/>
+  <object id="149" type="Pill" x="420" y="400" width="20" height="20"/>
+  <object id="150" type="Pill" x="400" y="400" width="20" height="20"/>
+  <object id="151" type="Pill" x="380" y="400" width="20" height="20"/>
+  <object id="152" type="Pill" x="380" y="420" width="20" height="20"/>
+  <object id="153" type="Pill" x="360" y="400" width="20" height="20"/>
+  <object id="154" type="Pill" x="340" y="400" width="20" height="20"/>
+  <object id="155" type="Pill" x="320" y="400" width="20" height="20"/>
+  <object id="156" type="Pill" x="300" y="400" width="20" height="20"/>
+  <object id="157" type="Pill" x="280" y="400" width="20" height="20"/>
+  <object id="158" type="Pill" x="260" y="400" width="20" height="20"/>
+  <object id="159" type="Pill" x="240" y="400" width="20" height="20"/>
+  <object id="160" type="Pill" x="300" y="380" width="20" height="20"/>
+  <object id="161" type="Pill" x="300" y="360" width="20" height="20"/>
+  <object id="162" type="Pill" x="300" y="340" width="20" height="20"/>
+  <object id="163" type="Pill" x="300" y="320" width="20" height="20"/>
+  <object id="164" type="Pill" x="300" y="300" width="20" height="20"/>
+  <object id="165" type="Pill" x="300" y="280" width="20" height="20"/>
+  <object id="166" type="Pill" x="300" y="260" width="20" height="20"/>
+  <object id="167" type="Pill" x="300" y="240" width="20" height="20"/>
+  <object id="168" type="Pill" x="300" y="220" width="20" height="20"/>
+  <object id="169" type="Pill" x="300" y="200" width="20" height="20"/>
+  <object id="170" type="Pill" x="300" y="180" width="20" height="20"/>
+  <object id="171" type="Pill" x="280" y="180" width="20" height="20"/>
+  <object id="172" type="Pill" x="260" y="180" width="20" height="20"/>
+  <object id="173" type="Pill" x="240" y="180" width="20" height="20"/>
+  <object id="174" type="Pill" x="320" y="180" width="20" height="20"/>
+  <object id="175" type="Pill" x="340" y="180" width="20" height="20"/>
+  <object id="176" type="Pill" x="340" y="200" width="20" height="20"/>
+  <object id="177" type="Pill" x="340" y="220" width="20" height="20"/>
+  <object id="178" type="Pill" x="340" y="240" width="20" height="20"/>
+  <object id="179" type="Pill" x="340" y="260" width="20" height="20"/>
+  <object id="180" type="Pill" x="340" y="280" width="20" height="20"/>
+  <object id="181" type="Pill" x="340" y="300" width="20" height="20"/>
+  <object id="182" type="Pill" x="340" y="320" width="20" height="20"/>
+  <object id="183" type="Pill" x="340" y="340" width="20" height="20"/>
+  <object id="184" name="pinky" type="Ghost" x="380" y="240" width="20" height="20"/>
+  <object id="185" name="cherries" type="CherrySpawnPoint" x="380" y="360" width="20" height="20"/>
+ </objectgroup>
+ <layer id="1" name="Tile Layer 1" width="40" height="30">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,177,229,229,229,229,229,229,229,229,229,229,229,229,229,229,229,229,229,179,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,228,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,228,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,228,0,231,229,229,229,229,229,179,0,177,229,229,229,229,229,232,0,228,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,228,0,0,0,0,0,0,0,228,0,228,0,0,0,0,0,0,0,228,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,228,0,177,229,179,0,215,0,228,0,228,0,215,0,177,229,179,0,228,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,228,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,228,0,228,0,228,0,214,0,211,229,213,0,214,0,228,0,228,0,228,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,228,0,228,0,228,0,0,0,0,0,0,0,0,0,228,0,228,0,228,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,228,0,211,229,213,0,231,229,229,229,229,229,232,0,211,229,213,0,228,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,228,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,228,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,228,0,231,229,229,229,229,229,232,0,231,229,229,229,229,229,232,0,228,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,228,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,228,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,211,229,229,229,229,229,229,229,229,229,229,229,229,229,229,229,229,229,213,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>
