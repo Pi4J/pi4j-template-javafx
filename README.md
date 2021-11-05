@@ -1,6 +1,12 @@
 # Pi4J Applikationen mit JavaFX-basiertem GUI
 [![License](https://img.shields.io/github/license/DieterHolz/RaspPiFX-Template-Project)](https://github.com/DieterHolz/RaspPiFX-Template-Project/blob/master/LICENSE)
 
+## neues GitLab-Repository anlegen
+
+Sie sollten unter Ihrem GitLab Account ein neues Repository anlegen und dieses Template-Respository als "Quelle" angeben.
+
+todo: Genauer beschreiben.
+
 ## Voraussetzungen
 
 Auf dem Entwickler-Laptop
