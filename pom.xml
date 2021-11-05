@@ -4,19 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.pi4j.fxgl</groupId>
-    <artifactId>fxgl-workshop</artifactId>
-    <name>Pi4J FXGL Workshop</name>
-    <description>Learn how to integrate  JavaFX, FXGL and Pi4J to run JavaFX applications or FXGL games on Picade console and GameHAT in DRM.</description>
+    <groupId>com.pi4j.jfx</groupId>
+    <artifactId>raspifx-template</artifactId>
+    <name>RaspPiFX template project</name>
+    <description>Starter and example project how to integrate JavaFX and Pi4J in a single application.</description>
     <version>0.0.1</version>
 
     <!-- BUILD PROPERTIES -->
     <properties>
         <!-- The class that will be started, choose one and only one -->
-
-        <!--  <launcher.class>com.pi4j.fxgl/com.pi4j.fxgl.pi4jplain.MinimalPi4J</launcher.class> -->
-        <!--  <launcher.class>com.pi4j.fxgl/com.pi4j.fxgl.pi4jplain.HardwareButtonDemo</launcher.class> -->
-        <!--  <launcher.class>com.pi4j.fxgl/com.pi4j.fxgl.pi4jplain.PicadeButtonDemo</launcher.class>   -->
 
         <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.jfxplain.HelloFX</launcher.class>
 

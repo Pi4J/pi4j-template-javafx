@@ -1,23 +1,17 @@
-# WS2C - FXGL Games on Picade Console
-[![License](https://img.shields.io/github/license/FHNW-WS2C/Picade-Master)](https://github.com/FHNW-WS2C/Picade-Master/blob/master/LICENSE)
-
-
-## Team
-
-* hier die Namen der Teammitglieder eintragen
-
+# Pi4J Applikationen mit JavaFX-basiertem GUI
+[![License](https://img.shields.io/github/license/DieterHolz/RaspPiFX-Template-Project)](https://github.com/DieterHolz/RaspPiFX-Template-Project/blob/master/LICENSE)
 
 ## Voraussetzungen
 
 Auf dem Entwickler-Laptop
 
-* [Java 11](https://adoptopenjdk.net). Auf dem Raspberry Pi wird die Verwendung von JDK 11 empfohlen. Daher verwenden wir diesen auch auf dem Laptop. Hinweis für Mac-Benuter: Die Verwendung von sdkman (s.u.) für die Installation und die Verwaltung von JDKs ist sehr empfehlenswert.
+* [Java 11](https://adoptium.net/?variant=openjdk11&jvmVariant=hotspot). Auf dem Raspberry Pi wird die Verwendung von JDK 11 empfohlen. Daher verwenden wir diesen auch auf dem Laptop. Hinweis für Mac-Benuter: Die Verwendung von sdkman (s.u.) für die Installation und die Verwaltung von JDKs ist sehr empfehlenswert.
 
 * [IntelliJ IDEA 2021.2](https://www.jetbrains.com/idea/download/). Es ist wichtig, diese neueste Version zu verwenden. Am besten via [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/) installieren. Empfehlenswert ist die Verwendung der Ultimate Edition. Studierende erhalten, nach Anmeldung, eine kostenlose Lizenz. Registrieren Sie sich unter [https://www.jetbrains.com/student/](https://www.jetbrains.com/student/) mit Ihrer FHNW E-Mail-Adresse. Für die Community-Edition benötigt man keine Lizenz.
 
 * [Git](https://git-scm.com/downloads). Als Sourcecode-Repository verwenden wir git. 
 
-* [GitHub-Account](https://github.com). Wir werden mit GitHub Classroom arbeiten. Dafür benötigen Sie einen GitHub Account. 
+* [GitLab-Account](https://gitlab.fhnw.ch/). Verwenden Sie ihren FHNW Gitlab Account. 
 
 * `ssh`. Die Verbindung zum Raspberry Pi wird mit `ssh` hergestellt. Ist normalerweise auf allen Laptops vorinstalliert.
 
@@ -42,7 +36,7 @@ Falls Sie SDKMAN bereits früher installiert haben, müssen Sie SDKMAN auf den n
 ### Installation von JDK 11 
 In einem neuen Terminal-Window diesen Befehl eingeben:
 
-`sdk install java 11.0.11.hs-adpt`
+`sdk install java 11.0.13-tem`
 
 Danach liegt der JDK in ihrer Home-Directory im Folder `sdkman/candidates/java`. Von dort können Sie es dann in IntelliJ als neuen SDK anlegen und im Projekt verwenden.
 
@@ -52,6 +46,12 @@ Mit:
 
 können Sie sich auflisten lassen welche anderen JDKs zu Installation zur Verfügung stehen.
 
+## Raspberry Pi vorbereiten
+Verwenden Sie das vom Pi4J-team vorbereitete CrowPi-Image.
+- [Download CrowPi Image](https://pi4j-download.com/latest.php?flavor=crowpi)
+- zip-File auspacken, mit [Raspberry Pi Imager](https://www.raspberrypi.org/blog/raspberry-pi-imager-imaging-utility/) eine SD-Card bespielen und damit den Raspberry Pi starten
+
+Das CrowPi-Image enthält bereits alle notwendige Installationen für JavaFX/Pi4J-Applikationen.
 
 ## Verbindung zum Raspberry Pi herstellen
 Der Laptop und der Raspberry Pi müssen das gleiche WLAN verwenden.
@@ -77,7 +77,7 @@ Passwort: `crowpi`
 
 ## Build System
 
-Dieses Projekt verwendet Maven, um die verschiedenen Applikationen zu bauen und entweder lokal auf dem Laptop oder auf der Picade Console auszuführen.
+Dieses Projekt verwendet Maven, um die verschiedenen Applikationen zu bauen und entweder lokal auf dem Laptop oder auf der Raspberry Pi auszuführen.
 
 Die Artefakte werden dabei auf dem Laptop gebaut, anschliessend auf den Raspberry Pi kopiert und dort gestartet.
 
@@ -93,9 +93,8 @@ Mit diesen Einstellungen kann die Applikation mittels Maven-Befehl auf dem Raspb
 ### Einstellungen in den Run-Konfigurationen
 
 Im Projekt sind 3 Run-Konfigurationen vordefiniert
-- `Run Local` startet das Programm, das in `launcher.class` eingestellt wurde, auf dem Laptop. Wird vor allem während der Game-Entwicklung gebraucht.
-- `Run DRM` startet das Programm auf dem Raspberry Pi im Direct-Rendering-Mode. Wird gebraucht sobald das Programm ein GUI enthält (sowohl reine JavaFX-Programme als auch FXGL Games).
-- `Run X11` startet das Programm auf dem Rasberry Pi im "Normal-Modus". Wird für Programme verwendet, die reine Pi4J-Applikationen sind und kein GUI enthalten.
+- `Run Local` startet das Programm, das in `launcher.class` eingestellt wurde, auf dem Laptop. Wird vor allem während der GUI-Entwicklung gebraucht (also noch ohne die Verwendung von an den Raspberry Pi angeschlossenen Sensoren und Aktuatoren).
+- `Run on Pi` startet das Programm auf dem Rasberry Pi. Wird für Programme verwendet, die reine Pi4J-Applikationen sind und kein GUI enthalten.
 
 In `Run DRM`und `Run X11` muss jeweils diese IP-Adresse eingestellt werden. Dazu  `Edit Configurations` wählen. 
 
@@ -105,10 +104,6 @@ Im nun geöffnenten Dialog den Tab `Runner` öffnen und `pi.ipnumber` doppelklic
 
 ![Einstellungen für Run Konfigurationen](assets/run-configurations.png)
 
-
-## Pin Nummern der Picade Console
-
-![Picade Hat pin numbers](assets/picade_hat_pin_numbers.png)
 
 
 ## LICENSE
