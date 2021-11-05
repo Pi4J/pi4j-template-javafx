@@ -17,11 +17,9 @@ import com.pi4j.io.gpio.digital.PullResistance;
  * <p>
  * Slightly modified example provided by Frank Delporte.
  *
- * @author Dieter Holz
  */
 public class MinimalPi4J {
-    private static final int PIN_BUTTON = 24;  // PIN 18 = BCM 24, START-Button of Picade
-    //private static final int PIN_BUTTON = 21; // PIN 40 = BCM 21, START-Button of GameHAT
+    private static final int PIN_BUTTON = 24;
 
     public static void main(String[] args) {
         // ------------------------------------------------------------
@@ -46,7 +44,7 @@ public class MinimalPi4J {
                                        .id("BCM_" + PIN_BUTTON)
                                        .name("Button")
                                        .address(PIN_BUTTON)
-                                       .pull(PullResistance.PULL_UP)
+                                       .pull(PullResistance.PULL_DOWN)
                                        .debounce(3000L)
                                        .provider("pigpio-digital-input")
                                        .build();  //don't forget to build the config
@@ -59,10 +57,10 @@ public class MinimalPi4J {
         button.addListener(e -> {
             switch (e.state()) {
                 case HIGH:
-                    System.out.println("Button was depressed!");
+                    System.out.println("Button was pressed!");
                     break;
                 case LOW:
-                    System.out.println("Button was pressed!");
+                    System.out.println("Button was depressed!");
                     break;
                 case UNKNOWN:
                     System.out.println("Something unknown happened!!");

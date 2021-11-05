@@ -68,6 +68,7 @@ public class Pi4JContext {
      * Properly shuts down the Pi4J context.
      */
     public static void shutdown() {
+        LOGGER.info("GPIO shutdown");
         INSTANCE.shutdown();
         //give it some time (don't know if that's really necessary)
         delay(Duration.ofMillis(200));

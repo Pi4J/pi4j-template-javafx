@@ -16,7 +16,7 @@ Auf dem Entwickler-Laptop
 * `ssh`. Die Verbindung zum Raspberry Pi wird mit `ssh` hergestellt. Ist normalerweise auf allen Laptops vorinstalliert.
 
 
-## Empfehlung zur Installation des JDK für MAC (UND LINUX)
+## Empfehlung zur Installation des JDK für MAC (und LINUX)
 
 Für Mac und Linux gibt es ein sehr empfehlenswertes Tool zur Verwaltung unterschiedlicher Software Development Kits: [SDKMAN](https://sdkman.io)
 
@@ -56,12 +56,12 @@ Das CrowPi-Image enthält bereits alle notwendige Installationen für JavaFX/Pi4
 ## Verbindung zum Raspberry Pi herstellen
 Der Laptop und der Raspberry Pi müssen das gleiche WLAN verwenden.
 
-Eine einfache Variante dies sicherzustellen ist das Aufsetzen eines Hotspots auf einem Smartphone.
+Eine einfache Variante dies sicherzustellen ist das Aufsetzen eines Hotspots auf einem Smartphone, idealerweise mit diesen Parametern:
 
 - ssid: `Pi4J-Spot`
 - password: `MayTheCodeBeWithYou!`
 
-Auf diesen Hotspot connected sich der RaspPi automatisch und zeigt die IP-Nummer im Hintergrundbild an.
+Auf diesen Hotspot connected sich der RaspPi mit dem CrowPi-Image automatisch und zeigt die IP-Nummer im Hintergrundbild an.
 
 Den Laptop ebenfalls mit dem Pi4J-Spot verbinden.
 
@@ -92,11 +92,11 @@ Mit diesen Einstellungen kann die Applikation mittels Maven-Befehl auf dem Raspb
 
 ### Einstellungen in den Run-Konfigurationen
 
-Im Projekt sind 3 Run-Konfigurationen vordefiniert
+Im Projekt sind 2 Run-Konfigurationen vordefiniert
 - `Run Local` startet das Programm, das in `launcher.class` eingestellt wurde, auf dem Laptop. Wird vor allem während der GUI-Entwicklung gebraucht (also noch ohne die Verwendung von an den Raspberry Pi angeschlossenen Sensoren und Aktuatoren).
-- `Run on Pi` startet das Programm auf dem Rasberry Pi. Wird für Programme verwendet, die reine Pi4J-Applikationen sind und kein GUI enthalten.
+- `Run on Pi` startet das Programm auf dem Rasberry Pi.
 
-In `Run DRM`und `Run X11` muss jeweils diese IP-Adresse eingestellt werden. Dazu  `Edit Configurations` wählen. 
+In `Run on Pi` muss jeweils die IP-Adresse des RaspPi eingestellt werden. Dazu  `Edit Configurations` wählen. 
 
 ![Edit Configurations ...](assets/edit-configurations.png)
 
@@ -104,6 +104,69 @@ Im nun geöffnenten Dialog den Tab `Runner` öffnen und `pi.ipnumber` doppelklic
 
 ![Einstellungen für Run Konfigurationen](assets/run-configurations.png)
 
+## Die enthaltenen Beispiel-Programme
+
+### HelloFX
+Dient ausschliesslich der Überprüfung der JavaFX-Basis-Installation. Auf keinen Fall als Vorlage für die eigenen JavaFX-Applikationen verwenden.
+
+Zum Starten:
+- `launcher.class` im `pom.xml` auswählen
+  - `<launcher.class>com.pi4j.fxgl/com.pi4j.jfx.jfxplain.HelloFX</launcher.class>`
+- mit `Run local` auf dem Laptop starten
+- mit `Run on Pi` auf dem RaspPi starten
+
+
+### Wiring
+Die beiden anderen Beispielprogramme verwenden eine LED und einen Button. Diese müssen folgendermassen verdrahtet werden:
+
+![Wiring](assets/led-button_bb.png)
+
+
+### MinimalPi4J
+Ist eine reine Pi4J-Applikation ohne GUI. Dient ebenfalls ausschliesslich der Überprüfung des Setups.
+
+Zum Starten:
+- `launcher.class` im `pom.xml` auswählen
+  - `<launcher.class>com.pi4j.fxgl/com.pi4j.pi4jplain.MinimalPi4J</launcher.class> `
+- `Run local` macht für dieses Beispiel keinen Sinn. An den Laptop sind weder Button noch LED angeschlossen
+- mit `Run on Pi` auf dem RaspPi starten
+
+Wenn der Button gedrückt wird, wird eine entsprechende Meldung auf dem Bildschirm ausgegeben.
+
+### ExampleApp
+
+Zeigt das Zusammenspiel eines JavaFX-basiertes Graphical-User-Interfaces (GUI) mit an den RaspPi angeschlossenen Sensoren und Aktuatoren, dem Physical-User-Interface (PUI).
+
+Es ist gleichzeitig ein konkretes Beispiel und eine Vorlage für Ihre eigene Applikation. Das umfasst auch die enthaltenen TestCases.
+
+Sie sollten zunächst das Beispiel kennenlernen und verstehen. Für Ihre eigene Applikation sollten Sie das Beispiel kopieren und entsprechend abändern, ohne dabei die Grundstruktur zu verändern. 
+
+Zum Starten:
+- `launcher.class` im `pom.xml` auswählen
+  - `<launcher.class>com.pi4j.fxgl/com.pi4j.jfx.exampleapp.AppStarter</launcher.class>`
+- mit `Run local` auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz den RaspPis entwickelt werden 
+- mit `Run on Pi` auf dem RaspPi starten (jetzt natürlich inklusive PUI)
+
+### Das Presentationmodel-Konzept
+
+todo: fehlt noch
+
+GUI und PUI sollten auf keinen Fall direkt miteinander verknüpft werden. Stattdessen wird ein Presentation-Model verwendet, das wie eine Informations-Drehscheibe wirkt.
+
+### Junit Tests
+
+todo: fehlt noch
+
+### Für das Presentation-Model
+
+todo: fehlt noch
+
+### Für die Components
+
+todo: fehlt noch
+
+### Für das PUI
+todo: fehlt noch
 
 
 ## LICENSE

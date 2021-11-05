@@ -15,6 +15,8 @@
         <!-- The class that will be started, choose one and only one -->
 
         <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.jfxplain.HelloFX</launcher.class>
+        <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.pi4jplain.MinimalPi4J</launcher.class> -->
+        <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.exampleapp.AppStarter</launcher.class> -->
 
 
         <fxgl.launcher.args/>
@@ -387,7 +389,7 @@
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"
                                                  username="${pi.username}" password="${pi.password}" trust="true"
                                                  failonerror="false" usepty="true" useSystemIn="true"
-                                                 command="DISPLAY=:0 XAUTHORITY=/home/pi/.Xauthority sudo -E java --module-path /opt/javafx-sdk-17/lib:${pi.deploydirectory} --add-modules javafx.controls -Dglass.monocle=X11  -Dprism.verbose=true --module ${launcher.class}"/>
+                                                 command="DISPLAY=:0 XAUTHORITY=/home/pi/.Xauthority sudo -E java --module-path /opt/javafx-sdk-17/lib:${pi.deploydirectory} --add-modules javafx.controls -Dglass.platform=gtk --module ${launcher.class}"/>
                                     </target>
                                 </configuration>
                             </execution>
