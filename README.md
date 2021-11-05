@@ -151,6 +151,8 @@ Zum Starten:
 
 todo: fehlt noch
 
+Dieses Konzept wird ausführlich in OOP2 besprochen und eingeübt. Die `ExampleApp` verwendet das gleiche Konzept und erweitert es um ein PUI.
+
 GUI und PUI sollten auf keinen Fall direkt miteinander verknüpft werden. Stattdessen wird ein Presentation-Model verwendet, das wie eine Informations-Drehscheibe wirkt.
 
 ### Junit Tests
