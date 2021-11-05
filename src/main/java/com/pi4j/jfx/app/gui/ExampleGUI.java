@@ -11,12 +11,12 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import com.pi4j.jfx.app.gui.util.ViewMixin;
-import com.pi4j.jfx.app.model.RootPM;
+import com.pi4j.jfx.app.model.ExamplePM;
 
-public class RootPane extends BorderPane implements ViewMixin {
+public class ExampleGUI extends BorderPane implements ViewMixin {
     private static final String LIGHT_BULB = "\uf0eb";
 
-    private final RootPM pm;
+    private final ExamplePM pm;
 
     private Button ledButton;
     private Button increaseButton;
@@ -24,7 +24,7 @@ public class RootPane extends BorderPane implements ViewMixin {
     private Label  counterLabel;
     private Label  infoLabel;
 
-    public RootPane(RootPM pm) {
+    public ExampleGUI(ExamplePM pm) {
         this.pm = pm;
         init();
     }

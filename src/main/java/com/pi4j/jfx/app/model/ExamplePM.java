@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class RootPM {
+public class ExamplePM {
     private final StringProperty systemInfo = new SimpleStringProperty("JavaFX " + System.getProperty("javafx.version") + ", running on Java " + System.getProperty("java.version") + ".");
     private final IntegerProperty counter   = new SimpleIntegerProperty(73);
     private final BooleanProperty ledGlows  = new SimpleBooleanProperty(false);
@@ -21,7 +21,7 @@ public class RootPM {
     }
 
     //all necessary getter- and setter-methods (typically generated via Code -> Generate... -> Getter and Setter)
-    private int getCounter() {
+    public int getCounter() {
         return counter.get();
     }
 

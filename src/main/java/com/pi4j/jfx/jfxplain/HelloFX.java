@@ -21,7 +21,6 @@ import javafx.stage.Stage;
  *
  * Initially copied from https://github.com/openjfx/samples/blob/master/CommandLine/Modular/CLI/hellofx/src/hellofx/HelloFX.java
  *
- * @author Dieter Holz
  */
 public class HelloFX extends Application {
 

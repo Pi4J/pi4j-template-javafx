@@ -20,6 +20,11 @@ import com.pi4j.plugin.mock.provider.pwm.MockPwmProvider;
 import com.pi4j.plugin.mock.provider.serial.MockSerialProvider;
 import com.pi4j.plugin.mock.provider.spi.MockSpiProvider;
 import com.pi4j.plugin.pigpio.provider.gpio.digital.PiGpioDigitalInputProvider;
+import com.pi4j.plugin.pigpio.provider.gpio.digital.PiGpioDigitalOutputProvider;
+import com.pi4j.plugin.pigpio.provider.i2c.PiGpioI2CProvider;
+import com.pi4j.plugin.pigpio.provider.pwm.PiGpioPwmProvider;
+import com.pi4j.plugin.pigpio.provider.serial.PiGpioSerialProvider;
+import com.pi4j.plugin.pigpio.provider.spi.PiGpioSpiProvider;
 import com.pi4j.plugin.raspberrypi.platform.RaspberryPiPlatform;
 
 import org.slf4j.Logger;
@@ -27,20 +32,18 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Pi4JContext is made for FXGL games running on arcade consoles.
- *
+ * <p>
  * FXGL games need to run on desktop (at least for development) and on Raspberry Pi.
- *
+ * <p>
  * In desktop environment the Pi4J MockPlatform is used, on Raspberry Pi the Pi4J RaspberryPiPlatform.
- *
+ * <p>
  * Typically arcade consoles just provide some DigitalInput.
- *
- * @author Dieter Holz
  */
 public class Pi4JContext {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Pi4JContext.class);
 
-    private static final Context INSTANCE = buildNewContext();
+    public static final Context INSTANCE = buildNewContext();
 
     /**
      * Default debounce time in microseconds
@@ -54,8 +57,7 @@ public class Pi4JContext {
      * DigitalInputs are needed get access to arcade buttons from your Java app.
      *
      * @param bcmPin the pin in bcm numbering scheme
-     * @param label the label of the button
-     *
+     * @param label  the label of the button
      * @return DigitalInput to access the arcade button at bcmPin
      */
     public static DigitalInput createDigitalInput(int bcmPin, String label) {
@@ -109,7 +111,7 @@ public class Pi4JContext {
      *
      * @return Context that will be used by this app
      */
-    private static Context createMockContext() {
+    public static Context createMockContext() {
         return Pi4J.newContextBuilder()
                    .add(new MockPlatform())
                    .add(MockAnalogInputProvider.newInstance(),
@@ -125,7 +127,7 @@ public class Pi4JContext {
 
     /**
      * There may be situations where an 'old' Context wasn't properly shutdowned.
-     *
+     * <p>
      * On this old context we call 'shutdown' before creating a new context, that is used by the app.
      *
      * @return Context that will be used by this app
@@ -142,7 +144,7 @@ public class Pi4JContext {
     /**
      * Create a new Pi4J Context using PiGpio
      *
-     * @return  Context that will be used by this app
+     * @return Context that will be used by this app
      */
     private static Context createContext() {
         // Initialize PiGPIO
@@ -157,12 +159,18 @@ public class Pi4JContext {
                            return new String[]{};
                        }
                    })
-                   .add(PiGpioDigitalInputProvider.newInstance(piGpio))  // on our arcade console we just have digitalInput
+                   .add(
+                           PiGpioDigitalInputProvider.newInstance(piGpio),
+                           PiGpioDigitalOutputProvider.newInstance(piGpio),
+                           PiGpioPwmProvider.newInstance(piGpio),
+                           PiGpioI2CProvider.newInstance(piGpio),
+                           PiGpioSerialProvider.newInstance(piGpio),
+                           PiGpioSpiProvider.newInstance(piGpio)
+                       )
                    .build();
     }
 
     /**
-     *
      * @param bcm
      * @param label
      * @return
