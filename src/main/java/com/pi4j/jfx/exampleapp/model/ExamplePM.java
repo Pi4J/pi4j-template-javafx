@@ -51,7 +51,7 @@ public class ExamplePM {
         this.systemInfo.set(systemInfo);
     }
 
-    public boolean isLedGlows() {
+    public boolean isLedOn() {
         return ledGlows.get();
     }
 
