@@ -1,9 +1,21 @@
 # Pi4J Applikationen mit JavaFX-basiertem GUI
 [![License](https://img.shields.io/github/license/DieterHolz/RaspPiFX-Template-Project)](https://github.com/DieterHolz/RaspPiFX-Template-Project/blob/master/LICENSE)
 
-## neues GitLab-Repository anlegen
+Dieses Template Projekt wird für die Programmierausbildung an der Fachhochschule Nordwestschweiz (FHNW) eingesetzt. 
+
+Natürlich ist es auch für Programmierprojekte ausserhalb der FHNW geeignet. Einige Beschreibung sind jedoch FHNW-spezifisch.
+
+## Eigenes Repository anlegen
+
+### FHNW GitLab
 
 Sie sollten unter Ihrem GitLab Account ein neues Repository anlegen und dieses Template-Respository als "Quelle" angeben.
+
+todo: Genauer beschreiben.
+
+### GitHub
+
+`Use this template`-Button verwenden
 
 todo: Genauer beschreiben.
 
@@ -11,7 +23,7 @@ todo: Genauer beschreiben.
 
 Auf dem Entwickler-Laptop
 
-* [Java 11](https://adoptium.net/?variant=openjdk11&jvmVariant=hotspot). Auf dem Raspberry Pi wird die Verwendung von JDK 11 empfohlen. Daher verwenden wir diesen auch auf dem Laptop. Hinweis für Mac-Benuter: Die Verwendung von sdkman (s.u.) für die Installation und die Verwaltung von JDKs ist sehr empfehlenswert.
+* [Java 11](https://adoptium.net/?variant=openjdk11&jvmVariant=hotspot). Auf dem Raspberry Pi wird die Verwendung von JDK 11 empfohlen. Daher verwenden wir diesen auch auf dem Laptop. Hinweis für Mac-Benutzer: Die Verwendung von SDKMAN (s.u.) für die Installation und die Verwaltung von JDKs ist sehr empfehlenswert.
 
 * [IntelliJ IDEA 2021.2](https://www.jetbrains.com/idea/download/). Es ist wichtig, diese neueste Version zu verwenden. Am besten via [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/) installieren. Empfehlenswert ist die Verwendung der Ultimate Edition. Studierende erhalten, nach Anmeldung, eine kostenlose Lizenz. Registrieren Sie sich unter [https://www.jetbrains.com/student/](https://www.jetbrains.com/student/) mit Ihrer FHNW E-Mail-Adresse. Für die Community-Edition benötigt man keine Lizenz.
 
@@ -53,7 +65,7 @@ Mit:
 können Sie sich auflisten lassen welche anderen JDKs zu Installation zur Verfügung stehen.
 
 ## Raspberry Pi vorbereiten
-Verwenden Sie das vom Pi4J-team vorbereitete CrowPi-Image.
+Verwenden Sie das vom [Pi4J-Team](https://github.com/Pi4J/pi4j-os) vorbereitete CrowPi-Image.
 - [Download CrowPi Image](https://pi4j-download.com/latest.php?flavor=crowpi)
 - zip-File auspacken, mit [Raspberry Pi Imager](https://www.raspberrypi.org/blog/raspberry-pi-imager-imaging-utility/) eine SD-Card bespielen und damit den Raspberry Pi starten
 
@@ -83,7 +95,7 @@ Passwort: `crowpi`
 
 ## Build System
 
-Dieses Projekt verwendet Maven, um die verschiedenen Applikationen zu bauen und entweder lokal auf dem Laptop oder auf der Raspberry Pi auszuführen.
+Dieses Projekt verwendet Maven, um die verschiedenen Applikationen zu bauen und entweder lokal auf dem Laptop oder auf dem Raspberry Pi auszuführen.
 
 Die Artefakte werden dabei auf dem Laptop gebaut, anschliessend auf den Raspberry Pi kopiert und dort gestartet.
 
@@ -150,7 +162,7 @@ Sie sollten zunächst das Beispiel kennenlernen und verstehen. Für Ihre eigene 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
   - `<launcher.class>com.pi4j.fxgl/com.pi4j.jfx.exampleapp.AppStarter</launcher.class>`
-- mit `Run local` auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz den RaspPis entwickelt werden 
+- mit `Run local` auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz des RaspPis entwickelt werden 
 - mit `Run on Pi` auf dem RaspPi starten (jetzt natürlich inklusive PUI)
 
 ### Das Presentationmodel-Konzept

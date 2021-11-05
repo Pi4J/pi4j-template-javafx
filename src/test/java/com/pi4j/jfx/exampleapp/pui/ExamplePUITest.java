@@ -48,7 +48,6 @@ class ExamplePUITest {
         ExamplePM pm   = new ExamplePM();
         ExamplePUI pui = new ExamplePUI(pm, Pi4JContext.createMockContext());
 
-
         int counter = pm.getCounter();
 
         //when
