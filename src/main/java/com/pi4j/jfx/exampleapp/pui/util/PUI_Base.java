@@ -22,7 +22,7 @@ public abstract class PUI_Base<T> {
      * @param action the necessary modifications on model
      */
     protected void withModel(Runnable action) {
-        Platform.runLater(() -> action.run());
+         Platform.runLater(() -> action.run());
     }
 
 

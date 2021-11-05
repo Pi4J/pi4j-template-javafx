@@ -43,8 +43,7 @@ class ExamplePUITest {
     }
 
     @Test
-    @Disabled("we need a proper solution for Platform.runLater()-handling")
-    void testButton() {
+   void testButton() {
         //given
         ExamplePM pm   = new ExamplePM();
         ExamplePUI pui = new ExamplePUI(pm, Pi4JContext.createMockContext());
@@ -53,7 +52,7 @@ class ExamplePUITest {
         int counter = pm.getCounter();
 
         //when
-        pui.button.dispatchSimpleEvents(ButtonComponent.ButtonState.DOWN);
+        pui.button.dispatchSimpleEvents(ButtonComponent.ButtonState.UP);
 
         sleep(100); // wait for model changes are done on UI-thread todo: Find a better solution
 
