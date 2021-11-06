@@ -17,7 +17,7 @@ public interface ViewMixin {
         initializeParts();
 		layoutParts();
 		setupEventHandlers();
-		setupValueChangedListeners();
+		setupValueChangeListeners();
 		setupBindings();
 	}
 
@@ -40,19 +40,25 @@ public interface ViewMixin {
 	void layoutParts();
 
     /**
-     * the method name says it all
+     * Triggering some action if the user interacts with the GUI is done via EventHandlers.
+     *
+     * All EventHandlers will call methods on the Presentation-Model.
      */
 	default void setupEventHandlers() {
 	}
 
     /**
-     * the method name says it all
+     * If properties of the PM have changed, you have to update the UI.
+     *
+     * All the necessary listeners observing on of the PM-properties are implemented in this method
      */
-	default void setupValueChangedListeners() {
+	default void setupValueChangeListeners() {
 	}
 
     /**
-     * the method name says it all
+     * Bindings are a very convenient way to react on property-changes.
+     *
+     * All bindings are implemented in this method.
      */
 	default void setupBindings() {
 	}

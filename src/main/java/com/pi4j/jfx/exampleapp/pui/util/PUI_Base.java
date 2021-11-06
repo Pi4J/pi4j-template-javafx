@@ -14,6 +14,12 @@ public abstract class PUI_Base<T> {
         setupModelChangeListeners(model);
     }
 
+    /**
+     * Initialize all components used in your PUI
+     *
+     * @param model the presentation model the PUI is working on
+     * @param pi4J gives access to RaspPi's GPIO
+     */
     protected abstract void initializeComponents(T model, Context pi4J);
 
     /**
@@ -26,10 +32,8 @@ public abstract class PUI_Base<T> {
     }
 
 
-
-
     /**
-     * Override this method to specify all the reaction on user (or sensor) inputs
+     * Override this method to specify all the reactions on user (or sensor) inputs
      *
      * Use withModel to assure that all updates are performed on ui thread
      *

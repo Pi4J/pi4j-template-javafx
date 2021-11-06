@@ -14,10 +14,12 @@ import com.pi4j.jfx.exampleapp.gui.util.ViewMixin;
 import com.pi4j.jfx.exampleapp.model.ExamplePM;
 
 public class ExampleGUI extends BorderPane implements ViewMixin {
-    private static final String LIGHT_BULB = "\uf0eb";
+    private static final String LIGHT_BULB = "\uf0eb";  // the unicode of the lightbulb-icon in fontawesome font
 
+    // GUIs without a presentation model doesn't make any sense. You have to store it
     private final ExamplePM pm;
 
+    // declare all the UI elements you need
     private Button ledButton;
     private Button increaseButton;
     private Label  ledLabel;
@@ -26,7 +28,7 @@ public class ExampleGUI extends BorderPane implements ViewMixin {
 
     public ExampleGUI(ExamplePM pm) {
         this.pm = pm;
-        init();
+        init(); //don't forget to call init
     }
 
     @Override
@@ -35,7 +37,7 @@ public class ExampleGUI extends BorderPane implements ViewMixin {
         loadFonts("/fonts/Lato/Lato-Lig.ttf", "/fonts/fontawesome-webfont.ttf");
 
         //apply your style
-        addStylesheetFiles("/jfx/app/style.css");
+        addStylesheetFiles("/jfx/exampleapp/style.css");
 
         getStyleClass().add("root-pane");
     }
@@ -76,6 +78,7 @@ public class ExampleGUI extends BorderPane implements ViewMixin {
 
     @Override
     public void setupEventHandlers() {
+        // look at that: all EventHandlers just trigger some action on 'pm'
         increaseButton.setOnAction(actionEvent -> pm.increaseCounter());
 
         ledButton.setOnMousePressed(mouseEvent -> pm.setLedGlows(true));
@@ -84,6 +87,7 @@ public class ExampleGUI extends BorderPane implements ViewMixin {
 
     @Override
     public void setupBindings() {
+        // oh, wow: all the information comes from 'pm' the UI-Elements just visualizes the pm-values
         infoLabel.textProperty().bind(pm.systemInfoProperty());
         counterLabel.textProperty().bind(pm.counterProperty().asString());
     }

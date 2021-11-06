@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class ExamplePM {
+    // the whole state is implemented as Properties (to notify GUI and PUI if the value has changed)
     private final StringProperty  systemInfo = new SimpleStringProperty("JavaFX " + System.getProperty("javafx.version") + ", running on Java " + System.getProperty("java.version") + ".");
     private final IntegerProperty counter    = new SimpleIntegerProperty(73);
     private final BooleanProperty ledGlows   = new SimpleBooleanProperty(false);
@@ -51,7 +52,7 @@ public class ExamplePM {
         this.systemInfo.set(systemInfo);
     }
 
-    public boolean isLedOn() {
+    public boolean isLedGlowing() {
         return ledGlows.get();
     }
 

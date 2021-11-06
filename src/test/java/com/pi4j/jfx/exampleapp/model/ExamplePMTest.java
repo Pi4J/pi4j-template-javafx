@@ -12,7 +12,7 @@ class ExamplePMTest {
         ExamplePM pm = new ExamplePM();
 
         //then
-        assertFalse(pm.isLedOn());
+        assertFalse(pm.isLedGlowing());
     }
 
     @Test

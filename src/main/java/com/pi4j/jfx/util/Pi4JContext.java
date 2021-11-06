@@ -31,13 +31,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Pi4JContext is made for FXGL games running on arcade consoles.
+ * Pi4JContext is made for applications with GUI and PUI.
  * <p>
- * FXGL games need to run on desktop (at least for development) and on Raspberry Pi.
+ * These application need to run on desktop (for development) and on Raspberry Pi.
  * <p>
  * In desktop environment the Pi4J MockPlatform is used, on Raspberry Pi the Pi4J RaspberryPiPlatform.
- * <p>
- * Typically arcade consoles just provide some DigitalInput.
  */
 public class Pi4JContext {
 
@@ -51,17 +49,6 @@ public class Pi4JContext {
     private static final long DEBOUNCE = 10_000L;
 
     private Pi4JContext() {
-    }
-
-    /**
-     * DigitalInputs are needed get access to arcade buttons from your Java app.
-     *
-     * @param bcmPin the pin in bcm numbering scheme
-     * @param label  the label of the button
-     * @return DigitalInput to access the arcade button at bcmPin
-     */
-    public static DigitalInput createDigitalInput(int bcmPin, String label) {
-        return INSTANCE.create(buildDigitalInputConfig(bcmPin, label));
     }
 
     /**
@@ -171,20 +158,6 @@ public class Pi4JContext {
                    .build();
     }
 
-    /**
-     * @param bcm
-     * @param label
-     * @return
-     */
-    private static DigitalInputConfig buildDigitalInputConfig(int bcm, String label) {
-        return DigitalInput.newConfigBuilder(INSTANCE)
-                           .id("BCM_" + bcm)
-                           .name(label)
-                           .address(bcm)
-                           .debounce(DEBOUNCE)
-                           .pull(PullResistance.PULL_UP)
-                           .build();
-    }
 
     /**
      * Just let the current thread sleep for some time.

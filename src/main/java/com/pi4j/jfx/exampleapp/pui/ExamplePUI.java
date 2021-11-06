@@ -12,7 +12,7 @@ public class ExamplePUI extends PUI_Base<ExamplePM> {
     protected LEDComponent    led;
     protected ButtonComponent button;
 
-    public ExamplePUI(ExamplePM model,Context pi4J) {
+    public ExamplePUI(ExamplePM model, Context pi4J) {
         super(model, pi4J);
     }
 

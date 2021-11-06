@@ -1,3 +1,4 @@
+
 # Pi4J Applikationen mit JavaFX-basiertem GUI
 [![License](https://img.shields.io/github/license/DieterHolz/RaspPiFX-Template-Project)](https://github.com/DieterHolz/RaspPiFX-Template-Project/blob/master/LICENSE)
 
@@ -165,13 +166,26 @@ Zum Starten:
 - mit `Run local` auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz des RaspPis entwickelt werden 
 - mit `Run on Pi` auf dem RaspPi starten (jetzt natürlich inklusive PUI)
 
-### Das Presentationmodel-Konzept
+### Das Presentation-Model-Konzept
 
-todo: fehlt noch
+Das Grundprinzip des Presentation-Model-Konzepts besteht in der konsequenten Trennung  des zu verwaltenden internen Zustands der Applikation (dem Presentation-Model) und der Visualisierung dieses Zustands (dem GUI und dem PUI).
 
-Dieses Konzept wird ausführlich in OOP2 besprochen und eingeübt. Die `ExampleApp` verwendet das gleiche Konzept und erweitert es um ein PUI.
+Im unserem Fall besteht eine Applikation aus mindestens vier Klassen:
+- _Presentation-Model Klasse._ Kapselt den internen Zustand in Form von JavaFX-Properties und bietet die gesamte Funktionalität in Form von Methoden an.
+- _GUI Klasse._ JavaFX-basierte Implementierung des auf dem Bildschirm angezeigten UIs.
+- _PUI Klasse._ Pi4J-basierte Implementierung der Sensoren und Aktuatoren. Verwendet  Component-Klassen, wie Sie sie aus dem [CrowPi-Tutorial](https://fhnw-ip5-ip6.github.io/CrowPiGoesJavaTutorial/de/) kennen.
+- _Starter Klasse._ Ist eine Subklasse von `javafx.application.Application`. Instanziiert die drei anderen Klassen und startet die Applikation. 
 
-GUI und PUI sollten auf keinen Fall direkt miteinander verknüpft werden. Stattdessen wird ein Presentation-Model verwendet, das wie eine Informations-Drehscheibe wirkt.
+Das Presentation-Model wirkt wie eine Informations-Drehscheibe zwischen GUI und PUI.
+
+![Presentation Model Concept](assets/PresentationModel.png)
+
+GUI und PUI sind komplett voneinander getrennt, z.B. hat der GUI-Button zum Anschalten der LED keinen direkten Zugriff auf die LED-Component des PUIs. Stattdessen setzt der GUI-Button lediglich die on-Property im Presentation-Model. In einem separaten Schritt reagiert die LED-Component des PUIs  auf diese Wertänderung und wird an- bzw. ausgeschaltet.
+
+Das Presentation-Model-Konzept wird ausführlich im zweiten Semester in OOP2 besprochen und eingeübt. Die `ExampleApp` verwendet das gleiche Konzept und erweitert es um ein PUI. 
+
+Es ist wichtig, dass Sie dieses Konzept verstehen und für Ihr Projekt anwenden können. Gehen Sie bei Fragen auf die Fachcoaches oder OOP-Dozierenden zu.
+
 
 ### Junit Tests
 

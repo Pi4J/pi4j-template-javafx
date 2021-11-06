@@ -14,11 +14,12 @@ public class AppStarter extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        ExamplePM model     = new ExamplePM();
+        // that's your 'information hub'.
+        ExamplePM pm     = new ExamplePM();
 
-        //both gui and pui are working on the same model
-        new ExamplePUI(model, Pi4JContext.INSTANCE);
-        Parent gui = new ExampleGUI(model);
+        //both gui and pui are working on the same pm
+        new ExamplePUI(pm, Pi4JContext.INSTANCE);
+        Parent gui = new ExampleGUI(pm);
 
         Scene scene = new Scene(gui);
 
@@ -29,9 +30,6 @@ public class AppStarter extends Application {
     }
 
     public static void main(String[] args) {
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            Pi4JContext.shutdown();
-        }));
-        launch(args);
+        launch(args);  //start the whole application
     }
 }
