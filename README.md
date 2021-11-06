@@ -180,7 +180,7 @@ Das Presentation-Model wirkt wie eine Informations-Drehscheibe zwischen GUI und 
 
 ![Presentation Model Concept](assets/PresentationModel.png)
 
-GUI und PUI sind komplett voneinander getrennt, z.B. hat der GUI-Button zum Anschalten der LED keinen direkten Zugriff auf die LED-Component des PUIs. Stattdessen setzt der GUI-Button lediglich die on-Property im Presentation-Model. In einem separaten Schritt reagiert die LED-Component des PUIs  auf diese Wertänderung und wird an- bzw. ausgeschaltet.
+GUI und PUI sind komplett voneinander getrennt, z.B. hat der GUI-Button zum Anschalten der LED keinen direkten Zugriff auf die LED-Component des PUIs. Stattdessen setzt der GUI-Button lediglich die on-Property im Presentation-Model. In einem separaten Schritt reagiert die LED-Component des PUIs auf diese Wertänderung und schaltet die LED an- bzw. aus.
 
 Das Presentation-Model-Konzept wird ausführlich im zweiten Semester in OOP2 besprochen und eingeübt. Die `ExampleApp` verwendet das gleiche Konzept und erweitert es um ein PUI. 
 
