@@ -2,23 +2,29 @@
 # Pi4J Applikationen mit JavaFX-basiertem GUI
 [![License](https://img.shields.io/github/license/DieterHolz/RaspPiFX-Template-Project)](https://github.com/DieterHolz/RaspPiFX-Template-Project/blob/master/LICENSE)
 
-Dieses Template Projekt wird für die Programmierausbildung an der Fachhochschule Nordwestschweiz (FHNW) eingesetzt. 
+Dieses Template Projekt wird für die Programmierausbildung an der [Fachhochschule Nordwestschweiz](https://www.fhnw.ch/en/degree-programmes/engineering/icompetence) (FHNW) eingesetzt. 
 
-Natürlich ist es auch für Programmierprojekte ausserhalb der FHNW geeignet. Einige Beschreibung sind jedoch FHNW-spezifisch.
+Natürlich ist es auch für Programmierprojekte ausserhalb der FHNW geeignet. Einige Beschreibungen sind jedoch FHNW-spezifisch.
+
 
 ## Eigenes Repository anlegen
+Sie sollten für Ihr Programmier-Projekt auf keinen Fall direkt auf diesem Repository arbeiten. Stattdessen sollten Sie ein eigenes Repository anlegen, entweder unter Ihrem FHNW GitLab- oder GitHub-Account und dieses Template-Respository als "Quelle" importieren.
 
 ### FHNW GitLab
 
-Sie sollten unter Ihrem GitLab Account ein neues Repository anlegen und dieses Template-Respository als "Quelle" angeben.
+Auf Ihrem GitLab-Account via
 
-todo: Genauer beschreiben.
+`New Project -> Import Project -> Repo by URL`
+
+das Formular ausfüllen, mit `Git repository URL` :
+
+`https://github.com/DieterHolz/RaspPiFX-Template-Project.git`
+
 
 ### GitHub
 
-`Use this template`-Button verwenden
+`Use this template`-Button dieses Repositories verwenden.
 
-todo: Genauer beschreiben.
 
 ## Voraussetzungen
 
@@ -33,6 +39,9 @@ Auf dem Entwickler-Laptop
 * [GitLab-Account](https://gitlab.fhnw.ch/). Verwenden Sie ihren FHNW Gitlab Account. 
 
 * `ssh`. Die Verbindung zum Raspberry Pi wird mit `ssh` hergestellt. Ist normalerweise auf allen Laptops vorinstalliert.
+
+* [VNC Viewer](https://www.realvnc.com/en/connect/download/viewer/). Ermöglicht ein komfortables Arbeiten auf dem Raspberry Pi vom Laptop aus. Dadurch spart man sich das Anschliessen von Monitor, Tastatur und Maus direkt am Raspberry Pi.
+
 
 
 ## Empfehlung zur Installation des JDK für MAC (und LINUX)
@@ -63,7 +72,7 @@ Mit:
 
 `sdk ls java`
 
-können Sie sich auflisten lassen welche anderen JDKs zu Installation zur Verfügung stehen.
+können Sie sich auflisten lassen welche anderen JDKs zur Installation zur Verfügung stehen.
 
 ## Raspberry Pi vorbereiten
 Verwenden Sie das vom [Pi4J-Team](https://github.com/Pi4J/pi4j-os) vorbereitete CrowPi-Image.
@@ -89,16 +98,25 @@ In einem Terminal-Window des Laptops:
 `ssh pi@<ip.number>`
 
 z.B.
+
 `ssh pi@192.168.183.86`
- 
+
 Passwort: `crowpi`
+
+### Verbindung via VNC
+
+Mit derselben IP-Nummer kann auch via VNC auf den RaspPi zugegriffen werden. Man erhält auf dem Laptop ein Fenster, das den kompletten Desktop des Raspberry Pis anzeigt. 
+
+Das ganze sieht dann so aus (mit der gestarteten ExampleApp)
+
+![VNC Viewer](assets/VNC_Viewer.png)
 
 
 ## Build System
 
 Dieses Projekt verwendet Maven, um die verschiedenen Applikationen zu bauen und entweder lokal auf dem Laptop oder auf dem Raspberry Pi auszuführen.
 
-Die Artefakte werden dabei auf dem Laptop gebaut, anschliessend auf den Raspberry Pi kopiert und dort gestartet.
+Die Artefakte werden dabei auf dem Laptop gebaut, anschliessend auf den Raspberry Pi kopiert und dort gestartet. Die Entwicklung direkt auf dem Raspberry Pi ist zwar ebenfalls möglich, wird aber nicht empfohlen. Besser ist es, die Applikation auf dem Laptop zu entwickeln und es auf dem Raspberry Pi lediglich ausführen zu lassen.
 
 Dazu müssen nur wenige Konfigurationen verändert werden.
 
@@ -111,11 +129,11 @@ Mit diesen Einstellungen kann die Applikation mittels Maven-Befehl auf dem Raspb
 
 ### Einstellungen in den Run-Konfigurationen
 
-Im Projekt sind 2 Run-Konfigurationen vordefiniert
+Im Projekt sind zwei Run-Konfigurationen vordefiniert:
 - `Run Local` startet das Programm, das in `launcher.class` eingestellt wurde, auf dem Laptop. Wird vor allem während der GUI-Entwicklung gebraucht (also noch ohne die Verwendung von an den Raspberry Pi angeschlossenen Sensoren und Aktuatoren).
 - `Run on Pi` startet das Programm auf dem Rasberry Pi.
 
-In `Run on Pi` muss jeweils die IP-Adresse des RaspPi eingestellt werden. Dazu  `Edit Configurations` wählen. 
+In `Run on Pi` muss die IP-Adresse des RaspPi eingestellt werden. Dazu  `Edit Configurations` wählen. 
 
 ![Edit Configurations ...](assets/edit-configurations.png)
 

@@ -14,9 +14,9 @@
     <properties>
         <!-- The class that will be started, choose one and only one -->
 
-        <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.jfxplain.HelloFX</launcher.class>
+        <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.jfxplain.HelloFX</launcher.class> -->
         <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.pi4jplain.MinimalPi4J</launcher.class> -->
-        <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.exampleapp.AppStarter</launcher.class> -->
+         <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.exampleapp.AppStarter</launcher.class>
 
 
         <fxgl.launcher.args/>
