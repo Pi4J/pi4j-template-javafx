@@ -1,4 +1,4 @@
-package com.pi4j.jfx.exampleapp.pui;
+package com.pi4j.jfx.exampleapp.view.pui;
 
 import java.util.Arrays;
 

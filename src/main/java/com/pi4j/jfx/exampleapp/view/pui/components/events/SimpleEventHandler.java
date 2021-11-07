@@ -1,4 +1,4 @@
-package com.pi4j.jfx.exampleapp.pui.components.events;
+package com.pi4j.jfx.exampleapp.view.pui.components.events;
 
 /**
  * Generic functional interface for simple event handlers, which are event handlers without a parameter.

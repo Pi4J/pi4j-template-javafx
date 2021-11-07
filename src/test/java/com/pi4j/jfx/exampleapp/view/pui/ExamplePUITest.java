@@ -1,13 +1,12 @@
-package com.pi4j.jfx.exampleapp.pui;
+package com.pi4j.jfx.exampleapp.view.pui;
 
 import javafx.application.Platform;
 
 import com.pi4j.jfx.exampleapp.model.ExamplePM;
-import com.pi4j.jfx.exampleapp.pui.components.ButtonComponent;
+import com.pi4j.jfx.exampleapp.view.pui.components.ButtonComponent;
 import com.pi4j.jfx.util.Pi4JContext;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

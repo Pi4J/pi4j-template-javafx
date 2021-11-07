@@ -1,4 +1,4 @@
-package com.pi4j.jfx.exampleapp.gui.util;
+package com.pi4j.jfx.exampleapp.view.gui.util;
 
 import java.util.List;
 
@@ -66,10 +66,10 @@ public interface ViewMixin {
     /**
      * just a convenience method to load stylesheet files
      *
-     * @param stylesheetFile name of the stylesheet file
+     * @param stylesheetFiles name of the stylesheet file
      */
-    default void addStylesheetFiles(String... stylesheetFile){
-        for(String file : stylesheetFile){
+    default void addStylesheetFiles(String... stylesheetFiles){
+        for(String file : stylesheetFiles){
             String stylesheet = getClass().getResource(file).toExternalForm();
             getStylesheets().add(stylesheet);
         }
@@ -77,10 +77,10 @@ public interface ViewMixin {
 
     /**
      * just a convenience method to load additional fonts
-     * @param font name of the font file
+     * @param fonts name of the fonts file
      */
-    default void loadFonts(String... font){
-        for(String f : font){
+    default void loadFonts(String... fonts){
+        for(String f : fonts){
             Font.loadFont(getClass().getResourceAsStream(f), 0);
         }
     }

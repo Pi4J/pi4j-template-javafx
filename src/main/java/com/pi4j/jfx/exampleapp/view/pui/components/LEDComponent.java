@@ -1,4 +1,4 @@
-package com.pi4j.jfx.exampleapp.pui.components;
+package com.pi4j.jfx.exampleapp.view.pui.components;
 
 import java.time.Duration;
 

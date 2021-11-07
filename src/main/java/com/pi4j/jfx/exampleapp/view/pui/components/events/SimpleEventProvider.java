@@ -1,4 +1,4 @@
-package com.pi4j.jfx.exampleapp.pui.components.events;
+package com.pi4j.jfx.exampleapp.view.pui.components.events;
 
 /**
  * Generic simple event provider with empty default implementation.

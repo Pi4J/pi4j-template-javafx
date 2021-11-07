@@ -1,10 +1,10 @@
-package com.pi4j.jfx.exampleapp.pui;
+package com.pi4j.jfx.exampleapp.view.pui;
 
 import com.pi4j.context.Context;
 import com.pi4j.jfx.exampleapp.model.ExamplePM;
-import com.pi4j.jfx.exampleapp.pui.components.ButtonComponent;
-import com.pi4j.jfx.exampleapp.pui.components.LEDComponent;
-import com.pi4j.jfx.exampleapp.pui.util.PUI_Base;
+import com.pi4j.jfx.exampleapp.view.pui.components.ButtonComponent;
+import com.pi4j.jfx.exampleapp.view.pui.components.LEDComponent;
+import com.pi4j.jfx.exampleapp.view.pui.util.PUI_Base;
 
 public class ExamplePUI extends PUI_Base<ExamplePM> {
     //declare all hardware components attached to RaspPi
@@ -23,9 +23,9 @@ public class ExamplePUI extends PUI_Base<ExamplePM> {
     }
 
     @Override
-    protected void setupInputEvents(ExamplePM model) {
-        // don't forget to use 'withModel' you trigger some updates on model
-        button.onUp(() -> withModel(() -> model.decreaseCounter()));
+    protected void setupInputEvents() {
+        // use 'withModel' to call the presentation model methods
+        button.onUp(() -> withModel(ExamplePM::decreaseCounter));
     }
 
     @Override

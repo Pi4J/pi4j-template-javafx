@@ -1,4 +1,4 @@
-package com.pi4j.jfx.exampleapp.pui.components.events;
+package com.pi4j.jfx.exampleapp.view.pui.components.events;
 
 /**
  * Generic event provider interface for components which expose the ability to add or remove event listeners.

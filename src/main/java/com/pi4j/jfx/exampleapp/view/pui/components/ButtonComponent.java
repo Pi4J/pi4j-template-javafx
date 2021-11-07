@@ -1,12 +1,12 @@
-package com.pi4j.jfx.exampleapp.pui.components;
+package com.pi4j.jfx.exampleapp.view.pui.components;
 
 import com.pi4j.context.Context;
 import com.pi4j.io.gpio.digital.DigitalInput;
 import com.pi4j.io.gpio.digital.DigitalInputConfig;
 import com.pi4j.io.gpio.digital.DigitalState;
 import com.pi4j.io.gpio.digital.PullResistance;
-import com.pi4j.jfx.exampleapp.pui.components.events.DigitalEventProvider;
-import com.pi4j.jfx.exampleapp.pui.components.events.SimpleEventHandler;
+import com.pi4j.jfx.exampleapp.view.pui.components.events.DigitalEventProvider;
+import com.pi4j.jfx.exampleapp.view.pui.components.events.SimpleEventHandler;
 
 /**
  * Implementation of a button component using GPIO with Pi4J

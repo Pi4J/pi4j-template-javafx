@@ -14,14 +14,14 @@ public class ExamplePM {
     private final BooleanProperty ledGlows   = new SimpleBooleanProperty(false);
 
     /**
-     * is called from GUI
+     * in our example used by the GUI
      */
     public void increaseCounter(){
         setCounter(getCounter() + 1);
     }
 
     /**
-     * is called from PUI
+     * in our example used by the PUI
      */
     public void decreaseCounter(){
         setCounter(getCounter() - 1);

@@ -1,7 +1,7 @@
-package com.pi4j.jfx.exampleapp.pui.components;
+package com.pi4j.jfx.exampleapp.view.pui.components;
 
-import com.pi4j.jfx.exampleapp.pui.components.events.SimpleEventHandler;
-import com.pi4j.jfx.exampleapp.pui.components.helpers.Logger;
+import com.pi4j.jfx.exampleapp.view.pui.components.events.SimpleEventHandler;
+import com.pi4j.jfx.exampleapp.view.pui.components.helpers.Logger;
 
 public abstract class Component {
     /**

@@ -1,4 +1,4 @@
-package com.pi4j.jfx.exampleapp.pui.components.helpers;
+package com.pi4j.jfx.exampleapp.view.pui.components.helpers;
 
 import java.util.List;
 

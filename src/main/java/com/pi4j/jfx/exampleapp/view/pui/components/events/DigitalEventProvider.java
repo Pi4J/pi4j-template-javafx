@@ -1,4 +1,4 @@
-package com.pi4j.jfx.exampleapp.pui.components.events;
+package com.pi4j.jfx.exampleapp.view.pui.components.events;
 
 import com.pi4j.io.gpio.digital.DigitalInput;
 import com.pi4j.io.gpio.digital.DigitalState;

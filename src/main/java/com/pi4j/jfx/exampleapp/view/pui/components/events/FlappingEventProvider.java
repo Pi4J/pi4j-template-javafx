@@ -1,4 +1,4 @@
-package com.pi4j.jfx.exampleapp.pui.components.events;
+package com.pi4j.jfx.exampleapp.view.pui.components.events;
 
 /**
  * Generic event provider to trigger a {@link SimpleEventHandler} once a value has flapped between two values for a couple times.

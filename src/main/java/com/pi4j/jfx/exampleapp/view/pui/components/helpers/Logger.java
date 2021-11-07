@@ -1,4 +1,4 @@
-package com.pi4j.jfx.exampleapp.pui.components.helpers;
+package com.pi4j.jfx.exampleapp.view.pui.components.helpers;
 
 public class Logger {
     private final org.slf4j.Logger logger;

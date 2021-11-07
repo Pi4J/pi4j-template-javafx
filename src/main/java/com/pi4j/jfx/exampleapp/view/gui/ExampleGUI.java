@@ -1,4 +1,4 @@
-package com.pi4j.jfx.exampleapp.gui;
+package com.pi4j.jfx.exampleapp.view.gui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,7 +10,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-import com.pi4j.jfx.exampleapp.gui.util.ViewMixin;
+import com.pi4j.jfx.exampleapp.view.gui.util.ViewMixin;
 import com.pi4j.jfx.exampleapp.model.ExamplePM;
 
 public class ExampleGUI extends BorderPane implements ViewMixin {

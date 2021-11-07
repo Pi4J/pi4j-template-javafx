@@ -1,6 +1,6 @@
-package com.pi4j.jfx.exampleapp.pui.components;
+package com.pi4j.jfx.exampleapp.view.pui.components;
 
-import com.pi4j.jfx.exampleapp.pui.ComponentTest;
+import com.pi4j.jfx.exampleapp.view.pui.ComponentTest;
 import com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalOutput;
 
 import org.junit.jupiter.api.BeforeEach;

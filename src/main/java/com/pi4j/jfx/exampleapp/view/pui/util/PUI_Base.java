@@ -1,4 +1,6 @@
-package com.pi4j.jfx.exampleapp.pui.util;
+package com.pi4j.jfx.exampleapp.view.pui.util;
+
+import java.util.function.Consumer;
 
 import javafx.application.Platform;
 
@@ -8,9 +10,12 @@ import com.pi4j.context.Context;
  * Base class for all PUIs.
  */
 public abstract class PUI_Base<T> {
+    private final T model;
+
     public PUI_Base(T model, Context pi4J) {
+        this.model = model;
         initializeComponents(model, pi4J);
-        setupInputEvents(model);
+        setupInputEvents();
         setupModelChangeListeners(model);
     }
 
@@ -27,19 +32,18 @@ public abstract class PUI_Base<T> {
      *
      * @param action the necessary modifications on model
      */
-    protected void withModel(Runnable action) {
-         Platform.runLater(() -> action.run());
+    protected void withModel(Consumer<T> action) {
+         Platform.runLater(() -> action.accept(model));
     }
 
 
     /**
      * Override this method to specify all the reactions on user (or sensor) inputs
      *
-     * Use withModel to assure that all updates are performed on ui thread
+     * Use withModel in your EventHandler to assure that model is updated on UI thread
      *
-     * @param model the presentation model managing the whole application state
      */
-    protected  void setupInputEvents(T model){
+    protected  void setupInputEvents(){
     }
 
 

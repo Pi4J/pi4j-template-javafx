@@ -5,9 +5,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import com.pi4j.jfx.exampleapp.gui.ExampleGUI;
+import com.pi4j.jfx.exampleapp.view.gui.ExampleGUI;
 import com.pi4j.jfx.exampleapp.model.ExamplePM;
-import com.pi4j.jfx.exampleapp.pui.ExamplePUI;
+import com.pi4j.jfx.exampleapp.view.pui.ExamplePUI;
 import com.pi4j.jfx.util.Pi4JContext;
 
 public class AppStarter extends Application {
