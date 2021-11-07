@@ -107,7 +107,7 @@ Passwort: `crowpi`
 
 Mit derselben IP-Nummer kann auch via VNC auf den RaspPi zugegriffen werden. Man erhält auf dem Laptop ein Fenster, das den kompletten Desktop des Raspberry Pis anzeigt. 
 
-Das ganze sieht dann so aus (mit der gestarteten ExampleApp)
+Das Ganze sieht dann so aus (mit der gestarteten ExampleApp)
 
 ![VNC Viewer](assets/VNC_Viewer.png)
 
@@ -116,7 +116,7 @@ Das ganze sieht dann so aus (mit der gestarteten ExampleApp)
 
 Dieses Projekt verwendet Maven, um die verschiedenen Applikationen zu bauen und entweder lokal auf dem Laptop oder auf dem Raspberry Pi auszuführen.
 
-Die Artefakte werden dabei auf dem Laptop gebaut, anschliessend auf den Raspberry Pi kopiert und dort gestartet. Die Entwicklung direkt auf dem Raspberry Pi ist zwar ebenfalls möglich, wird aber nicht empfohlen. Besser ist es, die Applikation auf dem Laptop zu entwickeln und es auf dem Raspberry Pi lediglich ausführen zu lassen.
+Die Artefakte werden dabei auf dem Laptop gebaut, anschliessend auf den Raspberry Pi kopiert und dort gestartet. Die Entwicklung direkt auf dem Raspberry Pi ist zwar ebenfalls möglich, wird aber nicht empfohlen. Besser ist es, die Applikation auf dem Laptop zu entwickeln und sie auf dem Raspberry Pi lediglich ausführen zu lassen.
 
 Dazu müssen nur wenige Konfigurationen verändert werden.
 
@@ -125,7 +125,7 @@ Dazu müssen nur wenige Konfigurationen verändert werden.
 - **`launcher.class` (required):** gibt an, welche Applikation gestartet werden soll. Im `pom.xml` ist bereits eine Liste von Kandidaten enthalten. Man muss nur bei der jeweils gewünschte Applikation die Kommentare entfernen.
 - **`pi.ipnumber` (optional):** Die aktuelle IP-Nummer des Raspberry Pi, z.B. `192.168.1.2`, wird für SCP/SSH benötigt. 
 
-Mit diesen Einstellungen kann die Applikation mittels Maven-Befehl auf dem Raspberry Pi gestartet werden. Besser ist es jedoch, die Run-Configurationen von IntelliJ zu verwenden.
+Mit diesen Einstellungen kann die Applikation mittels Maven-Befehl auf dem Raspberry Pi gestartet werden. Besser ist es jedoch, die Run-Konfigurationen von IntelliJ zu verwenden.
 
 ### Einstellungen in den Run-Konfigurationen
 
@@ -176,7 +176,7 @@ Zeigt das Zusammenspiel eines JavaFX-basiertes Graphical-User-Interfaces (GUI) m
 
 Es ist gleichzeitig ein konkretes Beispiel und eine Vorlage für Ihre eigene Applikation. Das umfasst auch die enthaltenen TestCases.
 
-Sie sollten zunächst das Beispiel kennenlernen und verstehen. Für Ihre eigene Applikation sollten Sie das Beispiel kopieren und entsprechend abändern, ohne dabei die Grundstruktur zu verändern. 
+Sie sollten zunächst das Beispiel kennenlernen und verstehen. Für Ihre eigene Applikation sollten Sie anschliessend die ExampleApp kopieren und entsprechend abändern, ohne dabei die Grundregeln des Presentation-Model-Konzepts zu verletzen. 
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
