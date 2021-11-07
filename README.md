@@ -26,9 +26,7 @@ das Formular ausfüllen, mit `Git repository URL` :
 `Use this template`-Button dieses Repositories verwenden.
 
 
-## Voraussetzungen
-
-Auf dem Entwickler-Laptop
+## Installationen auf dem Entwickler-Laptop
 
 * [Java 11](https://adoptium.net/?variant=openjdk11&jvmVariant=hotspot). Auf dem Raspberry Pi wird die Verwendung von JDK 11 empfohlen. Daher verwenden wir diesen auch auf dem Laptop. Hinweis für Mac-Benutzer: Die Verwendung von SDKMAN (s.u.) für die Installation und die Verwaltung von JDKs ist sehr empfehlenswert.
 
