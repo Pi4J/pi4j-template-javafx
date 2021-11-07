@@ -1,5 +1,7 @@
 
 # Pi4J Applikationen mit JavaFX-basiertem GUI
+
+[![Contributors](https://img.shields.io/github/contributors/DieterHolz/RaspPiFX-Template-Project)](https://github.com/DieterHolz/RaspPiFX-Template-Project/graphs/contributors)
 [![License](https://img.shields.io/github/license/DieterHolz/RaspPiFX-Template-Project)](https://github.com/DieterHolz/RaspPiFX-Template-Project/blob/master/LICENSE)
 
 Dieses Template Projekt wird für die Programmierausbildung an der [Fachhochschule Nordwestschweiz](https://www.fhnw.ch/en/degree-programmes/engineering/icompetence) (FHNW) eingesetzt. 
