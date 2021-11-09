@@ -16,7 +16,8 @@
 
         <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.jfxplain.HelloFX</launcher.class> -->
         <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.pi4jplain.MinimalPi4J</launcher.class> -->
-         <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.exampleapp.AppStarter</launcher.class>
+        <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.exampleapp.AppStarter</launcher.class> -->
+         <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.mvcapp.AppStarter</launcher.class>
 
 
         <fxgl.launcher.args/>
@@ -40,7 +41,7 @@
 
         <!-- Plugin Versions-->
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
-        <gluonfx.plugin.version>1.0.8</gluonfx.plugin.version>
+        <gluonfx.plugin.version>1.0.9</gluonfx.plugin.version>
         <gluonfx.target/>
 
         <!-- Maven Plugin Versions -->
