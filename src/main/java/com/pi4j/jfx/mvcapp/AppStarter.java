@@ -13,6 +13,17 @@ import com.pi4j.jfx.util.Pi4JContext;
 
 public class AppStarter extends Application {
 
+    private ExamplePUI pui;
+
+    @Override
+    public void init() {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            if(pui != null){
+                pui.shutdown();
+            }
+        }));
+    }
+
     @Override
     public void start(Stage primaryStage) {
         // that's your 'information hub'.
@@ -21,8 +32,7 @@ public class AppStarter extends Application {
         ExampleController controller = new ExampleController(model);
 
         //both gui and pui are working on the same controller
-
-        new ExamplePUI(controller, Pi4JContext.INSTANCE);
+        pui = new ExamplePUI(controller, Pi4JContext.INSTANCE);
         Parent gui = new ExampleGUI(controller);
 
         Scene scene = new Scene(gui);

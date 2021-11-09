@@ -35,7 +35,7 @@ public class ExampleGUI extends BorderPane implements ViewMixin<ExampleModel, Ex
         loadFonts("/fonts/Lato/Lato-Lig.ttf", "/fonts/fontawesome-webfont.ttf");
 
         //apply your style
-        addStylesheetFiles("/jfx/examplemvc/style.css");
+        addStylesheetFiles("/jfx/mvcapp/style.css");
 
         getStyleClass().add("root-pane");
     }

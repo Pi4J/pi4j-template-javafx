@@ -1,7 +1,7 @@
 package com.pi4j.jfx.mvcapp.view.pui.util;
 
-import com.pi4j.context.Context;
 
+import com.pi4j.context.Context;
 import com.pi4j.jfx.mvcapp.model.util.ControllerBase;
 import com.pi4j.jfx.mvcapp.model.util.ObservableValue;
 import com.pi4j.jfx.mvcapp.model.util.ValueChangeListener;
@@ -11,10 +11,18 @@ import com.pi4j.jfx.mvcapp.model.util.ValueChangeListener;
  */
 public abstract class PUI_Base<M, C extends ControllerBase<M>> {
 
+    private final CommandQueue queue = new CommandQueue();
+
     public PUI_Base(C controller, Context pi4J) {
         initializeComponents(pi4J);
         setupInputEvents(controller);
         setupPUIUpdates(controller.getModel());
+
+        queue.start();
+    }
+
+    public void shutdown(){
+        queue.kill();
     }
 
     /**
@@ -26,11 +34,10 @@ public abstract class PUI_Base<M, C extends ControllerBase<M>> {
 
     /**
      * Override this method to specify all the reactions on user (or sensor) inputs
-     *
+     * <p>
      * Use withModel in your EventHandler to assure that model is updated on UI thread
-     *
      */
-    protected  void setupInputEvents(C controller){
+    protected void setupInputEvents(C controller) {
     }
 
     /**
@@ -41,24 +48,22 @@ public abstract class PUI_Base<M, C extends ControllerBase<M>> {
     protected void setupPUIUpdates(M model) {
     }
 
-    protected <T> Updater<T> onChangeOf(ObservableValue<T> observableValue){
+    protected <T> Updater<T> onChangeOf(ObservableValue<T> observableValue) {
         return new Updater<>(observableValue);
     }
 
-    public static class Updater<T> {
+    public class Updater<T> {
         private final ObservableValue<T> observableValue;
 
-        Updater(ObservableValue<T> observableValue){
+        Updater(ObservableValue<T> observableValue) {
             this.observableValue = observableValue;
         }
 
-        public void triggerPUIAction(ValueChangeListener<T> action){
-            observableValue.onChange((oldValue, newValue) -> {
-                //todo: setup a 'listenerQueue' and perform action asynchronously (resembles UI-thread)
-                action.update(oldValue, newValue);
-            });
-         }
+        public void triggerPUIAction(ValueChangeListener<T> action) {
+            observableValue.onChange((oldValue, newValue) -> queue.queueEvent(new Command<>(action, oldValue, newValue)));
+        }
     }
 
 }
+
 
