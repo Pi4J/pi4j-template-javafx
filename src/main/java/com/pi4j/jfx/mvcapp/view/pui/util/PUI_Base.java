@@ -54,6 +54,7 @@ public abstract class PUI_Base<M, C extends ControllerBase<M>> {
 
         public void triggerPUIAction(ValueChangeListener<T> action){
             observableValue.onChange((oldValue, newValue) -> {
+                //todo: setup a 'listenerQueue' and perform action asynchronously (resembles UI-thread)
                 action.update(oldValue, newValue);
             });
          }
