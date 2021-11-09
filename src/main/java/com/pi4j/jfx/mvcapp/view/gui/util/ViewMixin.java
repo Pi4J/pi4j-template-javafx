@@ -40,7 +40,7 @@ public interface ViewMixin<M, T extends ControllerBase<M>>  {
     }
 
     /**
-     * completely initialize all the necessary ui-elements (so called controls, like buttons, text-fields, labels etc.)
+     * completely initialize all necessary ui-elements (so called 'controls', like buttons, text-fields, labels etc.)
      */
     void initializeParts();
 
@@ -52,16 +52,15 @@ public interface ViewMixin<M, T extends ControllerBase<M>>  {
     /**
      * Triggering some action if the user interacts with the GUI is done via EventHandlers.
      *
-     * All EventHandlers will call methods on the Presentation-Model.
+     * All EventHandlers will call methods on the Controller.
      */
 	default void setupEventHandlers(T controller) {
 	}
 
-
     /**
-     * Bindings are a very convenient way to react on property-changes.
+     * Whenever an 'ObservableValue' in 'model' changes, the GUI must be updated.
      *
-     * All bindings are implemented in this method.
+     * Register all necessary observers here
      */
 	default void setupGUIUpdates(M model) {
 	}
@@ -90,10 +89,21 @@ public interface ViewMixin<M, T extends ControllerBase<M>>  {
 
     List<String> getStylesheets();
 
-    default <T> Converter<T> onChangeOf(ObservableValue<T> observableValue){
+    /**
+     * Starting point for registering an observer.
+     *
+     * @param observableValue the value that needs to be observed
+     *
+     * @return a 'Converter' to specify a function converting the type of 'ObservableValue' into the type of the 'Property'
+     */
+    default <V> Converter<V> onChangeOf(ObservableValue<V> observableValue){
         return new Converter<>(observableValue);
     }
 
+    /**
+     *
+     *
+     */
     class Converter<T>{
         private final ObservableValue<T> observableValue;
 
@@ -101,28 +111,33 @@ public interface ViewMixin<M, T extends ControllerBase<M>>  {
             this.observableValue = observableValue;
         }
 
+        /**
+         * Second (optional) step for registering an observer to specify a converter-function
+         *
+         * @param converter the function converting the type of 'ObservableValue' into the type of the 'Property'
+         *
+         * @return an Updater to specify the 'GUI-Property' that needs to be updated if 'ObservableValue' changes
+         */
         public <R> Updater<T, R> convertedBy(Function<T, R> converter){
             return new Updater<>(observableValue, converter);
         }
 
-        public void update(StringProperty property) {
-            observableValue.onChange((oldValue, newValue) -> Platform.runLater(() -> property.setValue((String) newValue)));
+        /**
+         * Registers an observer without any type conversion that will keep property-value and observableValue in sync.
+         *
+         * @param property GUI-Property that will be updated when observableValue changes
+         */
+        public void update(Property<? super T> property) {
+            execute((oldValue, newValue) -> property.setValue(newValue));
         }
 
-        public void update(DoubleProperty property) {
-            observableValue.onChange((oldValue, newValue) -> Platform.runLater(() -> property.setValue((Double) newValue)));
-        }
-
-        public void update(IntegerProperty property) {
-            observableValue.onChange((oldValue, newValue) -> Platform.runLater(() -> property.setValue((Integer) newValue)));
-        }
-
-        public void update(BooleanProperty property) {
-            observableValue.onChange((oldValue, newValue) -> Platform.runLater(() -> property.setValue((Boolean) newValue)));
-        }
-
-        public void execute(ValueChangeListener<T> updater){
-            observableValue.onChange((oldValue, newValue) -> Platform.runLater(() -> updater.update(oldValue, newValue)));
+        /**
+         * Registers an observer.
+         *
+         * @param listener whatever needs to be done on GUI when observableValue changes
+         */
+        public void execute(ValueChangeListener<T> listener){
+            observableValue.onChange((oldValue, newValue) -> Platform.runLater(() -> listener.update(oldValue, newValue)));
         }
 
     }
@@ -136,6 +151,11 @@ public interface ViewMixin<M, T extends ControllerBase<M>>  {
             this.converter = converter;
         }
 
+        /**
+         * Registers an observer that will keep observableValue and GUI-Property in sync by applying the specified converter
+         *
+         * @param property GUI-Property that will be updated when observableValue changes
+         */
         public void update(Property<R> property){
             observableValue.onChange((oldValue, newValue) -> {
                 R convertedValue = converter.apply(newValue);

@@ -7,6 +7,10 @@ class CommandQueue extends Thread {
 
         private boolean running = true;
 
+        CommandQueue(){
+            setDaemon(true);
+        }
+
         public synchronized void run() {
             setName("PUI-Command-Queue");
             while (running) {

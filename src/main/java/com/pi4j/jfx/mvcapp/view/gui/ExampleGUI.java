@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -94,6 +95,5 @@ public class ExampleGUI extends BorderPane implements ViewMixin<ExampleModel, Ex
         onChangeOf(model.counter)
                 .convertedBy(String::valueOf)
                 .update(counterLabel.textProperty());
-
     }
 }
