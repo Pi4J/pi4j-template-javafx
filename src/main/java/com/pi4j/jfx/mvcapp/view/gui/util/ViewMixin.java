@@ -156,7 +156,7 @@ public interface ViewMixin<M, T extends ControllerBase<M>>  {
          *
          * @param property GUI-Property that will be updated when observableValue changes
          */
-        public void update(Property<R> property){
+        public void update(Property<? super R> property){
             observableValue.onChange((oldValue, newValue) -> {
                 R convertedValue = converter.apply(newValue);
                 Platform.runLater(() -> property.setValue(convertedValue));

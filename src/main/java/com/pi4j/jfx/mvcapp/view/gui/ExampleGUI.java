@@ -79,21 +79,20 @@ public class ExampleGUI extends BorderPane implements ViewMixin<ExampleModel, Ex
     @Override
     public void setupEventHandlers(ExampleController controller) {
         // look at that: all EventHandlers just trigger some action on 'controller'
-        increaseButton.setOnAction(actionEvent -> controller.increaseCounter());
 
-        ledButton.setOnMousePressed(mouseEvent  -> controller.setLedGlows(true));
-        ledButton.setOnMouseReleased(mouseEvent -> controller.setLedGlows(false));
-
-        blinkButton.setOnAction(actionEvent -> controller.blink());
+        increaseButton.setOnAction  (event -> controller.increaseCounter());
+        ledButton.setOnMousePressed (event -> controller.setLedGlows(true));
+        ledButton.setOnMouseReleased(event -> controller.setLedGlows(false));
+        blinkButton.setOnAction     (event -> controller.blink());
     }
 
     @Override
     public void setupGUIUpdates(ExampleModel model) {
-        onChangeOf(model.systemInfo)
-                .update(infoLabel.textProperty());
+        onChangeOf(model.systemInfo)                       // this value we need to observe, in this case that's an ObservableValue<String>, no need to convert it
+                .update(infoLabel.textProperty());         // keeps textProperty an systeminfo in sync
 
-        onChangeOf(model.counter)
-                .convertedBy(String::valueOf)
-                .update(counterLabel.textProperty());
+        onChangeOf(model.counter)                          // this value we need to observe, in this case that's an ObservableValue<Integer>
+                .convertedBy(String::valueOf)              // we have to convert the Integer to a String
+                .update(counterLabel.textProperty());      // keeps textProperty and counter in sync
     }
 }
