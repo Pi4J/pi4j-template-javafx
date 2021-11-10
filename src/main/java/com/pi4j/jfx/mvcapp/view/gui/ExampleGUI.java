@@ -4,16 +4,15 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-import com.pi4j.jfx.mvcapp.model.ExampleController;
+import com.pi4j.jfx.mvcapp.controller.ExampleController;
 import com.pi4j.jfx.mvcapp.model.ExampleModel;
-import com.pi4j.jfx.mvcapp.view.gui.util.ViewMixin;
+import com.pi4j.jfx.util.mvc.ViewMixin;
 
 public class ExampleGUI extends BorderPane implements ViewMixin<ExampleModel, ExampleController> {
     private static final String LIGHT_BULB = "\uf0eb";  // the unicode of the lightbulb-icon in fontawesome font
@@ -60,6 +59,7 @@ public class ExampleGUI extends BorderPane implements ViewMixin<ExampleModel, Ex
 
     @Override
     public void layoutParts() {
+        // consider to use GridPane instead
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
@@ -79,6 +79,7 @@ public class ExampleGUI extends BorderPane implements ViewMixin<ExampleModel, Ex
     @Override
     public void setupEventHandlers(ExampleController controller) {
         // look at that: all EventHandlers just trigger some action on 'controller'
+        // by calling a single method
 
         increaseButton.setOnAction  (event -> controller.increaseCounter());
         ledButton.setOnMousePressed (event -> controller.setLedGlows(true));
@@ -88,10 +89,10 @@ public class ExampleGUI extends BorderPane implements ViewMixin<ExampleModel, Ex
 
     @Override
     public void setupGUIUpdates(ExampleModel model) {
-        onChangeOf(model.systemInfo)                       // this value we need to observe, in this case that's an ObservableValue<String>, no need to convert it
-                .update(infoLabel.textProperty());         // keeps textProperty an systeminfo in sync
+        onChangeOf(model.systemInfo)                       // the value we need to observe, in this case that's an ObservableValue<String>, no need to convert it
+                .update(infoLabel.textProperty());         // keeps textProperty and systemInfo in sync
 
-        onChangeOf(model.counter)                          // this value we need to observe, in this case that's an ObservableValue<Integer>
+        onChangeOf(model.counter)                          // the value we need to observe, in this case that's an ObservableValue<Integer>
                 .convertedBy(String::valueOf)              // we have to convert the Integer to a String
                 .update(counterLabel.textProperty());      // keeps textProperty and counter in sync
     }

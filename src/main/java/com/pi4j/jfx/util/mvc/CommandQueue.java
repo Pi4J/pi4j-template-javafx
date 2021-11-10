@@ -1,4 +1,4 @@
-package com.pi4j.jfx.mvcapp.view.pui.util;
+package com.pi4j.jfx.util.mvc;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -35,7 +35,7 @@ class CommandQueue extends Thread {
             notifyAll();
         }
 
-        synchronized void kill() {
+        synchronized void shutdown() {
             running = false;
             notifyAll();
         }

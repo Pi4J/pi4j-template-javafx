@@ -1,6 +1,6 @@
 package com.pi4j.jfx.mvcapp.model;
 
-import com.pi4j.jfx.mvcapp.model.util.ObservableValue;
+import com.pi4j.jfx.util.mvc.ObservableValue;
 
 /**
  * In MVC the 'Model' mainly consists of 'ObservableValues'.

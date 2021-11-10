@@ -5,7 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import com.pi4j.jfx.mvcapp.model.ExampleController;
+import com.pi4j.jfx.mvcapp.controller.ExampleController;
 import com.pi4j.jfx.mvcapp.model.ExampleModel;
 import com.pi4j.jfx.mvcapp.view.gui.ExampleGUI;
 import com.pi4j.jfx.mvcapp.view.pui.ExamplePUI;

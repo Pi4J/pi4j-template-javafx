@@ -1,18 +1,16 @@
-package com.pi4j.jfx.mvcapp.model.util;
+package com.pi4j.jfx.util.mvc;
 
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 /**
- * Eine einfache Implementierung des Observable-Patterns
+ * A basic implementation of the Observable-Pattern
  *
- * BITTE BEACHTEN SIE: diese Implementierung ist fuer den Unterricht gedacht und zeigt den Kern einer moeglichen Implementierung.
- * Fuer den Einsatz in einem produktiven System reicht sie in der Regel nicht aus.
- *
- * @author Dieter Holz
+ * Be prepared to enhance this according to your requirements.
  */
 public class ObservableValue<T>  {
+    // all these listeners will get notified whenever the value changes
     private final Set<ValueChangeListener<T>> listeners = new HashSet<>();
 
     private T value;
@@ -21,17 +19,18 @@ public class ObservableValue<T>  {
         value = initialValue;
     }
 
+    /**
+     * Registers a new observer (aka 'listener')
+     *
+     * @param listener specifies what needs to be done whenever the value is changed
+     */
     public void onChange(ValueChangeListener<T> listener) {
         listeners.add(listener);
-        listener.update(null, value);  // der listener erhaelt sofort den aktuellen Wert
-    }
-
-    public void removeOnChange(ValueChangeListener<T> listener) {
-        listeners.remove(listener);
+        listener.update(null, value);  //  listener is notified immediately
     }
 
     /**
-     * That's the core functionality of n  'ObservableValue'.
+     * That's the core functionality of an 'ObservableValue'.
      *
      * Every times the value changes, all the listeners will be notified.
      *
@@ -42,7 +41,7 @@ public class ObservableValue<T>  {
      * @param newValue the new value
      */
     void setValue(T newValue) {
-        if (Objects.equals(value, newValue)) {  // keine Benachrichtigung falls sich der Wert nicht geaendert hat
+        if (Objects.equals(value, newValue)) {  // no notification if value hasn't changed
             return;
         }
         T oldValue = value;
@@ -51,6 +50,11 @@ public class ObservableValue<T>  {
         listeners.forEach(listener -> listener.update(oldValue, newValue));
     }
 
+    /**
+     * It's ok to make this public.
+     *
+     * @return the value managed by this ObservableValue
+     */
     public T getValue() {
         return value;
     }

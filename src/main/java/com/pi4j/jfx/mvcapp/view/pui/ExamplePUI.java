@@ -3,11 +3,11 @@ package com.pi4j.jfx.mvcapp.view.pui;
 import java.time.Duration;
 
 import com.pi4j.context.Context;
-import com.pi4j.jfx.mvcapp.model.ExampleController;
+import com.pi4j.jfx.mvcapp.controller.ExampleController;
 import com.pi4j.jfx.mvcapp.model.ExampleModel;
 import com.pi4j.jfx.mvcapp.view.pui.components.ButtonComponent;
 import com.pi4j.jfx.mvcapp.view.pui.components.LEDComponent;
-import com.pi4j.jfx.mvcapp.view.pui.util.PUI_Base;
+import com.pi4j.jfx.util.mvc.PUI_Base;
 
 public class ExamplePUI extends PUI_Base<ExampleModel, ExampleController> {
     //declare all hardware components attached to RaspPi

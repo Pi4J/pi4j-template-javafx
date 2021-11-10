@@ -1,22 +1,20 @@
-package com.pi4j.jfx.mvcapp.view.gui.util;
+package com.pi4j.jfx.util.mvc;
 
 import java.util.List;
 import java.util.function.Function;
 
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
-import javafx.beans.property.StringProperty;
 import javafx.scene.text.Font;
 
-import com.pi4j.jfx.mvcapp.model.util.ControllerBase;
-import com.pi4j.jfx.mvcapp.model.util.ObservableValue;
-import com.pi4j.jfx.mvcapp.model.util.ValueChangeListener;
+import com.pi4j.jfx.util.mvc.ControllerBase;
+import com.pi4j.jfx.util.mvc.ObservableValue;
+import com.pi4j.jfx.util.mvc.ValueChangeListener;
 
 /**
  * Use this interface for all of your UI-parts to assure implementation consistency
+ *
+ * It also provides the basic functionality to make MVC run.
  */
 public interface ViewMixin<M, T extends ControllerBase<M>>  {
 
@@ -40,7 +38,7 @@ public interface ViewMixin<M, T extends ControllerBase<M>>  {
     }
 
     /**
-     * completely initialize all necessary ui-elements (so called 'controls', like buttons, text-fields, labels etc.)
+     * completely initialize all necessary UI-elements (like buttons, text-fields, labels etc.)
      */
     void initializeParts();
 
@@ -52,7 +50,11 @@ public interface ViewMixin<M, T extends ControllerBase<M>>  {
     /**
      * Triggering some action if the user interacts with the GUI is done via EventHandlers.
      *
-     * All EventHandlers will call methods on the Controller.
+     * There's no need to have access to model for this task
+     *
+     * All EventHandlers will call a single method on the controller.
+     *
+     * If you are about to call more than one method, you should introduce a new method on controller.
      */
 	default void setupEventHandlers(T controller) {
 	}
@@ -60,7 +62,9 @@ public interface ViewMixin<M, T extends ControllerBase<M>>  {
     /**
      * Whenever an 'ObservableValue' in 'model' changes, the GUI must be updated.
      *
-     * Register all necessary observers here
+     * There's no need to have access to controller for this task.
+     *
+     * Register all necessary observers here.
      */
 	default void setupGUIUpdates(M model) {
 	}
@@ -152,7 +156,7 @@ public interface ViewMixin<M, T extends ControllerBase<M>>  {
         }
 
         /**
-         * Registers an observer that will keep observableValue and GUI-Property in sync by applying the specified converter
+         * Registers an observer that will keep observableValue and GUI-Property in sync by applying the specified converter.
          *
          * @param property GUI-Property that will be updated when observableValue changes
          */

@@ -1,6 +1,5 @@
-package com.pi4j.jfx.mvcapp.view.pui.util;
+package com.pi4j.jfx.util.mvc;
 
-import com.pi4j.jfx.mvcapp.model.util.ValueChangeListener;
 
 class Command<T> {
         final ValueChangeListener<T> listener;

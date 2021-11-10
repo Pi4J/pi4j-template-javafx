@@ -1,4 +1,4 @@
-package com.pi4j.jfx.mvcapp.model.util;
+package com.pi4j.jfx.util.mvc;
 
 @FunctionalInterface
 public interface ValueChangeListener<T> {
