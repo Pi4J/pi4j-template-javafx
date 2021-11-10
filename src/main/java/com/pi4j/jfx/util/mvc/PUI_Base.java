@@ -8,9 +8,9 @@ import com.pi4j.context.Context;
  *
  * In our scenario we also have a GUI.
  *
- * We have to avoid that one of the UIs is blocked because the other UI has to perform a long running task.
+ * We have to avoid that one of the UIs is blocked because the other UI has to perform a long-running task.
  *
- * Therefore we need an additional "worker-thread" in both UIs.
+ * Therefore, we need an additional "worker-thread" in both UIs.
  *
  * For JavaFX-based GUIs that's already implemented.
  *
