@@ -12,7 +12,7 @@ Natürlich ist es auch für Programmierprojekte ausserhalb der FHNW geeignet. Ei
 ## Eigenes Repository anlegen
 Sie sollten für Ihr Programmier-Projekt auf keinen Fall direkt auf diesem Repository arbeiten. Stattdessen sollten Sie ein eigenes Repository anlegen, entweder unter Ihrem FHNW GitLab- oder GitHub-Account und dieses Template-Respository als "Quelle" importieren.
 
-### FHNW GitLab
+#### FHNW GitLab
 
 Auf Ihrem GitLab-Account via
 
@@ -23,7 +23,7 @@ das Formular ausfüllen, mit `Git repository URL` :
 `https://github.com/DieterHolz/RaspPiFX-Template-Project.git`
 
 
-### GitHub
+#### GitHub
 
 `Use this template`-Button dieses Repositories verwenden.
 
@@ -100,7 +100,7 @@ Auf diesen Hotspot connected sich der RaspPi mit dem CrowPi-Image automatisch un
 
 Den Laptop ebenfalls mit dem Pi4J-Spot verbinden.
 
-#### Verbindung via VNC
+#### Verbindung via SSH
 
 In einem Terminal-Window des Laptops:
 
@@ -133,14 +133,14 @@ Die Artefakte werden dabei auf dem Laptop gebaut, anschliessend auf den Raspberr
 
 Dazu müssen nur wenige Konfigurationen verändert werden.
 
-### Einstellungen im `pom.xml`
+#### Einstellungen im `pom.xml`
 
 - **`launcher.class` (required):** gibt an, welche Applikation gestartet werden soll. Im `pom.xml` ist bereits eine Liste von Kandidaten enthalten. Man muss nur bei der jeweils gewünschte Applikation die Kommentare entfernen.
 - **`pi.ipnumber` (optional):** Die aktuelle IP-Nummer des Raspberry Pi, z.B. `192.168.1.2`, wird für SCP/SSH benötigt. 
 
 Mit diesen Einstellungen kann die Applikation mittels Maven-Befehl auf dem Raspberry Pi gestartet werden. Besser ist es jedoch, die Run-Konfigurationen von IntelliJ zu verwenden.
 
-### Einstellungen in den Run-Konfigurationen
+#### Einstellungen in den Run-Konfigurationen
 
 Im Projekt sind zwei Run-Konfigurationen vordefiniert:
 - `Run Local` startet das Programm, das in `launcher.class` eingestellt wurde, auf dem Laptop. Wird vor allem während der GUI-Entwicklung gebraucht (also noch ohne die Verwendung von an den Raspberry Pi angeschlossenen Sensoren und Aktuatoren).
@@ -156,7 +156,7 @@ Im nun geöffnenten Dialog den Tab `Runner` öffnen und `pi.ipnumber` doppelklic
 
 ## Die enthaltenen Beispiel-Programme
 
-### HelloFX
+#### HelloFX
 Dient ausschliesslich der Überprüfung der JavaFX-Basis-Installation. Auf keinen Fall als Vorlage für die eigenen JavaFX-Applikationen verwenden.
 
 Zum Starten:
@@ -166,13 +166,13 @@ Zum Starten:
 - mit `Run on Pi` auf dem RaspPi starten
 
 
-### Wiring
+#### Wiring
 Die beiden anderen Beispielprogramme verwenden eine LED und einen Button. Diese müssen folgendermassen verdrahtet werden:
 
 ![Wiring](assets/led-button_bb.png)
 
 
-### MinimalPi4J
+#### MinimalPi4J
 Ist eine reine Pi4J-Applikation ohne GUI. Dient ebenfalls ausschliesslich der Überprüfung des Setups.
 
 Zum Starten:
@@ -183,7 +183,7 @@ Zum Starten:
 
 Wenn der Button gedrückt wird, wird eine entsprechende Meldung auf dem Bildschirm ausgegeben.
 
-### ExampleApp
+#### ExampleApp
 
 Zeigt das Zusammenspiel eines JavaFX-basiertes Graphical-User-Interfaces (GUI) mit an den RaspPi angeschlossenen Sensoren und Aktuatoren, dem Physical-User-Interface (PUI).
 
@@ -197,7 +197,7 @@ Zum Starten:
 - mit `Run local` auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz des RaspPis entwickelt werden 
 - mit `Run on Pi` auf dem RaspPi starten (jetzt natürlich inklusive PUI)
 
-### Das Presentation-Model-Konzept
+## Das Presentation-Model-Konzept
 
 Das Grundprinzip des Presentation-Model-Konzepts besteht in der konsequenten Trennung  des zu verwaltenden internen Zustands der Applikation (dem Presentation-Model) und der Visualisierung dieses Zustands (dem GUI und dem PUI).
 
@@ -218,11 +218,11 @@ Das Presentation-Model-Konzept wird ausführlich im zweiten Semester in OOP2 bes
 Es ist wichtig, dass Sie dieses Konzept verstehen und für Ihr Projekt anwenden können. Gehen Sie bei Fragen auf die Fachcoaches oder OOP-Dozierenden zu.
 
 
-### Das MVC-Konzept
+## Das MVC-Konzept
 
 todo: fehlt noch
 
-### Junit Tests
+## Junit Tests
 
 todo: fehlt noch
 
