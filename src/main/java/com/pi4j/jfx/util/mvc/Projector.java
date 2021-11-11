@@ -1,7 +1,11 @@
 package com.pi4j.jfx.util.mvc;
 
-
+/**
+ * Projector is the common interface for both, GUI and PUI.
+ *
+ */
 public interface Projector<M, C extends ControllerBase<M>> {
+
     /**
      * needs to be called inside the constructor of your UI-part
      */
