@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * A basic implementation of the Observable-Pattern
+ * A basic implementation of the Observable-Pattern.
  *
  * Be prepared to enhance this according to your requirements.
  */
@@ -26,13 +26,13 @@ public final class ObservableValue<V>  {
      */
     public void onChange(ValueChangeListener<V> listener) {
         listeners.add(listener);
-        listener.update(null, value);  //  listener is notified immediately
+        listener.update(null, value);  // listener is notified immediately
     }
 
     /**
      * That's the core functionality of an 'ObservableValue'.
      *
-     * Every times the value changes, all the listeners will be notified.
+     * Every time the value changes, all the listeners will be notified.
      *
      * This is package private, only 'ControllerBase' is allowed to set a new value.
      *

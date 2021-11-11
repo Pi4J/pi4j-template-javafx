@@ -25,8 +25,12 @@ public abstract class PUI_Base<M, C extends ControllerBase<M>> implements Projec
 
     public PUI_Base(C controller, Context pi4J) {
         this.pi4J = pi4J;
-        init(controller);
 
+        init(controller);
+    }
+
+    @Override
+    public void initializeSelf() {
         queue.start();
     }
 

@@ -3,6 +3,7 @@ package com.pi4j.jfx.util.mvc;
 /**
  * Projector is the common interface for both, GUI and PUI.
  *
+ * See description of Projector Pattern: todo: add link
  */
 public interface Projector<M, C extends ControllerBase<M>> {
 
@@ -17,9 +18,9 @@ public interface Projector<M, C extends ControllerBase<M>> {
 	}
 
     /**
-     * everything that needs to be done to initialize the ui-part itself
+     * Everything that needs to be done to initialize the ui-part itself.
      *
-     * Loading stylesheet-files or additional fonts are typical examples
+     * Loading stylesheet-files or additional fonts are typical examples.
      */
     default void initializeSelf(){
     }

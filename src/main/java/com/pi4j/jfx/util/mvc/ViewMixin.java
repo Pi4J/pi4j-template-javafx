@@ -8,7 +8,7 @@ import javafx.beans.property.Property;
 import javafx.scene.text.Font;
 
 /**
- * Use this interface for all of your UI-parts to assure implementation consistency
+ * Use this interface for all of your GUI-parts to assure implementation consistency.
  *
  * It also provides the basic functionality to make MVC run.
  */
@@ -99,7 +99,6 @@ public interface ViewMixin<M,  C extends ControllerBase<M>> extends Projector<M,
         public void execute(ValueChangeListener<V> listener){
             observableValue.onChange((oldValue, newValue) -> Platform.runLater(() -> listener.update(oldValue, newValue)));
         }
-
     }
 
     class Updater<V, P> {
@@ -108,7 +107,7 @@ public interface ViewMixin<M,  C extends ControllerBase<M>> extends Projector<M,
 
         Updater(ObservableValue<V> observableValue, Function<V, P> converter){
             this.observableValue = observableValue;
-            this.converter = converter;
+            this.converter       = converter;
         }
 
         /**

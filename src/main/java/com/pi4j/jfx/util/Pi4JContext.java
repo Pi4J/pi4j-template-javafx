@@ -6,9 +6,6 @@ import java.util.List;
 
 import com.pi4j.Pi4J;
 import com.pi4j.context.Context;
-import com.pi4j.io.gpio.digital.DigitalInput;
-import com.pi4j.io.gpio.digital.DigitalInputConfig;
-import com.pi4j.io.gpio.digital.PullResistance;
 import com.pi4j.library.pigpio.PiGpio;
 import com.pi4j.plugin.mock.platform.MockPlatform;
 import com.pi4j.plugin.mock.provider.gpio.analog.MockAnalogInputProvider;
@@ -33,7 +30,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Pi4JContext is made for applications with GUI and PUI.
  * <p>
- * These application need to run on desktop (for development) and on Raspberry Pi.
+ * These applications need to run on desktop (for development) and on Raspberry Pi.
  * <p>
  * In desktop environment the Pi4J MockPlatform is used, on Raspberry Pi the Pi4J RaspberryPiPlatform.
  */
@@ -42,11 +39,6 @@ public class Pi4JContext {
     private static final Logger LOGGER = LoggerFactory.getLogger(Pi4JContext.class);
 
     public static final Context INSTANCE = buildNewContext();
-
-    /**
-     * Default debounce time in microseconds
-     */
-    private static final long DEBOUNCE = 10_000L;
 
     private Pi4JContext() {
     }
@@ -58,7 +50,7 @@ public class Pi4JContext {
         LOGGER.info("GPIO shutdown");
         INSTANCE.shutdown();
         //give it some time (don't know if that's really necessary)
-        delay(Duration.ofMillis(200));
+        pause(Duration.ofMillis(200));
     }
 
     /**
@@ -124,7 +116,7 @@ public class Pi4JContext {
         Context oldContext = createContext();
         oldContext.shutdown();
 
-        delay(Duration.ofMillis(200));
+        pause(Duration.ofMillis(200));
 
         return createContext();
     }
@@ -136,7 +128,7 @@ public class Pi4JContext {
      */
     private static Context createContext() {
         // Initialize PiGPIO
-        final var piGpio = PiGpio.newNativeInstance();
+        final PiGpio piGpio = PiGpio.newNativeInstance();
 
         // Build Pi4J context with this platform and PiGPIO providers
         return Pi4J.newContextBuilder()
@@ -147,14 +139,12 @@ public class Pi4JContext {
                            return new String[]{};
                        }
                    })
-                   .add(
-                           PiGpioDigitalInputProvider.newInstance(piGpio),
-                           PiGpioDigitalOutputProvider.newInstance(piGpio),
-                           PiGpioPwmProvider.newInstance(piGpio),
-                           PiGpioI2CProvider.newInstance(piGpio),
-                           PiGpioSerialProvider.newInstance(piGpio),
-                           PiGpioSpiProvider.newInstance(piGpio)
-                       )
+                   .add(PiGpioDigitalInputProvider.newInstance(piGpio),
+                        PiGpioDigitalOutputProvider.newInstance(piGpio),
+                        PiGpioPwmProvider.newInstance(piGpio),
+                        PiGpioI2CProvider.newInstance(piGpio),
+                        PiGpioSerialProvider.newInstance(piGpio),
+                        PiGpioSpiProvider.newInstance(piGpio))
                    .build();
     }
 
@@ -162,9 +152,9 @@ public class Pi4JContext {
     /**
      * Just let the current thread sleep for some time.
      *
-     * @param duration
+     * @param duration how long the thread will pause
      */
-    private static void delay(Duration duration) {
+    private static void pause(Duration duration) {
         try {
             Thread.sleep(duration.toMillis());
         } catch (InterruptedException e) {

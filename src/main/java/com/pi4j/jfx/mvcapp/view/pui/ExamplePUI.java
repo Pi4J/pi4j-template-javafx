@@ -30,7 +30,6 @@ public class ExamplePUI extends PUI_Base<ExampleModel, ExampleController> {
         button.onUp(controller::decreaseCounter);
     }
 
-
     @Override
     public void setupModelToUiBindings(ExampleModel model) {
         onChangeOf(model.ledGlows)
