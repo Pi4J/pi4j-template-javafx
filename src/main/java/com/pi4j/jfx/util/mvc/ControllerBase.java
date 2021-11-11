@@ -7,16 +7,16 @@ package com.pi4j.jfx.util.mvc;
  *
  * Controller classes work on and manage the 'model'. Models encapsulate the whole application state.
  */
-public abstract class ControllerBase<T> {
+public abstract class ControllerBase<M> {
     // the model managed by this Controller. Only subclasses have direct access
-    protected final T model;
+    protected final M model;
 
     /**
      * Controller needs a model.
      *
      * @param model model managed by this Controller
      */
-    protected ControllerBase(T model){
+    protected ControllerBase(M model){
         this.model = model;
     }
 
@@ -25,7 +25,7 @@ public abstract class ControllerBase<T> {
      *
      * @return the model
      */
-    T getModel() {
+    M getModel() {
         return model;
     }
 

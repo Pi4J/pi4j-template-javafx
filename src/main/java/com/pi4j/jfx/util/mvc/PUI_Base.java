@@ -40,7 +40,7 @@ public abstract class PUI_Base<M, C extends ControllerBase<M>> implements Projec
      * @param observableValue the value that should trigger some PUI-updates
      * @return an Updater to specify what needs to be done whenever observableValue changes
      */
-    protected <T> Updater<T> onChangeOf(ObservableValue<T> observableValue) {
+    protected <V> Updater<V> onChangeOf(ObservableValue<V> observableValue) {
         return new Updater<>(observableValue);
     }
 
@@ -49,14 +49,14 @@ public abstract class PUI_Base<M, C extends ControllerBase<M>> implements Projec
      *
      * Use 'triggerPUIAction' to specify what needs to be done whenever the observed value changes
      */
-    public class Updater<T> {
-        private final ObservableValue<T> observableValue;
+    public class Updater<V> {
+        private final ObservableValue<V> observableValue;
 
-        Updater(ObservableValue<T> observableValue) {
+        Updater(ObservableValue<V> observableValue) {
             this.observableValue = observableValue;
         }
 
-        public void triggerPUIAction(ValueChangeListener<T> action) {
+        public void triggerPUIAction(ValueChangeListener<V> action) {
             observableValue.onChange((oldValue, newValue) -> queue.queueEvent(new Command<>(action, oldValue, newValue)));
         }
     }

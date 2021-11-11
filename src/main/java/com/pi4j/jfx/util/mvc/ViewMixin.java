@@ -7,10 +7,6 @@ import javafx.application.Platform;
 import javafx.beans.property.Property;
 import javafx.scene.text.Font;
 
-import com.pi4j.jfx.util.mvc.ControllerBase;
-import com.pi4j.jfx.util.mvc.ObservableValue;
-import com.pi4j.jfx.util.mvc.ValueChangeListener;
-
 /**
  * Use this interface for all of your UI-parts to assure implementation consistency
  *
@@ -68,10 +64,10 @@ public interface ViewMixin<M,  C extends ControllerBase<M>> extends Projector<M,
      *
      *
      */
-    class Converter<T>{
-        private final ObservableValue<T> observableValue;
+    class Converter<V>{
+        private final ObservableValue<V> observableValue;
 
-        Converter(ObservableValue<T> observableValue) {
+        Converter(ObservableValue<V> observableValue) {
             this.observableValue = observableValue;
         }
 
@@ -82,7 +78,7 @@ public interface ViewMixin<M,  C extends ControllerBase<M>> extends Projector<M,
          *
          * @return an Updater to specify the 'GUI-Property' that needs to be updated if 'ObservableValue' changes
          */
-        public <R> Updater<T, R> convertedBy(Function<T, R> converter){
+        public <R> Updater<V, R> convertedBy(Function<V, R> converter){
             return new Updater<>(observableValue, converter);
         }
 
@@ -91,7 +87,7 @@ public interface ViewMixin<M,  C extends ControllerBase<M>> extends Projector<M,
          *
          * @param property GUI-Property that will be updated when observableValue changes
          */
-        public void update(Property<? super T> property) {
+        public void update(Property<? super V> property) {
             execute((oldValue, newValue) -> property.setValue(newValue));
         }
 
@@ -100,17 +96,17 @@ public interface ViewMixin<M,  C extends ControllerBase<M>> extends Projector<M,
          *
          * @param listener whatever needs to be done on GUI when observableValue changes
          */
-        public void execute(ValueChangeListener<T> listener){
+        public void execute(ValueChangeListener<V> listener){
             observableValue.onChange((oldValue, newValue) -> Platform.runLater(() -> listener.update(oldValue, newValue)));
         }
 
     }
 
-    class Updater<T, R> {
-        private final ObservableValue<T> observableValue;
-        private final Function<T, R>     converter;
+    class Updater<V, P> {
+        private final ObservableValue<V> observableValue;
+        private final Function<V, P>     converter;
 
-        Updater(ObservableValue<T> observableValue, Function<T, R> converter){
+        Updater(ObservableValue<V> observableValue, Function<V, P> converter){
             this.observableValue = observableValue;
             this.converter = converter;
         }
@@ -120,9 +116,9 @@ public interface ViewMixin<M,  C extends ControllerBase<M>> extends Projector<M,
          *
          * @param property GUI-Property that will be updated when observableValue changes
          */
-        public void update(Property<? super R> property){
+        public void update(Property<? super P> property){
             observableValue.onChange((oldValue, newValue) -> {
-                R convertedValue = converter.apply(newValue);
+                P convertedValue = converter.apply(newValue);
                 Platform.runLater(() -> property.setValue(convertedValue));
             });
          }

@@ -9,13 +9,13 @@ import java.util.Set;
  *
  * Be prepared to enhance this according to your requirements.
  */
-public final class ObservableValue<T>  {
+public final class ObservableValue<V>  {
     // all these listeners will get notified whenever the value changes
-    private final Set<ValueChangeListener<T>> listeners = new HashSet<>();
+    private final Set<ValueChangeListener<V>> listeners = new HashSet<>();
 
-    private volatile T value;
+    private volatile V value;
 
-    public ObservableValue(T initialValue) {
+    public ObservableValue(V initialValue) {
         value = initialValue;
     }
 
@@ -24,7 +24,7 @@ public final class ObservableValue<T>  {
      *
      * @param listener specifies what needs to be done whenever the value is changed
      */
-    public void onChange(ValueChangeListener<T> listener) {
+    public void onChange(ValueChangeListener<V> listener) {
         listeners.add(listener);
         listener.update(null, value);  //  listener is notified immediately
     }
@@ -40,11 +40,11 @@ public final class ObservableValue<T>  {
      *
      * @param newValue the new value
      */
-    void setValue(T newValue) {
+    void setValue(V newValue) {
         if (Objects.equals(value, newValue)) {  // no notification if value hasn't changed
             return;
         }
-        T oldValue = value;
+        V oldValue = value;
         value      = newValue;
 
         listeners.forEach(listener -> listener.update(oldValue, newValue));
@@ -55,7 +55,7 @@ public final class ObservableValue<T>  {
      *
      * @return the value managed by this ObservableValue
      */
-    public T getValue() {
+    public V getValue() {
         return value;
     }
 
