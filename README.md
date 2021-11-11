@@ -54,23 +54,30 @@ Sie können natürlich auch weiterhin die "normalen" Installationsmöglichkeiten
 
 #### Installation von SDKMAN
 Folgenden Befehl in einem Terminal eingeben:
-
-`export SDKMAN_DIR="$HOME/sdkman" && curl -s "https://get.sdkman.io" | bash`
+ ```shell
+ export SDKMAN_DIR="$HOME/sdkman" && curl -s "https://get.sdkman.io" | bash
+ ```
 
 Falls Sie SDKMAN bereits früher installiert haben, müssen Sie SDKMAN auf den neuesten Stand bringen:
 
-`sdk update`
+```shell
+sdk update
+```
 
 #### Installation von JDK 11 
 In einem neuen Terminal-Window diesen Befehl eingeben:
 
-`sdk install java 11.0.13-tem`
+```shell
+sdk install java 11.0.13-tem
+```
 
 Danach liegt der JDK in ihrer Home-Directory im Folder `sdkman/candidates/java`. Von dort können Sie es dann in IntelliJ als neuen SDK anlegen und im Projekt verwenden.
 
 Mit: 
 
-`sdk ls java`
+```shell
+sdk ls java
+```
 
 können Sie sich auflisten lassen welche anderen JDKs zur Installation zur Verfügung stehen.
 
@@ -99,13 +106,14 @@ In einem Terminal-Window des Laptops:
 
 ```shell
 ssh pi@<ip.number>
+Passwort: 'crowpi'
 ```
 
 z.B.
 
 ```shell
 ssh pi@192.168.183.86
-Passwort: `crowpi`
+Passwort: 'crowpi'
 ```
 
 #### Verbindung via VNC
