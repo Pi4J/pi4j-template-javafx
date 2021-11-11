@@ -20,18 +20,19 @@ public class ExamplePUI extends PUI_Base<ExampleModel, ExampleController> {
     }
 
     @Override
-    protected void initializeComponents(Context pi4J) {
+    public void initializeParts() {
         led    = new LEDComponent(pi4J, 22);
         button = new ButtonComponent(pi4J, 24);
     }
 
     @Override
-    protected void setupInputEvents(ExampleController controller) {
+    public void setupUiToActionBindings(ExampleController controller) {
         button.onUp(controller::decreaseCounter);
     }
 
+
     @Override
-    protected void setupPUIUpdates(ExampleModel model) {
+    public void setupModelToUiBindings(ExampleModel model) {
         onChangeOf(model.ledGlows)
                 .triggerPUIAction((oldValue, newValue) -> {
                     if (newValue) {

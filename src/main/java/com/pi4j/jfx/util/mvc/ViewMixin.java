@@ -16,58 +16,18 @@ import com.pi4j.jfx.util.mvc.ValueChangeListener;
  *
  * It also provides the basic functionality to make MVC run.
  */
-public interface ViewMixin<M, T extends ControllerBase<M>>  {
+public interface ViewMixin<M,  C extends ControllerBase<M>> extends Projector<M, C> {
 
-    /**
-     * needs to be called inside the constructor of your UI-part
-     */
-	default void init(T controller) {
-        initializeSelf();
-        initializeParts();
-		layoutParts();
-		setupEventHandlers(controller);
-		setupGUIUpdates(controller.getModel());
-	}
-
-    /**
-     * everything that needs to be done to initialize the ui-part itself
-     *
-     * Loading stylesheet-files or additional fonts are typical examples
-     */
-    default void initializeSelf(){
+    @Override
+    default void init(C controller) {
+        Projector.super.init(controller);
+        layoutParts();
     }
-
-    /**
-     * completely initialize all necessary UI-elements (like buttons, text-fields, labels etc.)
-     */
-    void initializeParts();
 
     /**
      * the method name says it all
      */
 	void layoutParts();
-
-    /**
-     * Triggering some action if the user interacts with the GUI is done via EventHandlers.
-     *
-     * There's no need to have access to model for this task
-     *
-     * All EventHandlers will call a single method on the controller.
-     *
-     * If you are about to call more than one method, you should introduce a new method on controller.
-     */
-	default void setupEventHandlers(T controller) {
-	}
-
-    /**
-     * Whenever an 'ObservableValue' in 'model' changes, the GUI must be updated.
-     *
-     * There's no need to have access to controller for this task.
-     *
-     * Register all necessary observers here.
-     */
-	default void setupGUIUpdates(M model) {
-	}
 
     /**
      * just a convenience method to load stylesheet files

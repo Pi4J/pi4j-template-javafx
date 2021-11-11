@@ -77,7 +77,7 @@ public class ExampleGUI extends BorderPane implements ViewMixin<ExampleModel, Ex
     }
 
     @Override
-    public void setupEventHandlers(ExampleController controller) {
+    public void setupUiToActionBindings(ExampleController controller) {
         // look at that: all EventHandlers just trigger some action on 'controller'
         // by calling a single method
 
@@ -88,7 +88,7 @@ public class ExampleGUI extends BorderPane implements ViewMixin<ExampleModel, Ex
     }
 
     @Override
-    public void setupGUIUpdates(ExampleModel model) {
+    public void setupModelToUiBindings(ExampleModel model) {
         onChangeOf(model.systemInfo)                       // the value we need to observe, in this case that's an ObservableValue<String>, no need to convert it
                 .update(infoLabel.textProperty());         // keeps textProperty and systemInfo in sync
 

@@ -9,11 +9,11 @@ import java.util.Set;
  *
  * Be prepared to enhance this according to your requirements.
  */
-public class ObservableValue<T>  {
+public final class ObservableValue<T>  {
     // all these listeners will get notified whenever the value changes
     private final Set<ValueChangeListener<T>> listeners = new HashSet<>();
 
-    private T value;
+    private volatile T value;
 
     public ObservableValue(T initialValue) {
         value = initialValue;
