@@ -1,4 +1,4 @@
-package com.pi4j.jfx.exampleapp.view.pui.components;
+package com.pi4j.jfx.mvcapp.view.pui.components;
 
 import com.pi4j.io.gpio.digital.DigitalState;
 import com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalInput;
@@ -10,10 +10,9 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 class ButtonComponentTest extends ComponentTest {
 
-    private ButtonComponent button;
+    private ButtonComponent  button;
     private MockDigitalInput din;
 
     @BeforeEach

@@ -1,4 +1,4 @@
-package com.pi4j.jfx.exampleapp.view.pui.components;
+package com.pi4j.jfx.mvcapp.view.pui.components;
 
 import com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalOutput;
 
@@ -8,9 +8,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
 class LEDComponentTest extends ComponentTest {
-    private LEDComponent led;
+    private LEDComponent      led;
     private MockDigitalOutput dout;
 
     @BeforeEach

@@ -1,5 +1,7 @@
 package com.pi4j.jfx.exampleapp.view.pui;
 
+import java.time.Duration;
+
 import javafx.application.Platform;
 
 import com.pi4j.jfx.exampleapp.model.ExamplePM;
@@ -9,6 +11,7 @@ import com.pi4j.jfx.util.Pi4JContext;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -52,19 +55,12 @@ class ExamplePUITest {
         //when
         pui.button.dispatchSimpleEvents(ButtonComponent.ButtonState.UP);
 
-        sleep(100); // wait for model changes are done on UI-thread todo: Find a better solution
-
         //then
-        assertEquals(counter - 1, pm.getCounter());
+
+        //wait until modification is done on ui-thread
+        int expected = counter - 1;
+
+        await().atMost(Duration.ofMillis(500)).until(() -> pm.getCounter() == expected);
+        assertEquals(expected, pm.getCounter());
     }
-
-    private void sleep(long milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-    }
-
-
 }
