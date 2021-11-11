@@ -52,7 +52,7 @@ Insbesondere wenn, wie üblich, mehrere Java JDKs verwendet werden sollen, hilft
 
 Sie können natürlich auch weiterhin die "normalen" Installationsmöglichkeiten verwenden.
 
-### Installation von SDKMAN:
+#### Installation von SDKMAN
 Folgenden Befehl in einem Terminal eingeben:
 
 `export SDKMAN_DIR="$HOME/sdkman" && curl -s "https://get.sdkman.io" | bash`
@@ -61,7 +61,7 @@ Falls Sie SDKMAN bereits früher installiert haben, müssen Sie SDKMAN auf den n
 
 `sdk update`
 
-### Installation von JDK 11 
+#### Installation von JDK 11 
 In einem neuen Terminal-Window diesen Befehl eingeben:
 
 `sdk install java 11.0.13-tem`
@@ -93,17 +93,22 @@ Auf diesen Hotspot connected sich der RaspPi mit dem CrowPi-Image automatisch un
 
 Den Laptop ebenfalls mit dem Pi4J-Spot verbinden.
 
+#### Verbindung via VNC
+
 In einem Terminal-Window des Laptops:
 
-`ssh pi@<ip.number>`
+```shell
+ssh pi@<ip.number>
+```
 
 z.B.
 
-`ssh pi@192.168.183.86`
-
+```shell
+ssh pi@192.168.183.86
 Passwort: `crowpi`
+```
 
-### Verbindung via VNC
+#### Verbindung via VNC
 
 Mit derselben IP-Nummer kann auch via VNC auf den RaspPi zugegriffen werden. Man erhält auf dem Laptop ein Fenster, das den kompletten Desktop des Raspberry Pis anzeigt. 
 
@@ -205,19 +210,23 @@ Das Presentation-Model-Konzept wird ausführlich im zweiten Semester in OOP2 bes
 Es ist wichtig, dass Sie dieses Konzept verstehen und für Ihr Projekt anwenden können. Gehen Sie bei Fragen auf die Fachcoaches oder OOP-Dozierenden zu.
 
 
+### Das MVC-Konzept
+
+todo: fehlt noch
+
 ### Junit Tests
 
 todo: fehlt noch
 
-### Für das Presentation-Model
+#### Für das Presentation-Model
 
 todo: fehlt noch
 
-### Für die Components
+#### Für die Components
 
 todo: fehlt noch
 
-### Für das PUI
+#### Für das PUI
 todo: fehlt noch
 
 
