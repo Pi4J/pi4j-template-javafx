@@ -26,7 +26,7 @@ public final class ObservableValue<V>  {
      */
     public void onChange(ValueChangeListener<V> listener) {
         listeners.add(listener);
-        listener.update(null, value);  // listener is notified immediately
+        listener.update(null, value);  // listener is notified immediately // TODO dk: this might better be (value, value)
     }
 
     /**
