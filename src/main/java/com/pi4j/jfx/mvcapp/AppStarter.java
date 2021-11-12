@@ -36,7 +36,8 @@ public class AppStarter extends Application {
         primaryStage.show();
 
         // on desktop it's convenient to have a very basic emulator for the PUI to test the interaction between GUI and PUI
-        startPUIEmulator(new ExamplePuiEmulator(controller));
+
+        // startPUIEmulator(new ExamplePuiEmulator(controller));
     }
 
     @Override
