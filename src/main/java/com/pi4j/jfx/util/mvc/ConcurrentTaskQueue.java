@@ -19,7 +19,7 @@ import java.util.function.Function;
  * New tasks can be submitted while tasks are running.
  *
  * Task submission itself is supposed to be thread-confined,
- * i.e. creation of the AsyncTaskQueue and task submission is expected to run in the same thread,
+ * i.e. creation of the ConcurrentTaskQueue and task submission is expected to run in the same thread,
  * most likely the JavaFX UI Application Thread.
  *
  * @author Dierk Koenig
