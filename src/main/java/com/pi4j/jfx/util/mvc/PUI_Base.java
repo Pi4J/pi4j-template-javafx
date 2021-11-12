@@ -14,12 +14,12 @@ import com.pi4j.context.Context;
  *
  * For JavaFX-based GUIs that's already implemented.
  *
- * For PUIs we need to do that ourselves. It's implemented as a provider/consumer-pattern.
+ * For PUIs we need to do that ourselves. It's implemented as a provider/consumer-pattern (see {@link ConcurrentTaskQueue}.
  */
 public abstract class PUI_Base<M, C extends ControllerBase<M>> implements Projector<M, C>{
 
-    // all that needs to be done is encapsulated as a Command and queued up in this CommandQueue
-    private final CommandQueue queue = new CommandQueue();
+    // all PUI actions should be done asynchronously (to avoid GUI freezing)
+    private final ConcurrentTaskQueue<Void> queue = new ConcurrentTaskQueue<>();
 
     protected final Context pi4J;
 
@@ -27,11 +27,6 @@ public abstract class PUI_Base<M, C extends ControllerBase<M>> implements Projec
         this.pi4J = pi4J;
 
         init(controller);
-    }
-
-    @Override
-    public void initializeSelf() {
-        queue.start();
     }
 
     public void shutdown(){
@@ -61,10 +56,12 @@ public abstract class PUI_Base<M, C extends ControllerBase<M>> implements Projec
         }
 
         public void triggerPUIAction(ValueChangeListener<V> action) {
-            observableValue.onChange((oldValue, newValue) -> queue.queueEvent(new Command<>(action, oldValue, newValue)));
+            observableValue.onChange((oldValue, newValue) -> queue.submit(unused -> {
+                action.update(oldValue, newValue);
+                return null;
+            }));
         }
     }
-
 }
 
 

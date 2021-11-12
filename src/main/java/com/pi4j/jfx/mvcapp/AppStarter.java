@@ -1,7 +1,5 @@
 package com.pi4j.jfx.mvcapp;
 
-import java.util.List;
-
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,6 +14,8 @@ import com.pi4j.jfx.util.Pi4JContext;
 
 public class AppStarter extends Application {
 
+    private ExamplePUI pui;
+
     @Override
     public void start(Stage primaryStage) {
         // that's your 'information hub'.
@@ -24,7 +24,7 @@ public class AppStarter extends Application {
         ExampleController controller = new ExampleController(model);
 
         //both gui and pui are working on the same controller
-        new ExamplePUI(controller, Pi4JContext.INSTANCE);
+        pui = new ExamplePUI(controller, Pi4JContext.INSTANCE);
 
         Parent gui = new ExampleGUI(controller);
 
@@ -37,6 +37,11 @@ public class AppStarter extends Application {
 
         // on desktop it's convenient to have a very basic emulator for the PUI to test the interaction between GUI and PUI
         startPUIEmulator(new ExamplePuiEmulator(controller));
+    }
+
+    @Override
+    public void stop() {
+        pui.shutdown();
     }
 
     private void startPUIEmulator(Parent puiEmulator){
