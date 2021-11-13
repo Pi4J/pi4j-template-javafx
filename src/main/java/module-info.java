@@ -1,7 +1,3 @@
-/**
- * Use "open module" here so FXGL can access the images in resources.
- * For more info see https://github.com/AlmasB/FXGL/wiki/FXGL-11-Migration-Guide#modularity
- */
 open module com.pi4j.fxgl {
      // Pi4J Modules
     requires com.pi4j;
@@ -22,6 +18,5 @@ open module com.pi4j.fxgl {
 
     // Module Exports
 
-    // allow access to classes in the following namespaces for Pi4J annotation processing
-    //exports com.pi4j.fxgl.game to com.almasb.fxgl.core;
+
 }

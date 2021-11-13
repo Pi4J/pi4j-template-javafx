@@ -37,7 +37,7 @@ public class MinimalPi4J {
 
         // to get this default context you can use:
 
-         var pi4j = Pi4J.newAutoContext();
+        final var pi4j = Pi4J.newAutoContext();
 
         // Here we will create I/O interfaces for a (GPIO) digital input pin.
         final var buttonConfig = DigitalInput.newConfigBuilder(pi4j)
