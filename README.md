@@ -197,6 +197,16 @@ Zum Starten:
 - mit `Run local` auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz des RaspPis entwickelt werden 
 - mit `Run on Pi` auf dem RaspPi starten (jetzt natürlich inklusive PUI)
 
+#### MVCApp
+
+Zum Starten:
+- `launcher.class` im `pom.xml` auswählen
+  - `<launcher.class>com.pi4j.fxgl/com.pi4j.jfx.mvcapp.AppStarter</launcher.class>`
+- mit `Run local` auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz des RaspPis entwickelt werden
+  - in `AppStarter` kann zusätzlich noch ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
+- mit `Run on Pi` auf dem RaspPi starten (jetzt natürlich inklusive PUI)
+
+
 ## Das Presentation-Model-Konzept
 
 Das Grundprinzip des Presentation-Model-Konzepts besteht in der konsequenten Trennung  des zu verwaltenden internen Zustands der Applikation (dem Presentation-Model) und der Visualisierung dieses Zustands (dem GUI und dem PUI).
@@ -220,7 +230,35 @@ Es ist wichtig, dass Sie dieses Konzept verstehen und für Ihr Projekt anwenden 
 
 ## Das MVC-Konzept
 
-todo: fehlt noch
+Beim klassischen Model-View-Controller-Konzept, sind neben der Starter-Klasse, mindestens 3 Klassen beteiligt. Das Zusammenspiel dieser Klassen ist klar geregelt:
+
+- _Model Klassen_
+  - enthalten den gesamten, zu visualisierenden Zustand. Wir nennen diese Klassen daher _Presentation-Model_.
+  - sind komplett unabhängig von Controller und View
+  
+- _Controller Klassen_
+  - verwalten die Model-Klassen gemäss der zugrundeliegenen Business-Logik.
+  - haben keinen Zugriff auf die View-Klassen 
+  
+- _View Klassen_
+  - rufen ausschliesslich Methoden auf dem Controller auf.
+  - werden vom Model über Zustandänderungen notifiziert
+    - observieren den Status des Models 
+  - ändern das Model nie direkt
+
+In unserem Fall gibt es mindestens zwei View-Klassen
+
+- _GUI Klasse._ JavaFX-basierte Implementierung des auf dem Bildschirm angezeigten UIs.
+- _PUI Klasse._ Pi4J-basierte Implementierung der Sensoren und Aktuatoren. Verwendet  Component-Klassen, wie Sie sie aus dem [CrowPi-Tutorial](https://fhnw-ip5-ip6.github.io/CrowPiGoesJavaTutorial/de/) kennen.
+
+Jede Benutzer-Interaktion durchläuft im MVC den immer gleichen Kreislauf:
+![MVC Concept](assets/MVC.png)
+
+#### Projector Pattern
+Unsere View-Klassen, also GUI und PUI,  setzen das von Dierk König veröffentlichte [Projector Pattern](https://jaxenter.de/effiziente-oberflaechen-mit-dem-projektor-pattern-42119) um. 
+
+Sie implementieren das gemeinsames Interface `Projector`.
+
 
 ## Junit Tests
 

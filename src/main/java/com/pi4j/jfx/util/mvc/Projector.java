@@ -3,7 +3,7 @@ package com.pi4j.jfx.util.mvc;
 /**
  * Projector is the common interface for both, GUI and PUI.
  *
- * See description of Projector Pattern: todo: add link
+ * See Dierk Koenig's conference talk: https://jaxenter.de/effiziente-oberflaechen-mit-dem-projektor-pattern-42119
  */
 public interface Projector<M, C extends ControllerBase<M>> {
 
