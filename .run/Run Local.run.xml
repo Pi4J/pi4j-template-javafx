@@ -10,7 +10,7 @@
           </option>
           <option name="goals">
             <list>
-              <option value="gluonfx:run" />
+              <option value="javafx:run" />
             </list>
           </option>
           <option name="pomFileName" value="pom.xml" />
