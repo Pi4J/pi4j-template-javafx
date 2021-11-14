@@ -11,6 +11,8 @@
           <option name="jreName" value="#USE_PROJECT_JDK" />
           <option name="mavenProperties">
             <map>
+              <entry key="pi.username" value="pi" />
+              <entry key="pi.password" value="crowpi" />
               <entry key="pi.ipnumber" value="crowpi.local" />
             </map>
           </option>
