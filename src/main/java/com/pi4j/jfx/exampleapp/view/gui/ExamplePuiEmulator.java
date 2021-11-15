@@ -1,4 +1,4 @@
-package com.pi4j.jfx.mvcapp.view.gui;
+package com.pi4j.jfx.exampleapp.view.gui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -6,8 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-import com.pi4j.jfx.mvcapp.controller.ExampleController;
-import com.pi4j.jfx.mvcapp.model.ExampleModel;
+import com.pi4j.jfx.exampleapp.controller.ExampleController;
+import com.pi4j.jfx.exampleapp.model.ExampleModel;
 import com.pi4j.jfx.util.mvc.ViewMixin;
 
 

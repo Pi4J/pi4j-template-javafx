@@ -10,25 +10,23 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-import com.pi4j.jfx.exampleapp.view.gui.util.ViewMixin;
-import com.pi4j.jfx.exampleapp.model.ExamplePM;
+import com.pi4j.jfx.exampleapp.controller.ExampleController;
+import com.pi4j.jfx.exampleapp.model.ExampleModel;
+import com.pi4j.jfx.util.mvc.ViewMixin;
 
-public class ExampleGUI extends BorderPane implements ViewMixin {
+public class ExampleGUI extends BorderPane implements ViewMixin<ExampleModel, ExampleController> {
     private static final String LIGHT_BULB = "\uf0eb";  // the unicode of the lightbulb-icon in fontawesome font
-
-    // GUIs without a presentation model doesn't make any sense. You have to store it
-    private final ExamplePM pm;
+    private static final String HEARTBEAT  = "\uf21e";  // the unicode of the heartbeat-icon in fontawesome font
 
     // declare all the UI elements you need
     private Button ledButton;
+    private Button blinkButton;
     private Button increaseButton;
-    private Label  ledLabel;
     private Label  counterLabel;
     private Label  infoLabel;
 
-    public ExampleGUI(ExamplePM pm) {
-        this.pm = pm;
-        init(); //don't forget to call init
+    public ExampleGUI(ExampleController controller) {
+        init(controller); //don't forget to call init
     }
 
     @Override
@@ -44,10 +42,11 @@ public class ExampleGUI extends BorderPane implements ViewMixin {
 
     @Override
     public void initializeParts() {
-        ledLabel = new Label("Let the LED glow");
-
         ledButton = new Button(LIGHT_BULB);
         ledButton.getStyleClass().add("icon-button");
+
+        blinkButton = new Button(HEARTBEAT);
+        blinkButton.getStyleClass().add("icon-button");
 
         increaseButton = new Button("+");
 
@@ -60,10 +59,11 @@ public class ExampleGUI extends BorderPane implements ViewMixin {
 
     @Override
     public void layoutParts() {
+        // consider to use GridPane instead
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        HBox topBox = new HBox(ledLabel, spacer, ledButton);
+        HBox topBox = new HBox(ledButton, spacer, blinkButton);
         topBox.setAlignment(Pos.CENTER);
 
         VBox centerBox = new VBox(counterLabel, increaseButton);
@@ -77,18 +77,23 @@ public class ExampleGUI extends BorderPane implements ViewMixin {
     }
 
     @Override
-    public void setupEventHandlers() {
-        // look at that: all EventHandlers just trigger some action on 'pm'
-        increaseButton.setOnAction(actionEvent -> pm.increaseCounter());
+    public void setupUiToActionBindings(ExampleController controller) {
+        // look at that: all EventHandlers just trigger some action on 'controller'
+        // by calling a single method
 
-        ledButton.setOnMousePressed(mouseEvent -> pm.setLedGlows(true));
-        ledButton.setOnMouseReleased(mouseEvent -> pm.setLedGlows(false));
+        increaseButton.setOnAction  (event -> controller.increaseCounter());
+        ledButton.setOnMousePressed (event -> controller.setLedGlows(true));
+        ledButton.setOnMouseReleased(event -> controller.setLedGlows(false));
+        blinkButton.setOnAction     (event -> controller.blink());
     }
 
     @Override
-    public void setupBindings() {
-        // oh, wow: all the information comes from 'pm' the UI-Elements just visualizes the pm-values
-        infoLabel.textProperty().bind(pm.systemInfoProperty());
-        counterLabel.textProperty().bind(pm.counterProperty().asString());
+    public void setupModelToUiBindings(ExampleModel model) {
+        onChangeOf(model.systemInfo)                       // the value we need to observe, in this case that's an ObservableValue<String>, no need to convert it
+                .update(infoLabel.textProperty());         // keeps textProperty and systemInfo in sync
+
+        onChangeOf(model.counter)                          // the value we need to observe, in this case that's an ObservableValue<Integer>
+                .convertedBy(String::valueOf)              // we have to convert the Integer to a String
+                .update(counterLabel.textProperty());      // keeps textProperty and counter in sync
     }
 }

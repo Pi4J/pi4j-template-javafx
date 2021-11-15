@@ -25,7 +25,7 @@ public class FlappingEventProvider<V> implements EventHandler<V> {
     /**
      * Current count of consecutive value changes.
      */
-    private int counter;
+    private int                counter;
     /**
      * Threshold when handler should be fired once counter reaches this value.
      */

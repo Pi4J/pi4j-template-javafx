@@ -1,7 +1,4 @@
-package com.pi4j.jfx.mvcapp.model;
-
-import static org.junit.jupiter.api.Assertions.*;
-
+package com.pi4j.jfx.exampleapp.model;
 
 class ExampleModelTest {
 

@@ -8,9 +8,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
 class LEDComponentTest extends ComponentTest {
-    private LEDComponent led;
+    private LEDComponent      led;
     private MockDigitalOutput dout;
 
     @BeforeEach

@@ -1,41 +1,48 @@
 package com.pi4j.jfx.exampleapp.view.pui;
 
+import java.time.Duration;
+
 import com.pi4j.context.Context;
-import com.pi4j.jfx.exampleapp.model.ExamplePM;
+import com.pi4j.jfx.exampleapp.controller.ExampleController;
+import com.pi4j.jfx.exampleapp.model.ExampleModel;
 import com.pi4j.jfx.exampleapp.view.pui.components.ButtonComponent;
 import com.pi4j.jfx.exampleapp.view.pui.components.LEDComponent;
-import com.pi4j.jfx.exampleapp.view.pui.util.PUI_Base;
+import com.pi4j.jfx.util.mvc.PUI_Base;
 
-public class ExamplePUI extends PUI_Base<ExamplePM> {
+public class ExamplePUI extends PUI_Base<ExampleModel, ExampleController> {
     //declare all hardware components attached to RaspPi
     //these are protected to give unit tests access to them
     protected LEDComponent    led;
     protected ButtonComponent button;
 
-    public ExamplePUI(ExamplePM model, Context pi4J) {
-        super(model, pi4J);
+    public ExamplePUI(ExampleController controller, Context pi4J) {
+        super(controller, pi4J);
     }
 
     @Override
-    protected void initializeComponents(ExamplePM model, Context pi4J) {
+    public void initializeParts() {
         led    = new LEDComponent(pi4J, 22);
         button = new ButtonComponent(pi4J, 24);
     }
 
     @Override
-    protected void setupInputEvents() {
-        // use 'withModel' to call the presentation model methods
-        button.onUp(() -> withModel(ExamplePM::decreaseCounter));
+    public void setupUiToActionBindings(ExampleController controller) {
+        button.onUp(controller::decreaseCounter);
     }
 
     @Override
-    protected void setupModelChangeListeners(ExamplePM model) {
-        model.ledGlowsProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (newValue) {
-                led.on();
-            } else {
-                led.off();
-            }
-        });
+    public void setupModelToUiBindings(ExampleModel model) {
+        onChangeOf(model.ledGlows)
+                .triggerPUIAction((oldValue, newValue) -> {
+                    if (newValue) {
+                        led.on();
+                    } else {
+                        led.off();
+                    }
+                });
+
+        onChangeOf(model.blinkingTrigger)
+                .triggerPUIAction((oldValue, newValue) -> led.blink(4, Duration.ofMillis(500)));
+
     }
 }

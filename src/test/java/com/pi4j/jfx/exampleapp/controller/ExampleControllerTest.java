@@ -1,6 +1,6 @@
-package com.pi4j.jfx.mvcapp.controller;
+package com.pi4j.jfx.exampleapp.controller;
 
-import com.pi4j.jfx.mvcapp.model.ExampleModel;
+import com.pi4j.jfx.exampleapp.model.ExampleModel;
 
 import org.junit.jupiter.api.Test;
 

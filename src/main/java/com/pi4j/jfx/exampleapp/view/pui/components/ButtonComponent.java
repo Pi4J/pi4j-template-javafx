@@ -19,7 +19,7 @@ public class ButtonComponent extends Component implements DigitalEventProvider<B
     /**
      * Default debounce time in microseconds
      */
-    protected static final long DEFAULT_DEBOUNCE = 10000;
+    protected static final long DEFAULT_DEBOUNCE = 3000;
 
     /**
      * Pi4J digital input instance used by this component
@@ -62,7 +62,7 @@ public class ButtonComponent extends Component implements DigitalEventProvider<B
      * @param address  GPIO address of button
      */
     public ButtonComponent(Context pi4j, int address) {
-        this(pi4j, address, false, 3000);
+        this(pi4j, address, false, DEFAULT_DEBOUNCE);
     }
 
     /**

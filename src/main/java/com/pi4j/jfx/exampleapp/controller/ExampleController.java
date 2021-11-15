@@ -1,6 +1,6 @@
-package com.pi4j.jfx.mvcapp.controller;
+package com.pi4j.jfx.exampleapp.controller;
 
-import com.pi4j.jfx.mvcapp.model.ExampleModel;
+import com.pi4j.jfx.exampleapp.model.ExampleModel;
 import com.pi4j.jfx.util.mvc.ControllerBase;
 
 public class ExampleController extends ControllerBase<ExampleModel> {

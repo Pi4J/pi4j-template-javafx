@@ -27,10 +27,17 @@ das Formular ausfüllen, mit `Git repository URL` :
 
 `Use this template`-Button dieses Repositories verwenden.
 
+## Raspberry Pi vorbereiten
+Verwenden Sie das vom [Pi4J-Team](https://github.com/Pi4J/pi4j-os) vorbereitete CrowPi-Image.
+- [Download CrowPi Image](https://pi4j-download.com/latest.php?flavor=crowpi)
+- zip-File auspacken, mit [Raspberry Pi Imager](https://www.raspberrypi.org/blog/raspberry-pi-imager-imaging-utility/) eine SD-Card bespielen und damit den Raspberry Pi starten
+
+Das CrowPi-Image enthält bereits alle notwendige Installationen für JavaFX/Pi4J-Applikationen.
+
 
 ## Installationen auf dem Entwickler-Laptop
 
-* [Java 11](https://adoptium.net/?variant=openjdk11&jvmVariant=hotspot). Auf dem Raspberry Pi wird die Verwendung von JDK 11 empfohlen. Daher verwenden wir diesen auch auf dem Laptop. Hinweis für Mac-Benutzer: Die Verwendung von SDKMAN (s.u.) für die Installation und die Verwaltung von JDKs ist sehr empfehlenswert.
+* [Java 17](https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot). Auf dem Raspberry Pi ist im CrowPi-Image JDK17 installiert. Daher verwenden wir diesen JDK auch auf dem Laptop. Hinweis für Mac-Benutzer: Die Verwendung von SDKMAN (s.u.) für die Installation und die Verwaltung von JDKs ist sehr empfehlenswert.
 
 * [IntelliJ IDEA 2021.2](https://www.jetbrains.com/idea/download/). Es ist wichtig, diese neueste Version zu verwenden. Am besten via [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/) installieren. Empfehlenswert ist die Verwendung der Ultimate Edition. Studierende erhalten, nach Anmeldung, eine kostenlose Lizenz. Registrieren Sie sich unter [https://www.jetbrains.com/student/](https://www.jetbrains.com/student/) mit Ihrer FHNW E-Mail-Adresse. Für die Community-Edition benötigt man keine Lizenz.
 
@@ -43,10 +50,9 @@ das Formular ausfüllen, mit `Git repository URL` :
 * [VNC Viewer](https://www.realvnc.com/en/connect/download/viewer/). Ermöglicht ein komfortables Arbeiten auf dem Raspberry Pi vom Laptop aus. Dadurch spart man sich das Anschliessen von Monitor, Tastatur und Maus direkt am Raspberry Pi.
 
 
+## Empfehlung zur Installation des JDK für MacOS (und Linux)
 
-## Empfehlung zur Installation des JDK für MAC (und LINUX)
-
-Für Mac und Linux gibt es ein sehr empfehlenswertes Tool zur Verwaltung unterschiedlicher Software Development Kits: [SDKMAN](https://sdkman.io)
+Für MacOs und Linux gibt es ein sehr empfehlenswertes Tool zur Verwaltung unterschiedlicher Software Development Kits: [SDKMAN](https://sdkman.io)
 
 Insbesondere wenn, wie üblich, mehrere Java JDKs verwendet werden sollen, hilft SDKMAN.
 
@@ -64,11 +70,11 @@ Falls Sie SDKMAN bereits früher installiert haben, müssen Sie SDKMAN auf den n
 sdk update
 ```
 
-#### Installation von JDK 11 
+#### Installation des JDK 
 In einem neuen Terminal-Window diesen Befehl eingeben:
 
 ```shell
-sdk install java 11.0.13-tem
+sdk install java 17.0.1-tem
 ```
 
 Danach liegt der JDK in ihrer Home-Directory im Folder `sdkman/candidates/java`. Von dort können Sie es dann in IntelliJ als neuen SDK anlegen und im Projekt verwenden.
@@ -81,12 +87,6 @@ sdk ls java
 
 können Sie sich auflisten lassen welche anderen JDKs zur Installation zur Verfügung stehen.
 
-## Raspberry Pi vorbereiten
-Verwenden Sie das vom [Pi4J-Team](https://github.com/Pi4J/pi4j-os) vorbereitete CrowPi-Image.
-- [Download CrowPi Image](https://pi4j-download.com/latest.php?flavor=crowpi)
-- zip-File auspacken, mit [Raspberry Pi Imager](https://www.raspberrypi.org/blog/raspberry-pi-imager-imaging-utility/) eine SD-Card bespielen und damit den Raspberry Pi starten
-
-Das CrowPi-Image enthält bereits alle notwendige Installationen für JavaFX/Pi4J-Applikationen.
 
 ## Verbindung zum Raspberry Pi herstellen
 Der Laptop und der Raspberry Pi müssen das gleiche WLAN verwenden.
@@ -94,7 +94,7 @@ Der Laptop und der Raspberry Pi müssen das gleiche WLAN verwenden.
 Eine einfache Variante dies sicherzustellen ist das Aufsetzen eines Hotspots auf einem Smartphone, idealerweise mit diesen Parametern:
 
 - ssid: `Pi4J-Spot`
-- password: `MayTheCodeBeWithYou!`
+- password: `MayTheSourceBeWithYou!`
 
 Auf diesen Hotspot connected sich der RaspPi mit dem CrowPi-Image automatisch und zeigt die IP-Nummer im Hintergrundbild an.
 
@@ -127,7 +127,7 @@ Das Ganze sieht dann so aus (mit der gestarteten ExampleApp)
 
 ## Build System
 
-Dieses Projekt verwendet Maven, um die verschiedenen Applikationen zu bauen und entweder lokal auf dem Laptop oder auf dem Raspberry Pi auszuführen.
+Dieses Projekt verwendet Maven, um die Applikationen zu bauen und entweder lokal auf dem Laptop oder auf dem Raspberry Pi auszuführen.
 
 Die Artefakte werden dabei auf dem Laptop gebaut, anschliessend auf den Raspberry Pi kopiert und dort gestartet. Die Entwicklung direkt auf dem Raspberry Pi ist zwar ebenfalls möglich, wird aber nicht empfohlen. Besser ist es, die Applikation auf dem Laptop zu entwickeln und sie auf dem Raspberry Pi lediglich ausführen zu lassen.
 
@@ -135,8 +135,8 @@ Dazu müssen nur wenige Konfigurationen verändert werden.
 
 #### Einstellungen im `pom.xml`
 
-- **`launcher.class` (required):** gibt an, welche Applikation gestartet werden soll. Im `pom.xml` ist bereits eine Liste von Kandidaten enthalten. Man muss nur bei der jeweils gewünschte Applikation die Kommentare entfernen.
-- **`pi.ipnumber` (optional):** Die aktuelle IP-Nummer des Raspberry Pi, z.B. `192.168.1.2`, wird für SCP/SSH benötigt. 
+- `launcher.class` **(required):** gibt an, welche Applikation gestartet werden soll. Im `pom.xml` ist bereits eine Liste von Kandidaten enthalten. Man muss nur bei der jeweils gewünschte Applikation die Kommentare entfernen.
+- `pi.ipnumber` **(optional):** Die aktuelle IP-Nummer des Raspberry Pi, z.B. `192.168.1.2`, wird für SCP/SSH benötigt. 
 
 Mit diesen Einstellungen kann die Applikation mittels Maven-Befehl auf dem Raspberry Pi gestartet werden. Besser ist es jedoch, die Run-Konfigurationen von IntelliJ zu verwenden.
 
@@ -153,6 +153,7 @@ In `Run on Pi` muss die IP-Adresse des RaspPi eingestellt werden. Dazu  `Edit Co
 Im nun geöffnenten Dialog den Tab `Runner` öffnen und `pi.ipnumber` doppelklicken. Danach öffnet sich das Dialogfenster zur Eingabe der IP-Adresse. 
 
 ![Einstellungen für Run Konfigurationen](assets/run-configurations.png)
+
 
 ## Die enthaltenen Beispiel-Programme
 
@@ -195,15 +196,7 @@ Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
   - `<launcher.class>com.pi4j.fxgl/com.pi4j.jfx.exampleapp.AppStarter</launcher.class>`
 - mit `Run local` auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz des RaspPis entwickelt werden 
-- mit `Run on Pi` auf dem RaspPi starten (jetzt natürlich inklusive PUI)
-
-#### MVCApp
-
-Zum Starten:
-- `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.fxgl/com.pi4j.jfx.mvcapp.AppStarter</launcher.class>`
-- mit `Run local` auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz des RaspPis entwickelt werden
-  - in `AppStarter` kann zusätzlich noch ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
+    - in `AppStarter` kann zusätzlich noch ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
 - mit `Run on Pi` auf dem RaspPi starten (jetzt natürlich inklusive PUI)
 
 

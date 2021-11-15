@@ -10,10 +10,9 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 class ButtonComponentTest extends ComponentTest {
 
-    private ButtonComponent button;
+    private ButtonComponent  button;
     private MockDigitalInput din;
 
     @BeforeEach

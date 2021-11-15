@@ -13,6 +13,7 @@ open module com.pi4j.fxgl {
 
 
     // JavaFX
+    requires javafx.base;
     requires javafx.controls;
 
 

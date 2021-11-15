@@ -16,8 +16,7 @@
 
         <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.jfxplain.HelloFX</launcher.class> -->
         <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.pi4jplain.MinimalPi4J</launcher.class> -->
-        <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.exampleapp.AppStarter</launcher.class> -->
-         <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.mvcapp.AppStarter</launcher.class>
+        <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.exampleapp.AppStarter</launcher.class>
 
 
         <fxgl.launcher.args/>
@@ -30,7 +29,7 @@
         <pi.deploydirectory>/home/pi/deploy</pi.deploydirectory>
 
         <!-- Java Compiler Version -->
-        <java.version>11</java.version>
+        <java.version>17</java.version>
 
         <!-- Project Dependency Versions-->
         <javafx.version>17.0.1</javafx.version>

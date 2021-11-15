@@ -1,4 +1,4 @@
-package com.pi4j.jfx.mvcapp.model;
+package com.pi4j.jfx.exampleapp.model;
 
 import com.pi4j.jfx.util.mvc.ObservableValue;
 
