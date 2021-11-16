@@ -1,4 +1,5 @@
-![FHNW](assets/FHNW.png)
+<img align="right" alt="FHNW" src="assets/FHNW.png"/>
+
 # Pi4J Applikationen mit JavaFX-basiertem GUI
 
 [![Contributors](https://img.shields.io/github/contributors/DieterHolz/RaspPiFX-Template-Project)](https://github.com/DieterHolz/RaspPiFX-Template-Project/graphs/contributors)
