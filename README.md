@@ -1,6 +1,6 @@
+<p>
 <img align="right" alt="FHNW" src="assets/FHNW.png"/>
-
-
+</p>
 
 # Pi4J Applikationen mit JavaFX-basiertem GUI
 
