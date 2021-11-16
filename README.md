@@ -229,6 +229,8 @@ In unserem Fall gibt es mindestens zwei View-Klassen
 
 GUI und PUI sind komplett voneinander getrennt, z.B. hat der GUI-Button zum Anschalten der LED keinen direkten Zugriff auf die LED-Component des PUIs. Stattdessen triggert der GUI-Button lediglich eine entsprechende Action im Controller, der wiederum die on-Property im Model auf den neuen Wert setzt. In einem separaten Schritt reagiert die LED-Component des PUIs auf diese Wertänderung und schaltet die LED an- bzw. aus.
 
+GUI und PUI arbeiten allerdings mit dem identischen Controller und damit auch mit dem identischen Model. 
+
 Es ist wichtig, dass Sie dieses Konzept verstehen und für Ihr Projekt anwenden können. Gehen Sie bei Fragen auf die Fachcoaches oder OOP-Dozierenden zu.
 
 Jede Benutzer-Interaktion durchläuft im MVC-Konzept den immer gleichen Kreislauf:
@@ -250,18 +252,28 @@ Weitere Konsequenzen
 
 ## Junit Tests
 
-todo: fehlt noch
+Durch die klare Trennung in Model, View und Controller können grosse Teile der Applikation mittels einfachen JUnit-Tests automatisiert getestet werden. Diese Tests werden in der Regel auf dem Laptop, also nicht auf dem RaspPi, ausgeführt.
 
-#### Für das Presentation-Model
+#### Controller Tests
 
-todo: fehlt noch
+Der Controller implementiert die gesamte zur Verfügung stehende Grund-Funktionalität. Er sollte mit ausführlichen TestCases automatisch überprüft werden.
 
-#### Für die Components
+Ein Beispiel sehen Sie in `ExampleControllerTest`
 
-todo: fehlt noch
+#### Presentation-Model Tests
 
-#### Für das PUI
-todo: fehlt noch
+Das Model ist lediglich eine Ansammlung von ObservableValues und bietet darüber hinaus keine weitere Funktionalität. Daher sind normalerweise auch keine weiteren TestCases notwendig
+
+#### Tests für einzelne PUI-Components
+
+Die einzelnen PUI-Components können sehr gut via der in Pi4J integrierten `MockPlatform` getestet werden. Diese Tests werden auf dem Laptop ausgeführt. Ein RaspPi ist nicht notwendig.
+
+Beispiele für solche Component-Test sehen Sie im [CrowPi-Tutorial](https://fhnw-ip5-ip6.github.io/CrowPiGoesJavaTutorial/de/) und in diesem Projekt im Package `com.pi4j.jfx.view.pui.components`.
+
+#### PUI Tests
+Das PUI ihrer Applikation kann ebenfalls gut mittels JUnit getestet werden.
+
+Ein Beispiel ist `ExamplePUITest`.
 
 
 ## LICENSE
