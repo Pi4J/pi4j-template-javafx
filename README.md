@@ -86,6 +86,25 @@ sdk ls java
 
 können Sie sich auflisten lassen welche anderen JDKs zur Installation zur Verfügung stehen.
 
+## Java Version überprüfen
+
+In einem Terminal-Window eingeben
+```shell
+java -version
+```
+
+Das sollte diese Ausgabe erzeugen
+```shell
+openjdk version "17.0.1" 2021-10-19
+OpenJDK Runtime Environment Temurin-17.0.1+12 (build 17.0.1+12)
+OpenJDK 64-Bit Server VM Temurin-17.0.1+12 (build 17.0.1+12, mixed mode, sharing)
+```
+
+Falls das nicht der Fall ist muss der Default-JDK umgestellt werden. Mit SDKMAN geht das einfach:
+
+```shell
+sdk default java 17.0.1-tem
+```
 
 ## Verbindung zum Raspberry Pi herstellen
 Der Laptop und der Raspberry Pi müssen das gleiche WLAN verwenden.
