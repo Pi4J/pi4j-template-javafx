@@ -27,6 +27,7 @@
         <pi.ipnumber/>
         <pi.port>22</pi.port>
         <pi.deploydirectory>/home/pi/deploy</pi.deploydirectory>
+        <pi.remote.jvmOptions/>
 
         <!-- Java Compiler Version -->
         <java.version>17</java.version>
@@ -345,7 +346,7 @@
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"
                                                  username="${pi.username}" password="${pi.password}" trust="true"
                                                  failonerror="false" usepty="true" useSystemIn="true"
-                                                 command="sudo  java-kiosk -Xmx1G --module-path ${pi.deploydirectory} --module ${launcher.class} "/>
+                                                 command="sudo  java-kiosk  ${pi.remote.jvmOptions} -Xmx1G --module-path ${pi.deploydirectory} --module ${launcher.class} "/>
                                     </target>
                                 </configuration>
                             </execution>
@@ -396,7 +397,7 @@
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"
                                                  username="${pi.username}" password="${pi.password}" trust="true"
                                                  failonerror="false" usepty="true" useSystemIn="true"
-                                                 command="DISPLAY=:0 XAUTHORITY=/home/pi/.Xauthority sudo -E java --module-path /opt/javafx-sdk/lib:${pi.deploydirectory} --add-modules javafx.controls -Dglass.platform=gtk --module ${launcher.class}"/>
+                                                 command="DISPLAY=:0 XAUTHORITY=/home/pi/.Xauthority sudo -E java ${pi.remote.jvmOptions} --module-path /opt/javafx-sdk/lib:${pi.deploydirectory} --add-modules javafx.controls -Dglass.platform=gtk --module ${launcher.class}"/>
                                     </target>
                                 </configuration>
                             </execution>
@@ -411,6 +412,15 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <!-- Activate JDWP server on CrowPi, can be used for local and remote runs -->
+        <profile>
+            <id>debug</id>
+            <properties>
+                <pi.remote.jvmOptions>
+                    -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005
+                </pi.remote.jvmOptions>
+            </properties>
         </profile>
     </profiles>
 </project>

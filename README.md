@@ -141,17 +141,25 @@ Mit diesen Einstellungen kann die Applikation mittels Maven-Befehl auf dem Raspb
 
 #### Einstellungen in den Run-Konfigurationen
 
-Im Projekt sind zwei Run-Konfigurationen vordefiniert:
+Im Projekt sind insgesamt vier Run-Konfigurationen vordefiniert, zwei zum Starten der Applikation, zwei zum Debuggen der Applikation auf dem RaspPi.
 - `Run Local` startet das Programm, das in `launcher.class` eingestellt wurde, auf dem Laptop. Wird vor allem während der GUI-Entwicklung gebraucht (also noch ohne die Verwendung von an den Raspberry Pi angeschlossenen Sensoren und Aktuatoren).
-- `Run on Pi` startet das Programm auf dem Rasberry Pi.
+- `Run on Pi` startet das Programm auf dem Raspberry Pi.
+- `Debug on Pi` startet das Programm auf dem Raspberry Pi im Debug-Modus.
+- `Attach to Pi Debugger` verbindet die IDE des Laptops mit dem via `Debug on Pi` gestarteten Programm. 
 
-In `Run on Pi` muss die IP-Adresse des RaspPi eingestellt werden. Dazu  `Edit Configurations` wählen. 
+In `Run on Pi` und `Debug on Pi` muss die IP-Adresse des RaspPi eingestellt werden. Dazu  `Edit Configurations` wählen. 
 
 ![Edit Configurations ...](assets/edit-configurations.png)
 
-Im nun geöffneten Dialog den Tab `Runner` öffnen und `pi.ipnumber` doppelklicken. Danach öffnet sich das Dialogfenster zur Eingabe der IP-Adresse. 
+Für beide Run Konfigurationen im Tab `Runner` den Eintrag `pi.ipnumber` doppelklicken. Danach öffnet sich das Dialogfenster zur Eingabe der IP-Adresse. 
 
-![Einstellungen für Run Konfigurationen](assets/run-configurations.png)
+Falls der RaspPi als einziger im ausgewählten WLAN angemeldet ist, kann anstatt der IP-Nummer auch `crowpi.local` eingetragen werden.
+
+![Einstellungen für Run on Pi und Debug on Pi](assets/run-configurations.png)
+
+Analog in `Attach to Pi Debugger` unter `Host` ebenfalls die IP-Nummer des RaspPis eintragen.
+
+![Einstellungen für Attach to Pi Debugger](assets/attach_to_debugger.png)
 
 
 ## Die enthaltenen Beispiel-Programme
@@ -198,6 +206,18 @@ Zum Starten:
     - in `AppStarter` kann zusätzlich noch ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
 - mit `Run on Pi` auf dem RaspPi starten (jetzt natürlich inklusive PUI)
 
+## Applikation im Debugger starten
+Zum Starten der Applikation auf dem RaspPi im Debug-Mode werden die beiden Run-Konfigurationen `Debug on Pi` und `Attach to Pi Debugger` benötigt.
+
+Wichtig dabei ist die Reihenfolge, mit der die
+Konfigurationen gestartet werden:
+
+1. Start von `Debug on Pi` via des **Run**-Knopfs
+2. Warten bis die Konsolenausgabe meldet `Listening for transport dt_socket at address: 5005 (Attach debugger)`
+3. Starten von `Attach to Pi Debugger` mit dem Debug-Knopf
+4. Erst danach erscheint das GUI auf dem RaspPi-Bildschirm
+
+Nun können Sie wie gewohnt den Debugger von IntelliJ IDEA verwenden und beispielsweise Breakpoints setzen oder das Programm schrittweise ausführen.
 
 ## Das MVC-Konzept
 
