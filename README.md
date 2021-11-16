@@ -1,4 +1,4 @@
-
+![FHNW](assets/FHNW.png)
 # Pi4J Applikationen mit JavaFX-basiertem GUI
 
 [![Contributors](https://img.shields.io/github/contributors/DieterHolz/RaspPiFX-Template-Project)](https://github.com/DieterHolz/RaspPiFX-Template-Project/graphs/contributors)
@@ -37,13 +37,13 @@ Das CrowPi-Image enthält bereits alle notwendige Installationen für JavaFX/Pi4
 
 ## Installationen auf dem Entwickler-Laptop
 
-* [Java 17](https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot). Auf dem Raspberry Pi ist im CrowPi-Image JDK17 installiert. Daher verwenden wir diesen JDK auch auf dem Laptop. Hinweis für Mac-Benutzer: Die Verwendung von SDKMAN (s.u.) für die Installation und die Verwaltung von JDKs ist sehr empfehlenswert.
+* [Java 17](https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot). Im CrowPi-Image ist JDK17 installiert. Daher verwenden wir diesen JDK auch auf dem Laptop. Hinweis für Mac-Benutzer: Die Verwendung von SDKMAN (s.u.) für die Installation und die Verwaltung von JDKs ist sehr empfehlenswert.
 
 * [IntelliJ IDEA 2021.2](https://www.jetbrains.com/idea/download/). Es ist wichtig, diese neueste Version zu verwenden. Am besten via [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/) installieren. Empfehlenswert ist die Verwendung der Ultimate Edition. Studierende erhalten, nach Anmeldung, eine kostenlose Lizenz. Registrieren Sie sich unter [https://www.jetbrains.com/student/](https://www.jetbrains.com/student/) mit Ihrer FHNW E-Mail-Adresse. Für die Community-Edition benötigt man keine Lizenz.
 
 * [Git](https://git-scm.com/downloads). Als Sourcecode-Repository verwenden wir git. 
 
-* [GitLab-Account](https://gitlab.fhnw.ch/). Verwenden Sie ihren FHNW Gitlab Account. 
+* [GitLab](https://gitlab.fhnw.ch/) oder [GitHub-Account](https://github.com/). Verwenden Sie ihren FHNW Gitlab oder GitHub Account. 
 
 * `ssh`. Die Verbindung zum Raspberry Pi wird mit `ssh` hergestellt. Ist normalerweise auf allen Laptops vorinstalliert.
 
@@ -55,8 +55,6 @@ Das CrowPi-Image enthält bereits alle notwendige Installationen für JavaFX/Pi4
 Für MacOs und Linux gibt es ein sehr empfehlenswertes Tool zur Verwaltung unterschiedlicher Software Development Kits: [SDKMAN](https://sdkman.io)
 
 Insbesondere wenn, wie üblich, mehrere Java JDKs verwendet werden sollen, hilft SDKMAN.
-
-Sie können natürlich auch weiterhin die "normalen" Installationsmöglichkeiten verwenden.
 
 #### Installation von SDKMAN
 Folgenden Befehl in einem Terminal eingeben:
@@ -150,7 +148,7 @@ In `Run on Pi` muss die IP-Adresse des RaspPi eingestellt werden. Dazu  `Edit Co
 
 ![Edit Configurations ...](assets/edit-configurations.png)
 
-Im nun geöffnenten Dialog den Tab `Runner` öffnen und `pi.ipnumber` doppelklicken. Danach öffnet sich das Dialogfenster zur Eingabe der IP-Adresse. 
+Im nun geöffneten Dialog den Tab `Runner` öffnen und `pi.ipnumber` doppelklicken. Danach öffnet sich das Dialogfenster zur Eingabe der IP-Adresse. 
 
 ![Einstellungen für Run Konfigurationen](assets/run-configurations.png)
 
@@ -190,7 +188,7 @@ Zeigt das Zusammenspiel eines JavaFX-basiertes Graphical-User-Interfaces (GUI) m
 
 Es ist gleichzeitig ein konkretes Beispiel und eine Vorlage für Ihre eigene Applikation. Das umfasst auch die enthaltenen TestCases.
 
-Sie sollten zunächst das Beispiel kennenlernen und verstehen. Für Ihre eigene Applikation sollten Sie anschliessend die ExampleApp kopieren und entsprechend abändern, ohne dabei die Grundregeln des Presentation-Model-Konzepts zu verletzen. 
+Sie sollten zunächst das Beispiel kennenlernen und verstehen. Für Ihre eigene Applikation sollten Sie anschliessend die ExampleApp kopieren und entsprechend abändern, ohne dabei die Grundregeln des MVC-Konzepts zu verletzen (s.u.). 
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
@@ -200,57 +198,53 @@ Zum Starten:
 - mit `Run on Pi` auf dem RaspPi starten (jetzt natürlich inklusive PUI)
 
 
-## Das Presentation-Model-Konzept
-
-Das Grundprinzip des Presentation-Model-Konzepts besteht in der konsequenten Trennung  des zu verwaltenden internen Zustands der Applikation (dem Presentation-Model) und der Visualisierung dieses Zustands (dem GUI und dem PUI).
-
-Im unserem Fall besteht eine Applikation aus mindestens vier Klassen:
-- _Presentation-Model Klasse._ Kapselt den internen Zustand in Form von JavaFX-Properties und bietet die gesamte Funktionalität in Form von Methoden an.
-- _GUI Klasse._ JavaFX-basierte Implementierung des auf dem Bildschirm angezeigten UIs.
-- _PUI Klasse._ Pi4J-basierte Implementierung der Sensoren und Aktuatoren. Verwendet  Component-Klassen, wie Sie sie aus dem [CrowPi-Tutorial](https://fhnw-ip5-ip6.github.io/CrowPiGoesJavaTutorial/de/) kennen.
-- _Starter Klasse._ Ist eine Subklasse von `javafx.application.Application`. Instanziiert die drei anderen Klassen und startet die Applikation. 
-
-Das Presentation-Model wirkt wie eine Informations-Drehscheibe zwischen GUI und PUI.
-
-![Presentation Model Concept](assets/PresentationModel.png)
-
-GUI und PUI sind komplett voneinander getrennt, z.B. hat der GUI-Button zum Anschalten der LED keinen direkten Zugriff auf die LED-Component des PUIs. Stattdessen setzt der GUI-Button lediglich die on-Property im Presentation-Model. In einem separaten Schritt reagiert die LED-Component des PUIs auf diese Wertänderung und schaltet die LED an- bzw. aus.
-
-Das Presentation-Model-Konzept wird ausführlich im zweiten Semester in OOP2 besprochen und eingeübt. Die `ExampleApp` verwendet das gleiche Konzept und erweitert es um ein PUI. 
-
-Es ist wichtig, dass Sie dieses Konzept verstehen und für Ihr Projekt anwenden können. Gehen Sie bei Fragen auf die Fachcoaches oder OOP-Dozierenden zu.
-
-
 ## Das MVC-Konzept
 
-Beim klassischen Model-View-Controller-Konzept, sind neben der Starter-Klasse, mindestens 3 Klassen beteiligt. Das Zusammenspiel dieser Klassen ist klar geregelt:
+Beim klassischen Model-View-Controller-Konzept sind, neben der Starter-Klasse, mindestens 3 Klassen beteiligt. Das Zusammenspiel dieser Klassen ist klar geregelt:
+
+![MVC Concept](assets/mvc-concept.png)
 
 - _Model Klassen_
-  - enthalten den gesamten, zu visualisierenden Zustand. Wir nennen diese Klassen daher _Presentation-Model_.
+  - enthalten den gesamten zu visualisierenden Zustand. Wir nennen diese Klassen daher _Presentation-Model_
   - sind komplett unabhängig von Controller und View
   
 - _Controller Klassen_
-  - verwalten die Model-Klassen gemäss der zugrundeliegenen Business-Logik.
+  - stellen die gesamte Funktionalität, die sogenannten Actions, in Form von Methoden zur Verfügung
+  - verwalten die Model-Klassen gemäss der zugrundeliegenden Business-Logik
   - haben keinen Zugriff auf die View-Klassen 
   
 - _View Klassen_
-  - rufen ausschliesslich Methoden auf dem Controller auf.
-  - werden vom Model über Zustandänderungen notifiziert
+  - rufen ausschliesslich Methoden auf dem Controller auf, sie "triggern Actions"
+  - werden vom Model über Zustandsänderungen notifiziert
     - observieren den Status des Models 
   - ändern das Model nie direkt
 
+- _Starter Klasse._ Ist eine Subklasse von `javafx.application.Application`. Instanziiert die drei anderen Klassen und startet die Applikation. 
+
 In unserem Fall gibt es mindestens zwei View-Klassen
 
-- _GUI Klasse._ JavaFX-basierte Implementierung des auf dem Bildschirm angezeigten UIs.
-- _PUI Klasse._ Pi4J-basierte Implementierung der Sensoren und Aktuatoren. Verwendet  Component-Klassen, wie Sie sie aus dem [CrowPi-Tutorial](https://fhnw-ip5-ip6.github.io/CrowPiGoesJavaTutorial/de/) kennen.
+- _GUI Klasse._ Das Graphical-User-Interface. JavaFX-basierte Implementierung des auf dem Bildschirm angezeigten UIs.
+- _PUI Klasse._ Das Physical-User-Interface. Pi4J-basierte Implementierung der Sensoren und Aktuatoren. Verwendet  Component-Klassen, wie Sie sie aus dem [CrowPi-Tutorial](https://fhnw-ip5-ip6.github.io/CrowPiGoesJavaTutorial/de/) kennen.
 
-Jede Benutzer-Interaktion durchläuft im MVC den immer gleichen Kreislauf:
-![MVC Concept](assets/MVC.png)
+GUI und PUI sind komplett voneinander getrennt, z.B. hat der GUI-Button zum Anschalten der LED keinen direkten Zugriff auf die LED-Component des PUIs. Stattdessen triggert der GUI-Button lediglich eine entsprechende Action im Controller, der wiederum die on-Property im Model auf den neuen Wert setzt. In einem separaten Schritt reagiert die LED-Component des PUIs auf diese Wertänderung und schaltet die LED an- bzw. aus.
+
+Es ist wichtig, dass Sie dieses Konzept verstehen und für Ihr Projekt anwenden können. Gehen Sie bei Fragen auf die Fachcoaches oder OOP-Dozierenden zu.
+
+Jede Benutzer-Interaktion durchläuft im MVC-Konzept den immer gleichen Kreislauf:
+
+![MVC Concept](assets/mvc-interaction.png)
 
 #### Projector Pattern
-Unsere View-Klassen, also GUI und PUI,  setzen das von Dierk König veröffentlichte [Projector Pattern](https://jaxenter.de/effiziente-oberflaechen-mit-dem-projektor-pattern-42119) um. 
+Unsere View-Klassen, also GUI und PUI, setzen das von Dierk König veröffentlichte [Projector Pattern](https://jaxenter.de/effiziente-oberflaechen-mit-dem-projektor-pattern-42119) um. 
 
-Sie implementieren das gemeinsames Interface `Projector`.
+Die grundlegenden Aufgaben von GUI und PUI sind gleich. Auf Code-Ebene ist dies erkennbar:
+sie implementieren das gemeinsames Interface `Projector`, können also auf die gleiche Weise verwendet werden.
+
+Weitere Konsequenzen
+- Es können weitere UIs hinzugefügt werden, ohne dass das Code-Änderungen bei den bestehenden Klassen (ausser der Starter-Klasse) nach sich zieht. Ein Beispiel dafür ist der `PuiEmulator`, der bei Bedarf zusätzlich gestartet werden kann.
+- Diese Architektur ist auch geeignet für 
+  - reine GUI-Applikationen und
+  - reine PUI-Applikationen.
 
 
 ## Junit Tests
