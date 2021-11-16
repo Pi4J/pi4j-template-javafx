@@ -1,5 +1,5 @@
 
-<img style="float:right" alt="FHNW" src="assets/FHNW.png"/>
+{{<img style="float:right" alt="FHNW" src="assets/FHNW.png"/>}}
 
 
 
