@@ -1,7 +1,4 @@
-
-{{<img style="float:right" alt="FHNW" src="assets/FHNW.png"/>}}
-
-
+![FHNW](assets/FHNW.png)
 
 # Pi4J Applikationen mit JavaFX-basiertem GUI
 
