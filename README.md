@@ -76,7 +76,7 @@ In einem neuen Terminal-Window diesen Befehl eingeben:
 sdk install java 17.0.1-tem
 ```
 
-Danach liegt der JDK in ihrer Home-Directory im Folder `sdkman/candidates/java`. Von dort können Sie es dann in IntelliJ als neuen SDK anlegen und im Projekt verwenden.
+Danach liegt der JDK in ihrer Home-Directory im Folder `sdkman/candidates/java`. Von dort können Sie es dann in IntelliJ als neues SDK anlegen und im Projekt verwenden.
 
 Mit: 
 
@@ -84,7 +84,7 @@ Mit:
 sdk ls java
 ```
 
-können Sie sich auflisten lassen welche anderen JDKs zur Installation zur Verfügung stehen.
+können Sie sich auflisten lassen, welche anderen JDKs zur Installation zur Verfügung stehen.
 
 ## Java Version überprüfen
 
@@ -100,7 +100,7 @@ OpenJDK Runtime Environment Temurin-17.0.1+12 (build 17.0.1+12)
 OpenJDK 64-Bit Server VM Temurin-17.0.1+12 (build 17.0.1+12, mixed mode, sharing)
 ```
 
-Falls das nicht der Fall ist muss der Default-JDK umgestellt werden. Mit SDKMAN geht das einfach:
+Falls das nicht der Fall ist, muss der Default-JDK umgestellt werden. Mit SDKMAN geht das einfach:
 
 ```shell
 sdk default java 17.0.1-tem
@@ -109,7 +109,7 @@ sdk default java 17.0.1-tem
 ## Verbindung zum Raspberry Pi herstellen
 Der Laptop und der Raspberry Pi müssen das gleiche WLAN verwenden.
 
-Eine einfache Variante dies sicherzustellen ist das Aufsetzen eines Hotspots auf einem Smartphone, idealerweise mit diesen Parametern:
+Eine einfache Variante, dies sicherzustellen, ist das Aufsetzen eines Hotspots auf einem Smartphone, idealerweise mit diesen Parametern:
 
 - ssid: `Pi4J-Spot`
 - password: `MayTheSourceBeWithYou!`
@@ -200,7 +200,7 @@ Die beiden anderen Beispielprogramme verwenden eine LED und einen Button. Diese 
 
 
 #### MinimalPi4J
-Ist eine reine Pi4J-Applikation ohne GUI. Dient ebenfalls ausschliesslich der Überprüfung des Setups.
+Ist eine reine Pi4J-Applikation ohne GUI. Auch sie dient ausschliesslich der Überprüfung des Setups.
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
@@ -212,7 +212,7 @@ Wenn der Button gedrückt wird, wird eine entsprechende Meldung auf dem Bildschi
 
 #### ExampleApp
 
-Zeigt das Zusammenspiel eines JavaFX-basiertes Graphical-User-Interfaces (GUI) mit an den RaspPi angeschlossenen Sensoren und Aktuatoren, dem Physical-User-Interface (PUI).
+Sie zeigt das Zusammenspiel eines JavaFX-basiertes Graphical-User-Interfaces (GUI) mit an den RaspPi angeschlossenen Sensoren und Aktuatoren, dem Physical-User-Interface (PUI).
 
 Es ist gleichzeitig ein konkretes Beispiel und eine Vorlage für Ihre eigene Applikation. Das umfasst auch die enthaltenen TestCases.
 
@@ -240,7 +240,7 @@ Nun können Sie wie gewohnt den Debugger von IntelliJ IDEA verwenden und beispie
 
 ## Das MVC-Konzept
 
-Beim klassischen Model-View-Controller-Konzept sind, neben der Starter-Klasse, mindestens 3 Klassen beteiligt. Das Zusammenspiel dieser Klassen ist klar geregelt:
+Beim klassischen Model-View-Controller-Konzept sind neben der Starter-Klasse mindestens 3 Klassen beteiligt. Das Zusammenspiel dieser Klassen ist klar geregelt:
 
 ![MVC Concept](assets/mvc-concept.png)
 
@@ -283,7 +283,7 @@ Die grundlegenden Aufgaben von GUI und PUI sind gleich. Auf Code-Ebene ist dies 
 sie implementieren das gemeinsames Interface `Projector`, können also auf die gleiche Weise verwendet werden.
 
 Weitere Konsequenzen
-- Es können weitere UIs hinzugefügt werden, ohne dass das Code-Änderungen bei den bestehenden Klassen (ausser der Starter-Klasse) nach sich zieht. Ein Beispiel dafür ist der `PuiEmulator`, der bei Bedarf zusätzlich gestartet werden kann.
+- Es können weitere UIs hinzugefügt werden, ohne dass es Code-Änderungen bei den bestehenden Klassen (ausser der Starter-Klasse) nach sich zieht. Ein Beispiel dafür ist der `PuiEmulator`, der bei Bedarf zusätzlich gestartet werden kann.
 - Diese Architektur ist auch geeignet für 
   - reine GUI-Applikationen und
   - reine PUI-Applikationen.
