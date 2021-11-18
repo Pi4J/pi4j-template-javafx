@@ -18,6 +18,13 @@ public class ExampleController extends ControllerBase<ExampleModel> {
     // the logic we need in our application
     // these methods can be called from GUI and PUI (and nothing else)
 
+    @Override
+    public void shutdown() {
+        super.shutdown();
+        ledController.shutdown();
+        counterController.shutdown();
+    }
+
     public void increaseCounter() {
         counterController.increaseCounter();
     }

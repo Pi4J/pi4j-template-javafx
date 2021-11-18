@@ -16,6 +16,7 @@
 
         <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.jfxplain.HelloFX</launcher.class> -->
         <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.pi4jplain.MinimalPi4J</launcher.class> -->
+        <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.templateapp.AppStarter</launcher.class>-->
         <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.exampleapp.AppStarter</launcher.class>
 
 
