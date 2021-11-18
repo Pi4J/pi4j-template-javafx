@@ -19,7 +19,7 @@ class ConcurrentTaskQueueTest {
         for (int i = 0; i < 10; i++) {
             int finalI = i;
             taskQueue.submit(
-                x -> {
+                () -> {
                     try {
                         Thread.sleep(10); // force some thread switching to make the test more realistic
                     } catch (InterruptedException e) {
@@ -27,10 +27,7 @@ class ConcurrentTaskQueueTest {
                     }
                     return finalI;
                 },
-                x -> {
-                    collector.add(x);
-                    return null;
-                }
+                collector::add
             );
         }
 
@@ -40,7 +37,7 @@ class ConcurrentTaskQueueTest {
         // synchronously wait for. To that end, we create an extra executor, that we shut down in the task,
         // and wait for termination in the tests main thread.
         final ExecutorService waitForFinishedService = Executors.newFixedThreadPool(1);
-        taskQueue.submit( x -> {
+        taskQueue.submit( () -> {
             waitForFinishedService.shutdown(); // would be nice if this could just be a method reference
             return null;
         });

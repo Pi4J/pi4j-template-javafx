@@ -15,13 +15,14 @@ import com.pi4j.jfx.util.Pi4JContext;
 public class AppStarter extends Application {
 
     private ExamplePUI pui;
+    private ExampleController controller;
 
     @Override
     public void start(Stage primaryStage) {
         // that's your 'information hub'.
         ExampleModel model = new ExampleModel();
 
-        ExampleController controller = new ExampleController(model);
+        controller = new ExampleController(model);
 
         //both gui and pui are working on the same controller
         pui = new ExamplePUI(controller, Pi4JContext.INSTANCE);
@@ -42,6 +43,7 @@ public class AppStarter extends Application {
 
     @Override
     public void stop() {
+        controller.shutdown();
         pui.shutdown();
     }
 

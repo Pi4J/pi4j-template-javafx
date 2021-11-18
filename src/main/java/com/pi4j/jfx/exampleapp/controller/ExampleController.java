@@ -3,33 +3,34 @@ package com.pi4j.jfx.exampleapp.controller;
 import com.pi4j.jfx.exampleapp.model.ExampleModel;
 import com.pi4j.jfx.util.mvc.ControllerBase;
 
+
 public class ExampleController extends ControllerBase<ExampleModel> {
 
-    /**
-     * ExampleController works on a ExampleModel
-     *
-     * @param model the model that is managed by this controller
-     */
+    private final LEDController ledController;
+    private final CounterController counterController;
+
     public ExampleController(ExampleModel model) {
         super(model);
+        ledController     = new LEDController(model);
+        counterController = new CounterController(model);
     }
 
     // the logic we need in our application
     // these methods can be called from GUI and PUI (and nothing else)
 
     public void increaseCounter() {
-        setValue(model.counter, model.counter.getValue() + 1);
+        counterController.increaseCounter();
     }
 
     public void decreaseCounter() {
-        setValue(model.counter, model.counter.getValue() - 1);
+        counterController.decreaseCounter();
     }
 
-    public void setLedGlows(boolean glows) {
-        setValue(model.ledGlows, glows);
+    public void setLedGlows(boolean glows){
+        ledController.setLedGlows(glows);
     }
 
-    public void blink() {
-        toggle(model.blinkingTrigger);
+    public void blink(){
+        ledController.blink();
     }
 }

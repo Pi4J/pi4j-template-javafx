@@ -8,7 +8,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * A device where tasks can be submitted for execution.
@@ -46,11 +48,11 @@ public class ConcurrentTaskQueue<R> {
         executor.shutdown();
     }
 
-    public void submit(Function<Void,R> todo){
-        submit(todo, r -> null);
+    public void submit(Supplier<R> todo){
+        submit(todo, r -> {});
     }
 
-    public void submit(Function<Void,R> todo, Function<? super R, Void> onDone){
+    public void submit(Supplier<R> todo, Consumer<R> onDone){
         buffer.add(new Task<>(todo, onDone));
         execute();
     }
@@ -65,13 +67,12 @@ public class ConcurrentTaskQueue<R> {
         running = true;
 
         final Task<R> task = buffer.poll();
-        Callable<R> todoCallable = () -> task.todo.apply(null);
-        final Future<R> todoFuture = executor.submit(todoCallable);
+        final Future<R> todoFuture = executor.submit(task.todo::get);
 
         Runnable onDoneRunnable = () -> {
             try {
                 final R r = todoFuture.get(maxToDoTime.getSeconds(), TimeUnit.SECONDS);
-                task.onDone.apply(r);
+                task.onDone.accept(r);
             } catch (Exception e) {
                 e.printStackTrace(); // todo: think about better exception handling
             } finally {
@@ -83,10 +84,10 @@ public class ConcurrentTaskQueue<R> {
     }
 
     private static class Task<T> {
-        private final Function<Void,T>          todo;    // the return type of to-do ..
-        private final Function<? super T, Void> onDone;  // .. must match the input type of onDone
+        private final Supplier<T> todo;    // the return type of to-do ..
+        private final Consumer<T> onDone;  // .. must match the input type of onDone
 
-        public Task(Function<Void, T> todo, Function<? super T, Void> onDone) {
+        public Task(Supplier<T> todo, Consumer<T> onDone) {
             this.todo = todo;
             this.onDone = onDone;
         }

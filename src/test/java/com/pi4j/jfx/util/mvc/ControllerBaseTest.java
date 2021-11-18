@@ -36,8 +36,8 @@ class ControllerBaseTest {
         controller.setValue(model.someBoolean, newBool);
 
         //then
-        assertEquals(newInt, model.someInt.getValue());
-        assertEquals(newBool, model.someBoolean.getValue());
+        controller.runLater(m-> assertEquals(newInt, m.someInt.getValue()));
+        controller.runLater(m-> assertEquals(newBool, m.someBoolean.getValue()));
     }
 
     @Test
@@ -49,13 +49,13 @@ class ControllerBaseTest {
         controller.toggle(model.someBoolean);
 
         //then
-        assertFalse(model.someBoolean.getValue());
+        controller.runLater(m-> assertFalse(m.someBoolean.getValue()));
 
         //when
         controller.toggle(model.someBoolean);
 
         //then
-        assertTrue(model.someBoolean.getValue());
+        controller.runLater(m-> assertTrue(m.someBoolean.getValue()));
     }
 
     private static class TestModel {

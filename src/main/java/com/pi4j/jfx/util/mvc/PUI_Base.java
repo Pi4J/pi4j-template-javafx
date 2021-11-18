@@ -3,6 +3,9 @@ package com.pi4j.jfx.util.mvc;
 
 import com.pi4j.context.Context;
 
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
 /**
  * Base class for all PUIs.
  *
@@ -33,6 +36,14 @@ public abstract class PUI_Base<M, C extends ControllerBase<M>> implements Projec
         queue.shutdown();
     }
 
+    protected void async(Supplier<Void> todo, Consumer<Void> onDone) {
+        queue.submit(todo, onDone);
+    }
+
+    public void runLater(Consumer<Void> todo) {
+        async(() -> null, todo);
+    }
+
     /**
      * First step to register an observer.
      *
@@ -56,7 +67,7 @@ public abstract class PUI_Base<M, C extends ControllerBase<M>> implements Projec
         }
 
         public void triggerPUIAction(ValueChangeListener<V> action) {
-            observableValue.onChange((oldValue, newValue) -> queue.submit(unused -> {
+            observableValue.onChange((oldValue, newValue) -> queue.submit(() -> {
                 action.update(oldValue, newValue);
                 return null;
             }));

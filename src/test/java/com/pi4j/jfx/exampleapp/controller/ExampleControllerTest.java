@@ -23,13 +23,13 @@ class ExampleControllerTest {
         controller.increaseCounter();
 
         //then
-        assertEquals(initialCount + 1, model.counter.getValue());
+        controller.runLater(m ->  assertEquals(initialCount + 1, m.counter.getValue()));
 
         //when
         controller.decreaseCounter();
 
         //then
-        assertEquals(initialCount, model.counter.getValue());
+        controller.runLater(m -> assertEquals(initialCount, m.counter.getValue()));
     }
 
     @Test
@@ -43,34 +43,14 @@ class ExampleControllerTest {
         controller.setLedGlows(true);
 
         //then
-        assertTrue(model.ledGlows.getValue());
+        controller.runLater(m-> assertTrue(m.ledGlows.getValue()));
 
         //when
         controller.setLedGlows(false);
 
         //then
-        assertFalse(model.ledGlows.getValue());
+        controller.runLater(m-> assertFalse(m.ledGlows.getValue()));
     }
 
-    @Test
-    void testBlink() {
-        //given
-        ExampleModel model = new ExampleModel();
-        Boolean      initial = model.blinkingTrigger.getValue();
-
-        ExampleController controller = new ExampleController(model);
-
-        //when
-        controller.blink();
-
-        //then
-        assertNotEquals(initial, model.blinkingTrigger.getValue());
-
-        //when
-        controller.blink();
-
-        //then
-        assertEquals(initial, model.blinkingTrigger.getValue());
-    }
 
 }

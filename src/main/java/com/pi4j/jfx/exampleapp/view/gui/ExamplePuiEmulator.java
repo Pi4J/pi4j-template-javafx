@@ -22,6 +22,11 @@ public class ExamplePuiEmulator extends VBox implements ViewMixin<ExampleModel, 
     }
 
     @Override
+    public void initializeSelf() {
+        setPrefWidth(250);
+    }
+
+    @Override
     public void initializeParts() {
         led = new Label();
         decreaseButton = new Button("Decrease");
