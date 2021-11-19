@@ -43,7 +43,6 @@
         <!-- Plugin Versions-->
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
         <gluonfx.plugin.version>1.0.9</gluonfx.plugin.version>
-        <gluonfx.target/>
 
         <!-- Maven Plugin Versions -->
         <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
