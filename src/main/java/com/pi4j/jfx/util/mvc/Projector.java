@@ -18,15 +18,15 @@ public interface Projector<M, C extends ControllerBase<M>> {
 	}
 
     /**
-     * Everything that needs to be done to initialize the ui-part itself.
+     * Everything that needs to be done to initialize the UI-part itself.
      *
-     * Loading stylesheet-files or additional fonts are typical examples.
+     * For GUIs loading stylesheet-files or additional fonts are typical examples.
      */
     default void initializeSelf(){
     }
 
     /**
-     * completely initialize all necessary UI-elements (like buttons, text-fields, etc. on GUI )
+     * completely initialize all necessary UI-elements (like buttons, text-fields, etc. on GUI or distance sensors on PUI )
      */
     void initializeParts();
 

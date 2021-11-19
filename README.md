@@ -193,6 +193,7 @@ Zum Starten:
 - mit `Run local` auf dem Laptop starten
 - mit `Run on Pi` auf dem RaspPi starten
 
+Sobald der JavaFX-Setup überprüft ist, kann HelloFX gelöscht werden.
 
 #### Wiring
 Die beiden anderen Beispielprogramme verwenden eine LED und einen Button. Diese müssen folgendermassen verdrahtet werden:
@@ -211,23 +212,26 @@ Zum Starten:
 
 Wenn der Button gedrückt wird, wird eine entsprechende Meldung auf dem Bildschirm ausgegeben.
 
-#### ExampleApp
+Sobald der Pi4J-Setup überprüft ist, kann MinimalPi4J gelöscht werden.
+
+#### TemplateApp
 
 Sie zeigt das Zusammenspiel eines JavaFX-basiertes Graphical-User-Interfaces (GUI) mit an den RaspPi angeschlossenen Sensoren und Aktuatoren, dem Physical-User-Interface (PUI).
 
-Es ist gleichzeitig ein konkretes Beispiel und eine Vorlage für Ihre eigene Applikation. Das umfasst auch die enthaltenen TestCases.
+Es dient als Vorlage für Ihre eigene Applikation. Das umfasst auch die enthaltenen TestCases.
 
-Sie sollten zunächst das Beispiel kennenlernen und verstehen. Für Ihre eigene Applikation sollten Sie anschliessend die ExampleApp kopieren und entsprechend abändern, ohne dabei die Grundregeln des MVC-Konzepts zu verletzen (s.u.). 
+Sie sollten zunächst das Beispiel kennenlernen und verstehen. Für Ihre eigene Applikation sollten Sie anschliessend die TemplateApp kopieren und entsprechend abändern, ohne dabei die Grundregeln des MVC-Konzepts zu verletzen (s.u.). 
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.fxgl/com.pi4j.jfx.exampleapp.AppStarter</launcher.class>`
-- mit `Run local` auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz des RaspPis entwickelt werden 
+  - `<launcher.class>com.pi4j.fxgl/com.pi4j.jfx.templateapp.AppStarter</launcher.class>`
+- mit `Run local` (oder direkt aus der IDE heraus) auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz des RaspPis entwickelt werden 
     - in `AppStarter` kann zusätzlich noch ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
 - mit `Run on Pi` auf dem RaspPi starten (jetzt natürlich inklusive PUI)
 
+
 ## Applikation im Debugger starten
-Zum Starten der Applikation auf dem RaspPi im Debug-Mode werden die beiden Run-Konfigurationen `Debug on Pi` und `Attach to Pi Debugger` benötigt.
+Zum Starten einer Applikation auf dem RaspPi im Debug-Mode werden die beiden Run-Konfigurationen `Debug on Pi` und `Attach to Pi Debugger` benötigt.
 
 Wichtig dabei ist die Reihenfolge, mit der die
 Konfigurationen gestartet werden:
@@ -288,6 +292,36 @@ Weitere Konsequenzen
 - Diese Architektur ist auch geeignet für 
   - reine GUI-Applikationen und
   - reine PUI-Applikationen.
+
+
+### Implementierung des MVC-Konzepts
+
+Die Basis-Klassen, die für die Implementierung des MVC-Konzepts notwendig sind, sind im Package `com.pi4j.jfx.util.mvc`. Die Klassen sind im Code ausführlich dokumentiert. 
+
+## MultiControllerApp
+Zeigt des Einsatz von mehreren Controllern in einer Applikation.
+
+Für einen einzelnen Controller gilt:
+- jede Action wird asynchron und reihenfolgetreu ausgeführt 
+- dafür hat jeder Controller eine eigene 'ConcurrentTaskQueue' integriert.
+- das UI wird während der Ausführung einer Action nicht blockiert
+- falls vom UI weitere Actions getriggert während eine Action gerade in Bearbeitung ist, werden diese in der TaskQueue aufgesammelt und ausgeführt, sobald die vorherigen Actions abgearbeitet sind.
+
+Für einfache Applikationen reicht ein einzelner Controller meist aus.
+
+Es gibt aber Situationen, bei denen Actions ausgeführt werden sollen, während eine andere Action noch läuft.
+
+Die MultiControllerApp zeigt so ein Beispiel. Es soll möglich sein, den Counter zu verändern während die LED blinkt. 
+- Mit einem einzigen Controller ist das nicht umsetzbar. Der Controller würde beispielsweise die 'Decrease-Action' erst ausführen nachdem die 'Blink-Action' abgeschlossen ist.
+- Bei zwei Controllern ist es jedoch einfach:  'LedController' und 'CounterController' haben jeder eine Taskqueue. 
+- Es sollte zusätzlich ein 'ApplicationController' implementiert werden, der die anderen Controller koordiniert und das für das UI sichtbare API zur Verfügung stellt.
+
+Zum Starten:
+- `launcher.class` im `pom.xml` auswählen
+  - `<launcher.class>com.pi4j.fxgl/com.pi4j.jfx.multicontrollerapp.AppStarter</launcher.class>`
+- mit `Run local` (oder direkt aus der IDE heraus) auf dem Laptop starten.  
+    - in `AppStarter` kann zusätzlich noch ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
+- mit `Run on Pi` auf dem RaspPi starten
 
 
 ## Junit Tests

@@ -42,15 +42,21 @@ public abstract class ControllerBase<M> {
 
     /**
      * Schedule the given action for execution in strict order in external thread, asynchronously.
+     *
+     * onDone is called as soon as action is finished
      */
-    protected void async(Supplier<M> todo, Consumer<M> onDone) {
+    protected void async(Supplier<M> action, Consumer<M> onDone) {
         if(null == actionQueue){
             actionQueue = new ConcurrentTaskQueue<>();
         }
-        actionQueue.submit(todo, onDone);
+        actionQueue.submit(action, onDone);
     }
 
 
+    /**
+     * Schedule the given action for execution in strict order in external thread, asynchronously.
+     *
+     */
     protected void async(Runnable todo){
         async(() -> {
                 todo.run();
@@ -59,15 +65,17 @@ public abstract class ControllerBase<M> {
             m -> {});
     }
 
-
+    /**
+     * Schedule the given action after all the actions already scheduled have finished.
+     *
+     * Typically used in TestCases
+     */
     public void runLater(Consumer<M> todo) {
         async(() -> model, todo);
     }
 
     /**
-     * Only the other base classes 'ViewMixin' and 'PUI_Base' need access, therefore it's package private
-     *
-     * @return the model
+     * Only the other base classes 'ViewMixin' and 'PUI_Base' need access, therefore it's 'package private'
      */
     M getModel() {
         return model;
@@ -76,8 +84,7 @@ public abstract class ControllerBase<M> {
     /**
      * Even for setting a value the controller is responsible.
      *
-     * @param observableValue the ObservableValue that gets a new value
-     * @param newValue the new value
+     * No application specific class can access ObservableValue.setValue
      */
     protected <V> void setValue(ObservableValue<V> observableValue, V newValue){
         async(() -> observableValue.setValue(newValue));
@@ -85,8 +92,6 @@ public abstract class ControllerBase<M> {
 
     /**
      * Convenience method to toggle a ObservableValue<Boolean>
-     *
-     * @param observableValue the ObservableValue that gets a new value
      */
     protected void toggle(ObservableValue<Boolean> observableValue){
         setValue(observableValue, !observableValue.getValue());

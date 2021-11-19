@@ -14,7 +14,7 @@ import com.pi4j.context.Context;
  *
  * Therefore, we need an additional "worker-thread" in both UIs.
  *
- * For JavaFX-based GUIs that's already implemented.
+ * For JavaFX-based GUIs that's already available (the JavaFX Application Thread).
  *
  * For PUIs we need to do that ourselves. It's implemented as a provider/consumer-pattern (see {@link ConcurrentTaskQueue}.
  */

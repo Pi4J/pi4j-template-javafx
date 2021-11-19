@@ -10,7 +10,7 @@ import javafx.scene.text.Font;
 /**
  * Use this interface for all of your GUI-parts to assure implementation consistency.
  *
- * It also provides the basic functionality to make MVC run.
+ * It provides the basic functionality to make MVC run.
  */
 public interface ViewMixin<M,  C extends ControllerBase<M>> extends Projector<M, C> {
 
@@ -39,7 +39,6 @@ public interface ViewMixin<M,  C extends ControllerBase<M>> extends Projector<M,
 
     /**
      * just a convenience method to load additional fonts
-     * @param fonts name of the fonts file
      */
     default void loadFonts(String... fonts){
         for(String f : fonts){

@@ -34,7 +34,7 @@ public final class ObservableValue<V>  {
      *
      * Every time the value changes, all the listeners will be notified.
      *
-     * This is package private, only 'ControllerBase' is allowed to set a new value.
+     * This is method is 'package private', only 'ControllerBase' is allowed to set a new value.
      *
      * For the UIs setValue is not accessible
      *
