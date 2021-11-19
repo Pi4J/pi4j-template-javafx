@@ -1,3 +1,4 @@
+
 ![FHNW](assets/FHNW.png)
 
 # Pi4J Applikationen mit JavaFX-basiertem GUI
@@ -30,7 +31,7 @@ das Formular ausfüllen, mit `Git repository URL` :
 
 ## Raspberry Pi vorbereiten
 Verwenden Sie das vom [Pi4J-Team](https://github.com/Pi4J/pi4j-os) vorbereitete CrowPi-Image.
-- [Download CrowPi Image](https://pi4j-download.com/latest.php?flavor=crowpi)
+- [Download CrowPi Image](https://pi4j-download.com/crowpi-main.img.zip)
 - zip-File auspacken, mit [Raspberry Pi Imager](https://www.raspberrypi.org/blog/raspberry-pi-imager-imaging-utility/) eine SD-Card bespielen und damit den Raspberry Pi starten
 
 Das CrowPi-Image enthält bereits alle notwendige Installationen für JavaFX/Pi4J-Applikationen.
