@@ -1,7 +1,5 @@
 package com.pi4j.jfx.util;
 
-import java.time.Duration;
-
 import java.util.List;
 
 import com.pi4j.Pi4J;

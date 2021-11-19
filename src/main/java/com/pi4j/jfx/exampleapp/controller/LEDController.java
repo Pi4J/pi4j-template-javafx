@@ -1,9 +1,9 @@
 package com.pi4j.jfx.exampleapp.controller;
 
+import java.time.Duration;
+
 import com.pi4j.jfx.exampleapp.model.ExampleModel;
 import com.pi4j.jfx.util.mvc.ControllerBase;
-
-import java.time.Duration;
 
 class LEDController extends ControllerBase<ExampleModel> {
 

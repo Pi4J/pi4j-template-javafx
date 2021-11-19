@@ -1,10 +1,9 @@
 package com.pi4j.jfx.util.mvc;
 
-
-import com.pi4j.context.Context;
-
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+
+import com.pi4j.context.Context;
 
 /**
  * Base class for all PUIs.
