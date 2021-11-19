@@ -47,7 +47,11 @@ public final class ObservableValue<V>  {
         V oldValue = value;
         value      = newValue;
 
-        listeners.forEach(listener -> listener.update(oldValue, newValue));
+        listeners.forEach(listener -> {
+            if(value.equals(newValue)){ // pre-ordered listeners might have changed this and thus the callback no longer applies
+                listener.update(oldValue, newValue);
+            }
+        });
     }
 
     /**
