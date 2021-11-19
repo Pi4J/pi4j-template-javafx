@@ -21,7 +21,7 @@ import java.util.function.Supplier;
  */
 public abstract class PUI_Base<M, C extends ControllerBase<M>> implements Projector<M, C>{
 
-    // all PUI actions should be done asynchronously (to avoid GUI freezing)
+    // all PUI actions should be done asynchronously (to avoid UI freezing)
     private final ConcurrentTaskQueue<Void> queue = new ConcurrentTaskQueue<>();
 
     protected final Context pi4J;
@@ -33,6 +33,7 @@ public abstract class PUI_Base<M, C extends ControllerBase<M>> implements Projec
     }
 
     public void shutdown(){
+        pi4J.shutdown();
         queue.shutdown();
     }
 
@@ -66,7 +67,7 @@ public abstract class PUI_Base<M, C extends ControllerBase<M>> implements Projec
             this.observableValue = observableValue;
         }
 
-        public void triggerPUIAction(ValueChangeListener<V> action) {
+        public void execute(ValueChangeListener<V> action) {
             observableValue.onChange((oldValue, newValue) -> queue.submit(() -> {
                 action.update(oldValue, newValue);
                 return null;

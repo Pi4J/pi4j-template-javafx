@@ -10,10 +10,15 @@ import java.util.function.Supplier;
  * The whole application logic is located in controller classes.
  *
  * Controller classes work on and manage the Model. Models encapsulate the whole application state.
+ *
+ * Controllers provide the whole core functionality of the application, so called 'Actions'
+ *
+ * Execution of Actions is asynchronous. The sequence is kept stable, such that
+ * for all actions A and B: if B is submitted after A, B will only be executed after A is finished.
  */
 public abstract class ControllerBase<M> {
 
-    private ConcurrentTaskQueue<M> taskQueue;
+    private ConcurrentTaskQueue<M> actionQueue;
 
     // the model managed by this Controller. Only subclasses have direct access
     protected final M model;
@@ -28,9 +33,9 @@ public abstract class ControllerBase<M> {
     }
 
     public void shutdown(){
-        if(null != taskQueue){
-            taskQueue.shutdown();
-            taskQueue = null;
+        if(null != actionQueue){
+            actionQueue.shutdown();
+            actionQueue = null;
         }
     }
 
@@ -38,15 +43,12 @@ public abstract class ControllerBase<M> {
      * Schedule the given action for execution in strict order in external thread, asynchronously.
      */
     protected void async(Supplier<M> todo, Consumer<M> onDone) {
-        if(null == taskQueue){
-            taskQueue = new ConcurrentTaskQueue<>();
+        if(null == actionQueue){
+            actionQueue = new ConcurrentTaskQueue<>();
         }
-        taskQueue.submit(todo, onDone);
+        actionQueue.submit(todo, onDone);
     }
 
-    public void runLater(Consumer<M> todo) {
-        async(() -> model, todo);
-    }
 
     protected void async(Runnable todo){
         async(() -> {
@@ -54,6 +56,11 @@ public abstract class ControllerBase<M> {
                 return model;
             },
             m -> {});
+    }
+
+
+    public void runLater(Consumer<M> todo) {
+        async(() -> model, todo);
     }
 
     /**
@@ -85,12 +92,13 @@ public abstract class ControllerBase<M> {
     }
 
     /**
-     * Utility function to sleep for the specified amount of time.
+     * Utility function to pause execution of actions for the specified amount of time.
+     *
      * An {@link InterruptedException} will be catched and ignored while setting the interrupt flag again.
      *
      * @param duration Time  to sleep
      */
-    protected void asyncSleep(Duration duration) {
+    protected void pauseExecution(Duration duration) {
         async(() -> {
             try {
                 Thread.sleep(duration.toMillis());

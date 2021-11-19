@@ -12,7 +12,8 @@ import com.pi4j.jfx.templateapp.controller.SomeController;
 import com.pi4j.jfx.templateapp.model.SomeModel;
 import com.pi4j.jfx.util.mvc.ViewMixin;
 
-public class SomeGUI extends BorderPane implements ViewMixin<SomeModel, SomeController> {
+public class SomeGUI extends BorderPane implements ViewMixin<SomeModel, SomeController> { //all GUI-elements have to implement ViewMixin
+
     private static final String LIGHT_BULB = "\uf0eb";  // the unicode of the lightbulb-icon in fontawesome font
 
     // declare all the UI elements you need
@@ -22,7 +23,7 @@ public class SomeGUI extends BorderPane implements ViewMixin<SomeModel, SomeCont
     private Label  infoLabel;
 
     public SomeGUI(SomeController controller) {
-        init(controller); //don't forget to call init
+        init(controller); //don't forget to call 'init'
     }
 
     @Override
@@ -52,8 +53,6 @@ public class SomeGUI extends BorderPane implements ViewMixin<SomeModel, SomeCont
 
     @Override
     public void layoutParts() {
-        // consider to use GridPane instead
-
         HBox topBox = new HBox(ledButton);
         topBox.setAlignment(Pos.CENTER);
 
@@ -69,7 +68,7 @@ public class SomeGUI extends BorderPane implements ViewMixin<SomeModel, SomeCont
 
     @Override
     public void setupUiToActionBindings(SomeController controller) {
-        // look at that: all EventHandlers just trigger some action on 'controller'
+        // look at that: all EventHandlers just trigger an action on 'controller'
         // by calling a single method
 
         increaseButton.setOnAction  (event -> controller.increaseCounter());

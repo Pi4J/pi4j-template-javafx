@@ -3,6 +3,7 @@ package com.pi4j.jfx.templateapp.controller;
 import com.pi4j.jfx.templateapp.model.SomeModel;
 import com.pi4j.jfx.util.mvc.ControllerBase;
 
+
 public class SomeController extends ControllerBase<SomeModel> {
 
     public SomeController(SomeModel model) {
@@ -10,7 +11,7 @@ public class SomeController extends ControllerBase<SomeModel> {
     }
 
     // the logic we need in our application
-    // these methods can be called from GUI and PUI (and nothing else)
+    // these methods can be called from GUI and PUI (and from nowhere else)
 
     public void increaseCounter() {
         setValue(model.counter, model.counter.getValue() + 1);

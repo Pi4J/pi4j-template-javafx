@@ -33,7 +33,7 @@ public class ExamplePUI extends PUI_Base<ExampleModel, ExampleController> {
     @Override
     public void setupModelToUiBindings(ExampleModel model) {
         onChangeOf(model.ledGlows)
-                .triggerPUIAction((oldValue, newValue) -> {
+                .execute((oldValue, newValue) -> {
                     if (newValue) {
                         led.on();
                     } else {
@@ -42,7 +42,7 @@ public class ExamplePUI extends PUI_Base<ExampleModel, ExampleController> {
                 });
 
         onChangeOf(model.blinkingTrigger)
-                .triggerPUIAction((oldValue, newValue) -> led.blink(4, Duration.ofMillis(500)));
+                .execute((oldValue, newValue) -> led.blink(4, Duration.ofMillis(500)));
 
     }
 }

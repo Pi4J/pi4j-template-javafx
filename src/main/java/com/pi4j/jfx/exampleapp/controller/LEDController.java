@@ -28,9 +28,9 @@ class LEDController extends ControllerBase<ExampleModel> {
         setLedGlows(false);
         for (int i = 0; i < 4; i++) {
             setLedGlows(true);
-            asyncSleep(duration);
+            pauseExecution(duration);
             setLedGlows(false);
-            asyncSleep(duration);
+            pauseExecution(duration);
         }
     }
 

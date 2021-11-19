@@ -16,8 +16,8 @@
 
         <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.jfxplain.HelloFX</launcher.class> -->
         <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.pi4jplain.MinimalPi4J</launcher.class> -->
-        <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.templateapp.AppStarter</launcher.class>-->
-        <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.exampleapp.AppStarter</launcher.class>
+        <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.templateapp.AppStarter</launcher.class>
+        <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.exampleapp.AppStarter</launcher.class> -->
 
 
         <fxgl.launcher.args/>
@@ -158,13 +158,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Testing asynchronous systems -->
-        <dependency>
-              <groupId>org.awaitility</groupId>
-              <artifactId>awaitility</artifactId>
-              <version>4.1.1</version>
-              <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>

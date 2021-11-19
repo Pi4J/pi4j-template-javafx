@@ -4,7 +4,9 @@ import com.pi4j.jfx.util.mvc.ObservableValue;
 
 /**
  * In MVC the 'Model' mainly consists of 'ObservableValues'.
+ *
  * There should be no need for additional methods.
+ *
  * All the application logic is handled by the 'Controller'
  */
 public class SomeModel {
