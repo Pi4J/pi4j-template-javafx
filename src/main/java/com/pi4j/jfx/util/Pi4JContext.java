@@ -1,7 +1,5 @@
 package com.pi4j.jfx.util;
 
-import java.time.Duration;
-
 import java.util.List;
 
 import com.pi4j.Pi4J;
@@ -43,15 +41,6 @@ public class Pi4JContext {
     private Pi4JContext() {
     }
 
-    /**
-     * Properly shuts down the Pi4J context.
-     */
-    public static void shutdown() {
-        LOGGER.info("GPIO shutdown");
-        INSTANCE.shutdown();
-        //give it some time (don't know if that's really necessary)
-        pause(Duration.ofMillis(200));
-    }
 
     /**
      * Creates a new Pi4J Context depending on the machine the app is running.
@@ -59,11 +48,6 @@ public class Pi4JContext {
      * @return Context that will be used by this app
      */
     private static Context buildNewContext() {
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            shutdown();
-            LOGGER.info("GPIO shutdown");
-        }));
-
         Context context = runsOnPi() ? createContext() : createMockContext();
         LOGGER.info("GPIO initialized for " + (runsOnPi() ? " RaspPi" : " desktop"));
 
@@ -106,22 +90,6 @@ public class Pi4JContext {
     }
 
     /**
-     * There may be situations where an 'old' Context wasn't properly shutdowned.
-     * <p>
-     * On this old context we call 'shutdown' before creating a new context, that is used by the app.
-     *
-     * @return Context that will be used by this app
-     */
-    private static Context createCleanContext() {
-        Context oldContext = createContext();
-        oldContext.shutdown();
-
-        pause(Duration.ofMillis(200));
-
-        return createContext();
-    }
-
-    /**
      * Create a new Pi4J Context using PiGpio
      *
      * @return Context that will be used by this app
@@ -148,17 +116,4 @@ public class Pi4JContext {
                    .build();
     }
 
-
-    /**
-     * Just let the current thread sleep for some time.
-     *
-     * @param duration how long the thread will pause
-     */
-    private static void pause(Duration duration) {
-        try {
-            Thread.sleep(duration.toMillis());
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-    }
 }

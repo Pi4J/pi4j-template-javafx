@@ -1,10 +1,14 @@
 package com.pi4j.jfx.util.mvc;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -81,6 +85,50 @@ class ObservableValueTest {
         assertEquals(2, counter.get()); // value has changed; listener is called
         assertEquals(initialValue, foundOld.get());
         assertEquals(firstValue, foundNew.get());
+    }
+
+    @Test
+    void testEdgeCase(){
+        //given
+
+        ObservableValue<String> observableValue = new ObservableValue<>("start");
+
+        List<String>  log1        = new ArrayList<>();
+        List<String>  log2        = new ArrayList<>();
+
+        AtomicBoolean allowChange = new AtomicBoolean(false);
+
+        //when
+        observableValue.onChange((oldValue, newValue) -> {
+            log1.add(oldValue);
+            log1.add(newValue);
+            if(allowChange.get()){
+                allowChange.set(false);
+                observableValue.setValue(newValue + "_x");
+            }
+        });
+
+        observableValue.onChange((oldValue, newValue) -> {
+            log2.add(oldValue);
+            log2.add(newValue);
+        });
+
+        //then
+        assertArrayEquals(new String[]{"start", "start"}, log1.toArray(new String[0]));
+        assertArrayEquals(new String[]{"start", "start"}, log2.toArray(new String[0]));
+
+        //when
+        allowChange.set(true);
+        observableValue.setValue("second");
+
+        //then
+        // first observer has seen all value changes
+        assertArrayEquals(new String[]{"start", "start", "start", "second", "second", "second_x"}, log1.toArray(new String[0]));
+
+        // the second observer might _not_ have seen all value changes but he sees
+        // at least the last proper value change !!!
+        assertArrayEquals(new String[]{"start", "start", "second", "second_x"}, log2.toArray(new String[0]));
+
     }
 
 }

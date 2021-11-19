@@ -34,7 +34,7 @@ public final class ObservableValue<V>  {
      *
      * Every time the value changes, all the listeners will be notified.
      *
-     * This is package private, only 'ControllerBase' is allowed to set a new value.
+     * This is method is 'package private', only 'ControllerBase' is allowed to set a new value.
      *
      * For the UIs setValue is not accessible
      *
@@ -47,7 +47,11 @@ public final class ObservableValue<V>  {
         V oldValue = value;
         value      = newValue;
 
-        listeners.forEach(listener -> listener.update(oldValue, newValue));
+        listeners.forEach(listener -> {
+            if(value.equals(newValue)){ // pre-ordered listeners might have changed this and thus the callback no longer applies
+                listener.update(oldValue, newValue);
+            }
+        });
     }
 
     /**

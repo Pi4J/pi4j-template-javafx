@@ -1,5 +1,7 @@
 package com.pi4j.jfx.util.mvc;
 
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import com.pi4j.context.Context;
 
@@ -12,13 +14,13 @@ import com.pi4j.context.Context;
  *
  * Therefore, we need an additional "worker-thread" in both UIs.
  *
- * For JavaFX-based GUIs that's already implemented.
+ * For JavaFX-based GUIs that's already available (the JavaFX Application Thread).
  *
  * For PUIs we need to do that ourselves. It's implemented as a provider/consumer-pattern (see {@link ConcurrentTaskQueue}.
  */
 public abstract class PUI_Base<M, C extends ControllerBase<M>> implements Projector<M, C>{
 
-    // all PUI actions should be done asynchronously (to avoid GUI freezing)
+    // all PUI actions should be done asynchronously (to avoid UI freezing)
     private final ConcurrentTaskQueue<Void> queue = new ConcurrentTaskQueue<>();
 
     protected final Context pi4J;
@@ -30,7 +32,16 @@ public abstract class PUI_Base<M, C extends ControllerBase<M>> implements Projec
     }
 
     public void shutdown(){
+        pi4J.shutdown();
         queue.shutdown();
+    }
+
+    protected void async(Supplier<Void> todo, Consumer<Void> onDone) {
+        queue.submit(todo, onDone);
+    }
+
+    public void runLater(Consumer<Void> todo) {
+        async(() -> null, todo);
     }
 
     /**
@@ -55,8 +66,8 @@ public abstract class PUI_Base<M, C extends ControllerBase<M>> implements Projec
             this.observableValue = observableValue;
         }
 
-        public void triggerPUIAction(ValueChangeListener<V> action) {
-            observableValue.onChange((oldValue, newValue) -> queue.submit(unused -> {
+        public void execute(ValueChangeListener<V> action) {
+            observableValue.onChange((oldValue, newValue) -> queue.submit(() -> {
                 action.update(oldValue, newValue);
                 return null;
             }));

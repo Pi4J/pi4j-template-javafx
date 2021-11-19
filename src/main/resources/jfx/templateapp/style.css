@@ -1,0 +1,26 @@
+.root-pane {
+    -fx-padding:     10;
+    -fx-font-family: 'Lato Light';
+    -fx-font-size:   16;
+    -fx-pref-width:  350;
+    -fx-pref-height: 400;
+}
+
+.root-pane .info-label {
+    -fx-font-size: 10;
+}
+
+.root-pane .counter-label {
+    -fx-font-size: 152;
+}
+
+.root-pane .icon-button {
+    -fx-font-family:       'FontAwesome';
+    -fx-font-size:         28;
+    -fx-min-width:         60;
+    -fx-min-height:        60;
+    -fx-background-radius: 30;
+    -fx-content-display:   text-only;
+    -fx-cursor:            hand;
+    -fx-text-fill: #f3a83b;
+}

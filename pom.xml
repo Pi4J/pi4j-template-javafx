@@ -16,7 +16,8 @@
 
         <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.jfxplain.HelloFX</launcher.class> -->
         <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.pi4jplain.MinimalPi4J</launcher.class> -->
-        <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.exampleapp.AppStarter</launcher.class>
+        <!-- <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.templateapp.AppStarter</launcher.class> -->
+        <launcher.class>com.pi4j.fxgl/com.pi4j.jfx.multicontrollerapp.AppStarter</launcher.class>
 
 
         <fxgl.launcher.args/>
@@ -42,7 +43,6 @@
         <!-- Plugin Versions-->
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
         <gluonfx.plugin.version>1.0.9</gluonfx.plugin.version>
-        <gluonfx.target/>
 
         <!-- Maven Plugin Versions -->
         <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
@@ -157,13 +157,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Testing asynchronous systems -->
-        <dependency>
-              <groupId>org.awaitility</groupId>
-              <artifactId>awaitility</artifactId>
-              <version>4.1.1</version>
-              <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
