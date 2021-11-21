@@ -2,6 +2,9 @@ package com.pi4j.jfx.util.mvc;
 
 import java.time.Duration;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -70,8 +73,28 @@ public abstract class ControllerBase<M> {
      *
      * Typically used in TestCases
      */
-    public void runLater(Consumer<M> todo) {
-        async(() -> model, todo);
+    public void runLater(Consumer<M> action) {
+        async(() -> model, action);
+    }
+
+    /**
+     * Intermediate solution for TestCase support.
+     *
+     * Best solution would be that 'action' of 'runLater' is executed on calling thread.
+     *
+     * Waits until all current actions in actionQueue are completed.
+     *
+     */
+    public void awaitCompletion(){
+        final ExecutorService waitForFinishedService = Executors.newFixedThreadPool(1);
+        // would be nice if this could just be a method reference
+        async(waitForFinishedService::shutdown);
+        try {
+            //noinspection ResultOfMethodCallIgnored
+            waitForFinishedService.awaitTermination(5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            throw new IllegalThreadStateException(); // very unlikely to happen
+        }
     }
 
     /**

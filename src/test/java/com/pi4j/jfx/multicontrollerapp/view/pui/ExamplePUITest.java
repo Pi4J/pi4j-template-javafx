@@ -22,17 +22,19 @@ public class ExamplePUITest {
 
         //when
         controller.setLedGlows(true);
+        controller.awaitCompletion();
+        pui.awaitCompletion();
 
         //then
-
-        //todo: this should fail !!!
-        pui.runLater(unused -> assertTrue(pui.led.glows()));
+        assertTrue(pui.led.glows());
 
         //when
         controller.setLedGlows(false);
+        controller.awaitCompletion();
+        pui.awaitCompletion();
 
         //then
-        pui.runLater(unused -> assertFalse(pui.led.glows()));
+        assertFalse(pui.led.glows());
     }
 
     @Test
@@ -46,8 +48,9 @@ public class ExamplePUITest {
 
         //when
         pui.button.dispatchSimpleEvents(ButtonComponent.ButtonState.UP);
+        controller.awaitCompletion();
 
         //then
-        controller.runLater(exampleModel -> assertEquals(initialCounter - 1, exampleModel.counter.getValue()));
+        assertEquals(initialCounter - 1, model.counter.getValue());
     }
 }

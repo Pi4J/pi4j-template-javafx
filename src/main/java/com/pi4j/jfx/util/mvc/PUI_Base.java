@@ -1,5 +1,8 @@
 package com.pi4j.jfx.util.mvc;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -42,6 +45,31 @@ public abstract class PUI_Base<M, C extends ControllerBase<M>> implements Projec
 
     public void runLater(Consumer<Void> todo) {
         async(() -> null, todo);
+    }
+
+    /**
+     * Intermediate solution for TestCase support.
+     *
+     * Best solution would be that 'action' of 'runLater' is executed on calling thread.
+     *
+     * Waits until all current actions in actionQueue are completed.
+     *
+     */
+    public void awaitCompletion(){
+        final ExecutorService waitForFinishedService = Executors.newFixedThreadPool(1);
+        // would be nice if this could just be a method reference
+        async(() -> {
+                  waitForFinishedService.shutdown();
+                  return null;
+              },
+              unused -> {
+              });
+        try {
+            //noinspection ResultOfMethodCallIgnored
+            waitForFinishedService.awaitTermination(5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            throw new IllegalThreadStateException(); // very unlikely to happen
+        }
     }
 
     /**

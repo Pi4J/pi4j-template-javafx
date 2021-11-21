@@ -59,12 +59,15 @@ public class ConcurrentTaskQueue<R> {
         if (running) {
             return;
         }
-        if (buffer.isEmpty()) {
-            return;
-        }
-        running = true;
 
         final Task<R> task = buffer.poll();
+
+        if(task == null){
+            return;
+        }
+
+        running = true;
+
         final Future<R> todoFuture = executor.submit(task.todo::get);
 
         Runnable onDoneRunnable = () -> {

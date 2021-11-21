@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ExampleControllerTest {
@@ -21,15 +20,17 @@ class ExampleControllerTest {
 
         //when
         controller.increaseCounter();
+        controller.awaitCompletion();
 
         //then
-        controller.runLater(m ->  assertEquals(initialCount + 1, m.counter.getValue()));
+        assertEquals(initialCount + 1, model.counter.getValue());
 
         //when
         controller.decreaseCounter();
+        controller.awaitCompletion();
 
         //then
-        controller.runLater(m -> assertEquals(initialCount, m.counter.getValue()));
+        assertEquals(initialCount, model.counter.getValue());
     }
 
     @Test
@@ -41,15 +42,17 @@ class ExampleControllerTest {
 
         //when
         controller.setLedGlows(true);
-
+        controller.awaitCompletion();
+        
         //then
-        controller.runLater(m-> assertTrue(m.ledGlows.getValue()));
+        assertTrue(model.ledGlows.getValue());
 
         //when
         controller.setLedGlows(false);
+        controller.awaitCompletion();
 
         //then
-        controller.runLater(m-> assertFalse(m.ledGlows.getValue()));
+        assertFalse(model.ledGlows.getValue());
     }
 
 

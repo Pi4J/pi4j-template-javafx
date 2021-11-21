@@ -1,6 +1,5 @@
 package com.pi4j.jfx.templateapp.view.pui;
 
-
 import com.pi4j.jfx.templateapp.controller.SomeController;
 import com.pi4j.jfx.templateapp.model.SomeModel;
 import com.pi4j.jfx.templateapp.view.pui.components.ButtonComponent;
@@ -8,7 +7,9 @@ import com.pi4j.jfx.util.Pi4JContext;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class SomePUITest {
@@ -21,17 +22,19 @@ class SomePUITest {
  
          //when
          controller.setLedGlows(true);
+         controller.awaitCompletion();
+         pui.awaitCompletion();
  
          //then
- 
-         //todo: this should fail !!!
-         pui.runLater(unused -> assertTrue(pui.led.glows()));
+         assertTrue(pui.led.glows());
  
          //when
          controller.setLedGlows(false);
+         controller.awaitCompletion();
+         pui.awaitCompletion();
  
          //then
-         pui.runLater(unused -> assertFalse(pui.led.glows()));
+         assertFalse(pui.led.glows());
      }
  
      @Test
@@ -45,9 +48,11 @@ class SomePUITest {
  
          //when
          pui.button.dispatchSimpleEvents(ButtonComponent.ButtonState.UP);
+         pui.awaitCompletion();
+         controller.awaitCompletion();
  
          //then
-         controller.runLater(SomeModel -> assertEquals(initialCounter - 1, SomeModel.counter.getValue()));
+         assertEquals(initialCounter - 1, model.counter.getValue());
      }
 
 }
