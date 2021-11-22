@@ -56,7 +56,7 @@ Das CrowPi-Image enthält bereits alle notwendige Installationen für JavaFX/Pi4
 
 Für MacOs und Linux gibt es ein sehr empfehlenswertes Tool zur Verwaltung unterschiedlicher Software Development Kits: [SDKMAN](https://sdkman.io)
 
-Insbesondere wenn, wie üblich, mehrere Java JDKs verwendet werden sollen, hilft SDKMAN.
+Insbesondere wenn, wie üblich, mehrere Java JDKs verwendet werden, hilft SDKMAN.
 
 #### Installation von SDKMAN
 Folgenden Befehl in einem Terminal eingeben:
@@ -299,22 +299,22 @@ Weitere Konsequenzen
 Die Basis-Klassen, die für die Implementierung des MVC-Konzepts notwendig sind, sind im Package `com.pi4j.jfx.util.mvc`. Die Klassen sind im Code ausführlich dokumentiert. 
 
 ## MultiControllerApp
-Zeigt des Einsatz von mehreren Controllern in einer Applikation.
+Ein etwas fortgeschritteneres Beispiel ist die `MultiControllerApp`. Sie zeigt den Einsatz und die Notwendigkeit von mehreren Controllern in einer Applikation.
 
 Für einen einzelnen Controller gilt:
 - jede Action wird asynchron und reihenfolgetreu ausgeführt 
-- dafür hat jeder Controller eine eigene 'ConcurrentTaskQueue' integriert.
-- das UI wird während der Ausführung einer Action nicht blockiert
-- falls vom UI weitere Actions getriggert während eine Action gerade in Bearbeitung ist, werden diese in der TaskQueue aufgesammelt und ausgeführt, sobald die vorherigen Actions abgearbeitet sind.
+- dafür hat jeder Controller eine eigene `ConcurrentTaskQueue` integriert
+- das UI wird dadurch während der Ausführung einer Action nicht blockiert
+- falls vom UI weitere Actions getriggert während eine Action gerade in Bearbeitung ist, werden diese in der `ConcurrentTaskQueue aufgesammelt und ausgeführt, sobald die vorherigen Actions abgearbeitet sind.
 
 Für einfache Applikationen reicht ein einzelner Controller meist aus.
 
 Es gibt aber Situationen, bei denen Actions ausgeführt werden sollen, während eine andere Action noch läuft.
 
 Die MultiControllerApp zeigt so ein Beispiel. Es soll möglich sein, den Counter zu verändern während die LED blinkt. 
-- Mit einem einzigen Controller ist das nicht umsetzbar. Der Controller würde beispielsweise die 'Decrease-Action' erst ausführen nachdem die 'Blink-Action' abgeschlossen ist.
-- Bei zwei Controllern ist es jedoch einfach:  'LedController' und 'CounterController' haben jeder eine Taskqueue. 
-- Es sollte zusätzlich ein 'ApplicationController' implementiert werden, der die anderen Controller koordiniert und das für das UI sichtbare API zur Verfügung stellt.
+- Mit einem einzigen Controller ist das nicht umsetzbar. Der Controller würde beispielsweise die 'Decrease-Action' erst ausführen, nachdem die 'Blink-Action' abgeschlossen ist.
+- Bei zwei Controllern ist es jedoch einfach: `LedController` und `CounterController` haben jeder eine `ConcurrentTaskQueue`. Actions, die die LED betreffen, werden also unabhängig von den Actions, die den Counter verändern, ausgeführt.
+- Es sollte zusätzlich ein `ApplicationController` implementiert werden, der die anderen Controller koordiniert und das für das UI sichtbare API zur Verfügung stellt.
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
@@ -332,11 +332,13 @@ Durch die klare Trennung in Model, View und Controller können grosse Teile der 
 
 Der Controller implementiert die gesamte zur Verfügung stehende Grund-Funktionalität. Er sollte mit ausführlichen TestCases automatisch überprüft werden.
 
-Ein Beispiel sehen Sie in `ExampleControllerTest`
+Dabei gilt es zu beachten, dass der Controller alle Veränderungen auf dem Model asynchron ausführt. Eine Überprüfung der Resultate ist also erst möglich, wenn asynchrone Task beendet ist.
+
+Ein Beispiel sehen Sie in `ExampleControllerTest`.
 
 #### Presentation-Model Tests
 
-Das Model ist lediglich eine Ansammlung von ObservableValues und bietet darüber hinaus keine weitere Funktionalität. Daher sind normalerweise auch keine weiteren TestCases notwendig
+Das Model ist lediglich eine Ansammlung von `ObservableValues` und bietet darüber hinaus keine weitere Funktionalität. Daher sind normalerweise auch keine weiteren TestCases notwendig.
 
 #### Tests für einzelne PUI-Components
 
@@ -346,6 +348,8 @@ Beispiele für solche Component-Test sehen Sie im [CrowPi-Tutorial](https://fhnw
 
 #### PUI Tests
 Das PUI ihrer Applikation kann ebenfalls gut mittels JUnit getestet werden.
+
+Auch hier müssen die Test berücksichtigen, dass die Actions asynchron ausgeführt werden.
 
 Ein Beispiel ist `ExamplePUITest`.
 
