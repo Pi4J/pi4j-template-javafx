@@ -6,7 +6,7 @@ import com.pi4j.jfx.multicontrollerapp.model.ExampleModel;
 import com.pi4j.jfx.util.mvc.ControllerBase;
 
 /**
- * Handles all the functionality needed to manage the 'led'
+ * Handles all the functionality needed to manage the 'LED'.
  *
  * All methods are intentionally 'package private'. Only 'ApplicationController' can access them
  */
@@ -21,25 +21,36 @@ class LEDController extends ControllerBase<ExampleModel> {
     }
 
     /**
-     * Controller controls all the state changes.
+     * In this example Controller even controls the blinking behaviour
      */
     void blink() {
-        final Duration duration = Duration.ofMillis(500);
+        final Duration pause = Duration.ofMillis(500);
         setLedGlows(false);
         for (int i = 0; i < 4; i++) {
             setLedGlows(true);
-            pauseExecution(duration);
+            pauseExecution(pause);
             setLedGlows(false);
-            pauseExecution(duration);
+            pauseExecution(pause);
         }
     }
 
     /**
-     * Example for triggering some built-in action in PUI.
+     * Executes 'onDone' after the blinking is finished.
      *
-     * Controller can't call PUI-component methods directly.
+     * Should be used in TestCases only (if you want to avoid UI freezes)
      *
-     * Use an ObservableValue<Boolean> to trigger the action.
+     */
+    void blink(Runnable onDone) {
+        blink();
+        awaitCompletion();
+        onDone.run();
+    }
+
+    /**
+     * Example for triggering some built-in action in PUI instead of implement it in Controller.
+     *
+     * Controller can't call PUI-component methods directly. Use a trigger instead.
+     *
      */
 //    public void blinkViaBuiltInAction() {
 //        toggle(model.blinkingTrigger);

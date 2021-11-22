@@ -1,5 +1,6 @@
 package com.pi4j.jfx.util.mvc;
 
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -29,6 +30,8 @@ public abstract class PUI_Base<M, C extends ControllerBase<M>> implements Projec
     protected final Context pi4J;
 
     public PUI_Base(C controller, Context pi4J) {
+        Objects.requireNonNull(pi4J);
+
         this.pi4J = pi4J;
 
         init(controller);
@@ -94,7 +97,7 @@ public abstract class PUI_Base<M, C extends ControllerBase<M>> implements Projec
             this.observableValue = observableValue;
         }
 
-        public void execute(ValueChangeListener<V> action) {
+        public void execute(ObservableValue.ValueChangeListener<V> action) {
             observableValue.onChange((oldValue, newValue) -> queue.submit(() -> {
                 action.update(oldValue, newValue);
                 return null;

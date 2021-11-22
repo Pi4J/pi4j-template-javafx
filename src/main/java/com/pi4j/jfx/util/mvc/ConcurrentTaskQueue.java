@@ -25,7 +25,7 @@ import java.util.function.Supplier;
  * @author Dierk Koenig
  */
 
-public class ConcurrentTaskQueue<R> {
+public final class ConcurrentTaskQueue<R> {
     private final ExecutorService executor;
     private final ConcurrentLinkedQueue<Task<R>> buffer;
     private final Duration maxToDoTime;

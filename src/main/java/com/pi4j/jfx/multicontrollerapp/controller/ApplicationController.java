@@ -11,7 +11,7 @@ import com.pi4j.jfx.util.mvc.ControllerBase;
  */
 public class ApplicationController extends ControllerBase<ExampleModel> {
 
-    private final LEDController ledController;
+    private final LEDController     ledController;
     private final CounterController counterController;
 
     public ApplicationController(ExampleModel model) {
@@ -45,4 +45,14 @@ public class ApplicationController extends ControllerBase<ExampleModel> {
     public void blink(){
         ledController.blink();
     }
+
+    /**
+     * Calls 'onDone' when blinking is finished.
+     *
+     * This method is suitable for TestCases. Whenever it is called from UI, the UI freezes.
+     */
+    public void blink(Runnable onDone){
+        ledController.blink(onDone);
+    }
+
 }

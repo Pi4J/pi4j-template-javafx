@@ -41,8 +41,9 @@ public class ExamplePUI extends PUI_Base<ExampleModel, ApplicationController> {
                     }
                 });
 
-        onChangeOf(model.blinkingTrigger)
-                .execute((oldValue, newValue) -> led.blink(4, Duration.ofMillis(500)));
+        // if you want to use the built-in blinking feature (instead of implementing blinking in Controller):
+//        onChangeOf(model.blinkingTrigger)
+//                .execute((oldValue, newValue) -> led.blink(4, Duration.ofMillis(500)));
 
     }
 }

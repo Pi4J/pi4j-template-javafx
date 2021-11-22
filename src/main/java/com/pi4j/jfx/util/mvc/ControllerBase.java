@@ -2,6 +2,7 @@ package com.pi4j.jfx.util.mvc;
 
 import java.time.Duration;
 
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -33,6 +34,8 @@ public abstract class ControllerBase<M> {
      * @param model Model managed by this Controller
      */
     protected ControllerBase(M model){
+        Objects.requireNonNull(model);
+
         this.model = model;
     }
 
@@ -108,6 +111,8 @@ public abstract class ControllerBase<M> {
      * Even for setting a value the controller is responsible.
      *
      * No application specific class can access ObservableValue.setValue
+     *
+     * Value is set asynchronously.
      */
     protected <V> void setValue(ObservableValue<V> observableValue, V newValue){
         async(() -> observableValue.setValue(newValue));
@@ -125,7 +130,7 @@ public abstract class ControllerBase<M> {
      *
      * An {@link InterruptedException} will be catched and ignored while setting the interrupt flag again.
      *
-     * @param duration Time  to sleep
+     * @param duration time to sleep
      */
     protected void pauseExecution(Duration duration) {
         async(() -> {

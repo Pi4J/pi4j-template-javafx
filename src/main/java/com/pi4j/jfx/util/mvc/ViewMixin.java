@@ -95,7 +95,7 @@ public interface ViewMixin<M,  C extends ControllerBase<M>> extends Projector<M,
          *
          * @param listener whatever needs to be done on GUI when observableValue changes
          */
-        public void execute(ValueChangeListener<V> listener){
+        public void execute(ObservableValue.ValueChangeListener<V> listener){
             observableValue.onChange((oldValue, newValue) -> Platform.runLater(() -> listener.update(oldValue, newValue)));
         }
     }

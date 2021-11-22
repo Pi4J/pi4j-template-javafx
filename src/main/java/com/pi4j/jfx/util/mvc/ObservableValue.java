@@ -68,4 +68,8 @@ public final class ObservableValue<V>  {
         return value.toString();
     }
 
+    @FunctionalInterface
+    public interface ValueChangeListener<V> {
+        void update(V oldValue, V newValue);
+    }
 }

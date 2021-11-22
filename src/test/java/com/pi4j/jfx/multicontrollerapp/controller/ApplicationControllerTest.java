@@ -1,5 +1,7 @@
 package com.pi4j.jfx.multicontrollerapp.controller;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import com.pi4j.jfx.multicontrollerapp.model.ExampleModel;
 
 import org.junit.jupiter.api.Test;
@@ -8,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class ExampleControllerTest {
+class ApplicationControllerTest {
 
     @Test
     void testCounter() {
@@ -37,7 +39,6 @@ class ExampleControllerTest {
     void testLED() {
         //given
         ExampleModel model = new ExampleModel();
-
         ApplicationController controller = new ApplicationController(model);
 
         //when
@@ -55,5 +56,21 @@ class ExampleControllerTest {
         assertFalse(model.ledGlows.getValue());
     }
 
+    @Test
+    void testBlink(){
+        //given
+        ExampleModel model = new ExampleModel();
+        ApplicationController controller = new ApplicationController(model);
+
+        AtomicInteger counter = new AtomicInteger(-1);
+        model.ledGlows.onChange((oldValue, newValue) -> counter.getAndIncrement());
+
+        //when
+        controller.blink(() -> {
+            //then
+            assertEquals(8, counter.get());
+            assertFalse(model.ledGlows.getValue());
+        });
+    }
 
 }
