@@ -305,13 +305,13 @@ Für einen einzelnen Controller gilt:
 - jede Action wird asynchron und reihenfolgetreu ausgeführt 
 - dafür hat jeder Controller eine eigene `ConcurrentTaskQueue` integriert
 - das UI wird dadurch während der Ausführung einer Action nicht blockiert
-- falls vom UI weitere Actions getriggert während eine Action gerade in Bearbeitung ist, werden diese in der `ConcurrentTaskQueue aufgesammelt und ausgeführt, sobald die vorherigen Actions abgearbeitet sind.
+- falls vom UI weitere Actions getriggert während eine Action gerade in Bearbeitung ist, werden diese in der `ConcurrentTaskQueue` aufgesammelt und ausgeführt, sobald die vorherigen Actions abgearbeitet sind.
 
 Für einfache Applikationen reicht ein einzelner Controller meist aus.
 
 Es gibt aber Situationen, bei denen Actions ausgeführt werden sollen, während eine andere Action noch läuft.
 
-Die MultiControllerApp zeigt so ein Beispiel. Es soll möglich sein, den Counter zu verändern während die LED blinkt. 
+Die `MultiControllerApp` zeigt so ein Beispiel. Es soll möglich sein, den Counter zu verändern während die LED blinkt. 
 - Mit einem einzigen Controller ist das nicht umsetzbar. Der Controller würde beispielsweise die 'Decrease-Action' erst ausführen, nachdem die 'Blink-Action' abgeschlossen ist.
 - Bei zwei Controllern ist es jedoch einfach: `LedController` und `CounterController` haben jeder eine `ConcurrentTaskQueue`. Actions, die die LED betreffen, werden also unabhängig von den Actions, die den Counter verändern, ausgeführt.
 - Es sollte zusätzlich ein `ApplicationController` implementiert werden, der die anderen Controller koordiniert und das für das UI sichtbare API zur Verfügung stellt.
@@ -332,7 +332,7 @@ Durch die klare Trennung in Model, View und Controller können grosse Teile der 
 
 Der Controller implementiert die gesamte zur Verfügung stehende Grund-Funktionalität. Er sollte mit ausführlichen TestCases automatisch überprüft werden.
 
-Dabei gilt es zu beachten, dass der Controller alle Veränderungen auf dem Model asynchron ausführt. Eine Überprüfung der Resultate ist also erst möglich, wenn asynchrone Task beendet ist.
+Dabei gilt es zu beachten, dass der Controller alle Veränderungen auf dem Model asynchron ausführt. Eine Überprüfung der Resultate ist also erst möglich, wenn die asynchrone Task beendet ist.
 
 Ein Beispiel sehen Sie in `ExampleControllerTest`.
 
@@ -344,7 +344,7 @@ Das Model ist lediglich eine Ansammlung von `ObservableValues` und bietet darüb
 
 Die einzelnen PUI-Components können sehr gut via der in Pi4J integrierten `MockPlatform` getestet werden. Diese Tests werden auf dem Laptop ausgeführt. Ein RaspPi ist nicht notwendig.
 
-Beispiele für solche Component-Test sehen Sie im [CrowPi-Tutorial](https://fhnw-ip5-ip6.github.io/CrowPiGoesJavaTutorial/de/) und in diesem Projekt im Package `com.pi4j.jfx.view.pui.components`.
+Beispiele für solche Component-Test sehen Sie im [CrowPi-Tutorial](https://fhnw-ip5-ip6.github.io/CrowPiGoesJavaTutorial/de/) und in diesem Projekt im Package `com.pi4j.jfx.templateapp.view.pui.components`.
 
 #### PUI Tests
 Das PUI ihrer Applikation kann ebenfalls gut mittels JUnit getestet werden.
