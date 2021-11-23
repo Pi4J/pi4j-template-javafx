@@ -74,7 +74,6 @@ public abstract class ControllerBase<M> {
     /**
      * Schedule the given action after all the actions already scheduled have finished.
      *
-     * Typically used in TestCases
      */
     public void runLater(Consumer<M> action) {
         async(() -> model, action);

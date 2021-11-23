@@ -47,7 +47,6 @@ class SomeControllerTest {
     @Test
     void testTermination() {
         //given
-
         SomeModel      model      = new SomeModel();
         TestController controller = new TestController(model);
 
