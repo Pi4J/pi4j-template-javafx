@@ -34,14 +34,14 @@ public class HelloFX extends Application {
         Button btn = new Button("Say Hello");
         btn.setOnAction(event -> lbl.setText("Hello"));
 
-        ImageView imgView = new ImageView(new Image(HelloFX.class.getResourceAsStream("/jfx/jfxplain/openduke.png")));
+        ImageView imgView = new ImageView(new Image(HelloFX.class.getResourceAsStream("/setup/openduke.png")));
         imgView.setFitHeight(200);
         imgView.setPreserveRatio(true);
 
         VBox rootPane = new VBox(50, imgView, lbl, btn);
         rootPane.setAlignment(Pos.CENTER);
 
-        rootPane.getStylesheets().add(HelloFX.class.getResource("/jfx/jfxplain/style.css").toExternalForm());
+        rootPane.getStylesheets().add(HelloFX.class.getResource("/setup/style.css").toExternalForm());
 
         Scene scene = new Scene(rootPane, 640, 480);
         stage.setTitle("Plain JavaFX App");

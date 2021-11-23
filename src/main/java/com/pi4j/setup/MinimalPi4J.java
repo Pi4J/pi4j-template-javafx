@@ -56,17 +56,10 @@ public class MinimalPi4J {
         // specify some action, that will be triggered whenever the button's state changed
         button.addListener(e -> {
             switch (e.state()) {
-                case HIGH:
-                    System.out.println("Button was pressed!");
-                    break;
-                case LOW:
-                    System.out.println("Button was depressed!");
-                    break;
-                case UNKNOWN:
-                    System.out.println("Something unknown happened!!");
-                    break;
-                default:
-                    System.out.println("if something else happens, it's a bug in Pi4J, this is the state '" + e.state() + "'");
+                case HIGH    -> System.out.println("Button was pressed!");
+                case LOW     -> System.out.println("Button was depressed!");
+                case UNKNOWN -> System.out.println("Something unknown happened!!");
+                default      -> System.out.println("if something else happens, it's a bug in Pi4J, this is the state '" + e.state() + "'");
             }
         });
 
