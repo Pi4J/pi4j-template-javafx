@@ -81,7 +81,7 @@ public class MinimalPi4J {
         // We are all done and want to exit our application, we must
         // call the 'shutdown()' on the Pi4J static helper class.
         // This will ensure that all I/O instances are
-        // released by the the system and shutdown in the appropriate
+        // released by the system and shutdown in the appropriate
         // manner. It will also ensure that any background
         // threads/processes are cleanly shutdown and any used memory
         // is returned to the system.

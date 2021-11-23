@@ -189,7 +189,7 @@ Dient ausschliesslich der Überprüfung der JavaFX-Basis-Installation. Auf keine
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.fxgl/com.pi4j.jfx.jfxplain.HelloFX</launcher.class>`
+  - `<launcher.class>com.pi4j.jfx/com.pi4j.jfx.jfxplain.HelloFX</launcher.class>`
 - mit `Run local` auf dem Laptop starten
 - mit `Run on Pi` auf dem RaspPi starten
 
@@ -206,7 +206,7 @@ Ist eine reine Pi4J-Applikation ohne GUI. Auch sie dient ausschliesslich der Üb
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.fxgl/com.pi4j.pi4jplain.MinimalPi4J</launcher.class> `
+  - `<launcher.class>com.pi4j.jfx/com.pi4j.pi4jplain.MinimalPi4J</launcher.class> `
 - `Run local` macht für dieses Beispiel keinen Sinn. An den Laptop sind weder Button noch LED angeschlossen
 - mit `Run on Pi` auf dem RaspPi starten
 
@@ -224,10 +224,23 @@ Sie sollten zunächst das Beispiel kennenlernen und verstehen. Für Ihre eigene 
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.fxgl/com.pi4j.jfx.templateapp.AppStarter</launcher.class>`
+  - `<launcher.class>com.pi4j.jfx/com.pi4j.jfx.templateapp.AppStarter</launcher.class>`
 - mit `Run local` (oder direkt aus der IDE heraus) auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz des RaspPis entwickelt werden 
     - in `AppStarter` kann zusätzlich noch ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
 - mit `Run on Pi` auf dem RaspPi starten (jetzt natürlich inklusive PUI)
+
+
+#### TemplatePUIApp
+
+Das MVC-Konzept sollte auch für Applikationen ohne GUI verwendet werden.
+
+Falls Sie eine reine PUI-Applikationen haben oder erst später ein GUI hinzufügen wollen, sollten Sie die `TemplatePUIApp` als Vorlage nehmen.
+
+Zum Starten:
+- `launcher.class` im `pom.xml` auswählen
+  - `<launcher.class>com.pi4j.jfx/com.pi4j.jfx.templatepuiapp.AppStarter</launcher.class>`
+- `Run local` ist bei reinen PUI-Applikationen nicht sinnvoll.
+- mit `Run on Pi` auf dem RaspPi starten
 
 
 ## Applikation im Debugger starten
@@ -291,7 +304,7 @@ Weitere Konsequenzen
 - Es können weitere UIs hinzugefügt werden, ohne dass es Code-Änderungen bei den bestehenden Klassen (ausser der Starter-Klasse) nach sich zieht. Ein Beispiel dafür ist der `PuiEmulator`, der bei Bedarf zusätzlich gestartet werden kann.
 - Diese Architektur ist auch geeignet für 
   - reine GUI-Applikationen und
-  - reine PUI-Applikationen.
+  - reine PUI-Applikationen (siehe `TemplatePUIApp`).
 
 
 ### Implementierung des MVC-Konzepts
@@ -318,7 +331,7 @@ Die `MultiControllerApp` zeigt so ein Beispiel. Es soll möglich sein, den Count
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.fxgl/com.pi4j.jfx.multicontrollerapp.AppStarter</launcher.class>`
+  - `<launcher.class>com.pi4j.jfx/com.pi4j.jfx.multicontrollerapp.AppStarter</launcher.class>`
 - mit `Run local` (oder direkt aus der IDE heraus) auf dem Laptop starten.  
     - in `AppStarter` kann zusätzlich noch ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
 - mit `Run on Pi` auf dem RaspPi starten
