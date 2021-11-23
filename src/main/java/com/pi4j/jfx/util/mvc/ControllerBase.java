@@ -122,7 +122,21 @@ public abstract class ControllerBase<M> {
      * Convenience method to toggle a ObservableValue<Boolean>
      */
     protected void toggle(ObservableValue<Boolean> observableValue){
-        setValue(observableValue, !observableValue.getValue());
+        async(() -> observableValue.setValue(!observableValue.getValue()));
+    }
+
+    /**
+     * Convenience method to increase a ObservableValue<Integer> by 1
+     */
+    protected void increase(ObservableValue<Integer> observableValue){
+        async(() -> observableValue.setValue(observableValue.getValue() + 1));
+    }
+
+    /**
+     * Convenience method to decrease a ObservableValue<Integer> by 1
+     */
+    protected void decrease(ObservableValue<Integer> observableValue){
+        async(() -> observableValue.setValue(observableValue.getValue() - 1));
     }
 
     /**

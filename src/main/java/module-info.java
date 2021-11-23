@@ -1,4 +1,4 @@
-open module com.pi4j.fxgl {
+open module com.pi4j.jfx {
      // Pi4J Modules
     requires com.pi4j;
     requires com.pi4j.library.pigpio;
