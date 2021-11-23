@@ -86,6 +86,7 @@ public abstract class ControllerBase<M> {
      *
      * Waits until all current actions in actionQueue are completed.
      *
+     * In most cases it's wrong to call this method from within an application.
      */
     public void awaitCompletion(){
         final ExecutorService waitForFinishedService = Executors.newFixedThreadPool(1);

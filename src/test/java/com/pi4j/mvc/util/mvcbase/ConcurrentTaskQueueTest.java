@@ -43,13 +43,11 @@ class ConcurrentTaskQueueTest {
             waitForFinishedService.shutdown(); // would be nice if this could just be a method reference
             return null;
         });
+        //noinspection ResultOfMethodCallIgnored
         waitForFinishedService.awaitTermination(5, TimeUnit.SECONDS);
 
         // then no number is missing and the sequence is retained
         Integer[] expected = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
         assertArrayEquals( expected, collector.toArray() );
     }
-
-
-
 }
