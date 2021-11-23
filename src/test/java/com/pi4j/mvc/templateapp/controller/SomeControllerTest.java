@@ -14,7 +14,7 @@ class SomeControllerTest {
     void testCounter() {
         //given
         SomeModel model        = new SomeModel();
-        int          initialCount = model.counter.getValue();
+        int       initialCount = model.counter.getValue();
 
         SomeController controller = new SomeController(model);
 
