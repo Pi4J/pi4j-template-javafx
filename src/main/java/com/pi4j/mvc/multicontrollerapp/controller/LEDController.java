@@ -8,7 +8,7 @@ import com.pi4j.mvc.util.mvcbase.ControllerBase;
 /**
  * Handles all the functionality needed to manage the 'LED'.
  *
- * All methods are intentionally 'package private'. Only 'ApplicationController' can access them
+ * All methods are intentionally 'package private'. Only 'ApplicationController' can access them.
  */
 class LEDController extends ControllerBase<ExampleModel> {
 
@@ -32,18 +32,6 @@ class LEDController extends ControllerBase<ExampleModel> {
             setLedGlows(false);
             pauseExecution(pause);
         }
-    }
-
-    /**
-     * Executes 'onDone' after the blinking is finished.
-     *
-     * Should be used in TestCases only (if you want to avoid UI freezes)
-     *
-     */
-    void blink(Runnable onDone) {
-        blink();
-        awaitCompletion();
-        onDone.run();
     }
 
     /**

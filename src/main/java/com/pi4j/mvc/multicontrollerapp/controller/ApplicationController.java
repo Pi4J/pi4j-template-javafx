@@ -20,6 +20,12 @@ public class ApplicationController extends ControllerBase<ExampleModel> {
         counterController = new CounterController(model);
     }
 
+    @Override
+    public void awaitCompletion() {
+        ledController.awaitCompletion();
+        counterController.awaitCompletion();
+    }
+
     // the actions we need in our application
     // these methods are public and can be called from GUI and PUI (and nothing else)
 
@@ -45,14 +51,4 @@ public class ApplicationController extends ControllerBase<ExampleModel> {
     public void blink(){
         ledController.blink();
     }
-
-    /**
-     * Calls 'onDone' when blinking is finished.
-     *
-     * This method is suitable for TestCases. Whenever it is called from UI, the UI freezes.
-     */
-    public void blink(Runnable onDone){
-        ledController.blink(onDone);
-    }
-
 }

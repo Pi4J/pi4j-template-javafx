@@ -66,11 +66,12 @@ class ApplicationControllerTest {
         model.ledGlows.onChange((oldValue, newValue) -> counter.getAndIncrement());
 
         //when
-        controller.blink(() -> {
-            //then
-            assertEquals(8, counter.get());
-            assertFalse(model.ledGlows.getValue());
-        });
+        controller.blink();
+        controller.awaitCompletion();
+
+        //then
+        assertEquals(8, counter.get());
+        assertFalse(model.ledGlows.getValue());
     }
 
 }
