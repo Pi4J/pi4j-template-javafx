@@ -220,7 +220,7 @@ Sie zeigt das Zusammenspiel eines JavaFX-basiertes Graphical-User-Interfaces (GU
 
 Es dient als Vorlage für Ihre eigene Applikation. Das umfasst auch die enthaltenen TestCases.
 
-Sie sollten zunächst das Beispiel kennenlernen und verstehen. Für Ihre eigene Applikation sollten Sie anschliessend die TemplateApp kopieren und entsprechend abändern, ohne dabei die Grundregeln des MVC-Konzepts zu verletzen (s.u.). 
+Sie sollten zunächst das Beispiel kennenlernen und verstehen. Für Ihre eigene Applikation sollten Sie anschliessend die `TemplateApp kopieren und entsprechend abändern, ohne dabei die Grundregeln des MVC-Konzepts zu verletzen (s.u.). 
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
@@ -234,12 +234,12 @@ Zum Starten:
 
 Das MVC-Konzept sollte auch für Applikationen ohne GUI verwendet werden.
 
-Falls Sie eine reine PUI-Applikationen haben oder erst später ein GUI hinzufügen wollen, sollten Sie die `TemplatePUIApp` als Vorlage nehmen.
+Falls Sie eine reine PUI-Applikation entwickeln oder erst später ein GUI hinzufügen wollen, sollten Sie die `TemplatePUIApp` als Vorlage nehmen.
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
   - `<launcher.class>com.pi4j.mvc/com.pi4j.mvc.templatepuiapp.AppStarter</launcher.class>`
-- `Run local` ist bei reinen PUI-Applikationen nicht sinnvoll.
+- `Run local` ist bei reinen PUI-Applikationen nicht sinnvoll
 - mit `Run on Pi` auf dem RaspPi starten
 
 
@@ -286,7 +286,7 @@ In unserem Fall gibt es mindestens zwei View-Klassen
 
 GUI und PUI sind komplett voneinander getrennt, z.B. hat der GUI-Button zum Anschalten der LED keinen direkten Zugriff auf die LED-Component des PUIs. Stattdessen triggert der GUI-Button lediglich eine entsprechende Action im Controller, der wiederum die on-Property im Model auf den neuen Wert setzt. In einem separaten Schritt reagiert die LED-Component des PUIs auf diese Wertänderung und schaltet die LED an- bzw. aus.
 
-GUI und PUI arbeiten allerdings mit dem identischen Controller und damit auch mit dem identischen Model. 
+GUI und PUI arbeiten mit dem identischen Controller und damit auch mit dem identischen Model. 
 
 Es ist wichtig, dass Sie dieses Konzept verstehen und für Ihr Projekt anwenden können. Gehen Sie bei Fragen auf die Fachcoaches oder OOP-Dozierenden zu.
 
@@ -295,13 +295,14 @@ Jede Benutzer-Interaktion durchläuft im MVC-Konzept den immer gleichen Kreislau
 ![MVC Concept](assets/mvc-interaction.png)
 
 #### Projector Pattern
-Unsere View-Klassen, also GUI und PUI, setzen das von Dierk König veröffentlichte [Projector Pattern](https://jaxenter.de/effiziente-oberflaechen-mit-dem-projektor-pattern-42119) um. 
+Unsere View-Klassen, also GUI und PUI, setzen das von Prof. Dierk König veröffentlichte [Projector Pattern](https://jaxenter.de/effiziente-oberflaechen-mit-dem-projektor-pattern-42119) um. 
 
 Die grundlegenden Aufgaben von GUI und PUI sind gleich. Auf Code-Ebene ist dies erkennbar:
 sie implementieren das gemeinsames Interface `Projector`, können also auf die gleiche Weise verwendet werden.
 
 Weitere Konsequenzen
-- Es können weitere UIs hinzugefügt werden, ohne dass es Code-Änderungen bei den bestehenden Klassen (ausser der Starter-Klasse) nach sich zieht. Ein Beispiel dafür ist der `PuiEmulator`, der bei Bedarf zusätzlich gestartet werden kann.
+- Es können weitere UIs hinzugefügt werden, ohne dass es Code-Änderungen bei den bestehenden Klassen (ausser der Starter-Klasse) nach sich zieht.
+  - Ein Beispiel dafür ist der `PuiEmulator`, der bei Bedarf zusätzlich gestartet werden kann.
 - Diese Architektur ist auch geeignet für 
   - reine GUI-Applikationen und
   - reine PUI-Applikationen (siehe `TemplatePUIApp`).
@@ -324,7 +325,7 @@ Für einfache Applikationen reicht ein einzelner Controller meist aus.
 
 Es gibt aber Situationen, bei denen Actions ausgeführt werden sollen, während eine andere Action noch läuft.
 
-Die `MultiControllerApp` zeigt so ein Beispiel. Es soll möglich sein, den Counter zu verändern während die LED blinkt. 
+Die `MultiControllerApp` zeigt so ein Beispiel. Es soll möglich sein, den Counter zu verändern _während die LED blinkt_ . 
 - Mit einem einzigen Controller ist das nicht umsetzbar. Der Controller würde beispielsweise die 'Decrease-Action' erst ausführen, nachdem die 'Blink-Action' abgeschlossen ist.
 - Bei zwei Controllern ist es jedoch einfach: `LedController` und `CounterController` haben jeder eine `ConcurrentTaskQueue`. Actions, die die LED betreffen, werden also unabhängig von den Actions, die den Counter verändern, ausgeführt.
 - Es sollte zusätzlich ein `ApplicationController` implementiert werden, der die anderen Controller koordiniert und das für das UI sichtbare API zur Verfügung stellt.
