@@ -14,11 +14,11 @@
     <properties>
         <!-- The class that will be started, choose one and only one -->
 
-        <!--  <launcher.class>com.pi4j.jfx/com.pi4j.jfx.jfxplain.HelloFX</launcher.class> -->
-        <!-- <launcher.class>com.pi4j.jfx/com.pi4j.pi4jplain.MinimalPi4J</launcher.class> -->
-        <!-- <launcher.class>com.pi4j.jfx/com.pi4j.jfx.templateapp.AppStarter</launcher.class> -->
-        <launcher.class>com.pi4j.jfx/com.pi4j.jfx.templatepuiapp.AppStarter</launcher.class>
-        <!-- <launcher.class>com.pi4j.jfx/com.pi4j.jfx.multicontrollerapp.AppStarter</launcher.class> -->
+        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.setup.HelloFX</launcher.class> -->
+        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.setup.MinimalPi4J</launcher.class> -->
+        <launcher.class>com.pi4j.mvc/com.pi4j.mvc.templateapp.AppStarter</launcher.class>
+        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.mvc.templatepuiapp.AppStarter</launcher.class> -->
+        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class> -->
 
 
         <!-- Setup for the RaspPi -->

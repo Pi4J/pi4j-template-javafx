@@ -189,7 +189,7 @@ Dient ausschliesslich der Überprüfung der JavaFX-Basis-Installation. Auf keine
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.jfx/com.pi4j.jfx.jfxplain.HelloFX</launcher.class>`
+  - `<launcher.class>com.pi4j.mvc/com.pi4j.setup.HelloFX</launcher.class>`
 - mit `Run local` auf dem Laptop starten
 - mit `Run on Pi` auf dem RaspPi starten
 
@@ -206,7 +206,7 @@ Ist eine reine Pi4J-Applikation ohne GUI. Auch sie dient ausschliesslich der Üb
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.jfx/com.pi4j.pi4jplain.MinimalPi4J</launcher.class> `
+  - `<launcher.class>com.pi4j.mvc/com.pi4j.setup.MinimalPi4J</launcher.class> `
 - `Run local` macht für dieses Beispiel keinen Sinn. An den Laptop sind weder Button noch LED angeschlossen
 - mit `Run on Pi` auf dem RaspPi starten
 
@@ -224,7 +224,7 @@ Sie sollten zunächst das Beispiel kennenlernen und verstehen. Für Ihre eigene 
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.jfx/com.pi4j.jfx.templateapp.AppStarter</launcher.class>`
+  - `<launcher.class>com.pi4j.mvc/com.pi4j.mvc.templateapp.AppStarter</launcher.class>`
 - mit `Run local` (oder direkt aus der IDE heraus) auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz des RaspPis entwickelt werden 
     - in `AppStarter` kann zusätzlich noch ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
 - mit `Run on Pi` auf dem RaspPi starten (jetzt natürlich inklusive PUI)
@@ -238,7 +238,7 @@ Falls Sie eine reine PUI-Applikationen haben oder erst später ein GUI hinzufüg
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.jfx/com.pi4j.jfx.templatepuiapp.AppStarter</launcher.class>`
+  - `<launcher.class>com.pi4j.mvc/com.pi4j.mvc.templatepuiapp.AppStarter</launcher.class>`
 - `Run local` ist bei reinen PUI-Applikationen nicht sinnvoll.
 - mit `Run on Pi` auf dem RaspPi starten
 
@@ -309,7 +309,7 @@ Weitere Konsequenzen
 
 ### Implementierung des MVC-Konzepts
 
-Die Basis-Klassen, die für die Implementierung des MVC-Konzepts notwendig sind, sind im Package `com.pi4j.jfx.util.mvc`. Die Klassen sind im Code ausführlich dokumentiert. 
+Die Basis-Klassen, die für die Implementierung des MVC-Konzepts notwendig sind, sind im Package `com.pi4j.mvc.util.mvcbase`. Die Klassen sind im Code ausführlich dokumentiert. 
 
 ## MultiControllerApp
 Ein etwas fortgeschritteneres Beispiel ist die `MultiControllerApp`. Sie zeigt den Einsatz und die Notwendigkeit von mehreren Controllern in einer Applikation.
@@ -331,7 +331,7 @@ Die `MultiControllerApp` zeigt so ein Beispiel. Es soll möglich sein, den Count
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.jfx/com.pi4j.jfx.multicontrollerapp.AppStarter</launcher.class>`
+  - `<launcher.class>com.pi4j.mvc/com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class>`
 - mit `Run local` (oder direkt aus der IDE heraus) auf dem Laptop starten.  
     - in `AppStarter` kann zusätzlich noch ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
 - mit `Run on Pi` auf dem RaspPi starten
@@ -357,7 +357,7 @@ Das Model ist lediglich eine Ansammlung von `ObservableValues` und bietet darüb
 
 Die einzelnen PUI-Components können sehr gut via der in Pi4J integrierten `MockPlatform` getestet werden. Diese Tests werden auf dem Laptop ausgeführt. Ein RaspPi ist nicht notwendig.
 
-Beispiele für solche Component-Test sehen Sie im [CrowPi-Tutorial](https://fhnw-ip5-ip6.github.io/CrowPiGoesJavaTutorial/de/) und in diesem Projekt im Package `com.pi4j.jfx.templateapp.view.pui.components`.
+Beispiele für solche Component-Test sehen Sie im [CrowPi-Tutorial](https://fhnw-ip5-ip6.github.io/CrowPiGoesJavaTutorial/de/) und in diesem Projekt im Package `com.pi4j.mvc.templateapp.view.pui.components`.
 
 #### PUI Tests
 Das PUI ihrer Applikation kann ebenfalls gut mittels JUnit getestet werden.
