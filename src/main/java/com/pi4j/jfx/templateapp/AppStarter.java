@@ -25,7 +25,7 @@ public class AppStarter extends Application {
         controller = new SomeController(model);
 
         //both gui and pui are working on the same controller
-        pui = new SomePUI(controller, Pi4JContext.INSTANCE);
+        pui = new SomePUI(controller, Pi4JContext.createContext());
 
         Parent gui = new SomeGUI(controller);
 

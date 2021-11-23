@@ -36,19 +36,16 @@ public class Pi4JContext {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Pi4JContext.class);
 
-    public static final Context INSTANCE = buildNewContext();
-
     private Pi4JContext() {
     }
-
 
     /**
      * Creates a new Pi4J Context depending on the machine the app is running.
      *
      * @return Context that will be used by this app
      */
-    private static Context buildNewContext() {
-        Context context = runsOnPi() ? createContext() : createMockContext();
+    public static Context createContext() {
+        Context context = runsOnPi() ? createRaspPiContext() : createMockContext();
         LOGGER.info("GPIO initialized for " + (runsOnPi() ? " RaspPi" : " desktop"));
 
         return context;
@@ -94,7 +91,7 @@ public class Pi4JContext {
      *
      * @return Context that will be used by this app
      */
-    private static Context createContext() {
+    private static Context createRaspPiContext() {
         // Initialize PiGPIO
         final PiGpio piGpio = PiGpio.newNativeInstance();
 
