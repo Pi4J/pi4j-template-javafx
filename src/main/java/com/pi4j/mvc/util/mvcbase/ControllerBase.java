@@ -89,6 +89,10 @@ public abstract class ControllerBase<M> {
      * In most cases it's wrong to call this method from within an application.
      */
     public void awaitCompletion(){
+        if(actionQueue == null){
+            return;
+        }
+
         final ExecutorService waitForFinishedService = Executors.newFixedThreadPool(1);
         // would be nice if this could just be a method reference
         async(waitForFinishedService::shutdown);

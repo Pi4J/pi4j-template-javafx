@@ -22,6 +22,7 @@ public class ApplicationController extends ControllerBase<ExampleModel> {
 
     @Override
     public void awaitCompletion() {
+        super.awaitCompletion();
         ledController.awaitCompletion();
         counterController.awaitCompletion();
     }
