@@ -3,8 +3,7 @@ package com.pi4j.mvc.util.mvcbase;
 import java.time.Duration;
 
 import java.util.Objects;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -93,14 +92,16 @@ public abstract class ControllerBase<M> {
             return;
         }
 
-        final ExecutorService waitForFinishedService = Executors.newFixedThreadPool(1);
-        // would be nice if this could just be a method reference
-        async(waitForFinishedService::shutdown);
+        CountDownLatch latch = new CountDownLatch(1);
+        actionQueue.submit( () -> {
+            latch.countDown();
+            return null;
+        });
         try {
             //noinspection ResultOfMethodCallIgnored
-            waitForFinishedService.awaitTermination(5, TimeUnit.SECONDS);
+            latch.await(5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            throw new IllegalThreadStateException(); // very unlikely to happen
+            throw new IllegalStateException("CountDownLatch was interrupted");
         }
     }
 

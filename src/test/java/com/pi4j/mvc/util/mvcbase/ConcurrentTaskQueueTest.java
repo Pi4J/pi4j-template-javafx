@@ -1,6 +1,7 @@
 package com.pi4j.mvc.util.mvcbase;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -8,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ConcurrentTaskQueueTest {
 
@@ -36,15 +38,13 @@ class ConcurrentTaskQueueTest {
         // special in the test case: wait until all concurrent tasks are finished
         // such that we can synchronously assert the outcome.
         // The general idea is to submit a last task to the CTQ that concurrently sets a state that we can
-        // synchronously wait for. To that end, we create an extra executor, that we shut down in the task,
-        // and wait for termination in the tests main thread.
-        final ExecutorService waitForFinishedService = Executors.newFixedThreadPool(1);
-        taskQueue.submit( () -> {
-            waitForFinishedService.shutdown(); // would be nice if this could just be a method reference
-            return null;
-        });
-        //noinspection ResultOfMethodCallIgnored
-        waitForFinishedService.awaitTermination(5, TimeUnit.SECONDS);
+        // synchronously wait for.
+         CountDownLatch latch = new CountDownLatch(1);
+         taskQueue.submit( () -> {
+             latch.countDown();
+             return null;
+         });
+         assertTrue(latch.await(5, TimeUnit.SECONDS));
 
         // then no number is missing and the sequence is retained
         Integer[] expected = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
