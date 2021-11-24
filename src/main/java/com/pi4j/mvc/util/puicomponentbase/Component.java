@@ -1,7 +1,7 @@
-package com.pi4j.mvc.templateapp.view.pui.components;
+package com.pi4j.mvc.util.puicomponentbase;
 
-import com.pi4j.mvc.templateapp.view.pui.components.events.SimpleEventHandler;
-import com.pi4j.mvc.templateapp.view.pui.components.helpers.Logger;
+import com.pi4j.mvc.util.puicomponentbase.events.SimpleEventHandler;
+import com.pi4j.mvc.util.puicomponentbase.helpers.Logger;
 
 public abstract class Component {
     /**

@@ -1,5 +1,6 @@
 package com.pi4j.mvc.multicontrollerapp.view.pui.components;
 
+import com.pi4j.mvc.util.piucomponentbase.ComponentTest;
 import com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalOutput;
 
 import org.junit.jupiter.api.BeforeEach;

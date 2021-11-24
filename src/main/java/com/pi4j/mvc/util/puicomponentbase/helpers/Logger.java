@@ -1,4 +1,4 @@
-package com.pi4j.mvc.multicontrollerapp.view.pui.components.helpers;
+package com.pi4j.mvc.util.puicomponentbase.helpers;
 
 public class Logger {
     private final org.slf4j.Logger logger;

@@ -1,4 +1,4 @@
-package com.pi4j.mvc.templatepuiapp.view.pui.components;
+package com.pi4j.mvc.util.piucomponentbase;
 
 import java.util.Arrays;
 

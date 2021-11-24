@@ -1,4 +1,4 @@
-package com.pi4j.mvc.templateapp.view.pui.components.helpers;
+package com.pi4j.mvc.util.puicomponentbase.helpers;
 
 import java.util.List;
 

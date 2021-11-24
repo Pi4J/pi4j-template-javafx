@@ -1,4 +1,4 @@
-package com.pi4j.mvc.templateapp.view.pui.components.events;
+package com.pi4j.mvc.util.puicomponentbase.events;
 
 /**
  * Generic functional interface used for for event handlers.

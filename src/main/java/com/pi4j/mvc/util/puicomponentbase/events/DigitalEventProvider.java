@@ -1,4 +1,4 @@
-package com.pi4j.mvc.multicontrollerapp.view.pui.components.events;
+package com.pi4j.mvc.util.puicomponentbase.events;
 
 import com.pi4j.io.gpio.digital.DigitalInput;
 import com.pi4j.io.gpio.digital.DigitalState;

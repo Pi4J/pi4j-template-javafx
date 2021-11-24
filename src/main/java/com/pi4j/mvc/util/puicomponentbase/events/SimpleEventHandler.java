@@ -1,4 +1,4 @@
-package com.pi4j.mvc.multicontrollerapp.view.pui.components.events;
+package com.pi4j.mvc.util.puicomponentbase.events;
 
 /**
  * Generic functional interface for simple event handlers, which are event handlers without a parameter.

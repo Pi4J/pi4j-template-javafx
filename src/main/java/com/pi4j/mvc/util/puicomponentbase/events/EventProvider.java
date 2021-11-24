@@ -1,4 +1,4 @@
-package com.pi4j.mvc.templatepuiapp.view.pui.components.events;
+package com.pi4j.mvc.util.puicomponentbase.events;
 
 /**
  * Generic event provider interface for components which expose the ability to add or remove event listeners.

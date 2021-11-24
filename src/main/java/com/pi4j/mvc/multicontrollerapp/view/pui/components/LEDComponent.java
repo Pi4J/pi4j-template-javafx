@@ -6,6 +6,7 @@ import com.pi4j.context.Context;
 import com.pi4j.io.gpio.digital.DigitalOutput;
 import com.pi4j.io.gpio.digital.DigitalOutputConfigBuilder;
 import com.pi4j.io.gpio.digital.DigitalState;
+import com.pi4j.mvc.util.puicomponentbase.Component;
 
 /**
  * Example of a new component, not included in CrowPi-tutorial, using the same base classes and utilities.

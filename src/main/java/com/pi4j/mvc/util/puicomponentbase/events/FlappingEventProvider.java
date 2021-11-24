@@ -1,4 +1,4 @@
-package com.pi4j.mvc.multicontrollerapp.view.pui.components.events;
+package com.pi4j.mvc.util.puicomponentbase.events;
 
 /**
  * Generic event provider to trigger a {@link SimpleEventHandler} once a value has flapped between two values for a couple times.
