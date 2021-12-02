@@ -41,7 +41,7 @@ Das CrowPi-Image enthält bereits alle notwendige Installationen für JavaFX/Pi4
 
 * [Java 17](https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot). Im CrowPi-Image ist JDK17 installiert. Daher verwenden wir diesen JDK auch auf dem Laptop. Hinweis für Mac-Benutzer: Die Verwendung von SDKMAN (s.u.) für die Installation und die Verwaltung von JDKs ist sehr empfehlenswert.
 
-* [IntelliJ IDEA 2021.2](https://www.jetbrains.com/idea/download/). Es ist wichtig, diese neueste Version zu verwenden. Am besten via [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/) installieren. Empfehlenswert ist die Verwendung der Ultimate Edition. Studierende erhalten, nach Anmeldung, eine kostenlose Lizenz. Registrieren Sie sich unter [https://www.jetbrains.com/student/](https://www.jetbrains.com/student/) mit Ihrer FHNW E-Mail-Adresse. Für die Community-Edition benötigt man keine Lizenz.
+* [IntelliJ IDEA 2021.3](https://www.jetbrains.com/idea/download/). Es ist wichtig, diese neueste Version zu verwenden. Am besten via [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/) installieren. Empfehlenswert ist die Verwendung der Ultimate Edition. Studierende erhalten, nach Anmeldung, eine kostenlose Lizenz. Registrieren Sie sich unter [https://www.jetbrains.com/student/](https://www.jetbrains.com/student/) mit Ihrer FHNW E-Mail-Adresse. Für die Community-Edition benötigt man keine Lizenz.
 
 * [Git](https://git-scm.com/downloads). Als Sourcecode-Repository verwenden wir git. 
 
@@ -171,7 +171,7 @@ In `Run on Pi` und `Debug on Pi` muss die IP-Adresse des RaspPi eingestellt werd
 
 ![Edit Configurations ...](assets/edit-configurations.png)
 
-Für beide Run Konfigurationen im Tab `Runner` den Eintrag `pi.ipnumber` doppelklicken. Danach öffnet sich das Dialogfenster zur Eingabe der IP-Adresse. 
+Für beide Run Konfigurationen unter `Properties` die `pi.ipnumber` auf die IP-Adresse des RaspPis setzen. 
 
 Falls der RaspPi als einziger im ausgewählten WLAN angemeldet ist, kann anstatt der IP-Nummer auch `crowpi.local` eingetragen werden.
 

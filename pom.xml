@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.pi4j.jfx</groupId>
+    <groupId>com.pi4j.mvc</groupId>
     <artifactId>raspifx-template</artifactId>
     <name>RaspPiFX template project</name>
     <description>Starter and example project how to integrate JavaFX and Pi4J in a single application.</description>
