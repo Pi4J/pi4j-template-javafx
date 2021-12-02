@@ -5,9 +5,9 @@ import com.pi4j.mvc.templatepuiapp.controller.SomeController;
 import com.pi4j.mvc.templatepuiapp.model.SomeModel;
 import com.pi4j.mvc.templatepuiapp.view.pui.components.ButtonComponent;
 import com.pi4j.mvc.templatepuiapp.view.pui.components.LEDComponent;
-import com.pi4j.mvc.util.mvcbase.PUI_Base;
+import com.pi4j.mvc.util.mvcbase.PuiBase;
 
-public class SomePUI extends PUI_Base<SomeModel, SomeController> {
+public class SomePUI extends PuiBase<SomeModel, SomeController> {
     //declare all hardware components attached to RaspPi
     //these are protected to give unit tests access to them
     protected LEDComponent    led;

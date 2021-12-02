@@ -123,6 +123,10 @@ public abstract class ControllerBase<M> {
         async(() -> observableValue.setValue(newValue));
     }
 
+    protected <V> V get(ObservableValue<V> observableValue){
+        return observableValue.getValue();
+    }
+
     /**
      * Convenience method to toggle a ObservableValue<Boolean>
      */
@@ -159,5 +163,36 @@ public abstract class ControllerBase<M> {
                 Thread.currentThread().interrupt();
             }
         });
+    }
+
+    /**
+     * Use this if you need to update several ObservableValues in one async call.
+     *
+     * Use 'set' to get an appropriate Setter
+     */
+    protected void updateModel(Setter<?>... setters){
+        async(() -> {
+            for (Setter<?> setter : setters) {
+                setter.setValue();
+            }
+        });
+    }
+
+    protected <V> Setter<V> set(ObservableValue<V> observableValue, V value){
+        return new Setter<V>(observableValue, value);
+    }
+
+    protected static class Setter<V> {
+        private final ObservableValue<V> observableValue;
+        private final V                  value;
+
+        private Setter(ObservableValue<V> observableValue, V value) {
+            this.observableValue = observableValue;
+            this.value = value;
+        }
+
+        void setValue() {
+            observableValue.setValue(value);
+        }
     }
 }

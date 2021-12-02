@@ -46,7 +46,7 @@ public class Pi4JContext {
      */
     public static Context createContext() {
         Context context = runsOnPi() ? createRaspPiContext() : createMockContext();
-        LOGGER.info("GPIO initialized for " + (runsOnPi() ? " RaspPi" : " desktop"));
+        LOGGER.info("GPIO initialized for {}", (runsOnPi() ? " RaspPi" : " desktop"));
 
         return context;
     }

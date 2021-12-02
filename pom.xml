@@ -64,21 +64,6 @@
         <ant-jsch.version>1.10.9</ant-jsch.version>
     </properties>
 
-    <!-- DEPENDENCY REPOSITORIES -->
-    <repositories>
-        <repository>
-            <id>sonatype-snapshots</id>
-            <name>Sonatype OSS Snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <dependencies>
         <!-- JavaFX basics -->
         <dependency>

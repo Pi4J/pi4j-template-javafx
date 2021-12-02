@@ -22,14 +22,14 @@ import com.pi4j.context.Context;
  *
  * For PUIs we need to do that ourselves. It's implemented as a provider/consumer-pattern (see {@link ConcurrentTaskQueue}.
  */
-public abstract class PUI_Base<M, C extends ControllerBase<M>> implements Projector<M, C>{
+public abstract class PuiBase<M, C extends ControllerBase<M>> implements Projector<M, C>{
 
     // all PUI actions should be done asynchronously (to avoid UI freezing)
     private final ConcurrentTaskQueue<Void> queue = new ConcurrentTaskQueue<>();
 
     protected final Context pi4J;
 
-    public PUI_Base(C controller, Context pi4J) {
+    public PuiBase(C controller, Context pi4J) {
         Objects.requireNonNull(pi4J);
 
         this.pi4J = pi4J;
