@@ -18,7 +18,7 @@
         <!-- <launcher.class>com.pi4j.mvc/com.pi4j.setup.MinimalPi4J</launcher.class> -->
         <!-- <launcher.class>com.pi4j.mvc/com.pi4j.mvc.templateapp.AppStarter</launcher.class> -->
         <!-- <launcher.class>com.pi4j.mvc/com.pi4j.mvc.templatepuiapp.AppStarter</launcher.class> -->
-        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class> -->
+        <!--  <launcher.class>com.pi4j.mvc/com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class> -->
 
 
         <!-- Setup for the RaspPi -->
@@ -34,14 +34,14 @@
 
         <!-- Project Dependency Versions-->
         <javafx.version>17.0.1</javafx.version>
-        <pi4j.version>2.1.0</pi4j.version>
+        <pi4j.version>2.1.1</pi4j.version>
 
         <slf4j.version>1.7.32</slf4j.version>
         <junit.version>5.8.1</junit.version>
 
         <!-- Plugin Versions-->
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
-        <gluonfx.plugin.version>1.0.9</gluonfx.plugin.version>
+        <gluonfx.plugin.version>1.0.10</gluonfx.plugin.version>
 
         <!-- Maven Plugin Versions -->
         <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
@@ -102,6 +102,12 @@
         <dependency>
             <groupId>com.pi4j</groupId>
             <artifactId>pi4j-plugin-pigpio</artifactId>
+            <version>${pi4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.pi4j</groupId>
+            <artifactId>pi4j-plugin-linuxfs</artifactId>
             <version>${pi4j.version}</version>
         </dependency>
 
@@ -319,6 +325,13 @@
                                             </fileset>
                                         </scp>
 
+                                        <!-- Stop all running Java processes -->
+                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
+                                                 username="${pi.username}" password="${pi.password}" trust="true"
+                                                 failonerror="false" usepty="true" useSystemIn="true"
+                                                 suppresssystemerr="true" suppresssystemout="true"
+                                                 command="sudo killall -9 java"/>
+
                                         <!-- Run JFX application on Raspberry Pi -->
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"
                                                  username="${pi.username}" password="${pi.password}" trust="true"
@@ -369,6 +382,13 @@
                                                 <exclude name="javafx*.jar"/>/>
                                             </fileset>
                                         </scp>
+
+                                        <!-- Stop all running Java processes -->
+                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
+                                                 username="${pi.username}" password="${pi.password}" trust="true"
+                                                 failonerror="false" usepty="true" useSystemIn="true"
+                                                 suppresssystemerr="true" suppresssystemout="true"
+                                                 command="sudo killall -9 java"/>
 
                                         <!-- Run JFX application on Raspberry Pi -->
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"

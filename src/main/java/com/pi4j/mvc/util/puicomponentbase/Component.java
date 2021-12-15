@@ -1,5 +1,6 @@
 package com.pi4j.mvc.util.puicomponentbase;
 
+import com.pi4j.mvc.util.puicomponentbase.events.EventHandler;
 import com.pi4j.mvc.util.puicomponentbase.events.SimpleEventHandler;
 import com.pi4j.mvc.util.puicomponentbase.helpers.Logger;
 
@@ -32,6 +33,12 @@ public abstract class Component {
     protected void triggerSimpleEvent(SimpleEventHandler handler) {
         if (handler != null) {
             handler.handle();
+        }
+    }
+
+    protected <V> void triggerEvent(EventHandler<V> handler, V newValue){
+        if(handler != null){
+            handler.handle(newValue);
         }
     }
 }

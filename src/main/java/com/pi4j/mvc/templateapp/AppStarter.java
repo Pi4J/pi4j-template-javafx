@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import com.pi4j.mvc.templateapp.controller.SomeController;
 import com.pi4j.mvc.templateapp.model.SomeModel;
 import com.pi4j.mvc.templateapp.view.gui.SomeGUI;
-import com.pi4j.mvc.templateapp.view.gui.SomePuiEmulator;
 import com.pi4j.mvc.templateapp.view.pui.SomePUI;
 import com.pi4j.mvc.util.Pi4JContext;
 
