@@ -5,6 +5,7 @@ import java.util.List;
 import com.pi4j.Pi4J;
 import com.pi4j.context.Context;
 import com.pi4j.library.pigpio.PiGpio;
+import com.pi4j.plugin.linuxfs.provider.i2c.LinuxFsI2CProvider;
 import com.pi4j.plugin.mock.platform.MockPlatform;
 import com.pi4j.plugin.mock.provider.gpio.analog.MockAnalogInputProvider;
 import com.pi4j.plugin.mock.provider.gpio.analog.MockAnalogOutputProvider;
@@ -16,7 +17,6 @@ import com.pi4j.plugin.mock.provider.serial.MockSerialProvider;
 import com.pi4j.plugin.mock.provider.spi.MockSpiProvider;
 import com.pi4j.plugin.pigpio.provider.gpio.digital.PiGpioDigitalInputProvider;
 import com.pi4j.plugin.pigpio.provider.gpio.digital.PiGpioDigitalOutputProvider;
-import com.pi4j.plugin.pigpio.provider.i2c.PiGpioI2CProvider;
 import com.pi4j.plugin.pigpio.provider.pwm.PiGpioPwmProvider;
 import com.pi4j.plugin.pigpio.provider.serial.PiGpioSerialProvider;
 import com.pi4j.plugin.pigpio.provider.spi.PiGpioSpiProvider;
@@ -107,9 +107,10 @@ public class Pi4JContext {
                    .add(PiGpioDigitalInputProvider.newInstance(piGpio),
                         PiGpioDigitalOutputProvider.newInstance(piGpio),
                         PiGpioPwmProvider.newInstance(piGpio),
-                        PiGpioI2CProvider.newInstance(piGpio),
                         PiGpioSerialProvider.newInstance(piGpio),
-                        PiGpioSpiProvider.newInstance(piGpio))
+                        PiGpioSpiProvider.newInstance(piGpio),
+                        LinuxFsI2CProvider.newInstance()
+                       )
                    .build();
     }
 
