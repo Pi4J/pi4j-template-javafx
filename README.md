@@ -295,7 +295,7 @@ Jede Benutzer-Interaktion durchläuft im MVC-Konzept den immer gleichen Kreislau
 ![MVC Concept](assets/mvc-interaction.png)
 
 #### Projector Pattern
-Unsere View-Klassen, also GUI und PUI, setzen das von Prof. Dierk König veröffentlichte [Projector Pattern](https://jaxenter.de/effiziente-oberflaechen-mit-dem-projektor-pattern-42119) um. 
+Unsere View-Klassen, also GUI und PUI, setzen das von Prof. Dierk König veröffentlichte [Projector Pattern](https://dierk.github.io/Home/projectorPattern/ProjectorPattern.html) um. 
 
 Die grundlegenden Aufgaben von GUI und PUI sind gleich. Auf Code-Ebene ist dies erkennbar:
 sie implementieren das gemeinsames Interface `Projector`, können also auf die gleiche Weise verwendet werden.
