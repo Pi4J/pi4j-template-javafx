@@ -1,10 +1,12 @@
 
 ![FHNW](assets/FHNW.png)
 
+[Deutsch Beschreibung ist hier](README_DE.md)
+
 # Pi4J Applications with JavaFX based GUI
 
-[![Contributors](https://img.shields.io/github/contributors/Pi4J/Rpi4j-template-javafx)](https://github.com/Pi4J/Rpi4j-template-javafx/graphs/contributors)
-[![License](https://img.shields.io/github/license/Pi4J/Rpi4j-template-javafx)](https://github.com/Pi4J/Rpi4j-template-javafx/blob/master/LICENSE)
+[![Contributors](https://img.shields.io/github/contributors/Pi4J/pi4j-template-javafx)](https://github.com/Pi4J/pi4j-template-javafx/graphs/contributors)
+[![License](https://img.shields.io/github/license/Pi4J/pi4j-template-javafx)](https://github.com/Pi4J/pi4j-template-javafx/blob/master/LICENSE)
 
 ## Create a repository
 This repository should not be cloned directly. This is a template project and one should create their own project by using the `Use this template` Button.
