@@ -1,7 +1,7 @@
 
 ![FHNW](assets/FHNW.png)
 
-[Deutsch Beschreibung ist hier](README_DE.md)
+[Deutsche Beschreibung ist hier.](README_DE.md)
 
 # Pi4J Applications with JavaFX based GUI
 
@@ -12,7 +12,7 @@
 This repository should not be cloned directly. This is a template project and one should create their own project by using the `Use this template` Button.
 
 ## Prepare Raspberry Pi
-USe the CrowPi image from [Pi4J-Team](https://github.com/Pi4J/pi4j-os)
+Use the CrowPi image from [Pi4J-Team](https://github.com/Pi4J/pi4j-os)
 - [Download CrowPi Image](https://pi4j-download.com/crowpi-main.img.zip)
 - Extract the ZIP file
 - Use the [Raspberry Pi Imager](https://www.raspberrypi.org/blog/raspberry-pi-imager-imaging-utility/) to write the image to an SD-Card
@@ -25,7 +25,7 @@ The CrowPi image contains all the necessary packages and software for JavaFX/Pi4
 * [Java 17](https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot). The CrowPi image uses JDK17, thus the developer computer should use the same. Note for Linux and Mac users: The usage of SDKMAN is recommended for the management of JDKs.
 
 * [IntelliJ IDEA 2021.3](https://www.jetbrains.com/idea/download/).
-* Using the latest version is important. Installing via [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/) is recommended. The Ultimate Edition is also recommended. The community edition does not require a license.
+* Using the latest version is important. Installing via [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/) is recommended. The Ultimate Edition is also recommended. 
 
 * [Git](https://git-scm.com/downloads). The source code repository is a git repository
 
@@ -46,7 +46,6 @@ Enter the following command in a terminal:
 If SDKMAN has already been installed, it can be updated with the following command:
 ```shell
 sdk update
-sdk upgrade
 ```
 
 Note: After installing it might be necessary to close and open the terminal for the SDKMAN command `sdk` to be accessible.
@@ -57,7 +56,7 @@ In a new terminal window, enter the following command:
 sdk install java 17.0.1-tem
 ```
 
-This installs the JDK in your home directory `.sdkman/candidates/java`. It can then be used from this directory in IntelliJ.
+This installs the JDK in your home directory `sdkman/candidates/java`. It can then be used from this directory in IntelliJ.
 
 The following command lists which JDKs are available for installation:
 ```shell
@@ -83,7 +82,7 @@ sdk default java 17.0.1-tem
 ```
 
 ## Connect to the Raspberry Pi
-The developer computer and the raspberry Pi must be on the same WLAN.
+The developer computer and the Raspberry Pi must be on the same WLAN.
 
 A simple solution for this is to create a Hotspot with a smartphone. For instance with these parameters:
 * SSID: `Pi4J-Spot`
@@ -126,7 +125,7 @@ To build locally and run on the Raspberry Pi, a few configuration changes are ne
 - `launcher.class` **(required):** defines which application to start. The `pom.xml` already contains a lists of candidates, simply uncomment the desired application, commenting out the rest.
 - `pi.ipnumber` **(optional):** The current IP of the Raspberry Pi, e.g. `192.168.1.2`, is used for SCP/SSH.
 
-With theses changes the application can be started through a Maven command on the Raspberry Pi. A more comfortable method is using IntelliJ run configurations.
+With these changes the application can be started through a Maven command on the Raspberry Pi. A more comfortable method is using IntelliJ run configurations.
 
 #### Configuration of the IntelliJ run configurations
 Four run configurations are already predefined. Two for starting the project, either locally or remote, and two for debugging the application on the Raspberry Pi.
@@ -139,7 +138,7 @@ For `Run on Pi` and `Debug on Pi` the IP address of the Raspberry Pi must be con
 
 ![Edit Configurations ...](assets/edit-configurations.png)
 
-For bother run configurations set `pi.ipnumber` under `Properties`
+For both run configurations set `pi.ipnumber` under `Properties`
 
 If the Raspberry Pi is the only device connected to the designated WLAN, then one can use `crowpi.local`.
 
@@ -236,30 +235,30 @@ The classic Model-View-Controller concept contains in addition to the starter cl
     - only calls methods on the controller, i.e. triggering actions
     - are notified of the model of state changes
         - observes the state of the model
-    - never changes the model directly
+    - never change the model directly
 
 - _Starter class._
     - Is a subclass of `javafx.application.Application`. Instantiates the three other classes and starts the application.
 
 In our case at least two view classes exist:
-- _GUI classes._ The Graphical-User-Interface. JavaFX based implementation of the visualisation of the UI on the screen.
-- _PUI classes._ The Physical-User-Interface. Pi4J based implementation of the sensors and actors. Uses `Component` classes, as is used in  [CrowPi-Example](https://github.com/Pi4J/pi4j-example-crowpi).
+- _GUI class._ The Graphical-User-Interface. JavaFX based implementation of the visualisation of the UI on the screen.
+- _PUI class._ The Physical-User-Interface. Pi4J based implementation of the sensors and actors. Uses `Component` classes, as is used in  [CrowPi-Example](https://github.com/Pi4J/pi4j-example-crowpi).
 
-GUI and PUI are completely separated from each other, i.e a GUI button to turn an LED on has no direct access to the LED component of the PUI. Instead the GUI button triggers a corresponding action in the controller which then sets the on state property in the model. The PUI listening on this state then turns the actual LED on or of.
+GUI and PUI are completely separated from each other, i.e a GUI button to turn an LED on has no direct access to the LED component of the PUI. Instead the GUI button triggers a corresponding action in the controller which then sets the on state property in the model. The PUI listening on this state then turns the actual LED on or off.
 
 GUI and PUI work with the same identical controller and thus also the same identical model.
 
-It is important that one understands this concept and then apply the concepts to one's own project, should you have questions, contact the Pi4j team.
+It is important that one understands this concept and then apply the concepts to one's own project. Should you have questions, contact the Pi4j team.
 
 In the MVC concept, every user interaction traverses the exact same cycle:
 
 ![MVC Concept](assets/mvc-interaction.png)
 
 #### Projector Pattern
-The view classes, i.e. GUI and PUI, implement the Projector-Pattern published by Prof. Dierk König veröffentlichte [Projector Pattern](https://dierk.github.io/Home/projectorPattern/ProjectorPattern.html)
+The view classes, i.e. GUI and PUI, implement the Projector-Pattern published by Prof. Dierk König  [Projector Pattern](https://dierk.github.io/Home/projectorPattern/ProjectorPattern.html).
 
 The basic tasks of the GUI and PUI are the same. When looking at the code, this is visible:
-they implement the common interface `Project` and can thus be used in the same way.
+they implement the common interface `Projector` and can thus be used in the same way.
 
 Consequences of this design:
 - Additional UIs can be added, without having to change existing classes, except for the starter class
@@ -296,7 +295,7 @@ To start:
     - A rudimentary `PuiEmulator` can be started in `AppStarter`, to test the interaction of the GUI and PUI.
 - With `Run on Pi` starts remotely on the Raspberry Pi
 
-## Junit Tests
+## JUnit Tests
 Through the clear separation in model, view and controller, testing of large parts of the application can be automated. These tests are usually executed on the local development computer, i.e. not on the Raspberry Pi.
 
 #### Controller Tests
@@ -310,7 +309,7 @@ An example can be seen in `ExampleControllerTest`.
 The model is simply a collection of `ObservableValues` and doesn't offer any additional functionality, thus it does not require any additional test cases.
 
 #### Tests for individual PUI-Components
-The individual PUI-components can be very well tested using the Pi4J integrated `MockPlatform`. These tests can be executed locally on the development computer. A Raspberry Pi is not needed.
+The individual PUI-components can be tested easily using the Pi4J integrated `MockPlatform`. These tests can be executed locally on the development computer. A Raspberry Pi is not needed.
 
 Examples for such component tests can be seen in the [CrowPi-Tutorial](https://github.com/Pi4J/pi4j-example-crowpi/tree/main/src/test/java/com/pi4j/crowpi/components) and in the package `com.pi4j.mvc.templateapp.view.pui.components`.
 
