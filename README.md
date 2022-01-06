@@ -185,7 +185,7 @@ This application shows the interaction between a JavaFX based Graphical User Int
 
 This application is to be used as a template for one's own applications. This includes the existing test cases.
 
-You should first get to know and understand the example. For your own applications you should then copy the the `TemplateApp` and modify it for your project, however without violating the rules of the MVC concept, which is described below.
+You should first get to know and understand the example. For your own applications you should then copy the `TemplateApp` and modify it for your project, however without violating the rules of the MVC concept, which is described below.
 
 To start:
 - Set `launcher.class` in `pom.xml`:
