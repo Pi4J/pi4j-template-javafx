@@ -6,7 +6,7 @@
 
     <groupId>com.pi4j.mvc</groupId>
     <artifactId>raspifx-template</artifactId>
-    <name>RaspPiFX template project</name>
+    <name>RaspPiFX</name>
     <description>Starter and example project how to integrate JavaFX and Pi4J in a single application.</description>
     <version>0.0.1</version>
 
@@ -14,9 +14,9 @@
     <properties>
         <!-- The class that will be started, choose one and only one -->
 
-        <launcher.class>com.pi4j.mvc/com.pi4j.setup.HelloFX</launcher.class>
+        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.setup.HelloFX</launcher.class> -->
         <!-- <launcher.class>com.pi4j.mvc/com.pi4j.setup.MinimalPi4J</launcher.class> -->
-        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.mvc.templateapp.AppStarter</launcher.class> -->
+        <launcher.class>com.pi4j.mvc/com.pi4j.mvc.templateapp.AppStarter</launcher.class>
         <!-- <launcher.class>com.pi4j.mvc/com.pi4j.mvc.templatepuiapp.AppStarter</launcher.class> -->
         <!-- <launcher.class>com.pi4j.mvc/com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class> -->
 
@@ -41,14 +41,14 @@
 
         <!-- Plugin Versions-->
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
-        <gluonfx.plugin.version>1.0.10</gluonfx.plugin.version>
+        <gluonfx.plugin.version>1.0.11</gluonfx.plugin.version>
 
         <!-- Maven Plugin Versions -->
         <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-dependency-plugin.version>3.2.0</maven-dependency-plugin.version>
-        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
-        <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
+        <maven-jar-plugin.version>3.2.1</maven-jar-plugin.version>
+        <maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
 
@@ -62,6 +62,14 @@
 
         <!-- Ant Dependencies -->
         <ant-jsch.version>1.10.9</ant-jsch.version>
+
+        <app.identifier>${launcher.class}</app.identifier>
+        <app.description>RaspPiFX app</app.description>
+        <package.type/>
+        <mac.app.store/>
+        <mac.signing.user.name/>
+        <bundle.version/>
+        <bundle.short.version/>
     </properties>
 
     <!-- DEPENDENCY REPOSITORIES -->
@@ -170,7 +178,18 @@
                 <configuration>
                     <target>${gluonfx.target}</target>
                     <mainClass>${launcher.class}</mainClass>
+                    <graalvmHome>${user.home}/sdkman/candidates/java/21.3.0.r17-grl</graalvmHome>
+                    <releaseConfiguration>
+                        <vendor>Pi4J</vendor>
+                        <appDescription>${app.description}</appDescription>
+                        <packageType>${package.type}</packageType>
+                        <!-- for macOS/iOS -->
+                        <macAppStore>${mac.app.store}</macAppStore>
+                        <bundleShortVersion>${bundle.short.version}</bundleShortVersion>
+                        <bundleVersion>${bundle.version}</bundleVersion>
+                    </releaseConfiguration>
                 </configuration>
+
             </plugin>
 
             <!-- JAVA COMPILER -->
@@ -420,6 +439,21 @@
                 <pi.remote.jvmOptions>
                     -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005
                 </pi.remote.jvmOptions>
+            </properties>
+        </profile>
+        <profile>
+            <id>desktop</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <gluonfx.target>host</gluonfx.target>
+            </properties>
+        </profile>
+        <profile>
+            <id>pi</id>
+            <properties>
+                <gluonfx.target>linux-aarch64</gluonfx.target>
             </properties>
         </profile>
     </profiles>
