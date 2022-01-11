@@ -178,8 +178,9 @@
                 <configuration>
                     <target>${gluonfx.target}</target>
                     <mainClass>${launcher.class}</mainClass>
-                    <javafxStaticSdkVersion>${javafx.version}</javafxStaticSdkVersion>
                     <releaseConfiguration>
+                        <vendor>Pi4J</vendor>
+                        <appDescription>${app.description}</appDescription>
                         <skipSigning>true</skipSigning>
                     </releaseConfiguration>
                 </configuration>
