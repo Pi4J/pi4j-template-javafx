@@ -180,16 +180,9 @@
                     <mainClass>${launcher.class}</mainClass>
                     <graalvmHome>${user.home}/sdkman/candidates/java/21.3.0.r17-grl</graalvmHome>
                     <releaseConfiguration>
-                        <vendor>Pi4J</vendor>
-                        <appDescription>${app.description}</appDescription>
-                        <packageType>${package.type}</packageType>
-                        <!-- for macOS/iOS -->
-                        <macAppStore>${mac.app.store}</macAppStore>
-                        <bundleShortVersion>${bundle.short.version}</bundleShortVersion>
-                        <bundleVersion>${bundle.version}</bundleVersion>
+                        <skipSigning>true</skipSigning>
                     </releaseConfiguration>
                 </configuration>
-
             </plugin>
 
             <!-- JAVA COMPILER -->
