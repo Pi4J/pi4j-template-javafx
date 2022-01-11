@@ -178,6 +178,7 @@
                 <configuration>
                     <target>${gluonfx.target}</target>
                     <mainClass>${launcher.class}</mainClass>
+                    <javafxStaticSdkVersion>${javafx.version</javafxStaticSdkVersion>
                     <releaseConfiguration>
                         <skipSigning>true</skipSigning>
                     </releaseConfiguration>
