@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.pi4j.mvc</groupId>
-    <artifactId>raspifx-template</artifactId>
+    <artifactId>Raspifx-template</artifactId>
     <name>RaspPiFX</name>
     <description>Starter and example project how to integrate JavaFX and Pi4J in a single application.</description>
     <version>0.0.1</version>

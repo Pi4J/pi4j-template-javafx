@@ -18,76 +18,29 @@ jobs:
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      # Create a staging directory where the binary will be copied into
       - name: Make staging directory
         run: mkdir staging
 
+      # Install the Gluon License (optional)
+      # Using this step requires you to set a GLUON_LICENSE secret in the secret configuration of your repo. Have a look at https://gluonhq.com/products/mobile/buy for more information about obtaining a license.
       - name: Gluon License
         uses: gluonhq/gluon-build-license@v1
         with:
           gluon-license: ${{ secrets.GLUON_LICENSE }}
 
-      - name: Gluon Build and Package
-        id: outputfile
-        run: |
-          mvn -Pdesktop,mac gluonfx:build gluonfx:package
-          echo ::set-output name=path::target/pi4j/x86_64-darwin/RaspPiFX-0.0.1.pkg
+      # Build your project using Maven
+      # The desktop profile is used, which means a native build will be created for the host platform (in this case Mac OS) itself.
+      - name: Gluon Build
+        run: mvn -Pdesktop gluonfx:build gluonfx:package
 
-      - name: Notarize Installer
-        uses: erwin1/xcode-notarize@main
-        with:
-          product-path: ${{ steps.outputfile.outputs.path }}
-          appstore-connect-username: ${{ secrets.NOTARIZATION_USERNAME }}
-          appstore-connect-password: ${{ secrets.NOTARIZATION_PASSWORD }}
-          primary-bundle-id: com.pi4j.mvc.RaspPiFX
-          asc-provider: ${{ secrets.GLUON_MACSIGN_PREFIX }}
-          verbose: false
+      # Copy the native binary to the staging directory
+      - name: Copy native image to staging
+        run: cp -r target/gluonfx/x86_64-darwin/RaspPiFX* staging
 
-      - name: Upload (pkg)
+      # Upload the staging directory as a build artifact. You will be able to download this after the build finishes.
+      - name: Upload
         uses: actions/upload-artifact@v2
         with:
           name: Package
-          path: ${{ steps.outputfile.outputs.path }}
-
-      - name: Provisioning Profile
-        id: provisioning
-        uses: Apple-Actions/download-provisioning-profiles@v1.0.1
-        with:
-          bundle-id: com.pi4j.mvc.RaspPiFX
-          profile-type: 'MAC_APP_STORE'
-          issuer-id: ${{ secrets.GLUON_IOS_APPSTORE_ISSUER_ID }}
-          api-key-id: ${{ secrets.GLUON_IOS_APPSTORE_KEY_ID }}
-          api-private-key: ${{ secrets.GLUON_IOS_APPSTORE_PRIVATE_KEY }}
-
-      - name: Rename profiles
-        run: |
-          find /Users/runner/Library/MobileDevice -name '*.mobileprovision' -exec sh -c 'mv "$0" "${0%.mobileprovision}.provisionprofile"' {} \;
-
-      - name: 3rd Party Mac certificate
-        uses: Apple-Actions/import-codesign-certs@v1
-        with:
-          keychain: ${{ github.run_id }}
-          keychain-password: ${{ github.run_id }}
-          create-keychain: false
-          p12-file-base64: ${{ secrets.GLUON_MACOS_STORE_CERTIFICATES_FILE_BASE64 }}
-          p12-password: ${{ secrets.GLUON_MACOS_STORE_CERTIFICATES_PASSWORD }}
-
-      - name: Gluon Package Store
-        id: outputfilestore
-        run: |
-          mvn -Pdesktop,macstore gluonfx:package
-          echo ::set-output name=path::target/pi4j/x86_64-darwin/RaspPiFX-0.0.1.pkg
-
-      - name: Upload (pkg store)
-        uses: actions/upload-artifact@v2
-        with:
-          name: PackageAppStore
-          path: ${{ steps.outputfilestore.outputs.path }}
-
-      - name: Upload App Store TestFlight
-        uses: Apple-Actions/upload-testflight-build@master
-        with:
-          app-path: ${{ steps.outputfilestore.outputs.path }}
-          app-type: osx
-          issuer-id: ${{ secrets.GLUON_IOS_APPSTORE_ISSUER_ID }}
-          api-key-id: ${{ secrets.GLUON_IOS_APPSTORE_KEY_ID }}
-          api-private-key: ${{ secrets.GLUON_IOS_APPSTORE_PRIVATE_KEY }}
+          path: staging
