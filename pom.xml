@@ -178,7 +178,6 @@
                 <configuration>
                     <target>${gluonfx.target}</target>
                     <mainClass>${launcher.class}</mainClass>
-                    <graalvmHome>${user.home}/sdkman/candidates/java/21.3.0.r17-grl</graalvmHome>
                     <releaseConfiguration>
                         <skipSigning>true</skipSigning>
                     </releaseConfiguration>
