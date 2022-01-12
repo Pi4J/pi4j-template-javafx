@@ -64,10 +64,6 @@
   ]}
 ,
 {
-  "name":"com.sun.prism.es2.ES2Pipeline",
-  "methods":[{"name":"getInstance","parameterTypes":[] }]}
-,
-{
   "name":"com.sun.prism.shader.FillPgram_Color_Loader",
   "methods":[{"name":"loadShader","parameterTypes":["com.sun.prism.ps.ShaderFactory","java.io.InputStream"] }]}
 ,
