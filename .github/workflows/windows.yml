@@ -38,7 +38,7 @@ jobs:
       - name: Copy native bundles to staging
         run: |
           cp -r target/gluonfx/x86_64-windows/RaspPiFX.exe staging
-          cp -r target/gluonfx/x86_64-windows/RaspPiFX-0.0.1.msi staging
+          cp -r target/gluonfx/x86_64-windows/RaspPiFX-1.0.0.msi staging
 
       - name: Upload
         uses: actions/upload-artifact@v2
