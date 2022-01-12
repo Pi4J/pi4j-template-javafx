@@ -9,7 +9,16 @@
     "interfaces":["com.pi4j.common.Describable","com.pi4j.common.Identity","com.pi4j.common.Lifecycle","com.pi4j.extension.Extension","com.pi4j.io.gpio.GpioProvider","com.pi4j.io.gpio.digital.DigitalInputProvider","com.pi4j.io.gpio.digital.DigitalProvider","com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalInputProvider","com.pi4j.provider.Provider"]}
   ,
   {
+    "interfaces":["com.pi4j.common.Describable","com.pi4j.common.Identity","com.pi4j.common.Lifecycle","com.pi4j.extension.Extension","com.pi4j.io.gpio.GpioProvider","com.pi4j.io.gpio.digital.DigitalInputProvider","com.pi4j.io.gpio.digital.DigitalProvider","com.pi4j.plugin.pigpio.provider.gpio.digital.PiGpioDigitalInputProvider","com.pi4j.provider.Provider"]}
+  ,
+  {
     "interfaces":["com.pi4j.common.Describable","com.pi4j.common.Identity","com.pi4j.common.Lifecycle","com.pi4j.extension.Extension","com.pi4j.io.gpio.GpioProvider","com.pi4j.io.gpio.digital.DigitalOutputProvider","com.pi4j.io.gpio.digital.DigitalProvider","com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalOutputProvider","com.pi4j.provider.Provider"]}
+  ,
+  {
+    "interfaces":["com.pi4j.common.Describable","com.pi4j.common.Identity","com.pi4j.common.Lifecycle","com.pi4j.extension.Extension","com.pi4j.io.gpio.GpioProvider","com.pi4j.io.gpio.digital.DigitalOutputProvider","com.pi4j.io.gpio.digital.DigitalProvider","com.pi4j.plugin.pigpio.provider.gpio.digital.PiGpioDigitalOutputProvider","com.pi4j.provider.Provider"]}
+  ,
+  {
+    "interfaces":["com.pi4j.common.Describable","com.pi4j.common.Identity","com.pi4j.common.Lifecycle","com.pi4j.extension.Extension","com.pi4j.io.i2c.I2CProvider","com.pi4j.plugin.linuxfs.provider.i2c.LinuxFsI2CProvider","com.pi4j.provider.Provider"]}
   ,
   {
     "interfaces":["com.pi4j.common.Describable","com.pi4j.common.Identity","com.pi4j.common.Lifecycle","com.pi4j.extension.Extension","com.pi4j.io.i2c.I2CProvider","com.pi4j.plugin.mock.provider.i2c.MockI2CProvider","com.pi4j.provider.Provider"]}
@@ -18,9 +27,18 @@
     "interfaces":["com.pi4j.common.Describable","com.pi4j.common.Identity","com.pi4j.common.Lifecycle","com.pi4j.extension.Extension","com.pi4j.io.pwm.PwmProvider","com.pi4j.plugin.mock.provider.pwm.MockPwmProvider","com.pi4j.provider.Provider"]}
   ,
   {
+    "interfaces":["com.pi4j.common.Describable","com.pi4j.common.Identity","com.pi4j.common.Lifecycle","com.pi4j.extension.Extension","com.pi4j.io.pwm.PwmProvider","com.pi4j.plugin.pigpio.provider.pwm.PiGpioPwmProvider","com.pi4j.provider.Provider"]}
+  ,
+  {
     "interfaces":["com.pi4j.common.Describable","com.pi4j.common.Identity","com.pi4j.common.Lifecycle","com.pi4j.extension.Extension","com.pi4j.io.serial.SerialProvider","com.pi4j.plugin.mock.provider.serial.MockSerialProvider","com.pi4j.provider.Provider"]}
   ,
   {
+    "interfaces":["com.pi4j.common.Describable","com.pi4j.common.Identity","com.pi4j.common.Lifecycle","com.pi4j.extension.Extension","com.pi4j.io.serial.SerialProvider","com.pi4j.plugin.pigpio.provider.serial.PiGpioSerialProvider","com.pi4j.provider.Provider"]}
+  ,
+  {
     "interfaces":["com.pi4j.common.Describable","com.pi4j.common.Identity","com.pi4j.common.Lifecycle","com.pi4j.extension.Extension","com.pi4j.io.spi.SpiProvider","com.pi4j.plugin.mock.provider.spi.MockSpiProvider","com.pi4j.provider.Provider"]}
-  
+  ,
+  {
+    "interfaces":["com.pi4j.common.Describable","com.pi4j.common.Identity","com.pi4j.common.Lifecycle","com.pi4j.extension.Extension","com.pi4j.io.spi.SpiProvider","com.pi4j.plugin.pigpio.provider.spi.PiGpioSpiProvider","com.pi4j.provider.Provider"]}
+
 ]

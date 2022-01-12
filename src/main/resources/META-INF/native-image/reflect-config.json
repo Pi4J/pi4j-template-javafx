@@ -2,7 +2,7 @@
 {
   "name":"com.pi4j.common.Identity",
   "methods":[
-    {"name":"id","parameterTypes":[] }, 
+    {"name":"id","parameterTypes":[] },
     {"name":"name","parameterTypes":[] }
   ]}
 ,
@@ -13,13 +13,16 @@
 {
   "name":"com.pi4j.mvc.templateapp.AppStarter",
   "methods":[
-    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"<init>","parameterTypes":[] },
     {"name":"main","parameterTypes":["java.lang.String[]"] }
   ]}
 ,
 {
   "name":"com.pi4j.provider.Provider",
-  "methods":[{"name":"create","parameterTypes":["com.pi4j.config.Config"] }]}
+  "methods":[
+    {"name":"create","parameterTypes":["com.pi4j.config.Config"] },
+    {"name":"isType","parameterTypes":["com.pi4j.io.IOType"] }
+  ]}
 ,
 {
   "name":"com.sun.glass.ui.Application"}
@@ -41,6 +44,10 @@
   "methods":[{"name":"getFactory","parameterTypes":[] }]}
 ,
 {
+  "name":"com.sun.javafx.font.freetype.FTFactory",
+  "methods":[{"name":"getFactory","parameterTypes":[] }]}
+,
+{
   "name":"com.sun.javafx.logging.PrintLogger",
   "methods":[{"name":"createInstance","parameterTypes":[] }]}
 ,
@@ -59,9 +66,13 @@
 {
   "name":"com.sun.prism.GraphicsPipeline",
   "methods":[
-    {"name":"getFontFactory","parameterTypes":[] }, 
+    {"name":"getFontFactory","parameterTypes":[] },
     {"name":"getPipeline","parameterTypes":[] }
   ]}
+,
+{
+  "name":"com.sun.prism.es2.ES2Pipeline",
+  "methods":[{"name":"getInstance","parameterTypes":[] }]}
 ,
 {
   "name":"com.sun.prism.shader.FillPgram_Color_Loader",
@@ -96,6 +107,10 @@
   "methods":[{"name":"loadShader","parameterTypes":["com.sun.prism.ps.ShaderFactory","java.io.InputStream"] }]}
 ,
 {
+  "name":"com.sun.prism.sw.SWPipeline",
+  "methods":[{"name":"getInstance","parameterTypes":[] }]}
+,
+{
   "name":"java.lang.Character",
   "methods":[{"name":"isIdeographic","parameterTypes":["int"] }]}
 ,
@@ -107,15 +122,15 @@
 {
   "name":"java.lang.Module",
   "queriedMethods":[
-    {"name":"getDescriptor","parameterTypes":[] }, 
-    {"name":"getLayer","parameterTypes":[] }, 
+    {"name":"getDescriptor","parameterTypes":[] },
+    {"name":"getLayer","parameterTypes":[] },
     {"name":"getName","parameterTypes":[] }
   ]}
 ,
 {
   "name":"java.lang.ModuleLayer",
   "methods":[
-    {"name":"boot","parameterTypes":[] }, 
+    {"name":"boot","parameterTypes":[] },
     {"name":"findModule","parameterTypes":["java.lang.String"] }
   ]}
 ,
