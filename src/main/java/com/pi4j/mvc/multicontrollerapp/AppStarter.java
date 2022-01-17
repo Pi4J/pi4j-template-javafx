@@ -51,7 +51,7 @@ public class AppStarter extends Application {
 
     private void setupStage(Stage stage, Pane gui) {
         //if started in DRM
-        if (System.getProperty("monocle.egl.lib") != null) {
+        if (System.getProperty("egl.displayid") != null) {
             // make stage full-screen
             Rectangle2D bounds = Screen.getPrimary().getBounds();
             stage.setX(bounds.getMinX());
