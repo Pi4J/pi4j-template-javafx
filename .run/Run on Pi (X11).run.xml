@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Debug on Pi" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="Run on Pi (X11)" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings">
@@ -12,6 +12,8 @@
           <option name="mavenProperties">
             <map>
               <entry key="pi.ipnumber" value="crowpi.local" />
+              <entry key="pi.password" value="crowpi" />
+              <entry key="pi.username" value="pi" />
             </map>
           </option>
           <option name="passParentEnv" value="true" />
@@ -33,7 +35,6 @@
           <option name="pomFileName" value="pom.xml" />
           <option name="profilesMap">
             <map>
-              <entry key="debug" value="true" />
               <entry key="jfx-remote-run-X11" value="true" />
             </map>
           </option>

@@ -29,6 +29,9 @@
         <pi.deploydirectory>/home/pi/deploy</pi.deploydirectory>
         <pi.remote.jvmOptions/>
 
+        <!-- If a mouse is attached to Pi use 'true' -->
+        <pi.drm.enable.cursor>true</pi.drm.enable.cursor>
+
         <!-- Java Compiler Version -->
         <java.version>17</java.version>
 
@@ -63,6 +66,7 @@
         <!-- Ant Dependencies -->
         <ant-jsch.version>1.10.9</ant-jsch.version>
 
+        <!-- gluonfx properties -->
         <app.identifier>${launcher.class}</app.identifier>
         <app.description>RaspPiFX app</app.description>
         <package.type/>
@@ -352,7 +356,7 @@
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"
                                                  username="${pi.username}" password="${pi.password}" trust="true"
                                                  failonerror="false" usepty="true" useSystemIn="true"
-                                                 command="sudo  java-kiosk  ${pi.remote.jvmOptions} -Xmx1G --module-path ${pi.deploydirectory} --module ${launcher.class} "/>
+                                                 command="sudo  java-kiosk  ${pi.remote.jvmOptions} -Xmx1G --module-path ${pi.deploydirectory} --module ${launcher.class} -Dmonocle.cursor.enabled=${pi.drm.enable.cursor}"/>
                                     </target>
                                 </configuration>
                             </execution>
