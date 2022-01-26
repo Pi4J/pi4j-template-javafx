@@ -29,10 +29,13 @@ jobs:
         run: mkdir staging
 
       - name: Get Pi4J libs
-        run:
-          wget https://github.com/Pi4J/download/raw/main/pi4j-2.2.0-SNAPSHOT.zip
-          unzip pi4j-2.2.0-SNAPSHOT.zip
-          cp pi4j-2.2.0-SNAPSHOT/lib/*-aarch64.so staging
+        run: wget https://github.com/Pi4J/download/raw/main/pi4j-2.2.0-SNAPSHOT.zip
+
+      - name: Unzip Pi4J
+        run: unzip pi4j-2.2.0-SNAPSHOT.zip
+
+      - name: Copy libs to staging
+        run: cp pi4j-2.2.0-SNAPSHOT/lib/*-aarch64.so staging
 
       - name: Gluon License
         uses: gluonhq/gluon-build-license@v1
