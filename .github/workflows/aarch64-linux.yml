@@ -45,7 +45,9 @@ jobs:
       - name: Gluon Build
         run:
           mvn -Ppi gluonfx:build gluonfx:package
-          chmod +x target/gluonfx/aarch64-linux/RaspPiFX*
+
+      - name: Set permissions
+        run:  chmod +x target/gluonfx/aarch64-linux/RaspPiFX*
 
       - name: Copy native image to staging
         run: cp -r target/gluonfx/aarch64-linux/RaspPiFX* staging
