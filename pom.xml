@@ -186,6 +186,7 @@
                         <vendor>Pi4J</vendor>
                         <appDescription>${app.description}</appDescription>
                         <skipSigning>true</skipSigning>
+                        <javafxStaticSdkVersion>18-ea+10</javafxStaticSdkVersion>
                     </releaseConfiguration>
                 </configuration>
             </plugin>

@@ -28,6 +28,12 @@ jobs:
       - name: Make staging directory
         run: mkdir staging
 
+      - name: Get Pi4J libs
+        run:
+          wget https://github.com/Pi4J/download/raw/main/pi4j-2.2.0-SNAPSHOT.zip
+          unzip pi4j-2.2.0-SNAPSHOT.zip
+          cp pi4j-2.2.0-SNAPSHOT/lib/*-aarch64.so staging
+
       - name: Gluon License
         uses: gluonhq/gluon-build-license@v1
         with:
@@ -37,12 +43,6 @@ jobs:
         run:
           mvn -Ppi gluonfx:build gluonfx:package
           chmod +x target/gluonfx/aarch64-linux/RaspPiFX*
-
-      - name: Get Pi4J libs
-        run:
-          wget https://github.com/Pi4J/download/raw/main/pi4j-2.2.0-SNAPSHOT.zip
-          unzip pi4j-2.2.0-SNAPSHOT.zip
-          cp pi4j-2.2.0-SNAPSHOT/lib/*-aarch64.so staging
 
       - name: Copy native image to staging
         run: cp -r target/gluonfx/aarch64-linux/RaspPiFX* staging
