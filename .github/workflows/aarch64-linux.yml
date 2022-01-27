@@ -35,7 +35,7 @@ jobs:
         run: unzip -o pi4j-2.1.1/lib/pi4j-library-pigpio.jar
 
       - name: Copy libs to staging
-        run: cp lib/aarch64/libpi4j-pigpio.so staging/RaspPiFXX
+        run: cp lib/aarch64/libpi4j-pigpio.so staging/RaspPiFX
 
       - name: Gluon License
         uses: gluonhq/gluon-build-license@v1
