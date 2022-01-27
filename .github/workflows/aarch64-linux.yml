@@ -32,7 +32,7 @@ jobs:
         run: unzip pi4j-2.1.1.zip
 
       - name: Unzip pigpio.jar
-        run: unzip pi4j-2.1.1/lib/pi4j-library-pigpio.jar
+        run: unzip -o pi4j-2.1.1/lib/pi4j-library-pigpio.jar
 
       - name: Copy libs to staging
         run: cp lib/aarch64/libpi4j-pigpio.so staging/RaspPiFXX
