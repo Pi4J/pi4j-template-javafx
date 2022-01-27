@@ -23,7 +23,7 @@ jobs:
           sudo apt install zip
 
       - name: Make staging directory
-        run: mkdir -p staging/RaspPiFX
+        run: mkdir -p staging/raspifx
 
       - name: Get Pi4J libs
         run: wget https://github.com/Pi4J/download/raw/main/pi4j-2.1.1.zip
@@ -35,7 +35,7 @@ jobs:
         run: unzip -o pi4j-2.1.1/lib/pi4j-library-pigpio.jar
 
       - name: Copy libs to staging
-        run: cp lib/aarch64/libpi4j-pigpio.so staging/RaspPiFX
+        run: cp lib/aarch64/libpi4j-pigpio.so staging/raspifx
 
       - name: Gluon License
         uses: gluonhq/gluon-build-license@v1
@@ -50,7 +50,7 @@ jobs:
         run: chmod +x target/gluonfx/aarch64-linux/RaspPiFX
 
       - name: Copy native image to staging
-        run: cp -r target/gluonfx/aarch64-linux/RaspPiFX staging/RaspPiFX
+        run: cp -r target/gluonfx/aarch64-linux/RaspPiFX staging/raspifx
 
       - name: Upload
         uses: actions/upload-artifact@v2
