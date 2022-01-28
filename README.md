@@ -53,7 +53,7 @@ Note: After installing it might be necessary to close and open the terminal for 
 #### Installation of the JDK
 In a new terminal window, enter the following command:
 ```shell
-sdk install java 17.0.1-tem
+sdk install java 17.0.2-tem
 ```
 
 This installs the JDK in your home directory `sdkman/candidates/java`. It can then be used from this directory in IntelliJ.
@@ -71,14 +71,14 @@ java -version
 
 The resulting output should be similar to the following:
 ```shell
-openjdk version "17.0.1" 2021-10-19
-OpenJDK Runtime Environment Temurin-17.0.1+12 (build 17.0.1+12)
-OpenJDK 64-Bit Server VM Temurin-17.0.1+12 (build 17.0.1+12, mixed mode, sharing)
+openjdk version "17.0.2" 2022-01-18
+OpenJDK Runtime Environment Temurin-17.0.2+8 (build 17.0.2+8)
+OpenJDK 64-Bit Server VM Temurin-17.0.2+8 (build 17.0.2+8, mixed mode, sharing)
 ```
 
 Should JDK 17.x not be the default, then it can be changed with the following command:
 ```shell
-sdk default java 17.0.1-tem
+sdk default java 17.0.2-tem
 ```
 
 ## Connect to the Raspberry Pi

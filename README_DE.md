@@ -74,7 +74,7 @@ sdk update
 In einem neuen Terminal-Window diesen Befehl eingeben:
 
 ```shell
-sdk install java 17.0.1-tem
+sdk install java 17.0.2-tem
 ```
 
 Danach liegt der JDK in ihrer Home-Directory im Folder `sdkman/candidates/java`. Von dort können Sie es dann in IntelliJ als neues SDK anlegen und im Projekt verwenden.
@@ -96,15 +96,15 @@ java -version
 
 Das sollte diese Ausgabe erzeugen
 ```shell
-openjdk version "17.0.1" 2021-10-19
-OpenJDK Runtime Environment Temurin-17.0.1+12 (build 17.0.1+12)
-OpenJDK 64-Bit Server VM Temurin-17.0.1+12 (build 17.0.1+12, mixed mode, sharing)
+openjdk version "17.0.2" 2022-01-18
+OpenJDK Runtime Environment Temurin-17.0.2+8 (build 17.0.2+8)
+OpenJDK 64-Bit Server VM Temurin-17.0.2+8 (build 17.0.2+8, mixed mode, sharing)
 ```
 
 Falls das nicht der Fall ist, muss der Default-JDK umgestellt werden. Mit SDKMAN geht das einfach:
 
 ```shell
-sdk default java 17.0.1-tem
+sdk default java 17.0.2-tem
 ```
 
 ## Verbindung zum Raspberry Pi herstellen
