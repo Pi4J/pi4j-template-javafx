@@ -169,7 +169,7 @@
                     <mainClass>${launcher.class}</mainClass>
                     <releaseConfiguration>
                         <vendor>Pi4J</vendor>
-                        <appDescription>${app.description}</appDescription>
+                        <description>${app.description}</description>
                         <skipSigning>true</skipSigning>
                     </releaseConfiguration>
                 </configuration>
