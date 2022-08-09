@@ -14,11 +14,11 @@
     <properties>
         <!-- The class that will be started, choose one and only one -->
 
-        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.setup.HelloFX</launcher.class> -->
+        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.setup.HelloFX</launcher.class>-->
         <!-- <launcher.class>com.pi4j.mvc/com.pi4j.setup.MinimalPi4J</launcher.class> -->
-        <launcher.class>com.pi4j.mvc/com.pi4j.mvc.templateapp.AppStarter</launcher.class>
+        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.mvc.templateapp.AppStarter</launcher.class> -->
         <!-- <launcher.class>com.pi4j.mvc/com.pi4j.mvc.templatepuiapp.AppStarter</launcher.class> -->
-        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class> -->
+        <launcher.class>com.pi4j.mvc/com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class>
 
 
         <!-- Setup for the RaspPi -->
@@ -36,15 +36,14 @@
         <java.version>17</java.version>
 
         <!-- Project Dependency Versions-->
-        <javafx.version>17.0.1</javafx.version>
+        <javafx.version>18.0.2</javafx.version>
         <pi4j.version>2.1.1</pi4j.version>
 
-        <slf4j.version>1.7.32</slf4j.version>
-        <junit.version>5.8.2</junit.version>
+        <junit.version>5.9.0</junit.version>
 
         <!-- Plugin Versions-->
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
-        <gluonfx.plugin.version>1.0.11</gluonfx.plugin.version>
+        <gluonfx.plugin.version>1.0.15</gluonfx.plugin.version>
 
         <!-- Maven Plugin Versions -->
         <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
@@ -80,7 +79,7 @@
 
 
     <dependencies>
-        <!-- JavaFX basics -->
+        <!-- JavaFX  -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
@@ -133,20 +132,6 @@
             <version>${pi4j.version}</version>
             <!-- <scope>test</scope> -->
         </dependency>
-
-        <!-- SLF4J  -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-
 
         <!-- JUnit -->
         <dependency>
@@ -244,8 +229,7 @@
                             <overWriteSnapshots>true</overWriteSnapshots>
                             <overWriteIfNewer>true</overWriteIfNewer>
                             <!--
-                            On the Raspberry Pi we use specific JavaFX dependencies,
-                            so we exclude them here and they are added in the run-script.
+                            On the Raspberry Pi we use specific JavaFX dependencies, so we exclude them here.
                             -->
                             <excludeGroupIds>org.openjfx</excludeGroupIds>
                         </configuration>

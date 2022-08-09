@@ -5,7 +5,7 @@ import com.pi4j.mvc.util.mvcbase.ControllerBase;
 
 /**
  * Provides all the available actions to the UI.
- *
+ * <p>
  * Usually all the methods just delegate the call to the appropriate (Sub-)Controller.
  *
  */
@@ -46,7 +46,7 @@ public class ApplicationController extends ControllerBase<ExampleModel> {
     }
 
     public void setLedGlows(boolean glows){
-        ledController.setLedGlows(glows);
+        ledController.setIsActive(glows);
     }
 
     public void blink(){

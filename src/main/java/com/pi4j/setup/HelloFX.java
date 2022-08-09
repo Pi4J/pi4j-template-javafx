@@ -15,13 +15,13 @@ import javafx.stage.StageStyle;
 
 /**
  * A tiny tool to check the basic setup of JavaFX.
- *
+ * <p>
  * It's a long way from here to a real application.
- *
+ * <p>
  * But as long as 'HelloFX' isn't working properly, it's useless to go any further.
- *
+ * <p>
  * It's not meant to be any kind of template to start your development.
- *
+ * <p>
  * Initially copied from https://github.com/openjfx/samples/blob/master/CommandLine/Modular/CLI/hellofx/src/hellofx/HelloFX.java
  *
  */
@@ -58,7 +58,6 @@ public class HelloFX extends Application {
             stage.setHeight(bounds.getHeight());
         }
         stage.setScene(scene);
-        stage.initStyle(StageStyle.TRANSPARENT);
         stage.show();
     }
 

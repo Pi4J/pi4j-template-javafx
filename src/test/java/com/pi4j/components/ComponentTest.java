@@ -1,4 +1,7 @@
-package com.pi4j.mvc.util.piucomponentbase;
+package com.pi4j.components;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.util.Arrays;
 
@@ -24,10 +27,9 @@ import com.pi4j.plugin.mock.provider.serial.MockSerialProvider;
 import com.pi4j.plugin.mock.provider.spi.MockSpi;
 import com.pi4j.plugin.mock.provider.spi.MockSpiProvider;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import com.pi4j.components.components.Component;
 
-public abstract class ComponentTest {
+public abstract class ComponentTest extends Component {
     protected Context pi4j;
 
     @SuppressWarnings("RedundantThrows")

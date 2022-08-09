@@ -17,10 +17,10 @@ class CounterController extends ControllerBase<ExampleModel> {
     // the logic we need for managing the counter
 
     void increaseCounter() {
-        increase(model.counter);
+        increaseValue(model.counter);
     }
 
     void decreaseCounter() {
-        decrease(model.counter);
+        decreaseValue(model.counter);
     }
 }

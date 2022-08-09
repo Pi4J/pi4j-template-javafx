@@ -1,5 +1,6 @@
 package com.pi4j.mvc.multicontrollerapp;
 
+import com.pi4j.mvc.multicontrollerapp.view.gui.ExamplePuiEmulator;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;

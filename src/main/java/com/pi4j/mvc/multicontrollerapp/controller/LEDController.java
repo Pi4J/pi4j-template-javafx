@@ -16,8 +16,8 @@ class LEDController extends ControllerBase<ExampleModel> {
         super(model);
     }
 
-    void setLedGlows(boolean glows) {
-        setValue(model.ledGlows, glows);
+    void setIsActive(boolean glows) {
+        setValue(model.isActive, glows);
     }
 
     /**
@@ -25,18 +25,18 @@ class LEDController extends ControllerBase<ExampleModel> {
      */
     void blink() {
         final Duration pause = Duration.ofMillis(500);
-        setLedGlows(false);
+        setIsActive(false);
         for (int i = 0; i < 4; i++) {
-            setLedGlows(true);
+            setIsActive(true);
             pauseExecution(pause);
-            setLedGlows(false);
+            setIsActive(false);
             pauseExecution(pause);
         }
     }
 
     /**
      * Example for triggering some built-in action in PUI instead of implement it in Controller.
-     *
+     * <p>
      * Controller can't call PUI-component methods directly. Use a trigger instead.
      *
      */

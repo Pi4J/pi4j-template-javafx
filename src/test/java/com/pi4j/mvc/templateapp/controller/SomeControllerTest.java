@@ -41,18 +41,18 @@ class SomeControllerTest {
         SomeController controller = new SomeController(model);
 
         //when
-        controller.setLedGlows(true);
+        controller.setIsActive(true);
         controller.awaitCompletion();
 
         //then
-        assertTrue(model.ledGlows.getValue());
+        assertTrue(model.isActive.getValue());
 
         //when
-        controller.setLedGlows(false);
+        controller.setIsActive(false);
         controller.awaitCompletion();
 
         //then
-        assertFalse(model.ledGlows.getValue());
+        assertFalse(model.isActive.getValue());
     }
 
 }

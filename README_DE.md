@@ -41,7 +41,7 @@ Das CrowPi-Image enthält bereits alle notwendige Installationen für JavaFX/Pi4
 
 * [Java 17](https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot). Im CrowPi-Image ist JDK17 installiert. Daher verwenden wir diesen JDK auch auf dem Laptop. Hinweis für Mac-Benutzer: Die Verwendung von SDKMAN (s.u.) für die Installation und die Verwaltung von JDKs ist sehr empfehlenswert.
 
-* [IntelliJ IDEA 2021.3](https://www.jetbrains.com/idea/download/). Es ist wichtig, diese neueste Version zu verwenden. Am besten via [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/) installieren. Empfehlenswert ist die Verwendung der Ultimate Edition. Studierende erhalten, nach Anmeldung, eine kostenlose Lizenz. Registrieren Sie sich unter [https://www.jetbrains.com/student/](https://www.jetbrains.com/student/) mit Ihrer FHNW E-Mail-Adresse. Für die Community-Edition benötigt man keine Lizenz.
+* [IntelliJ IDEA](https://www.jetbrains.com/idea/download/). Es ist wichtig, die neueste Version zu verwenden. Am besten via [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/) installieren. Empfehlenswert ist die Verwendung der Ultimate Edition. Studierende erhalten, nach Anmeldung, eine kostenlose Lizenz. Registrieren Sie sich unter [https://www.jetbrains.com/student/](https://www.jetbrains.com/student/) mit Ihrer FHNW E-Mail-Adresse. Für die Community-Edition benötigt man keine Lizenz.
 
 * [Git](https://git-scm.com/downloads). Als Sourcecode-Repository verwenden wir git. 
 
@@ -74,7 +74,7 @@ sdk update
 In einem neuen Terminal-Window diesen Befehl eingeben:
 
 ```shell
-sdk install java 17.0.2-tem
+sdk install java 17.0.4-tem
 ```
 
 Danach liegt der JDK in ihrer Home-Directory im Folder `sdkman/candidates/java`. Von dort können Sie es dann in IntelliJ als neues SDK anlegen und im Projekt verwenden.
@@ -96,15 +96,15 @@ java -version
 
 Das sollte diese Ausgabe erzeugen
 ```shell
-openjdk version "17.0.2" 2022-01-18
-OpenJDK Runtime Environment Temurin-17.0.2+8 (build 17.0.2+8)
-OpenJDK 64-Bit Server VM Temurin-17.0.2+8 (build 17.0.2+8, mixed mode, sharing)
+openjdk version "17.0.4" 2022-07-19
+OpenJDK Runtime Environment Temurin-17.0.4+8 (build 17.0.4+8)
+OpenJDK 64-Bit Server VM Temurin-17.0.4+8 (build 17.0.4+8, mixed mode)
 ```
 
 Falls das nicht der Fall ist, muss der Default-JDK umgestellt werden. Mit SDKMAN geht das einfach:
 
 ```shell
-sdk default java 17.0.2-tem
+sdk default java 17.0.4-tem
 ```
 
 ## Verbindung zum Raspberry Pi herstellen
@@ -135,9 +135,17 @@ ssh pi@192.168.183.86
 Passwort: 'crowpi'
 ```
 
+
+Falls der Raspberry Pi der einzige mit dem Hotspot verbundene ist, kann `crowpi.local` anstatt der IP-Nummer verwendet werden.
+
+```shell
+ssh pi@crowpi.local
+Passwort: 'crowpi'
+```
+
 #### Verbindung via VNC
 
-Mit derselben IP-Nummer kann auch via VNC auf den RaspPi zugegriffen werden. Man erhält auf dem Laptop ein Fenster, das den kompletten Desktop des Raspberry Pis anzeigt. 
+Mit derselben IP-Nummer (oder `crowpi.local`) kann auch via VNC auf den RaspPi zugegriffen werden. Man erhält auf dem Laptop ein Fenster, das den kompletten Desktop des Raspberry Pis anzeigt. 
 
 Das Ganze sieht dann so aus (mit der gestarteten ExampleApp)
 
@@ -196,7 +204,7 @@ Zum Starten:
 Sobald der JavaFX-Setup überprüft ist, kann HelloFX gelöscht werden.
 
 #### Wiring
-Die beiden anderen Beispielprogramme verwenden eine LED und einen Button. Diese müssen folgendermassen verdrahtet werden:
+Die anderen Beispielprogramme verwenden eine LED und einen Button. Diese müssen folgendermassen verdrahtet werden:
 
 ![Wiring](assets/led-button_bb.png)
 
@@ -282,7 +290,7 @@ Beim klassischen Model-View-Controller-Konzept sind neben der Starter-Klasse min
 In unserem Fall gibt es mindestens zwei View-Klassen
 
 - _GUI Klasse._ Das Graphical-User-Interface. JavaFX-basierte Implementierung des auf dem Bildschirm angezeigten UIs.
-- _PUI Klasse._ Das Physical-User-Interface. Pi4J-basierte Implementierung der Sensoren und Aktuatoren. Verwendet  Component-Klassen, wie Sie sie aus dem [CrowPi-Tutorial](https://fhnw-ip5-ip6.github.io/CrowPiGoesJavaTutorial/de/) kennen.
+- _PUI Klasse._ Das Physical-User-Interface. Pi4J-basierte Implementierung der Sensoren und Aktuatoren. Verwendet  Component-Klassen, wie Sie sie aus dem [Pi4J Example Components](https://github.com/Pi4J/pi4j-example-components.git) kennen.
 
 GUI und PUI sind komplett voneinander getrennt, z.B. hat der GUI-Button zum Anschalten der LED keinen direkten Zugriff auf die LED-Component des PUIs. Stattdessen triggert der GUI-Button lediglich eine entsprechende Action im Controller, der wiederum die on-Property im Model auf den neuen Wert setzt. In einem separaten Schritt reagiert die LED-Component des PUIs auf diese Wertänderung und schaltet die LED an- bzw. aus.
 

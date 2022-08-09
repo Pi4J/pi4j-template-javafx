@@ -11,13 +11,14 @@ public class SomeController extends ControllerBase<SomeModel> {
         super(model);
     }
 
-    public void ledOn(){
-        setValue(model.ledGlows, true);
+    public void activate(){
+        setValue(model.busy, true);
     }
 
-    public void ledOff(){
-        setValue(model.ledGlows, false);
-        increase(model.counter);
+    public void deactivate(){
+        // use 'updateModel' if you need to set multiple values
+        updateModel(set(model.busy, false),
+                    increase(model.counter));
 
         //using 'runLater' assures that new value is set on model
         runLater(m -> {

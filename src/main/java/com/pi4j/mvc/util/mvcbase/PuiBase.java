@@ -103,6 +103,15 @@ public abstract class PuiBase<M, C extends ControllerBase<M>> implements Project
                 return null;
             }));
         }
+
+        public void execute(Consumer<V> action){
+            observableValue.onChange((oldValue, newValue) -> {
+                queue.submit(() -> {
+                    action.accept(newValue);
+                    return null;
+                });
+            });
+        }
     }
 }
 
