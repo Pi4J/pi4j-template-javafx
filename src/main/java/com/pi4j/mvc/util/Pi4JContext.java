@@ -1,6 +1,7 @@
 package com.pi4j.mvc.util;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.pi4j.Pi4J;
 import com.pi4j.context.Context;
@@ -22,8 +23,6 @@ import com.pi4j.plugin.pigpio.provider.serial.PiGpioSerialProvider;
 import com.pi4j.plugin.pigpio.provider.spi.PiGpioSpiProvider;
 import com.pi4j.plugin.raspberrypi.platform.RaspberryPiPlatform;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Pi4JContext is made for applications with GUI and PUI.
@@ -34,7 +33,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Pi4JContext {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Pi4JContext.class);
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     private Pi4JContext() {
     }
@@ -46,7 +45,7 @@ public class Pi4JContext {
      */
     public static Context createContext() {
         Context context = runsOnPi() ? createRaspPiContext() : createMockContext();
-        LOGGER.info("GPIO initialized for {}", (runsOnPi() ? " RaspPi" : " desktop"));
+        LOGGER.info(() -> "GPIO initialized for %s".formatted((runsOnPi() ? "RaspPi" : "desktop")));
 
         return context;
     }

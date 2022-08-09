@@ -11,7 +11,7 @@ open module com.pi4j.mvc {
     uses com.pi4j.provider.Provider;
 
     // for logging
-    requires org.slf4j;
+    requires java.logging;
 
     // JavaFX
     requires javafx.base;

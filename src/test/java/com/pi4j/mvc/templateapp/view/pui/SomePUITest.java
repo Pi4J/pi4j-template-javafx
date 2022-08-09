@@ -2,17 +2,21 @@ package com.pi4j.mvc.templateapp.view.pui;
 
 import com.pi4j.mvc.templateapp.controller.SomeController;
 import com.pi4j.mvc.templateapp.model.SomeModel;
-import com.pi4j.mvc.templateapp.view.pui.components.ButtonComponent;
 import com.pi4j.mvc.util.Pi4JContext;
 
 import org.junit.jupiter.api.Test;
+
+import com.pi4j.io.gpio.digital.DigitalState;
+import com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalInput;
+
+import com.pi4j.components.ComponentTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-class SomePUITest {
+class SomePUITest extends ComponentTest {
     @Test
      void testLED() {
          //given
@@ -21,7 +25,7 @@ class SomePUITest {
          SomePUI        pui        = new SomePUI(controller, Pi4JContext.createMockContext());
  
          //when
-         controller.setLedGlows(true);
+         controller.setIsActive(true);
          controller.awaitCompletion();
          pui.awaitCompletion();
  
@@ -29,7 +33,7 @@ class SomePUITest {
          assertTrue(pui.led.glows());
  
          //when
-         controller.setLedGlows(false);
+         controller.setIsActive(false);
          controller.awaitCompletion();
          pui.awaitCompletion();
  
@@ -45,9 +49,12 @@ class SomePUITest {
          SomePUI        pui        = new SomePUI(controller, Pi4JContext.createMockContext());
  
          int initialCounter = model.counter.getValue();
+
+         MockDigitalInput digitalInput = toMock(pui.button.getDigitalInput());
+         digitalInput.mockState(DigitalState.HIGH);
  
          //when
-         pui.button.dispatchSimpleEvents(ButtonComponent.ButtonState.UP);
+         digitalInput.mockState(DigitalState.LOW);
          pui.awaitCompletion();
          controller.awaitCompletion();
  

@@ -48,14 +48,14 @@ class ControllerBaseTest {
         model.someBoolean.setValue(true);
 
         //when
-        controller.toggle(model.someBoolean);
+        controller.toggleValue(model.someBoolean);
         controller.awaitCompletion();
 
         //then
         assertFalse(model.someBoolean.getValue());
 
         //when
-        controller.toggle(model.someBoolean);
+        controller.toggleValue(model.someBoolean);
         controller.awaitCompletion();
 
         //then

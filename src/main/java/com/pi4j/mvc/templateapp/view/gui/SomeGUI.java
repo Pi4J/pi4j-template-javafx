@@ -72,8 +72,8 @@ public class SomeGUI extends BorderPane implements ViewMixin<SomeModel, SomeCont
         // by calling a single method
 
         increaseButton.setOnAction  (event -> controller.increaseCounter());
-        ledButton.setOnMousePressed (event -> controller.setLedGlows(true));
-        ledButton.setOnMouseReleased(event -> controller.setLedGlows(false));
+        ledButton.setOnMousePressed (event -> controller.setIsActive(true));
+        ledButton.setOnMouseReleased(event -> controller.setIsActive(false));
     }
 
     @Override

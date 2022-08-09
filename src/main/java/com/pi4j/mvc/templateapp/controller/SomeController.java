@@ -14,14 +14,15 @@ public class SomeController extends ControllerBase<SomeModel> {
     // these methods can be called from GUI and PUI (and from nowhere else)
 
     public void increaseCounter() {
-        increase(model.counter);
+        increaseValue(model.counter);
     }
 
     public void decreaseCounter() {
-        decrease(model.counter);
+        updateModel(decrease(model.counter),
+                    set(model.isActive, false));
     }
 
-    public void setLedGlows(boolean glows){
-        setValue(model.ledGlows, glows);
+    public void setIsActive(boolean is){
+        setValue(model.isActive, is);
     }
 }
