@@ -37,7 +37,7 @@
 
         <!-- Project Dependency Versions-->
         <javafx.version>18.0.2</javafx.version>
-        <pi4j.version>2.1.1</pi4j.version>
+        <pi4j.version>2.2.0</pi4j.version>
 
         <junit.version>5.9.0</junit.version>
 
