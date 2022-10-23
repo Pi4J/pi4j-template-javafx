@@ -16,6 +16,24 @@ open module com.pi4j.mvc {
     // JavaFX
     requires javafx.base;
     requires javafx.controls;
+    requires javafx.graphics;
+    // needed for Charts and TilesFX
+    requires javafx.swing;
+    // needed for TilesFX
+    requires javafx.media;
+    requires javafx.web;
+
+
+    // 3rd Party
+    // needed for Charts and TilesFX
+    requires transitive eu.hansolo.jdktools;
+    requires transitive eu.hansolo.toolbox;
+    requires transitive eu.hansolo.toolboxfx;
+    requires transitive eu.hansolo.fx.heatmap;
+    requires transitive eu.hansolo.fx.countries;
+
+    // needed for TilesFX
+    requires transitive eu.hansolo.tilesfx;
 
 
     // Module Exports
