@@ -15,6 +15,7 @@ open module com.pi4j.mvc {
     // JavaFX
     requires javafx.base;
     requires javafx.controls;
+    requires java.logging;
 
 
     // Module Exports

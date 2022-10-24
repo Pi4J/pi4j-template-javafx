@@ -3,7 +3,7 @@ package com.pi4j.mvc.templatepuiapp;
 import com.pi4j.context.Context;
 import com.pi4j.mvc.templatepuiapp.controller.SomeController;
 import com.pi4j.mvc.templatepuiapp.model.SomeModel;
-import com.pi4j.mvc.templatepuiapp.view.SomePUI;
+import com.pi4j.mvc.templatepuiapp.view.pui.SomePUI;
 import com.pi4j.mvc.util.Pi4JContext;
 
 import org.slf4j.Logger;
