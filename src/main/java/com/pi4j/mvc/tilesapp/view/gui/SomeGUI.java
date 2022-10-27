@@ -32,6 +32,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 
     private LedButtonTile ledButtonTileClass;
 
+    private int tilesize = 400;
+
     public SomeGUI(SomeController controller) {
         super(3,1);
         setHgap(5);
@@ -39,7 +41,7 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         setAlignment(Pos.CENTER);
         setCenterShape(true);
         setPadding(new Insets(5));
-        setPrefSize(3000, 3000);
+//        setPrefSize(3000, 3000);
         setBackground(new Background(new BackgroundFill(Color.web("#101214"), CornerRadii.EMPTY, Insets.EMPTY)));
 
         init(controller); //don't forget to call 'init'
@@ -51,7 +53,7 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         loadFonts("/fonts/Lato/Lato-Lig.ttf", "/fonts/fontawesome-webfont.ttf");
 
         //apply your style
-        addStylesheetFiles("/mvc/templateapp/style.css");
+        addStylesheetFiles("/mvc/tilesapp/style.css");
 
         getStyleClass().add("root-pane");
         
@@ -74,21 +76,21 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         ledButtonTileClass = new LedButtonTile();
 
         ledTile = TileBuilder.create()
-            .prefSize(400,400)
+            .prefSize(tilesize,tilesize)
             .skinType(Tile.SkinType.LED)
             .title("Simple LED")
             .text("Bottom text")
             .build();
 
         switchTile = TileBuilder.create()
-            .prefSize(400,400)
+            .prefSize(tilesize,tilesize)
             .skinType(Tile.SkinType.SWITCH)
             .title("Simple Switch")
             .text("Bottom text")
             .build();
 
 //        ledButtonTile = TileBuilder.create()
-//            .prefSize(400,400)
+//            .prefSize(tilesize,tilesize)
 //            .skinType(Tile.SkinType.CUSTOM)
 //            .title("LED Button")
 //            .text("Bottom text")

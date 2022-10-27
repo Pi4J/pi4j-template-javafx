@@ -9,10 +9,8 @@ public class LedButtonTile extends Tile {
 
     private EventHandler<MouseEvent> mouseHandler;
     public LedButtonTile(){
-        prefHeight(400);
-        prefWidth(400);
-        minWidth(400);
         minHeight(400);
+        minWidth(400);
         setSkinType(SkinType.CUSTOM);
         setTitle("SimpleButton");
         setText("Bottom text");
