@@ -1,6 +1,7 @@
 package com.pi4j.components.components;
 
 import com.pi4j.components.components.helpers.PIN;
+import com.pi4j.components.interfaces.ButtonInterface;
 import com.pi4j.context.Context;
 import com.pi4j.io.gpio.digital.DigitalInput;
 import com.pi4j.io.gpio.digital.DigitalInputConfig;
@@ -10,7 +11,7 @@ import com.pi4j.io.gpio.digital.PullResistance;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class SimpleButton extends Component {
+public class SimpleButton extends Component implements ButtonInterface {
     /**
      * Default debounce time in microseconds
      */
@@ -171,6 +172,7 @@ public class SimpleButton extends Component {
      *
      * @param task Event handler to call or null to disable
      */
+    @Override
     public void onDown(Runnable task) {
         this.onDown = task;
     }
@@ -182,6 +184,7 @@ public class SimpleButton extends Component {
      *
      * @param task Event handler to call or null to disable
      */
+    @Override
     public void onUp(Runnable task) {
         this.onUp = task;
     }
@@ -193,6 +196,7 @@ public class SimpleButton extends Component {
      *
      * @param task Event handler to call or null to disable
      */
+    @Override
     public void whilePressed(Runnable task, long whilePressedDelay) {
         this.whilePressed = task;
         this.whilePressedDelay = whilePressedDelay;
@@ -201,6 +205,7 @@ public class SimpleButton extends Component {
     /**
      * disables all the handlers for the onUp, onDown and WhilePressed Events
      */
+    @Override
     public void deRegisterAll() {
         this.onDown = null;
         this.onUp = null;

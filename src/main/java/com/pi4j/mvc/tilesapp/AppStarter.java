@@ -3,6 +3,7 @@ package com.pi4j.mvc.tilesapp;
 import com.pi4j.mvc.tilesapp.controller.SomeController;
 import com.pi4j.mvc.tilesapp.model.SomeModel;
 import com.pi4j.mvc.tilesapp.view.gui.SomeGUI;
+import com.pi4j.mvc.tilesapp.view.gui.SomePuiEmulator;
 import com.pi4j.mvc.tilesapp.view.pui.SomePUI;
 import com.pi4j.mvc.util.Pi4JContext;
 import javafx.application.Application;
@@ -38,7 +39,7 @@ public class AppStarter extends Application {
         primaryStage.show();
 
         // on desktop, it's convenient to have a very basic emulator for the PUI to test the interaction between GUI and PUI
-        //startPUIEmulator(new SomePuiEmulator(controller));
+        startPUIEmulator(new SomePuiEmulator(controller));
     }
 
 

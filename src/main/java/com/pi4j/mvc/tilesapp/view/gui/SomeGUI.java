@@ -1,5 +1,6 @@
 package com.pi4j.mvc.tilesapp.view.gui;
 
+import com.pi4j.components.components.SimpleButton;
 import com.pi4j.components.tiles.LedButtonTile;
 import com.pi4j.components.tiles.Skins.LedButtonSkin;
 import com.pi4j.mvc.tilesapp.controller.SomeController;
@@ -10,6 +11,8 @@ import eu.hansolo.tilesfx.TileBuilder;
 import eu.hansolo.tilesfx.tools.FlowGridPane;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -20,15 +23,16 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
     private static final String LIGHT_BULB = "\uf0eb";  // the unicode of the lightbulb-icon in fontawesome font
 
     // declare all the UI elements you need
-//    private Button ledButton;
-//    private Button increaseButton;
-//    private Label  counterLabel;
-//    private Label  infoLabel;
+    private Button ledButton;
+    private Button increaseButton;
+    private Label counterLabel;
+    private Label  infoLabel;
+
 
     private Tile ledTile;
     private Tile switchTile;
 
-//    private Tile ledButtonTile;
+    private Tile ledButtonTile;
 
     private LedButtonTile ledButtonTileClass;
 
@@ -62,16 +66,16 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 
     @Override
     public void initializeParts() {
-//        ledButton = new Button(LIGHT_BULB);
-//        ledButton.getStyleClass().add("icon-button");
+        ledButton = new Button(LIGHT_BULB);
+        ledButton.getStyleClass().add("icon-button");
+
+        increaseButton = new Button("+");
 //
-//        increaseButton = new Button("+");
+        counterLabel = new Label();
+        counterLabel.getStyleClass().add("counter-label");
 //
-//        counterLabel = new Label();
-//        counterLabel.getStyleClass().add("counter-label");
-//
-//        infoLabel = new Label();
-//        infoLabel.getStyleClass().add("info-label");
+        infoLabel = new Label();
+        infoLabel.getStyleClass().add("info-label");
 
         ledButtonTileClass = new LedButtonTile();
 
@@ -103,7 +107,7 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 
     @Override
     public void layoutParts() {
-        getChildren().addAll(ledTile, switchTile, ledButtonTileClass);
+        getChildren().addAll(ledTile, switchTile, ledButtonTileClass,counterLabel);
 
     }
 
@@ -112,9 +116,9 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         // look at that: all EventHandlers just trigger an action on 'controller'
         // by calling a single method
 
-
-
-//        increaseButton.setOnAction  (event -> controller.increaseCounter());
+       // ledButtonTileClass.setOnMouseClicked(event -> controller.increaseCounter());
+        ledButtonTileClass.onUp(controller::increaseCounter);
+       // increaseButton.setOnAction  (event -> controller.increaseCounter());
 //        ledButton.setOnMousePressed (event -> controller.setIsActive(true));
 //        ledButton.setOnMouseReleased(event -> controller.setIsActive(false));
     }
@@ -124,12 +128,12 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 
 
 //    @Override
-//    public void setupModelToUiBindings(SomeModel model) {
+    public void setupModelToUiBindings(SomeModel model) {
 //        onChangeOf(model.systemInfo)                       // the value we need to observe, in this case that's an ObservableValue<String>, no need to convert it
 //                .update(infoLabel.textProperty());         // keeps textProperty and systemInfo in sync
 //
-//        onChangeOf(model.counter)                          // the value we need to observe, in this case that's an ObservableValue<Integer>
-//                .convertedBy(String::valueOf)              // we have to convert the Integer to a String
-//                .update(counterLabel.textProperty());      // keeps textProperty and counter in sync
-//    }
+        onChangeOf(model.counter)                          // the value we need to observe, in this case that's an ObservableValue<Integer>
+                .convertedBy(String::valueOf)              // we have to convert the Integer to a String
+                .update(counterLabel.textProperty());      // keeps textProperty and counter in sync
+    }
 }
