@@ -33,15 +33,15 @@
         <java.version>17</java.version>
 
         <!-- Project Dependency Versions-->
-        <javafx.version>17.0.1</javafx.version>
-        <pi4j.version>2.1.0</pi4j.version>
+        <javafx.version>19</javafx.version>
+        <pi4j.version>2.2.1</pi4j.version>
 
         <slf4j.version>1.7.32</slf4j.version>
-        <junit.version>5.8.1</junit.version>
+        <junit.version>5.9.1</junit.version>
 
         <!-- Plugin Versions-->
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
-        <gluonfx.plugin.version>1.0.9</gluonfx.plugin.version>
+        <gluonfx.plugin.version>1.0.15</gluonfx.plugin.version>
 
         <!-- Maven Plugin Versions -->
         <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
