@@ -116,9 +116,9 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         // look at that: all EventHandlers just trigger an action on 'controller'
         // by calling a single method
 
-       // ledButtonTileClass.setOnMouseClicked(event -> controller.increaseCounter());
-        ledButtonTileClass.onUp(controller::increaseCounter);
-       // increaseButton.setOnAction  (event -> controller.increaseCounter());
+//        ledButtonTileClass.setOnMouseClicked(event -> controller.increaseCounter());
+        ledButtonTileClass.onDown(controller::increaseCounter);
+
 //        ledButton.setOnMousePressed (event -> controller.setIsActive(true));
 //        ledButton.setOnMouseReleased(event -> controller.setIsActive(false));
     }

@@ -32,12 +32,12 @@ public class LedButtonTile extends Tile implements ButtonInterface {
 
     @Override
     public void onDown(Runnable task) {
-
+        this.setOnMouseClicked(event -> task.run());
     }
 
     @Override
     public void onUp(Runnable task) {
-        this.setOnMouseClicked(event -> controller.increaseCounter());
+
     }
 
     @Override
