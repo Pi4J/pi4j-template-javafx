@@ -1,24 +1,17 @@
 package com.pi4j.components.tiles;
 
 import com.pi4j.components.interfaces.ButtonInterface;
-import com.pi4j.components.tiles.Skins.LedButtonSkin;
-import com.pi4j.mvc.tilesapp.controller.SomeController;
 import eu.hansolo.tilesfx.Tile;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 
-public class LedButtonTile extends Tile implements ButtonInterface {
+public class SimpleButtonTile extends Tile implements ButtonInterface {
 
-    public LedButtonTile(){
-        minHeight(400);
-        minWidth(400);
-        setSkinType(SkinType.CUSTOM);
+    public SimpleButtonTile(){
+        prefHeight(400);
+        prefWidth(400);
+        setSkinType(SkinType.LED);
         setTitle("SimpleButton");
-        setText("Bottom text");
-        setSkin(new LedButtonSkin(this));
-
+        setText("Separate Tile");
     }
-
 
     @Override
     public void onDown(Runnable task) {

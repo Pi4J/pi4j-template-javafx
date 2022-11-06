@@ -49,7 +49,7 @@ public class SomePuiEmulator extends VBox implements ViewMixin<SomeModel, SomeCo
     public void setupModelToUiBindings(SomeModel model) {
         //observe the same values as the real PUI
 
-        onChangeOf(model.isActive)
+        onChangeOf(model.isLedActive)
                 .convertedBy(active -> active ? "on" : "off")
                 .update(led.textProperty());
     }

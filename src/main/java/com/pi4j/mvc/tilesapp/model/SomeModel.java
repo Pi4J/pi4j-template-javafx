@@ -10,7 +10,9 @@ import com.pi4j.mvc.util.mvcbase.ObservableValue;
  * All the application logic is handled by the 'Controller'
  */
 public class SomeModel {
-    public final ObservableValue<String>  systemInfo = new ObservableValue<>("JavaFX " + System.getProperty("javafx.version") + ", running on Java " + System.getProperty("java.version") + ".");
     public final ObservableValue<Integer> counter    = new ObservableValue<>(73);
-    public final ObservableValue<Boolean> isActive   = new ObservableValue<>(false);
+    public final ObservableValue<Boolean> isActive = new ObservableValue<>(false);
+    public final ObservableValue<Boolean> isLedActive = new ObservableValue<>(false);
+    public final ObservableValue<Boolean> isButtonPressed = new ObservableValue<>(false);
+
 }

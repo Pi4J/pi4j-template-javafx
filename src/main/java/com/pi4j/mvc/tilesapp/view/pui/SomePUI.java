@@ -3,6 +3,7 @@ package com.pi4j.mvc.tilesapp.view.pui;
 import com.pi4j.components.components.SimpleButton;
 import com.pi4j.components.components.SimpleLED;
 import com.pi4j.components.components.helpers.PIN;
+import com.pi4j.components.interfaces.SimpleLEDInterface;
 import com.pi4j.context.Context;
 import com.pi4j.mvc.tilesapp.controller.SomeController;
 import com.pi4j.mvc.tilesapp.model.SomeModel;
@@ -11,7 +12,7 @@ import com.pi4j.mvc.util.mvcbase.PuiBase;
 public class SomePUI extends PuiBase<SomeModel, SomeController> {
     //declare all hardware components attached to RaspPi
     //these are protected to give unit tests access to them
-    protected SimpleLED    led;
+    protected SimpleLEDInterface led;
     protected SimpleButton button;
 
     public SomePUI(SomeController controller, Context pi4J) {
@@ -32,7 +33,7 @@ public class SomePUI extends PuiBase<SomeModel, SomeController> {
 
     @Override
     public void setupModelToUiBindings(SomeModel model) {
-        onChangeOf(model.isActive)
+        onChangeOf(model.isLedActive)
                 .execute((oldValue, newValue) -> {
                     if (newValue) {
                         led.on();

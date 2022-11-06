@@ -25,4 +25,26 @@ public class SomeController extends ControllerBase<SomeModel> {
     public void setIsActive(boolean is){
         setValue(model.isActive, is);
     }
+
+//    public void ledToggle(){
+//        if (model.isLedActive.getValue()) {
+//            setValue(model.isLedActive, false);
+//        } else {
+//            setValue(model.isLedActive, true);
+//        }
+//    }
+
+    public void setButtonPressed(boolean is){
+        setValue(model.isButtonPressed, is);
+    }
+
+
+
+//    public void ledOff(){
+//        setValue(model.isActive, false);
+//    }
+
+    public void ledMessage(){
+        System.out.println("Button pressed");
+    }
 }
