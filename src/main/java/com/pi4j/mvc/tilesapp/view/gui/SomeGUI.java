@@ -76,7 +76,12 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 //    @Override
     public void setupModelToUiBindings(SomeModel model) {
 
-        onChangeOf(model.isLedActive)
+        /*
+
+        Der aktuelle Controller verändert 'isLedActive' ja überhaupt nicht
+        Daher ist das hier überflüssig
+
+       onChangeOf(model.isLedActive)
             .execute((oldValue, newValue) -> {
                 if (newValue) {
                     ledTile.on();
@@ -84,6 +89,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
                     ledTile.off();
                 }
             });
+         */
+
 
         //press button to turn on/off SimpleLED
         onChangeOf(model.isButtonPressed)
