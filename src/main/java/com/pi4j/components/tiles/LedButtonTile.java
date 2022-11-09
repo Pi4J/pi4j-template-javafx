@@ -7,7 +7,7 @@ import eu.hansolo.tilesfx.Tile;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
-public class LedButtonTile extends Tile implements ButtonInterface {
+public class LedButtonTile extends Pi4JTile implements ButtonInterface {
 
     public LedButtonTile(){
         minHeight(400);

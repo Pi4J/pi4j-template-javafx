@@ -1,5 +1,8 @@
 package com.pi4j.mvc.tilesapp.view.gui;
 
+import com.pi4j.components.components.helpers.PIN;
+import com.pi4j.components.interfaces.ButtonInterface;
+import com.pi4j.components.interfaces.SimpleLEDInterface;
 import com.pi4j.components.tiles.LedButtonTile;
 import com.pi4j.components.tiles.SimpleButtonTile;
 import com.pi4j.components.tiles.SimpleLEDTile;
@@ -7,7 +10,6 @@ import com.pi4j.mvc.tilesapp.controller.SomeController;
 import com.pi4j.mvc.tilesapp.model.SomeModel;
 import com.pi4j.mvc.util.mvcbase.ViewMixin;
 import eu.hansolo.tilesfx.Tile;
-import eu.hansolo.tilesfx.TileBuilder;
 import eu.hansolo.tilesfx.tools.FlowGridPane;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,13 +22,10 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 
     // declare all the UI elements you need
 
-    private Tile switchTile;
-    private SimpleLEDTile ledTile;
-    private SimpleButtonTile buttonTile;
+    private SimpleLEDInterface ledTile;
+    private ButtonInterface buttonTile;
 
-    private LedButtonTile ledButtonTile;
-
-    private int tilesize = 400;
+    private final int tilesize = 400;
 
     public SomeGUI(SomeController controller) {
         super(5,1);
@@ -44,36 +43,24 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
     @Override
     public void initializeSelf() {
         //load all fonts you need
-        loadFonts("/fonts/Lato/Lato-Lig.ttf", "/fonts/fontawesome-webfont.ttf");
+      //  loadFonts("/fonts/Lato/Lato-Lig.ttf", "/fonts/fontawesome-webfont.ttf");
 
         //apply your style
-        addStylesheetFiles("/mvc/tilesapp/style.css");
+      //  addStylesheetFiles("/mvc/tilesapp/style.css");
 
         getStyleClass().add("root-pane");
-        
-        
     }
 
     @Override
     public void initializeParts() {
-
-        ledButtonTile = new LedButtonTile();
-
-        ledTile = new SimpleLEDTile();
-
+        ledTile    = new SimpleLEDTile(PIN.D22);
         buttonTile = new SimpleButtonTile();
 
-        switchTile = TileBuilder.create()
-            .prefSize(tilesize,tilesize)
-            .skinType(Tile.SkinType.SWITCH)
-            .title("Simple Switch")
-            .text("Bottom text")
-            .build();
     }
 
     @Override
     public void layoutParts() {
-        getChildren().addAll(switchTile, ledTile, buttonTile);
+        getChildren().addAll((Tile)ledTile, (Tile)buttonTile);
     }
 
     @Override
@@ -81,8 +68,9 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         // look at that: all EventHandlers just trigger an action on 'controller'
         // by calling a single method
 
-        buttonTile.setOnMousePressed (event -> controller.setButtonPressed(true));
-        buttonTile.setOnMouseReleased(event -> controller.setButtonPressed(false));
+        //hier die Methoden des Interface verwenden (nicht die von JavaFX-Node)
+        buttonTile.onDown(() -> controller.setButtonPressed(true));
+        buttonTile.onUp  (() -> controller.setButtonPressed(false));
     }
 
 //    @Override
