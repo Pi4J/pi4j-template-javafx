@@ -8,6 +8,8 @@ import java.util.concurrent.Executors;
 
 public class SimpleButtonTile extends Pi4JTile implements SimpleButtonInterface {
 
+    SimpleButtonSkin buttonSkin = new SimpleButtonSkin(this);
+
     private Runnable onDown = () -> { };
     private Runnable onUp   = () -> { };
     private Runnable whilePressed = () -> { };
@@ -36,9 +38,9 @@ public class SimpleButtonTile extends Pi4JTile implements SimpleButtonInterface 
         prefWidth(400);
         setTitle("Simple Button");
         setText("Pin " + pin.getPin());
-        setSkin(new SimpleButtonSkin(this));
+        setSkin(buttonSkin);
 
-        setOnMousePressed(mouseEvent -> {
+        buttonSkin.getButtonknob().setOnMousePressed(mouseEvent -> {
 
             //Run onDown Runnable, falls Wert nicht Null
             if (onDown != null) {
@@ -53,7 +55,7 @@ public class SimpleButtonTile extends Pi4JTile implements SimpleButtonInterface 
 
         });
 
-          setOnMouseReleased(mouseEvent -> {
+        buttonSkin.getButtonknob().setOnMouseReleased(mouseEvent -> {
               onUp.run();
               isDown = false;
           });

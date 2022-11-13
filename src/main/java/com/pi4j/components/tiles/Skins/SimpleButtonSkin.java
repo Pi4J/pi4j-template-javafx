@@ -129,7 +129,7 @@ public class SimpleButtonSkin extends TileSkin {
         text.setFill(tile.getTextColor());
 
     }
-
-
-
+    public Circle getButtonknob() {
+        return buttonknob;
+    }
 }

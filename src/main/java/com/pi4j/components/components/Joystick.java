@@ -7,11 +7,12 @@ import com.pi4j.io.gpio.digital.DigitalState;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.pi4j.components.interfaces.JoystickInterface;
 
 /**
  * Implementation of a joystick using 5 GPIO up, left, down, right and push  with Pi4J
  */
-public class Joystick extends Component implements com.pi4j.components.interfaces.JoystickInterface {
+public class Joystick extends Component implements JoystickInterface {
 
     /**
      * Default debounce time in microseconds

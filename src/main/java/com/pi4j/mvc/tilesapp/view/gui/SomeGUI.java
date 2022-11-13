@@ -67,9 +67,12 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         // look at that: all EventHandlers just trigger an action on 'controller'
         // by calling a single method
 
+        joystickTile.onPushDown(() -> controller.setButtonPressed(true));
+        joystickTile.onPushUp(() -> controller.setButtonPressed(false));
         buttonTile.onDown(() -> controller.setButtonPressed(true));
         buttonTile.onUp  (() -> controller.setButtonPressed(false));
         buttonTile.whilePressed(controller::buttonMessage,5000);
+        joystickTile.pushWhilePushed(5000, controller::buttonMessage);
     }
 
     @Override

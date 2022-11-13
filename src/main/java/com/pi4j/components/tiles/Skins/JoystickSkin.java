@@ -6,20 +6,14 @@ import eu.hansolo.tilesfx.fonts.Fonts;
 import eu.hansolo.tilesfx.skins.TileSkin;
 import eu.hansolo.tilesfx.tools.Helper;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Paint;
-import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class JoystickSkin extends TileSkin {
 
-    private Circle      joystick;
+    private Circle  button;
     private Polygon     up;
     private Polygon     down;
     private Polygon     left;
@@ -49,9 +43,9 @@ public class JoystickSkin extends TileSkin {
         Color fill = Color.RED;
         Color border = Color.WHITE;
 
-        joystick = new Circle();
-        joystick.setFill(fill);
-        joystick.setStroke(border);
+        button = new Circle();
+        button.setFill(fill);
+        button.setStroke(border);
 
         up = new Polygon();
         up.setFill(fill);
@@ -70,7 +64,7 @@ public class JoystickSkin extends TileSkin {
         right.setStroke(border);
 
 
-        getPane().getChildren().addAll(titleText, text, joystick, up, down, left, right);
+        getPane().getChildren().addAll(titleText, text, button, up, down, left, right);
 
     }
 
@@ -128,17 +122,17 @@ public class JoystickSkin extends TileSkin {
     @Override protected void resize() {
         super.resize();
 
-        joystick.setRadius(size * 0.12);
-        joystick.setCenterX(width * 0.5);
-        joystick.setCenterY(height * 0.5);
+        button.setRadius(size * 0.12);
+        button.setCenterX(width * 0.5);
+        button.setCenterY(height * 0.5);
 
         up.getPoints().addAll(
-                joystick.getCenterX(), 35.0,
+                button.getCenterX(), 35.0,
                         148.0, 75.0,
                         102.0, 75.0);
 
         down.getPoints().addAll(
-            joystick.getCenterX(), 215.0,
+            button.getCenterX(), 215.0,
             148.0, 175.0,
             102.0, 175.0);
 
@@ -171,4 +165,43 @@ public class JoystickSkin extends TileSkin {
 
 
 
+    public Circle getButton() {
+        return button;
+    }
+
+    public void setButton(Circle button) {
+        this.button = button;
+    }
+
+    public Polygon getUp() {
+        return up;
+    }
+
+    public void setUp(Polygon up) {
+        this.up = up;
+    }
+
+    public Polygon getDown() {
+        return down;
+    }
+
+    public void setDown(Polygon down) {
+        this.down = down;
+    }
+
+    public Polygon getLeft() {
+        return left;
+    }
+
+    public void setLeft(Polygon left) {
+        this.left = left;
+    }
+
+    public Polygon getRight() {
+        return right;
+    }
+
+    public void setRight(Polygon right) {
+        this.right = right;
+    }
 }
