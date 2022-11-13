@@ -1,19 +1,16 @@
 package com.pi4j.components.tiles;
 
+import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.SimpleButtonInterface;
-import com.pi4j.components.tiles.Skins.LedButtonSkin;
-
+import com.pi4j.components.tiles.Skins.SimpleButtonSkin;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class LedButtonTile extends Pi4JTile implements SimpleButtonInterface {
+public class SimpleButtonTile extends Pi4JTile implements SimpleButtonInterface {
 
-    Runnable onDown = () -> {
-    };
-    Runnable onUp = () -> {
-    };
-    private Runnable whilePressed = () -> {
-    };
+    private Runnable onDown = () -> { };
+    private Runnable onUp   = () -> { };
+    private Runnable whilePressed = () -> { };
 
     private boolean isDown = false;
     private long whilePressedDelay;
@@ -23,24 +20,23 @@ public class LedButtonTile extends Pi4JTile implements SimpleButtonInterface {
     /**
      * Überprüft, ob der Button gedrückt ist und setzt ein Delay ein, Falls Button weiterhin gedrückt ist,
      * wird der whilePressed Runnable aktiviert.
-     */
+      */
     private final Runnable whilePressedWorker = () -> {
         while (isDown) {
             delay(whilePressedDelay);
 
-            if (isDown) {
+            if(isDown) {
                 whilePressed.run();
             }
         }
     };
 
-    public LedButtonTile() {
-        minHeight(400);
-        minWidth(400);
-        setSkinType(SkinType.CUSTOM);
-        setTitle("SimpleButton");
-        setText("Bottom text");
-        setSkin(new LedButtonSkin(this));
+    public SimpleButtonTile(PIN pin){
+        prefHeight(400);
+        prefWidth(400);
+        setTitle("Simple Button");
+        setText("Pin " + pin.getPin());
+        setSkin(new SimpleButtonSkin(this));
 
         setOnMousePressed(mouseEvent -> {
 
@@ -54,12 +50,14 @@ public class LedButtonTile extends Pi4JTile implements SimpleButtonInterface {
             if (whilePressed != null) {
                 executor.submit(whilePressedWorker);
             }
+
         });
 
-        setOnMouseReleased(mouseEvent -> {
-            onUp.run();
-            isDown = false;
-        });
+          setOnMouseReleased(mouseEvent -> {
+              onUp.run();
+              isDown = false;
+          });
+
     }
 
     // Setzt den aktuellen Thread mit dem Wert des gegebenen Parameter (in Millisekunden) zu Schlaf
@@ -73,22 +71,23 @@ public class LedButtonTile extends Pi4JTile implements SimpleButtonInterface {
 
     @Override
     public void onDown(Runnable task) {
-        this.onDown = task;
+        onDown = task;
     }
 
     @Override
     public void onUp(Runnable task) {
-        this.onUp = () -> {
-        };
+        onUp = task;
     }
 
     @Override
     public void whilePressed(Runnable task, long whilePressedDelay) {
         this.whilePressed = task;
         this.whilePressedDelay = whilePressedDelay;
+
     }
 
     @Override
     public void deRegisterAll() {
     }
+
 }

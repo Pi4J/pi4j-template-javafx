@@ -13,16 +13,13 @@ public class SomeController extends ControllerBase<SomeModel> {
     // the logic we need in our application
     // these methods can be called from GUI and PUI (and from nowhere else)
 
-    public void increaseCounter() {
-        increaseValue(model.counter);
+    // Übergibt dem Model ein Boolean, ob der Button gedrückt ist oder nicht.
+    public void setButtonPressed(boolean is) {
+        setValue(model.isButtonPressed, is);
     }
 
-    public void decreaseCounter() {
-        updateModel(decrease(model.counter),
-                    set(model.isActive, false));
-    }
-
-    public void setIsActive(boolean is){
-        setValue(model.isActive, is);
+    // Sendet Nachricht auf die Konsole, falls der Button mit einer gegebenen Länge gedrückt bleibt.
+    public void buttonMessage(){
+        System.out.println("Button is still pressed");
     }
 }

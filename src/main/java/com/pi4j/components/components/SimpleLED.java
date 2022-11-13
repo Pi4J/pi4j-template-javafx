@@ -5,7 +5,7 @@ import com.pi4j.context.Context;
 import com.pi4j.io.gpio.digital.DigitalOutput;
 import com.pi4j.io.gpio.digital.DigitalOutputConfig;
 
-public class SimpleLED extends Component {
+public class SimpleLED extends Component implements com.pi4j.components.interfaces.SimpleLEDInterface {
     /**
      * Pi4J digital output instance used by this component
      *
@@ -27,6 +27,7 @@ public class SimpleLED extends Component {
     /**
      * Sets the LED to on.
      */
+    @Override
     public void on() {
         digitalOutput.on();
     }
@@ -34,6 +35,7 @@ public class SimpleLED extends Component {
     /**
      * Sets the LED to off
      */
+    @Override
     public void off() {
         digitalOutput.off();
     }
@@ -43,11 +45,13 @@ public class SimpleLED extends Component {
      *
      * @return Return true or false according to the new state of the relay.
      */
+    @Override
     public boolean toggle() {
         digitalOutput.toggle();
         return digitalOutput.isOff();
     }
 
+    @Override
     public boolean glows() {
         return !digitalOutput.isOff();
     }

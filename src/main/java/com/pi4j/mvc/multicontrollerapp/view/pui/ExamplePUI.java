@@ -1,5 +1,6 @@
 package com.pi4j.mvc.multicontrollerapp.view.pui;
 
+import com.pi4j.components.interfaces.SimpleLEDInterface;
 import com.pi4j.context.Context;
 
 import com.pi4j.components.components.SimpleButton;
@@ -13,7 +14,7 @@ import com.pi4j.mvc.util.mvcbase.PuiBase;
 public class ExamplePUI extends PuiBase<ExampleModel, ApplicationController> {
     //declare all hardware components attached to RaspPi
     //these are protected to give unit tests access to them
-    protected SimpleLED led;
+    protected SimpleLEDInterface led;
     protected SimpleButton button;
 
     public ExamplePUI(ApplicationController controller, Context pi4J) {

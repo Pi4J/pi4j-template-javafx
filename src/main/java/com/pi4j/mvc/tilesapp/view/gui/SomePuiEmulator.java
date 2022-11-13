@@ -42,14 +42,13 @@ public class SomePuiEmulator extends VBox implements ViewMixin<SomeModel, SomeCo
     public void setupUiToActionBindings(SomeController controller) {
         //trigger the same actions as the real PUI
 
-        decreaseButton.setOnAction(event -> controller.decreaseCounter());
     }
 
     @Override
     public void setupModelToUiBindings(SomeModel model) {
         //observe the same values as the real PUI
 
-        onChangeOf(model.isActive)
+        onChangeOf(model.isLedActive)
                 .convertedBy(active -> active ? "on" : "off")
                 .update(led.textProperty());
     }
