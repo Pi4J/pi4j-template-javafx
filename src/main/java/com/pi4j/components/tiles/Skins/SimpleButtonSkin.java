@@ -17,10 +17,10 @@ import javafx.scene.text.Text;
 public class SimpleButtonSkin extends TileSkin {
 
     private Rectangle   buttonBorder;
-    private Circle buttonknob;
+    private Circle      buttonknob;
 
-    private Text titleText;
-    private Text text;
+    private Text        titleText;
+    private Text        text;
 
     public SimpleButtonSkin(Tile TILE) {
         super(TILE);
@@ -43,7 +43,6 @@ public class SimpleButtonSkin extends TileSkin {
         buttonBorder.setFill(Color.GRAY);
         buttonknob = new Circle();
         buttonknob.setFill(Color.RED);
-
 
         getPane().getChildren().addAll(titleText, text, buttonBorder, buttonknob);
 
@@ -82,21 +81,19 @@ public class SimpleButtonSkin extends TileSkin {
 
         titleText.setFont(font);
         if (titleText.getLayoutBounds().getWidth() > maxWidth) { Helper.adjustTextSize(titleText, maxWidth, fontSize); }
-        switch(tile.getTitleAlignment()) {
-        default    :
-        case LEFT  : titleText.relocate(size * 0.05, size * 0.05); break;
-        case CENTER: titleText.relocate((width - titleText.getLayoutBounds().getWidth()) * 0.5, size * 0.05); break;
-        case RIGHT : titleText.relocate(width - (size * 0.05) - titleText.getLayoutBounds().getWidth(), size * 0.05); break;
+        switch (tile.getTitleAlignment()) {
+        case LEFT -> titleText.relocate(size * 0.05, size * 0.05);
+        case CENTER -> titleText.relocate((width - titleText.getLayoutBounds().getWidth()) * 0.5, size * 0.05);
+        case RIGHT -> titleText.relocate(width - (size * 0.05) - titleText.getLayoutBounds().getWidth(), size * 0.05);
         }
 
         text.setText(tile.getText());
         text.setFont(font);
         if (text.getLayoutBounds().getWidth() > maxWidth) { Helper.adjustTextSize(text, maxWidth, fontSize); }
-        switch(tile.getTextAlignment()) {
-        default    :
-        case LEFT  : text.setX(size * 0.05); break;
-        case CENTER: text.setX((width - text.getLayoutBounds().getWidth()) * 0.5); break;
-        case RIGHT : text.setX(width - (size * 0.05) - text.getLayoutBounds().getWidth()); break;
+        switch (tile.getTextAlignment()) {
+        case LEFT -> text.setX(size * 0.05);
+        case CENTER -> text.setX((width - text.getLayoutBounds().getWidth()) * 0.5);
+        case RIGHT -> text.setX(width - (size * 0.05) - text.getLayoutBounds().getWidth());
         }
         text.setY(height - size * 0.05);
     }
@@ -104,6 +101,7 @@ public class SimpleButtonSkin extends TileSkin {
     @Override protected void resize() {
         super.resize();
 
+        //Definiert Grösse & Position des Buttons
         double buttonBorderSize = size*0.4;
         buttonBorder.setHeight(buttonBorderSize);
         buttonBorder.setWidth(buttonBorderSize);

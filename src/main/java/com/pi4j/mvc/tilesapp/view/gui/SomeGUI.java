@@ -51,7 +51,7 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
     @Override
     public void initializeParts() {
         ledTile    = new SimpleLEDTile(PIN.D22);
-        buttonTile = new SimpleButtonTile();
+        buttonTile = new SimpleButtonTile(PIN.D24);
 
     }
 
