@@ -20,7 +20,6 @@ import javafx.scene.paint.Color;
 public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeController> { //all GUI-elements have to implement ViewMixin
 
     // declare all the UI elements you need
-
     private SimpleLEDInterface ledTile;
     private SimpleButtonInterface buttonTile;
 
@@ -31,7 +30,6 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         setAlignment(Pos.CENTER);
         setCenterShape(true);
         setPadding(new Insets(5));
-//        setPrefSize(3000, 3000);
         setBackground(new Background(new BackgroundFill(Color.web("#101214"), CornerRadii.EMPTY, Insets.EMPTY)));
 
         init(controller); //don't forget to call 'init'
@@ -52,7 +50,6 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
     public void initializeParts() {
         ledTile    = new SimpleLEDTile(PIN.D22);
         buttonTile = new SimpleButtonTile(PIN.D24);
-
     }
 
     @Override
@@ -65,30 +62,15 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         // look at that: all EventHandlers just trigger an action on 'controller'
         // by calling a single method
 
-        //hier die Methoden des Interface verwenden (nicht die von JavaFX-Node)
         buttonTile.onDown(() -> controller.setButtonPressed(true));
         buttonTile.onUp  (() -> controller.setButtonPressed(false));
+        buttonTile.whilePressed(controller::buttonMessage,5000);
     }
 
-//    @Override
+    @Override
     public void setupModelToUiBindings(SomeModel model) {
 
-        /*
-
-        Der aktuelle Controller verändert 'isLedActive' ja überhaupt nicht
-        Daher ist das hier überflüssig
-
-       onChangeOf(model.isLedActive)
-            .execute((oldValue, newValue) -> {
-                if (newValue) {
-                    ledTile.on();
-                } else {
-                    ledTile.off();
-                }
-            });
-         */
-
-
+        //TODO: GUI-MODEL
         //press button to turn on/off SimpleLED
         onChangeOf(model.isButtonPressed)
             .execute((oldValue, newValue) -> {
@@ -96,6 +78,7 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
                     ledTile.on();
                 } else {
                     ledTile.off();
+
                 }
             });
     }

@@ -28,8 +28,6 @@ public class SomePUI extends PuiBase<SomeModel, SomeController> {
 
     @Override
     public void setupUiToActionBindings(SomeController controller) {
-        button.onDown(() -> controller.setIsActive(true));
-        button.onUp(controller::decreaseCounter);
     }
 
     @Override

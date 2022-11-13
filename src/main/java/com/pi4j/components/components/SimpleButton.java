@@ -125,6 +125,7 @@ public class SimpleButton extends Component implements SimpleButtonInterface {
      *
      * @return True if button is pressed
      */
+
     public boolean isDown() {
         return getState() == DigitalState.HIGH;
     }

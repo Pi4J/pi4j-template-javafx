@@ -79,9 +79,9 @@ public class AppStarter extends Application {
     private void startPUIEmulator(Parent puiEmulator) {
         Scene emulatorScene  = new Scene(puiEmulator);
         Stage secondaryStage = new Stage();
-        secondaryStage.setTitle("PUI Emulator");
-        secondaryStage.setScene(emulatorScene);
-        secondaryStage.show();
+//        secondaryStage.setTitle("PUI Emulator");
+//        secondaryStage.setScene(emulatorScene);
+//        secondaryStage.show();
     }
 
     public static void main(String[] args) {
