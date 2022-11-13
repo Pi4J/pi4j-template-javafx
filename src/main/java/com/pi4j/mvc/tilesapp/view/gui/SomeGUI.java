@@ -1,8 +1,10 @@
 package com.pi4j.mvc.tilesapp.view.gui;
 
 import com.pi4j.components.components.helpers.PIN;
+import com.pi4j.components.interfaces.JoystickInterface;
 import com.pi4j.components.interfaces.SimpleButtonInterface;
 import com.pi4j.components.interfaces.SimpleLEDInterface;
+import com.pi4j.components.tiles.JoystickTile;
 import com.pi4j.components.tiles.SimpleButtonTile;
 import com.pi4j.components.tiles.SimpleLEDTile;
 import com.pi4j.mvc.tilesapp.controller.SomeController;
@@ -22,6 +24,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
     // declare all the UI elements you need
     private SimpleLEDInterface ledTile;
     private SimpleButtonInterface buttonTile;
+
+    private JoystickInterface joystickTile;
 
     public SomeGUI(SomeController controller) {
         super(5,1);
@@ -50,11 +54,12 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
     public void initializeParts() {
         ledTile    = new SimpleLEDTile(PIN.D22);
         buttonTile = new SimpleButtonTile(PIN.D24);
+        joystickTile = new JoystickTile();
     }
 
     @Override
     public void layoutParts() {
-        getChildren().addAll((Tile)ledTile, (Tile)buttonTile);
+        getChildren().addAll((Tile)ledTile, (Tile)buttonTile, (Tile)joystickTile);
     }
 
     @Override
