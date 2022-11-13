@@ -1,6 +1,6 @@
 package com.pi4j.components.interfaces;
 
-public interface ButtonInterface {
+public interface SimpleButtonInterface {
     void onDown(Runnable task);
 
     void onUp(Runnable task);

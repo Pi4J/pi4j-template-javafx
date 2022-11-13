@@ -1,13 +1,9 @@
 package com.pi4j.components.tiles;
 
-import com.pi4j.components.interfaces.ButtonInterface;
+import com.pi4j.components.interfaces.SimpleButtonInterface;
 import com.pi4j.components.tiles.Skins.LedButtonSkin;
-import com.pi4j.mvc.tilesapp.controller.SomeController;
-import eu.hansolo.tilesfx.Tile;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 
-public class LedButtonTile extends Pi4JTile implements ButtonInterface {
+public class LedButtonTile extends Pi4JTile implements SimpleButtonInterface {
 
     public LedButtonTile(){
         minHeight(400);

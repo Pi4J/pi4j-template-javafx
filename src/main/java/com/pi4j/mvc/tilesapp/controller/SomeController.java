@@ -19,10 +19,10 @@ public class SomeController extends ControllerBase<SomeModel> {
 
     public void decreaseCounter() {
         updateModel(decrease(model.counter),
-                    set(model.isActive, false));
+            set(model.isActive, false));
     }
 
-    public void setIsActive(boolean is){
+    public void setIsActive(boolean is) {
         setValue(model.isActive, is);
     }
 
@@ -34,17 +34,7 @@ public class SomeController extends ControllerBase<SomeModel> {
 //        }
 //    }
 
-    public void setButtonPressed(boolean is){
+    public void setButtonPressed(boolean is) {
         setValue(model.isButtonPressed, is);
-    }
-
-
-
-//    public void ledOff(){
-//        setValue(model.isActive, false);
-//    }
-
-    public void ledMessage(){
-        System.out.println("Button pressed");
     }
 }

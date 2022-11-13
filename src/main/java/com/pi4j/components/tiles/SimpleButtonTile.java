@@ -1,9 +1,9 @@
 package com.pi4j.components.tiles;
 
-import com.pi4j.components.interfaces.ButtonInterface;
-import eu.hansolo.tilesfx.Tile;
+import com.pi4j.components.interfaces.SimpleButtonInterface;
+import com.pi4j.components.tiles.Skins.SimpleButtonSkin;
 
-public class SimpleButtonTile extends Pi4JTile implements ButtonInterface {
+public class SimpleButtonTile extends Pi4JTile implements SimpleButtonInterface {
 
     private Runnable onDown = () -> { };
     private Runnable onUp   = () -> { };
@@ -11,9 +11,9 @@ public class SimpleButtonTile extends Pi4JTile implements ButtonInterface {
     public SimpleButtonTile(){
         prefHeight(400);
         prefWidth(400);
-        setSkinType(SkinType.LED);
         setTitle("SimpleButton");
         setText("Separate Tile");
+        setSkin(new SimpleButtonSkin(this));
 
         setOnMousePressed(mouseEvent -> onDown.run());
         setOnMouseReleased(mouseEvent -> onUp.run());

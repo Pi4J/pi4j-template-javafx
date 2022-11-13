@@ -1,0 +1,137 @@
+package com.pi4j.components.tiles.Skins;
+
+import eu.hansolo.tilesfx.Tile;
+import eu.hansolo.tilesfx.events.TileEvt;
+import eu.hansolo.tilesfx.fonts.Fonts;
+import eu.hansolo.tilesfx.skins.TileSkin;
+import eu.hansolo.tilesfx.tools.Helper;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+
+public class SimpleButtonSkin extends TileSkin {
+
+    private Rectangle   buttonBorder;
+    private Circle buttonknob;
+
+    private Text titleText;
+    private Text text;
+
+    public SimpleButtonSkin(Tile TILE) {
+        super(TILE);
+    }
+
+
+    @Override
+    protected void initGraphics (){
+        super.initGraphics();
+
+        titleText = new Text();
+        titleText.setFill(tile.getTitleColor());
+        Helper.enableNode(titleText, !tile.getTitle().isEmpty());
+
+        text = new Text(tile.getText());
+        text.setFill(tile.getUnitColor());
+        Helper.enableNode(text, tile.isTextVisible());
+
+        buttonBorder = new Rectangle();
+        buttonBorder.setFill(Color.GRAY);
+        buttonknob = new Circle();
+        buttonknob.setFill(Color.RED);
+
+
+        getPane().getChildren().addAll(titleText, text, buttonBorder, buttonknob);
+
+    }
+
+    @Override
+    protected void registerListeners(){
+        super.registerListeners();
+    }
+
+
+    @Override
+    protected void handleEvents(final String EVENT_TYPE) {
+        super.handleEvents(EVENT_TYPE);
+
+        if (TileEvt.VISIBILITY.getName().equals(EVENT_TYPE)) {
+            Helper.enableNode(titleText, !tile.getTitle().isEmpty());
+            Helper.enableNode(text, tile.isTextVisible());
+        }
+        else if (TileEvt.REDRAW.getName().equals(EVENT_TYPE)) {
+            redraw();
+        }
+    }
+
+
+    @Override protected void handleCurrentValue(final double VALUE) {
+    }
+
+    @Override protected void resizeStaticText() {
+        double maxWidth = width - size * 0.1;
+        double fontSize = size * textSize.factor;
+
+        boolean customFontEnabled = tile.isCustomFontEnabled();
+        Font customFont        = tile.getCustomFont();
+        Font font              = (customFontEnabled && customFont != null) ? Font.font(customFont.getFamily(), fontSize) : Fonts.latoRegular(fontSize);
+
+        titleText.setFont(font);
+        if (titleText.getLayoutBounds().getWidth() > maxWidth) { Helper.adjustTextSize(titleText, maxWidth, fontSize); }
+        switch(tile.getTitleAlignment()) {
+        default    :
+        case LEFT  : titleText.relocate(size * 0.05, size * 0.05); break;
+        case CENTER: titleText.relocate((width - titleText.getLayoutBounds().getWidth()) * 0.5, size * 0.05); break;
+        case RIGHT : titleText.relocate(width - (size * 0.05) - titleText.getLayoutBounds().getWidth(), size * 0.05); break;
+        }
+
+        text.setText(tile.getText());
+        text.setFont(font);
+        if (text.getLayoutBounds().getWidth() > maxWidth) { Helper.adjustTextSize(text, maxWidth, fontSize); }
+        switch(tile.getTextAlignment()) {
+        default    :
+        case LEFT  : text.setX(size * 0.05); break;
+        case CENTER: text.setX((width - text.getLayoutBounds().getWidth()) * 0.5); break;
+        case RIGHT : text.setX(width - (size * 0.05) - text.getLayoutBounds().getWidth()); break;
+        }
+        text.setY(height - size * 0.05);
+    }
+
+    @Override protected void resize() {
+        super.resize();
+
+        double buttonBorderSize = size*0.4;
+        buttonBorder.setHeight(buttonBorderSize);
+        buttonBorder.setWidth(buttonBorderSize);
+        buttonBorder.setX((width- buttonBorderSize)*0.5);
+        buttonBorder.setY((height- buttonBorderSize)*0.5);
+        buttonBorder.setArcWidth(40);
+        buttonBorder.setArcHeight(40);
+
+        buttonknob.setRadius(size * 0.1);
+        buttonknob.setCenterX(width * 0.5);
+        buttonknob.setCenterY(height * 0.5);
+
+    }
+
+    @Override
+    protected void redraw(){
+        super.redraw();
+
+        titleText.setText(tile.getTitle());
+        text.setText(tile.getText());
+
+        resizeStaticText();
+
+        titleText.setFill(tile.getTitleColor());
+        text.setFill(tile.getTextColor());
+
+    }
+
+
+
+}

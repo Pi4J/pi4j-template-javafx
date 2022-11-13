@@ -3,6 +3,7 @@ package com.pi4j.mvc.tilesapp.view.pui;
 import com.pi4j.components.components.SimpleButton;
 import com.pi4j.components.components.SimpleLED;
 import com.pi4j.components.components.helpers.PIN;
+import com.pi4j.components.interfaces.SimpleButtonInterface;
 import com.pi4j.components.interfaces.SimpleLEDInterface;
 import com.pi4j.context.Context;
 import com.pi4j.mvc.tilesapp.controller.SomeController;
@@ -13,7 +14,7 @@ public class SomePUI extends PuiBase<SomeModel, SomeController> {
     //declare all hardware components attached to RaspPi
     //these are protected to give unit tests access to them
     protected SimpleLEDInterface led;
-    protected SimpleButton button;
+    protected SimpleButtonInterface button;
 
     public SomePUI(SomeController controller, Context pi4J) {
         super(controller, pi4J);

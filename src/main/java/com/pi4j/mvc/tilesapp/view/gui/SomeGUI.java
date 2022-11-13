@@ -1,9 +1,8 @@
 package com.pi4j.mvc.tilesapp.view.gui;
 
 import com.pi4j.components.components.helpers.PIN;
-import com.pi4j.components.interfaces.ButtonInterface;
+import com.pi4j.components.interfaces.SimpleButtonInterface;
 import com.pi4j.components.interfaces.SimpleLEDInterface;
-import com.pi4j.components.tiles.LedButtonTile;
 import com.pi4j.components.tiles.SimpleButtonTile;
 import com.pi4j.components.tiles.SimpleLEDTile;
 import com.pi4j.mvc.tilesapp.controller.SomeController;
@@ -23,9 +22,7 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
     // declare all the UI elements you need
 
     private SimpleLEDInterface ledTile;
-    private ButtonInterface buttonTile;
-
-    private final int tilesize = 400;
+    private SimpleButtonInterface buttonTile;
 
     public SomeGUI(SomeController controller) {
         super(5,1);
