@@ -67,12 +67,23 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         // look at that: all EventHandlers just trigger an action on 'controller'
         // by calling a single method
 
-        joystickTile.onPushDown(() -> controller.setButtonPressed(true));
-        joystickTile.onPushUp(() -> controller.setButtonPressed(false));
         buttonTile.onDown(() -> controller.setButtonPressed(true));
         buttonTile.onUp  (() -> controller.setButtonPressed(false));
-        buttonTile.whilePressed(controller::buttonMessage,5000);
-        joystickTile.pushWhilePushed(5000, controller::buttonMessage);
+        buttonTile.whilePressed(() -> controller.whileMessage("Simple"),5000);
+
+        joystickTile.onPushDown(() -> controller.setButtonPressed(true));
+        joystickTile.onPushUp(() -> controller.setButtonPressed(false));
+
+        //Send message for short and long press
+        joystickTile.pushWhilePushed(2000, () -> controller.whileMessage("Joystick"));
+        joystickTile.onNorth(() -> controller.pressedMessage("Up"));
+        joystickTile.whileNorth(2000, () -> controller.whileMessage("Up"));
+        joystickTile.onSouth(() -> controller.pressedMessage("Down"));
+        joystickTile.whileSouth(2000, () -> controller.whileMessage("Down"));
+        joystickTile.onWest(() -> controller.pressedMessage("Left"));
+        joystickTile.whileWest(2000, () -> controller.whileMessage("Left"));
+        joystickTile.onEast(() -> controller.pressedMessage("Right"));
+        joystickTile.whileEast(2000, () -> controller.whileMessage("Right"));
     }
 
     @Override

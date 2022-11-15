@@ -2,6 +2,7 @@ package com.pi4j.components.tiles;
 
 import com.pi4j.components.interfaces.JoystickInterface;
 import com.pi4j.components.tiles.Skins.JoystickSkin;
+import javafx.scene.input.MouseEvent;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -11,10 +12,10 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
     JoystickSkin jSkin = new JoystickSkin(this);
 
     private boolean isDown  = false;
-    //    private boolean isNorth = false;
-    //    private boolean isSouth = false;
-    //    private boolean isWest  = false;
-    //    private boolean isEast  = false;
+    private boolean isNorth = false;
+    private boolean isSouth = false;
+    private boolean isWest  = false;
+    private boolean isEast  = false;
     private long millis;
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -26,9 +27,15 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
     private Runnable onWest     = () -> {};
     private Runnable onEast     = () -> {};
 
+    private Runnable whileNorth    = () -> {};
+    private Runnable whileSouth    = () -> {};
+    private Runnable whileWest     = () -> {};
+    private Runnable whileEast     = () -> {};
+
     private Runnable pushWhilePushed = () -> {};
 
     private final Runnable whilePressedWorker = () -> {
+
         while (isDown) {
             delay(millis);
 
@@ -36,13 +43,45 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
                 pushWhilePushed.run();
             }
         }
+
+        while (isNorth) {
+            delay(millis);
+
+            if(isNorth) {
+                whileNorth.run();
+            }
+        }
+
+        while (isSouth) {
+            delay(millis);
+
+            if(isSouth) {
+                whileSouth.run();
+            }
+        }
+
+        while (isWest) {
+            delay(millis);
+
+            if(isWest) {
+                whileWest.run();
+            }
+        }
+
+        while (isEast) {
+            delay(millis);
+
+            if(isEast) {
+                whileEast.run();
+            }
+        }
     };
 
     public JoystickTile(){
         minHeight(400);
         minWidth(400);
-        setTitle("Simple LED");
-        setText("Pin");
+        setTitle("Joystick");
+        setText("");
         setSkin(jSkin);
         jSkin.getButton().setOnMousePressed(mouseEvent -> {
 
@@ -58,17 +97,83 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
             }
 
         });
-            jSkin.getButton().setOnMouseReleased(mouseEvent -> {
-                onPushUp.run();
-                isDown = false;
-        });
 
+        jSkin.getButton().setOnMouseExited(mouseEvent -> onPushUp.run());
         jSkin.getButton().setOnMouseReleased(mouseEvent -> onPushUp.run());
 
-        jSkin.getUp().setOnMouseClicked(mouseEvent -> onNorth.run());
-        jSkin.getDown().setOnMouseClicked(mouseEvent -> onSouth.run());
-        jSkin.getLeft().setOnMouseClicked(mouseEvent -> onWest.run());
-        jSkin.getRight().setOnMouseClicked(mouseEvent -> onEast.run());
+        jSkin.getUp().setOnMousePressed(mouseEvent -> {
+
+            //Run onNorth Runnable, falls Wert nicht Null
+            if (onNorth != null) {
+                onNorth.run();
+                isNorth = true;
+            }
+
+            //Läuft whilePressedWorker Runnable, falls Wert nicht Null
+            if (whileNorth != null) {
+                executor.submit(whilePressedWorker);
+            }
+        });
+
+        jSkin.getDown().setOnMousePressed(mouseEvent -> {
+
+            //Run onSouth Runnable, falls Wert nicht Null
+            if (onSouth != null) {
+                onSouth.run();
+                isSouth = true;
+            }
+
+            //Läuft whilePressedWorker Runnable, falls Wert nicht Null
+            if (whileSouth != null) {
+                executor.submit(whilePressedWorker);
+            }
+        });
+
+        jSkin.getLeft().setOnMousePressed(mouseEvent -> {
+
+            //Run onWest Runnable, falls Wert nicht Null
+            if (onWest != null) {
+                onWest.run();
+                isWest = true;
+            }
+
+            //Läuft whilePressedWorker Runnable, falls Wert nicht Null
+            if (whileWest != null) {
+                executor.submit(whilePressedWorker);
+            }
+        });
+
+        jSkin.getRight().setOnMousePressed(mouseEvent -> {
+
+            //Run onEast Runnable, falls Wert nicht Null
+            if (onEast != null) {
+                onEast.run();
+                isEast = true;
+            }
+
+            //Läuft whilePressedWorker Runnable, falls Wert nicht Null
+            if (whileEast != null) {
+                executor.submit(whilePressedWorker);
+            }
+        });
+
+        //Setzt alle Wert zu False, falls nicht gedrückt ist
+        addEventFilter(MouseEvent.MOUSE_RELEASED, e ->{
+            isDown = false;
+            isNorth = false;
+            isWest = false;
+            isSouth = false;
+            isEast = false;
+        });
+
+        //Wert wird zu False, falls Maus vom Button wegbewegt
+        jSkin.getUp().setOnMouseExited(mouseEvent -> isNorth = false);
+        jSkin.getDown().setOnMouseExited(mouseEvent -> isSouth = false);
+        jSkin.getLeft().setOnMouseExited(mouseEvent -> isWest = false);
+        jSkin.getRight().setOnMouseExited(mouseEvent -> isEast = false);
+
+
+
     }
 
     void delay(long milliseconds) {
@@ -86,8 +191,8 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
     @Override
     public void whileNorth(long millis, Runnable method) {
-        this.onNorth = method;
-//        this.millis = millis;
+        this.whileNorth = method;
+        this.millis = millis;
 
     }
 
@@ -98,8 +203,8 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
     @Override
     public void whileWest(long millis, Runnable method) {
-        this.onWest = method;
-//        this.millis = millis;
+        whileWest = method;
+        this.millis = millis;
 
     }
 
@@ -110,8 +215,8 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
     @Override
     public void whileSouth(long millis, Runnable method) {
-        this.onSouth = method;
-//        this.millis = millis;
+        this.whileSouth = method;
+        this.millis = millis;
 
     }
 
@@ -122,8 +227,8 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
     @Override
     public void whileEast(long millis, Runnable method) {
-        this.onEast = method;
-//        this.millis = millis;
+        this.whileEast = method;
+        this.millis = millis;
 
     }
 
