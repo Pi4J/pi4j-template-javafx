@@ -1,8 +1,10 @@
 package com.pi4j.mvc.tilesapp.view.gui;
 
 import com.pi4j.components.components.helpers.PIN;
+import com.pi4j.components.interfaces.JoystickInterface;
 import com.pi4j.components.interfaces.SimpleButtonInterface;
 import com.pi4j.components.interfaces.SimpleLEDInterface;
+import com.pi4j.components.tiles.JoystickTile;
 import com.pi4j.components.tiles.SimpleButtonTile;
 import com.pi4j.components.tiles.SimpleLEDTile;
 import com.pi4j.mvc.tilesapp.controller.SomeController;
@@ -22,6 +24,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
     // declare all the UI elements you need
     private SimpleLEDInterface ledTile;
     private SimpleButtonInterface buttonTile;
+
+    private JoystickInterface joystickTile;
 
     public SomeGUI(SomeController controller) {
         super(5,1);
@@ -50,11 +54,12 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
     public void initializeParts() {
         ledTile    = new SimpleLEDTile(PIN.D22);
         buttonTile = new SimpleButtonTile(PIN.D24);
+        joystickTile = new JoystickTile();
     }
 
     @Override
     public void layoutParts() {
-        getChildren().addAll((Tile)ledTile, (Tile)buttonTile);
+        getChildren().addAll((Tile)ledTile, (Tile)buttonTile, (Tile)joystickTile);
     }
 
     @Override
@@ -64,7 +69,21 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 
         buttonTile.onDown(() -> controller.setButtonPressed(true));
         buttonTile.onUp  (() -> controller.setButtonPressed(false));
-        buttonTile.whilePressed(controller::buttonMessage,5000);
+        buttonTile.whilePressed(() -> controller.whileMessage("Simple"),5000);
+
+        joystickTile.onPushDown(() -> controller.setButtonPressed(true));
+        joystickTile.onPushUp(() -> controller.setButtonPressed(false));
+
+        //Send message for short and long press
+        joystickTile.pushWhilePushed(2000, () -> controller.whileMessage("Joystick"));
+        joystickTile.onNorth(() -> controller.pressedMessage("Up"));
+        joystickTile.whileNorth(2000, () -> controller.whileMessage("Up"));
+        joystickTile.onSouth(() -> controller.pressedMessage("Down"));
+        joystickTile.whileSouth(2000, () -> controller.whileMessage("Down"));
+        joystickTile.onWest(() -> controller.pressedMessage("Left"));
+        joystickTile.whileWest(2000, () -> controller.whileMessage("Left"));
+        joystickTile.onEast(() -> controller.pressedMessage("Right"));
+        joystickTile.whileEast(2000, () -> controller.whileMessage("Right"));
     }
 
     @Override

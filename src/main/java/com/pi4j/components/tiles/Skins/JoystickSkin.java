@@ -6,23 +6,24 @@ import eu.hansolo.tilesfx.fonts.Fonts;
 import eu.hansolo.tilesfx.skins.TileSkin;
 import eu.hansolo.tilesfx.tools.Helper;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class SimpleButtonSkin extends TileSkin {
+public class JoystickSkin extends TileSkin {
 
-    private Rectangle   buttonBorder;
-    private Circle      buttonknob;
+    private Circle  button;
+    private Polygon     up;
+    private Polygon     down;
+    private Polygon     left;
 
-    private Text        titleText;
-    private Text        text;
+    private Polygon     right;
 
-    public SimpleButtonSkin(Tile TILE) {
+    private Text titleText;
+    private Text text;
+
+    public JoystickSkin(Tile TILE) {
         super(TILE);
     }
 
@@ -39,12 +40,31 @@ public class SimpleButtonSkin extends TileSkin {
         text.setFill(tile.getUnitColor());
         Helper.enableNode(text, tile.isTextVisible());
 
-        buttonBorder = new Rectangle();
-        buttonBorder.setFill(Color.GRAY);
-        buttonknob = new Circle();
-        buttonknob.setFill(Color.RED);
+        Color fill = Color.RED;
+        Color border = Color.WHITE;
 
-        getPane().getChildren().addAll(titleText, text, buttonBorder, buttonknob);
+        button = new Circle();
+        button.setFill(fill);
+        button.setStroke(border);
+
+        up = new Polygon();
+        up.setFill(fill);
+        up.setStroke(border);
+
+        down = new Polygon();
+        down.setFill(fill);
+        down.setStroke(border);
+
+        left = new Polygon();
+        left.setFill(fill);
+        left.setStroke(border);
+
+        right = new Polygon();
+        right.setFill(fill);
+        right.setStroke(border);
+
+
+        getPane().getChildren().addAll(titleText, text, button, up, down, left, right);
 
     }
 
@@ -69,6 +89,7 @@ public class SimpleButtonSkin extends TileSkin {
 
 
     @Override protected void handleCurrentValue(final double VALUE) {
+
     }
 
     @Override protected void resizeStaticText() {
@@ -101,23 +122,34 @@ public class SimpleButtonSkin extends TileSkin {
     @Override protected void resize() {
         super.resize();
 
-        //Definiert Grösse & Position des Buttons
-        double buttonBorderSize = size*0.4;
-        buttonBorder.setHeight(buttonBorderSize);
-        buttonBorder.setWidth(buttonBorderSize);
-        buttonBorder.setX((width- buttonBorderSize)*0.5);
-        buttonBorder.setY((height- buttonBorderSize)*0.5);
-        buttonBorder.setArcWidth(40);
-        buttonBorder.setArcHeight(40);
+        button.setRadius(size * 0.12);
+        button.setCenterX(width * 0.5);
+        button.setCenterY(height * 0.5);
 
-        buttonknob.setRadius(size * 0.1);
-        buttonknob.setCenterX(width * 0.5);
-        buttonknob.setCenterY(height * 0.5);
+        up.getPoints().addAll(
+                button.getCenterX(), 35.0,
+                        148.0, 75.0,
+                        102.0, 75.0);
+
+        down.getPoints().addAll(
+            button.getCenterX(), 215.0,
+            148.0, 175.0,
+            102.0, 175.0);
+
+        left.getPoints().addAll(
+             35.0, 125.0,
+            75.0, 102.0,
+            75.0, 148.0);
+
+        right.getPoints().addAll(
+            215.0, 125.0,
+            175.0, 148.0,
+            175.0, 102.0);
 
     }
 
     @Override
-    protected void redraw(){
+    protected void redraw() {
         super.redraw();
 
         titleText.setText(tile.getTitle());
@@ -128,8 +160,48 @@ public class SimpleButtonSkin extends TileSkin {
         titleText.setFill(tile.getTitleColor());
         text.setFill(tile.getTextColor());
 
+
     }
-    public Circle getButtonknob() {
-        return buttonknob;
+
+
+
+    public Circle getButton() {
+        return button;
+    }
+
+    public void setButton(Circle button) {
+        this.button = button;
+    }
+
+    public Polygon getUp() {
+        return up;
+    }
+
+    public void setUp(Polygon up) {
+        this.up = up;
+    }
+
+    public Polygon getDown() {
+        return down;
+    }
+
+    public void setDown(Polygon down) {
+        this.down = down;
+    }
+
+    public Polygon getLeft() {
+        return left;
+    }
+
+    public void setLeft(Polygon left) {
+        this.left = left;
+    }
+
+    public Polygon getRight() {
+        return right;
+    }
+
+    public void setRight(Polygon right) {
+        this.right = right;
     }
 }
