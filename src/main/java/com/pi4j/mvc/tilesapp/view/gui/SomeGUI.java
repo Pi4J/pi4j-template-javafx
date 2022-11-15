@@ -90,8 +90,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         joystickTile.onEast(() -> controller.pressedMessage("Right"));
         joystickTile.whileEast(2000, () -> controller.whileMessage("Right"));
 
-        ledButtonTile.onDown(() ->controller.setLedButtonPressed(true));
-        ledButtonTile.onUp(() ->controller.setLedButtonPressed(false));
+        ledButtonTile.onDown(() -> controller.pressedMessage("LED"));
+        ledButtonTile.onUp(controller::setLedButtonReleased);
         ledButtonTile.btnwhilePressed(controller::whilePressedLedButton, 1000);
     }
 
