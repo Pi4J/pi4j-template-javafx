@@ -1,11 +1,12 @@
 package com.pi4j.components.components;
 
 import com.pi4j.components.components.helpers.PIN;
+import com.pi4j.components.interfaces.SimpleLEDInterface;
 import com.pi4j.context.Context;
 import com.pi4j.io.gpio.digital.DigitalOutput;
 import com.pi4j.io.gpio.digital.DigitalOutputConfig;
 
-public class SimpleLED extends Component implements com.pi4j.components.interfaces.SimpleLEDInterface {
+public class SimpleLED extends Component implements SimpleLEDInterface {
     /**
      * Pi4J digital output instance used by this component
      *
@@ -23,6 +24,14 @@ public class SimpleLED extends Component implements com.pi4j.components.interfac
         this.digitalOutput = pi4j.create(buildDigitalOutputConfig(pi4j, address));
     }
 
+    /**
+     * Set the LED on or off depending on the boolean argument.
+     *
+     * @param on Sets the LED to on (true) or off (false)
+     */
+    public void setState(boolean on) {
+        digitalOutput.setState(on);
+    }
 
     /**
      * Sets the LED to on.
@@ -40,11 +49,13 @@ public class SimpleLED extends Component implements com.pi4j.components.interfac
         digitalOutput.off();
     }
 
+
     /**
      * Toggle the LED state depending on its current state.
      *
      * @return Return true or false according to the new state of the relay.
      */
+
     @Override
     public boolean toggle() {
         digitalOutput.toggle();
@@ -58,6 +69,15 @@ public class SimpleLED extends Component implements com.pi4j.components.interfac
 
     public int pin(){
         return digitalOutput.address().intValue();
+    }
+
+    /**
+     * Returns the instance of the digital output
+     *
+     * @return DigitalOutput instance of the LED
+     */
+    public DigitalOutput getDigitalOutput() {
+        return digitalOutput;
     }
 
     /**

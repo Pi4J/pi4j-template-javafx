@@ -3,6 +3,8 @@ package com.pi4j.mvc.tilesapp.controller;
 import com.pi4j.mvc.tilesapp.model.SomeModel;
 import com.pi4j.mvc.util.mvcbase.ControllerBase;
 
+import java.util.concurrent.TimeUnit;
+
 
 public class SomeController extends ControllerBase<SomeModel> {
 
@@ -16,6 +18,18 @@ public class SomeController extends ControllerBase<SomeModel> {
     // Gives the model a boolean, if the button is pressed or not.
     public void setButtonPressed(boolean is) {
         setValue(model.isButtonPressed, is);
+    }
+
+//    public void setLedButtonPressed(boolean is) {
+//        setValue(model.isLedButtonActive, is);
+//    }
+
+    public void setLedButtonReleased() {
+        setValue(model.isLedButtonActive, false);
+    }
+
+    public void whilePressedLedButton() {
+        setValue(model.whileButtonPressed, !model.whileButtonPressed.getValue());
     }
 
     // Sends message as output

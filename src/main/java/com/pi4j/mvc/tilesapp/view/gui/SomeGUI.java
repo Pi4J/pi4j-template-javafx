@@ -2,9 +2,11 @@ package com.pi4j.mvc.tilesapp.view.gui;
 
 import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.JoystickInterface;
+import com.pi4j.components.interfaces.LEDButtonInterface;
 import com.pi4j.components.interfaces.SimpleButtonInterface;
 import com.pi4j.components.interfaces.SimpleLEDInterface;
 import com.pi4j.components.tiles.JoystickTile;
+import com.pi4j.components.tiles.LedButtonTile;
 import com.pi4j.components.tiles.SimpleButtonTile;
 import com.pi4j.components.tiles.SimpleLEDTile;
 import com.pi4j.mvc.tilesapp.controller.SomeController;
@@ -26,6 +28,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
     private SimpleButtonInterface buttonTile;
 
     private JoystickInterface joystickTile;
+
+    private LEDButtonInterface ledButtonTile;
 
     public SomeGUI(SomeController controller) {
         super(5,1);
@@ -55,11 +59,12 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         ledTile    = new SimpleLEDTile(PIN.D22);
         buttonTile = new SimpleButtonTile(PIN.D24);
         joystickTile = new JoystickTile();
+        ledButtonTile = new LedButtonTile();
     }
 
     @Override
     public void layoutParts() {
-        getChildren().addAll((Tile)ledTile, (Tile)buttonTile, (Tile)joystickTile);
+        getChildren().addAll((Tile)ledTile, (Tile)buttonTile, (Tile)ledButtonTile, (Tile)joystickTile);
     }
 
     @Override
@@ -84,6 +89,10 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         joystickTile.whileWest(2000, () -> controller.whileMessage("Left"));
         joystickTile.onEast(() -> controller.pressedMessage("Right"));
         joystickTile.whileEast(2000, () -> controller.whileMessage("Right"));
+
+        ledButtonTile.onDown(() -> controller.pressedMessage("LED"));
+        ledButtonTile.onUp(controller::setLedButtonReleased);
+        ledButtonTile.btnwhilePressed(controller::whilePressedLedButton, 1000);
     }
 
     @Override
@@ -100,5 +109,27 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 
                 }
             });
+
+        //press button to turn on/off SimpleLED
+        onChangeOf(model.isLedButtonActive)
+            .execute((oldValue, newValue) -> {
+                if (newValue) {
+                    ledButtonTile.LEDsetStateOn();
+                } else {
+                    ledButtonTile.LEDsetStateOff();
+
+                }
+            });
+
+        onChangeOf(model.whileButtonPressed)
+            .execute((oldValue, newValue) -> {
+                if (newValue) {
+                    ledButtonTile.LEDsetStateOn();
+                } else {
+                    ledButtonTile.LEDsetStateOff();
+
+                }
+            });
+
     }
 }
