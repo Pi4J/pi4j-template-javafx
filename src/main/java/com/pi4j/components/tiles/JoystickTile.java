@@ -2,7 +2,6 @@ package com.pi4j.components.tiles;
 
 import com.pi4j.components.interfaces.JoystickInterface;
 import com.pi4j.components.tiles.Skins.JoystickSkin;
-import javafx.scene.input.MouseEvent;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -85,31 +84,37 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
         setSkin(jSkin);
         jSkin.getButton().setOnMousePressed(mouseEvent -> {
 
-            //Run onPushDown Runnable, falls Wert nicht Null
+            //Run onPushDown Runnable, if value =! Null
             if (onPushDown != null) {
                 onPushDown.run();
                 isDown = true;
             }
 
-            //Läuft whilePressedWorker Runnable, falls Wert nicht Null
+            //runs whilePressedWorker Runnable, if value =! Null
             if (pushWhilePushed != null) {
                 executor.submit(whilePressedWorker);
             }
 
         });
 
-        jSkin.getButton().setOnMouseExited(mouseEvent -> onPushUp.run());
-        jSkin.getButton().setOnMouseReleased(mouseEvent -> onPushUp.run());
+        jSkin.getButton().setOnMouseExited(mouseEvent -> {
+            onPushUp.run();
+            isDown = false;
+        });
+        jSkin.getButton().setOnMouseReleased(mouseEvent -> {
+            onPushUp.run();
+            isDown = false;
+        });
 
         jSkin.getUp().setOnMousePressed(mouseEvent -> {
 
-            //Run onNorth Runnable, falls Wert nicht Null
+            //Run onNorth Runnable, if value =! Null
             if (onNorth != null) {
                 onNorth.run();
                 isNorth = true;
             }
 
-            //Läuft whilePressedWorker Runnable, falls Wert nicht Null
+            //runs whilePressedWorker Runnable, if value =! Null
             if (whileNorth != null) {
                 executor.submit(whilePressedWorker);
             }
@@ -117,13 +122,13 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
         jSkin.getDown().setOnMousePressed(mouseEvent -> {
 
-            //Run onSouth Runnable, falls Wert nicht Null
+            //Run onSouth Runnable, if value =! Null
             if (onSouth != null) {
                 onSouth.run();
                 isSouth = true;
             }
 
-            //Läuft whilePressedWorker Runnable, falls Wert nicht Null
+            //runs whilePressedWorker Runnable, if value =! Null
             if (whileSouth != null) {
                 executor.submit(whilePressedWorker);
             }
@@ -131,13 +136,13 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
         jSkin.getLeft().setOnMousePressed(mouseEvent -> {
 
-            //Run onWest Runnable, falls Wert nicht Null
+            //Run onWest Runnable, if value =! Null
             if (onWest != null) {
                 onWest.run();
                 isWest = true;
             }
 
-            //Läuft whilePressedWorker Runnable, falls Wert nicht Null
+            //runs whilePressedWorker Runnable, if value =! Null
             if (whileWest != null) {
                 executor.submit(whilePressedWorker);
             }
@@ -145,28 +150,25 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
         jSkin.getRight().setOnMousePressed(mouseEvent -> {
 
-            //Run onEast Runnable, falls Wert nicht Null
+            //Run onEast Runnable, if value =! Null
             if (onEast != null) {
                 onEast.run();
                 isEast = true;
             }
 
-            //Läuft whilePressedWorker Runnable, falls Wert nicht Null
+            //runs whilePressedWorker Runnable, if value =! Null
             if (whileEast != null) {
                 executor.submit(whilePressedWorker);
             }
         });
 
-        //Setzt alle Wert zu False, falls nicht gedrückt ist
-        addEventFilter(MouseEvent.MOUSE_RELEASED, e ->{
-            isDown = false;
-            isNorth = false;
-            isWest = false;
-            isSouth = false;
-            isEast = false;
-        });
+        //set value to false, if releasing mouse
+        jSkin.getUp().setOnMouseReleased(mouseEvent -> isNorth = false);
+        jSkin.getDown().setOnMouseReleased(mouseEvent -> isSouth = false);
+        jSkin.getLeft().setOnMouseReleased(mouseEvent -> isWest = false);
+        jSkin.getRight().setOnMouseReleased(mouseEvent -> isEast = false);
 
-        //Wert wird zu False, falls Maus vom Button wegbewegt
+        //set value to false, if moving mouse away from button area
         jSkin.getUp().setOnMouseExited(mouseEvent -> isNorth = false);
         jSkin.getDown().setOnMouseExited(mouseEvent -> isSouth = false);
         jSkin.getLeft().setOnMouseExited(mouseEvent -> isWest = false);
