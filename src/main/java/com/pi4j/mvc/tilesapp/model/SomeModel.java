@@ -17,4 +17,8 @@ public class SomeModel {
     //Observes if the Button is pressed or not
     public final ObservableValue<Boolean> isButtonPressed = new ObservableValue<>(false);
 
+    public final ObservableValue<Boolean> isLedButtonActive = new ObservableValue<>(false);
+
+    public final ObservableValue<Boolean> whileButtonPressed = new ObservableValue<>(false);
+
 }

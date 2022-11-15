@@ -177,6 +177,7 @@ public class LedButtonSkin extends TileSkin {
         led.setFill(tile.isActive() ? onFill : offFill);
     }
 
-
-
+    public Circle getLed() {
+        return led;
+    }
 }
