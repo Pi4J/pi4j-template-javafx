@@ -13,11 +13,13 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Paint;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class LedButtonSkin extends TileSkin {
 
+    private Rectangle   buttonBorder;
     private Circle      ledBorder;
     private Circle      led;
 
@@ -59,11 +61,14 @@ public class LedButtonSkin extends TileSkin {
 
         ledBorder  = new Circle();
         led        = new Circle();
+        buttonBorder = new Rectangle();
+        buttonBorder.setFill(Color.GRAY);
+
 
         tile.setActiveColor(Color.rgb(0,255,0));
 
 
-        getPane().getChildren().addAll(titleText, text, ledBorder, led);
+        getPane().getChildren().addAll(titleText, text, buttonBorder, led);
 
     }
 
@@ -151,11 +156,15 @@ public class LedButtonSkin extends TileSkin {
 
         updateFills();
 
-        ledBorder.setRadius(size * 0.19);
-        ledBorder.setCenterX(width * 0.5);
-        ledBorder.setCenterY(height * 0.5);
+        double buttonBorderSize = size*0.4;
+        buttonBorder.setHeight(buttonBorderSize);
+        buttonBorder.setWidth(buttonBorderSize);
+        buttonBorder.setX((width- buttonBorderSize)*0.5);
+        buttonBorder.setY((height- buttonBorderSize)*0.5);
+        buttonBorder.setArcWidth(40);
+        buttonBorder.setArcHeight(40);
 
-        led.setRadius(size * 0.15);
+        led.setRadius(size * 0.1);
         led.setCenterX(width * 0.5);
         led.setCenterY(height * 0.5);
 
