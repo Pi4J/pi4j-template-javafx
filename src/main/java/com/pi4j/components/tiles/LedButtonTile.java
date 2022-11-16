@@ -39,7 +39,7 @@ public class LedButtonTile extends Pi4JTile implements LEDButtonInterface {
         minHeight(400);
         minWidth(400);
         setTitle("LEDButton");
-        setText("PIN");
+        setText("Pin 22, Pin 24");
         setSkin(ledButtonSkin);
 
         ledButtonSkin.getLed().setOnMousePressed(mouseEvent -> {
@@ -57,6 +57,11 @@ public class LedButtonTile extends Pi4JTile implements LEDButtonInterface {
         });
 
         ledButtonSkin.getLed().setOnMouseReleased(mouseEvent -> {
+            onUp.run();
+            isDown = false;
+        });
+
+        ledButtonSkin.getLed().setOnMouseExited(mouseEvent -> {
             onUp.run();
             isDown = false;
         });

@@ -121,15 +121,5 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
                 }
             });
 
-        onChangeOf(model.whileButtonPressed)
-            .execute((oldValue, newValue) -> {
-                if (newValue) {
-                    ledButtonTile.LEDsetStateOn();
-                } else {
-                    ledButtonTile.LEDsetStateOff();
-
-                }
-            });
-
     }
 }

@@ -20,16 +20,14 @@ public class SomeController extends ControllerBase<SomeModel> {
         setValue(model.isButtonPressed, is);
     }
 
-//    public void setLedButtonPressed(boolean is) {
-//        setValue(model.isLedButtonActive, is);
-//    }
-
+    //turn off ledbutton led
     public void setLedButtonReleased() {
         setValue(model.isLedButtonActive, false);
     }
 
+    //switch led of ledbutton on and off depending on delay
     public void whilePressedLedButton() {
-        setValue(model.whileButtonPressed, !model.whileButtonPressed.getValue());
+        setValue(model.isLedButtonActive, !model.isLedButtonActive.getValue());
     }
 
     // Sends message as output

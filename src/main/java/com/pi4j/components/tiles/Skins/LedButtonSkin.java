@@ -20,18 +20,14 @@ import javafx.scene.text.Text;
 public class LedButtonSkin extends TileSkin {
 
     private Rectangle   buttonBorder;
-    private Circle      ledBorder;
     private Circle      led;
 
     private Paint       borderFill;
     private Paint       onFill;
     private Paint       offFill;
 
-
     private Text titleText;
     private Text text;
-
-    private EventHandler<MouseEvent> mouseHandler;
 
 
     public LedButtonSkin(Tile TILE) {
@@ -43,13 +39,6 @@ public class LedButtonSkin extends TileSkin {
     protected void initGraphics (){
         super.initGraphics();
 
-        mouseHandler = event -> {
-            final javafx.event.EventType<? extends MouseEvent> TYPE = event.getEventType();
-            if (MouseEvent.MOUSE_CLICKED.equals(TYPE)) {
-                tile.setActive(!tile.isActive());
-            }
-        };
-
         titleText = new Text();
         titleText.setFill(tile.getTitleColor());
         Helper.enableNode(titleText, !tile.getTitle().isEmpty());
@@ -58,8 +47,6 @@ public class LedButtonSkin extends TileSkin {
         text.setFill(tile.getUnitColor());
         Helper.enableNode(text, tile.isTextVisible());
 
-
-        ledBorder  = new Circle();
         led        = new Circle();
         buttonBorder = new Rectangle();
         buttonBorder.setFill(Color.GRAY);
@@ -75,7 +62,6 @@ public class LedButtonSkin extends TileSkin {
     @Override
     protected void registerListeners(){
         super.registerListeners();
-        led.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseHandler);
     }
 
 
@@ -132,21 +118,19 @@ public class LedButtonSkin extends TileSkin {
 
         titleText.setFont(font);
         if (titleText.getLayoutBounds().getWidth() > maxWidth) { Helper.adjustTextSize(titleText, maxWidth, fontSize); }
-        switch(tile.getTitleAlignment()) {
-        default    :
-        case LEFT  : titleText.relocate(size * 0.05, size * 0.05); break;
-        case CENTER: titleText.relocate((width - titleText.getLayoutBounds().getWidth()) * 0.5, size * 0.05); break;
-        case RIGHT : titleText.relocate(width - (size * 0.05) - titleText.getLayoutBounds().getWidth(), size * 0.05); break;
+        switch (tile.getTitleAlignment()) {
+        case LEFT -> titleText.relocate(size * 0.05, size * 0.05);
+        case CENTER -> titleText.relocate((width - titleText.getLayoutBounds().getWidth()) * 0.5, size * 0.05);
+        case RIGHT -> titleText.relocate(width - (size * 0.05) - titleText.getLayoutBounds().getWidth(), size * 0.05);
         }
 
         text.setText(tile.getText());
         text.setFont(font);
         if (text.getLayoutBounds().getWidth() > maxWidth) { Helper.adjustTextSize(text, maxWidth, fontSize); }
-        switch(tile.getTextAlignment()) {
-        default    :
-        case LEFT  : text.setX(size * 0.05); break;
-        case CENTER: text.setX((width - text.getLayoutBounds().getWidth()) * 0.5); break;
-        case RIGHT : text.setX(width - (size * 0.05) - text.getLayoutBounds().getWidth()); break;
+        switch (tile.getTextAlignment()) {
+        case LEFT -> text.setX(size * 0.05);
+        case CENTER -> text.setX((width - text.getLayoutBounds().getWidth()) * 0.5);
+        case RIGHT -> text.setX(width - (size * 0.05) - text.getLayoutBounds().getWidth());
         }
         text.setY(height - size * 0.05);
     }
@@ -182,7 +166,6 @@ public class LedButtonSkin extends TileSkin {
         titleText.setFill(tile.getTitleColor());
         text.setFill(tile.getTextColor());
 
-        ledBorder.setFill(borderFill);
         led.setFill(tile.isActive() ? onFill : offFill);
     }
 

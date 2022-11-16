@@ -19,6 +19,4 @@ public class SomeModel {
 
     public final ObservableValue<Boolean> isLedButtonActive = new ObservableValue<>(false);
 
-    public final ObservableValue<Boolean> whileButtonPressed = new ObservableValue<>(false);
-
 }

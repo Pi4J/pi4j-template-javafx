@@ -1,6 +1,5 @@
 package com.pi4j.components.tiles;
 
-import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.JoystickInterface;
 import com.pi4j.components.tiles.Skins.JoystickSkin;
 
@@ -81,7 +80,7 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
         minHeight(400);
         minWidth(400);
         setTitle("Joystick");
-        setText("PINS...");
+        setText("Pin");
         setSkin(jSkin);
         jSkin.getButton().setOnMousePressed(mouseEvent -> {
 
