@@ -38,8 +38,8 @@ public class LedButtonTile extends Pi4JTile implements LEDButtonInterface {
     public LedButtonTile() {
         minHeight(400);
         minWidth(400);
-        setTitle("LEDButton");
-        setText("Pin 22, Pin 24");
+        setTitle("LED Button");
+        setText("Pin 22, Pin 24"); //TODO: change to correct way
         setSkin(ledButtonSkin);
 
         ledButtonSkin.getLed().setOnMousePressed(mouseEvent -> {

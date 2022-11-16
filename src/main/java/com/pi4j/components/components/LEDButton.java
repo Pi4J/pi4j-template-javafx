@@ -79,7 +79,7 @@ public class LEDButton extends Component implements com.pi4j.components.interfac
      * @return Return true or false according to the new state of the relay.
      */
     public boolean LEDtoggleState() {
-        return led.toggle();
+        return led.toggleState();
     }
 
     /**

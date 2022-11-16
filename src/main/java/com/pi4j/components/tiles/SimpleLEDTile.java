@@ -2,8 +2,6 @@ package com.pi4j.components.tiles;
 
 import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.SimpleLEDInterface;
-import com.pi4j.mvc.tilesapp.controller.SomeController;
-import eu.hansolo.tilesfx.Tile;
 
 public class SimpleLEDTile extends Pi4JTile implements SimpleLEDInterface {
 
@@ -25,13 +23,4 @@ public class SimpleLEDTile extends Pi4JTile implements SimpleLEDInterface {
         this.setActive(false);
     }
 
-    @Override
-    public boolean toggle() {
-        return false;
-    }
-
-    @Override
-    public boolean glows() {
-        return false;
-    }
 }
