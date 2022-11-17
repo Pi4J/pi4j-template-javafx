@@ -9,6 +9,7 @@ import com.pi4j.components.tiles.JoystickTile;
 import com.pi4j.components.tiles.LedButtonTile;
 import com.pi4j.components.tiles.SimpleButtonTile;
 import com.pi4j.components.tiles.SimpleLEDTile;
+import com.pi4j.components.tiles.Skins.JoystickSkin;
 import com.pi4j.mvc.tilesapp.controller.SomeController;
 import com.pi4j.mvc.tilesapp.model.SomeModel;
 import com.pi4j.mvc.util.mvcbase.ViewMixin;

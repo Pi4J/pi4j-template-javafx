@@ -2,13 +2,14 @@ package com.pi4j.components.tiles;
 
 import com.pi4j.components.interfaces.JoystickInterface;
 import com.pi4j.components.tiles.Skins.JoystickSkin;
+import javafx.scene.control.Skin;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
-    JoystickSkin jSkin = new JoystickSkin(this);
+    protected static final long DEFAULT_DEBOUNCE = 10000;
 
     private boolean isDown  = false;
     private boolean isNorth = false;
@@ -17,6 +18,7 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
     private boolean isEast  = false;
     private long millis;
 
+    JoystickSkin jSkin = new JoystickSkin(this);
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private Runnable onPushDown = () -> {};
@@ -35,44 +37,13 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
     private final Runnable whilePressedWorker = () -> {
 
-        while (isDown) {
+        while (isDown || isNorth || isSouth || isWest || isEast) {
             delay(millis);
-
-            if(isDown) {
-                pushWhilePushed.run();
-            }
-        }
-
-        while (isNorth) {
-            delay(millis);
-
-            if(isNorth) {
-                whileNorth.run();
-            }
-        }
-
-        while (isSouth) {
-            delay(millis);
-
-            if(isSouth) {
-                whileSouth.run();
-            }
-        }
-
-        while (isWest) {
-            delay(millis);
-
-            if(isWest) {
-                whileWest.run();
-            }
-        }
-
-        while (isEast) {
-            delay(millis);
-
-            if(isEast) {
-                whileEast.run();
-            }
+            if (isDown) pushWhilePushed.run();
+            if (isNorth) whileNorth.run();
+            if (isSouth) whileSouth.run();
+            if (isWest) whileWest.run();
+            if (isEast) whileEast.run();
         }
     };
 
