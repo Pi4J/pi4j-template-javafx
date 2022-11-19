@@ -3,6 +3,9 @@ package com.pi4j.components.tiles;
 import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.SimpleButtonInterface;
 import com.pi4j.components.tiles.Skins.SimpleButtonSkin;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -17,8 +20,6 @@ public class SimpleButtonTile extends Pi4JTile implements SimpleButtonInterface 
     private boolean isDown = false;
     private long whilePressedDelay;
 
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
-
     /**
      * Überprüft, ob der Button gedrückt ist und setzt ein Delay ein, Falls Button weiterhin gedrückt ist,
      * wird der whilePressed Runnable aktiviert.
@@ -32,6 +33,8 @@ public class SimpleButtonTile extends Pi4JTile implements SimpleButtonInterface 
             }
         }
     };
+
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public SimpleButtonTile(PIN pin) {
         prefHeight(400);
