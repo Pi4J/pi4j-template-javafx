@@ -3,8 +3,6 @@ package com.pi4j.mvc.tilesapp.controller;
 import com.pi4j.mvc.tilesapp.model.SomeModel;
 import com.pi4j.mvc.util.mvcbase.ControllerBase;
 
-import java.util.concurrent.TimeUnit;
-
 
 public class SomeController extends ControllerBase<SomeModel> {
 
@@ -35,7 +33,12 @@ public class SomeController extends ControllerBase<SomeModel> {
         System.out.println(type+" button is still pressed");
     }
 
-    public void pressedMessage(String type){
-        System.out.println(type+" button is pressed");
+    public void buttonMessage(String type, boolean isPressed){
+        String state = "released";
+        if(isPressed) {
+             state = "pressed";
+        }
+
+        System.out.println(type +" button is "+ state);
     }
 }

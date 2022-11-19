@@ -1,12 +1,9 @@
 package com.pi4j.components.components;
 
-import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.SimpleButtonInterface;
 import com.pi4j.context.Context;
-import com.pi4j.io.gpio.digital.DigitalInput;
-import com.pi4j.io.gpio.digital.DigitalInputConfig;
-import com.pi4j.io.gpio.digital.DigitalState;
-import com.pi4j.io.gpio.digital.PullResistance;
+import com.pi4j.components.components.helpers.PIN;
+import com.pi4j.io.gpio.digital.*;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -125,7 +122,6 @@ public class SimpleButton extends Component implements SimpleButtonInterface {
      *
      * @return True if button is pressed
      */
-
     public boolean isDown() {
         return getState() == DigitalState.HIGH;
     }

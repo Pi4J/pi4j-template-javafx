@@ -9,7 +9,6 @@ import com.pi4j.components.tiles.JoystickTile;
 import com.pi4j.components.tiles.LedButtonTile;
 import com.pi4j.components.tiles.SimpleButtonTile;
 import com.pi4j.components.tiles.SimpleLEDTile;
-import com.pi4j.components.tiles.Skins.JoystickSkin;
 import com.pi4j.mvc.tilesapp.controller.SomeController;
 import com.pi4j.mvc.tilesapp.model.SomeModel;
 import com.pi4j.mvc.util.mvcbase.ViewMixin;
@@ -25,15 +24,13 @@ import javafx.scene.paint.Color;
 public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeController> { //all GUI-elements have to implement ViewMixin
 
     // declare all the UI elements you need
-    private SimpleLEDInterface ledTile;
-    private SimpleButtonInterface buttonTile;
-
-    private JoystickInterface joystickTile;
-
-    private LEDButtonInterface ledButtonTile;
+    private SimpleLEDInterface led;
+    private SimpleButtonInterface button;
+    private JoystickInterface joystick;
+    private LEDButtonInterface ledButton;
 
     public SomeGUI(SomeController controller) {
-        super(5,1);
+        super(8,1);
         setHgap(5);
         setVgap(5);
         setAlignment(Pos.CENTER);
@@ -57,15 +54,15 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 
     @Override
     public void initializeParts() {
-        ledTile    = new SimpleLEDTile(PIN.D22);
-        buttonTile = new SimpleButtonTile(PIN.D24);
-        joystickTile = new JoystickTile();
-        ledButtonTile = new LedButtonTile();
+        led = new SimpleLEDTile(PIN.D22);
+        button = new SimpleButtonTile(PIN.D24);
+        joystick = new JoystickTile();
+        ledButton = new LedButtonTile();
     }
 
     @Override
     public void layoutParts() {
-        getChildren().addAll((Tile)ledTile, (Tile)buttonTile, (Tile)ledButtonTile, (Tile)joystickTile);
+        getChildren().addAll((Tile) led, (Tile) button, (Tile) ledButton, (Tile) joystick);
     }
 
     @Override
@@ -73,27 +70,31 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         // look at that: all EventHandlers just trigger an action on 'controller'
         // by calling a single method
 
-        buttonTile.onDown(() -> controller.setButtonPressed(true));
-        buttonTile.onUp  (() -> controller.setButtonPressed(false));
-        buttonTile.whilePressed(() -> controller.whileMessage("Simple"),5000);
+        button.onDown(() -> controller.setButtonPressed(true));
+        button.onUp  (() -> controller.setButtonPressed(false));
+        button.whilePressed(() -> controller.whileMessage("Simple"),5000);
 
-        joystickTile.onPushDown(() -> controller.setButtonPressed(true));
-        joystickTile.onPushUp(() -> controller.setButtonPressed(false));
+        joystick.onPushDown(() -> controller.setButtonPressed(true));
+        joystick.onPushUp(() -> controller.setButtonPressed(false));
 
         //Send message for short and long press
-        joystickTile.pushWhilePushed(2000, () -> controller.whileMessage("Joystick"));
-        joystickTile.onNorth(() -> controller.pressedMessage("Up"));
-        joystickTile.whileNorth(2000, () -> controller.whileMessage("Up"));
-        joystickTile.onSouth(() -> controller.pressedMessage("Down"));
-        joystickTile.whileSouth(2000, () -> controller.whileMessage("Down"));
-        joystickTile.onWest(() -> controller.pressedMessage("Left"));
-        joystickTile.whileWest(2000, () -> controller.whileMessage("Left"));
-        joystickTile.onEast(() -> controller.pressedMessage("Right"));
-        joystickTile.whileEast(2000, () -> controller.whileMessage("Right"));
+        joystick.pushWhilePushed(2000, () -> controller.whileMessage("Joystick"));
+        joystick.onNorthDown(() -> controller.buttonMessage("Up",true));
+        joystick.onNorthUp(() -> controller.buttonMessage("Up",false));
+        joystick.whileNorth(2000, () -> controller.whileMessage("Up"));
+        joystick.onSouthDown(() -> controller.buttonMessage("Down",true));
+        joystick.onSouthUp(() -> controller.buttonMessage("Down",false));
+        joystick.whileSouth(2000, () -> controller.whileMessage("Down"));
+        joystick.onWestDown(() -> controller.buttonMessage("Left", true));
+        joystick.onWestUp(() -> controller.buttonMessage("Left", false));
+        joystick.whileWest(2000, () -> controller.whileMessage("Left"));
+        joystick.onEastDown(() -> controller.buttonMessage("Right",true));
+        joystick.onEastUp(() -> controller.buttonMessage("Right",false));
+        joystick.whileEast(2000, () -> controller.whileMessage("Right"));
 
-        ledButtonTile.onDown(() -> controller.pressedMessage("LED"));
-        ledButtonTile.onUp(controller::setLedButtonReleased);
-        ledButtonTile.btnwhilePressed(controller::whilePressedLedButton, 1000);
+        ledButton.onDown(() -> controller.buttonMessage("LED",true));
+        ledButton.onUp(controller::setLedButtonReleased);
+        ledButton.btnwhilePressed(controller::whilePressedLedButton, 1000);
     }
 
     @Override
@@ -104,9 +105,9 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         onChangeOf(model.isButtonPressed)
             .execute((oldValue, newValue) -> {
                 if (newValue) {
-                    ledTile.on();
+                    led.on();
                 } else {
-                    ledTile.off();
+                    led.off();
 
                 }
             });
@@ -115,9 +116,9 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         onChangeOf(model.isLedButtonActive)
             .execute((oldValue, newValue) -> {
                 if (newValue) {
-                    ledButtonTile.LEDsetStateOn();
+                    ledButton.LEDsetStateOn();
                 } else {
-                    ledButtonTile.LEDsetStateOff();
+                    ledButton.LEDsetStateOff();
 
                 }
             });
