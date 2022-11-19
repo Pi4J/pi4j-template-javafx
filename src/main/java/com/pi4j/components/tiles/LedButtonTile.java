@@ -57,13 +57,17 @@ public class LedButtonTile extends Pi4JTile implements LEDButtonInterface {
         });
 
         ledButtonSkin.getLed().setOnMouseReleased(mouseEvent -> {
-            onUp.run();
-            isDown = false;
+            if (isDown) {
+                onUp.run();
+                isDown = false;
+            }
         });
 
         ledButtonSkin.getLed().setOnMouseExited(mouseEvent -> {
-            onUp.run();
-            isDown = false;
+            if (isDown) {
+                onUp.run();
+                isDown = false;
+            }
         });
     }
 

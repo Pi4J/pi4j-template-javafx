@@ -59,13 +59,17 @@ public class SimpleButtonTile extends Pi4JTile implements SimpleButtonInterface 
         });
 
         buttonSkin.getButtonknob().setOnMouseReleased(mouseEvent -> {
-            onUp.run();
-            isDown = false;
+            if(isDown) {
+                onUp.run();
+                isDown = false;
+            }
         });
 
         buttonSkin.getButtonknob().setOnMouseExited(mouseEvent -> {
-            onUp.run();
-            isDown = false;
+            if(isDown) {
+                onUp.run();
+                isDown = false;
+            }
         });
     }
 

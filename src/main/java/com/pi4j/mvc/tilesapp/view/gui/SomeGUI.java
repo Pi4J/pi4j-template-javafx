@@ -9,7 +9,6 @@ import com.pi4j.components.tiles.JoystickTile;
 import com.pi4j.components.tiles.LedButtonTile;
 import com.pi4j.components.tiles.SimpleButtonTile;
 import com.pi4j.components.tiles.SimpleLEDTile;
-import com.pi4j.components.tiles.Skins.JoystickSkin;
 import com.pi4j.mvc.tilesapp.controller.SomeController;
 import com.pi4j.mvc.tilesapp.model.SomeModel;
 import com.pi4j.mvc.util.mvcbase.ViewMixin;
@@ -80,16 +79,20 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 
         //Send message for short and long press
         joystick.pushWhilePushed(2000, () -> controller.whileMessage("Joystick"));
-        joystick.onNorth(() -> controller.pressedMessage("Up"));
+        joystick.onNorthDown(() -> controller.buttonMessage("Up",true));
+        joystick.onNorthUp(() -> controller.buttonMessage("Up",false));
         joystick.whileNorth(2000, () -> controller.whileMessage("Up"));
-        joystick.onSouth(() -> controller.pressedMessage("Down"));
+        joystick.onSouthDown(() -> controller.buttonMessage("Down",true));
+        joystick.onSouthUp(() -> controller.buttonMessage("Down",false));
         joystick.whileSouth(2000, () -> controller.whileMessage("Down"));
-        joystick.onWest(() -> controller.pressedMessage("Left"));
+        joystick.onWestDown(() -> controller.buttonMessage("Left", true));
+        joystick.onWestUp(() -> controller.buttonMessage("Left", false));
         joystick.whileWest(2000, () -> controller.whileMessage("Left"));
-        joystick.onEast(() -> controller.pressedMessage("Right"));
+        joystick.onEastDown(() -> controller.buttonMessage("Right",true));
+        joystick.onEastUp(() -> controller.buttonMessage("Right",false));
         joystick.whileEast(2000, () -> controller.whileMessage("Right"));
 
-        ledButton.onDown(() -> controller.pressedMessage("LED"));
+        ledButton.onDown(() -> controller.buttonMessage("LED",true));
         ledButton.onUp(controller::setLedButtonReleased);
         ledButton.btnwhilePressed(controller::whilePressedLedButton, 1000);
     }

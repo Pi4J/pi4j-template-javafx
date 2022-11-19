@@ -1,19 +1,27 @@
 package com.pi4j.components.interfaces;
 
 public interface JoystickInterface {
-    void onNorth(Runnable handler);
+    void onNorthDown(Runnable handler);
+
+    void onNorthUp(Runnable handler);
 
     void whileNorth(long millis, Runnable method);
 
-    void onWest(Runnable handler);
+    void onWestDown(Runnable handler);
+
+    void onWestUp(Runnable handler);
 
     void whileWest(long millis, Runnable method);
 
-    void onSouth(Runnable handler);
+    void onSouthDown(Runnable handler);
+
+    void onSouthUp(Runnable handler);
 
     void whileSouth(long millis, Runnable method);
 
-    void onEast(Runnable handler);
+    void onEastDown(Runnable handler);
+
+    void onEastUp(Runnable handler);
 
     void whileEast(long millis, Runnable method);
 

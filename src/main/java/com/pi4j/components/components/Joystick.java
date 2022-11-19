@@ -225,8 +225,13 @@ public class Joystick extends Component implements JoystickInterface {
      * @param handler Event handler to call or null to disable
      */
     @Override
-    public void onNorth(Runnable handler) {
+    public void onNorthDown(Runnable handler) {
         bNorth.onDown(handler);
+    }
+
+    @Override
+    public void onNorthUp(Runnable handler) {
+        bNorth.onUp(handler);
     }
 
     /**
@@ -248,8 +253,13 @@ public class Joystick extends Component implements JoystickInterface {
      * @param handler Event handler to call or null to disable
      */
     @Override
-    public void onWest(Runnable handler) {
+    public void onWestDown(Runnable handler) {
         bWest.onDown(handler);
+    }
+
+    @Override
+    public void onWestUp(Runnable handler) {
+        bWest.onUp(handler);
     }
 
     /**
@@ -271,8 +281,14 @@ public class Joystick extends Component implements JoystickInterface {
      * @param handler Event handler to call or null to disable
      */
     @Override
-    public void onSouth(Runnable handler) {
+    public void onSouthDown(Runnable handler) {
         bSouth.onDown(handler);
+    }
+
+    @Override
+    public void onSouthUp(Runnable handler) {
+        bSouth.onUp(handler);
+
     }
 
     /**
@@ -294,8 +310,14 @@ public class Joystick extends Component implements JoystickInterface {
      * @param handler Event handler to call or null to disable
      */
     @Override
-    public void onEast(Runnable handler) {
+    public void onEastDown(Runnable handler) {
         bEast.onDown(handler);
+    }
+
+    @Override
+    public void onEastUp(Runnable handler) {
+        bEast.onUp(handler);
+
     }
 
     /**

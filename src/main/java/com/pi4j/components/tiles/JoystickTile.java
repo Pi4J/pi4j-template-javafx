@@ -2,7 +2,6 @@ package com.pi4j.components.tiles;
 
 import com.pi4j.components.interfaces.JoystickInterface;
 import com.pi4j.components.tiles.Skins.JoystickSkin;
-import javafx.scene.control.Skin;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,10 +22,15 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
     private Runnable onPushDown = () -> {};
     private Runnable onPushUp   = () -> {};
-    private Runnable onNorth    = () -> {};
-    private Runnable onSouth    = () -> {};
-    private Runnable onWest     = () -> {};
-    private Runnable onEast     = () -> {};
+    private Runnable onNorthDown = () -> {};
+    private Runnable onSouthDown = () -> {};
+    private Runnable onWestDown = () -> {};
+    private Runnable onEastDown = () -> {};
+
+    private Runnable onNorthUp    = () -> {};
+    private Runnable onSouthUp    = () -> {};
+    private Runnable onWestUp     = () -> {};
+    private Runnable onEastUp     = () -> {};
 
     private Runnable whileNorth    = () -> {};
     private Runnable whileSouth    = () -> {};
@@ -80,8 +84,8 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
         jSkin.getUp().setOnMousePressed(mouseEvent -> {
 
             //Run onNorth Runnable, if value =! Null
-            if (onNorth != null) {
-                onNorth.run();
+            if (onNorthDown != null) {
+                onNorthDown.run();
                 isNorth = true;
             }
 
@@ -94,8 +98,8 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
         jSkin.getDown().setOnMousePressed(mouseEvent -> {
 
             //Run onSouth Runnable, if value =! Null
-            if (onSouth != null) {
-                onSouth.run();
+            if (onSouthDown != null) {
+                onSouthDown.run();
                 isSouth = true;
             }
 
@@ -108,8 +112,8 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
         jSkin.getLeft().setOnMousePressed(mouseEvent -> {
 
             //Run onWest Runnable, if value =! Null
-            if (onWest != null) {
-                onWest.run();
+            if (onWestDown != null) {
+                onWestDown.run();
                 isWest = true;
             }
 
@@ -122,8 +126,8 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
         jSkin.getRight().setOnMousePressed(mouseEvent -> {
 
             //Run onEast Runnable, if value =! Null
-            if (onEast != null) {
-                onEast.run();
+            if (onEastDown != null) {
+                onEastDown.run();
                 isEast = true;
             }
 
@@ -134,19 +138,63 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
         });
 
         //set value to false, if releasing mouse
-        jSkin.getUp().setOnMouseReleased(mouseEvent -> isNorth = false);
-        jSkin.getDown().setOnMouseReleased(mouseEvent -> isSouth = false);
-        jSkin.getLeft().setOnMouseReleased(mouseEvent -> isWest = false);
-        jSkin.getRight().setOnMouseReleased(mouseEvent -> isEast = false);
+        jSkin.getUp().setOnMouseReleased(mouseEvent -> {
+            if(isNorth) {
+                onNorthUp.run();
+                isNorth = false;
+            }
+        });
+
+        jSkin.getDown().setOnMouseReleased(mouseEvent -> {
+            if(isSouth) {
+                onSouthUp.run();
+                isSouth = false;
+            }
+        });
+
+        jSkin.getLeft().setOnMouseReleased(mouseEvent -> {
+            if (isWest) {
+                onWestUp.run();
+                isWest = false;
+            }
+        });
+
+        jSkin.getRight().setOnMouseReleased(mouseEvent -> {
+            if (isWest) {
+                onWestUp.run();
+                isWest = false;
+            }
+        });
 
         //set value to false, if moving mouse away from button area
-        jSkin.getUp().setOnMouseExited(mouseEvent -> isNorth = false);
-        jSkin.getDown().setOnMouseExited(mouseEvent -> isSouth = false);
-        jSkin.getLeft().setOnMouseExited(mouseEvent -> isWest = false);
-        jSkin.getRight().setOnMouseExited(mouseEvent -> isEast = false);
 
+        jSkin.getUp().setOnMouseExited(mouseEvent -> {
+           if(isNorth) {
+               onNorthUp.run();
+               isNorth = false;
+           }
+        });
 
+        jSkin.getDown().setOnMouseExited(mouseEvent -> {
+            if(isSouth) {
+                onSouthUp.run();
+                isSouth = false;
+            }
+        });
 
+        jSkin.getLeft().setOnMouseExited(mouseEvent -> {
+            if (isWest) {
+                onWestUp.run();
+                isWest = false;
+            }
+        });
+
+        jSkin.getRight().setOnMouseExited(mouseEvent ->   {
+            if(isEast) {
+                onEastUp.run();
+                isEast = false;
+            }
+        });
     }
 
     void delay(long milliseconds) {
@@ -158,8 +206,14 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
     }
 
     @Override
-    public void onNorth(Runnable handler) {
-        onNorth = handler;
+    public void onNorthDown(Runnable handler) {
+        onNorthDown = handler;
+    }
+
+    @Override
+    public void onNorthUp(Runnable handler) {
+        onNorthUp = handler;
+
     }
 
     @Override
@@ -170,8 +224,13 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
     }
 
     @Override
-    public void onWest(Runnable handler) {
-        onWest = handler;
+    public void onWestDown(Runnable handler) {
+        onWestDown = handler;
+    }
+
+    @Override
+    public void onWestUp(Runnable handler) {
+        onWestUp = handler;
     }
 
     @Override
@@ -182,8 +241,13 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
     }
 
     @Override
-    public void onSouth(Runnable handler) {
-        onSouth = handler;
+    public void onSouthDown(Runnable handler) {
+        onSouthDown = handler;
+    }
+
+    @Override
+    public void onSouthUp(Runnable handler) {
+        onSouthUp = handler;
     }
 
     @Override
@@ -194,8 +258,13 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
     }
 
     @Override
-    public void onEast(Runnable handler) {
-        onEast = handler;
+    public void onEastDown(Runnable handler) {
+        onEastDown = handler;
+    }
+
+    @Override
+    public void onEastUp(Runnable handler) {
+        onEastUp = handler;
     }
 
     @Override
