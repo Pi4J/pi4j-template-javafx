@@ -3,10 +3,10 @@ package com.pi4j.mvc.tilesapp.view.gui;
 import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.JoystickInterface;
 import com.pi4j.components.interfaces.LEDButtonInterface;
+import com.pi4j.components.interfaces.LEDStripInterface;
 import com.pi4j.components.interfaces.SimpleButtonInterface;
 import com.pi4j.components.interfaces.SimpleLEDInterface;
 import com.pi4j.components.tiles.*;
-import com.pi4j.components.tiles.Skins.LEDStripSkin;
 import com.pi4j.mvc.tilesapp.controller.SomeController;
 import com.pi4j.mvc.tilesapp.model.SomeModel;
 import com.pi4j.mvc.util.mvcbase.ViewMixin;
@@ -26,6 +26,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
     private SimpleButtonInterface button;
     private JoystickInterface joystick;
     private LEDButtonInterface ledButton;
+
+    private LEDStripInterface ledstrip;
 
     public SomeGUI(SomeController controller) {
         super(8,1);
@@ -56,11 +58,12 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         button = new SimpleButtonTile(PIN.D24);
         joystick = new JoystickTile();
         ledButton = new LedButtonTile();
+        ledstrip = new LedStripTile();
     }
 
     @Override
     public void layoutParts() {
-        getChildren().addAll((Tile) led, (Tile) button, (Tile) ledButton, (Tile) joystick);
+        getChildren().addAll((Tile) led, (Tile) button, (Tile) ledButton, (Tile) joystick, (Tile)ledstrip);
     }
 
     @Override
@@ -93,6 +96,21 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         ledButton.onDown(() -> controller.buttonMessage("LED",true));
         ledButton.onUp(controller::setLedButtonReleased);
         ledButton.btnwhilePressed(controller::whilePressedLedButton, 1000);
+
+        //hold change all color of ledstrip
+        joystick.pushWhilePushed(3000,() -> controller.ledStripHold(ledstrip));
+
+        //click/push change all color of ledstrip
+        joystick.onPushDown(() -> controller.ledStripPush(ledstrip));
+
+        //turn off ledstrip
+        joystick.onPushUp(() -> controller.ledStripOff(ledstrip));
+
+        //change one led light
+        joystick.onNorthDown(() -> controller.ledStripDirection(ledstrip,0));
+        joystick.onEastDown(() -> controller.ledStripDirection(ledstrip,1));
+        joystick.onSouthDown(() -> controller.ledStripDirection(ledstrip,2));
+        joystick.onWestDown(() -> controller.ledStripDirection(ledstrip,3));
     }
 
     @Override
@@ -120,6 +138,5 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 
                 }
             });
-
     }
 }

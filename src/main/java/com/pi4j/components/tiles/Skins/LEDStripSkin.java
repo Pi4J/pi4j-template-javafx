@@ -20,7 +20,7 @@ public class LEDStripSkin extends TileSkin {
     private Circle  ledBorder3;
     private Circle  ledBorder4;
 
-    private Circle[] leds;
+    public Circle[] leds;
 
     private Text    titleText;
     private Text    text;
@@ -33,6 +33,7 @@ public class LEDStripSkin extends TileSkin {
     protected void initGraphics() {
         super.initGraphics();
 
+        leds = new Circle[4];
         titleText = new Text();
         titleText.setFill(tile.getTitleColor());
         Helper.enableNode(titleText, !tile.getTitle().isEmpty());
@@ -41,7 +42,7 @@ public class LEDStripSkin extends TileSkin {
         text.setFill(tile.getUnitColor());
         Helper.enableNode(text, tile.isTextVisible());
 
-        Color fill = Color.RED;
+        Color fill = Color.BLACK;
         Color border = Color.GREY;
 
         ledBorder1 = new Circle();
@@ -64,7 +65,11 @@ public class LEDStripSkin extends TileSkin {
         leds[3] = new Circle();
         leds[3].setFill(fill);
 
-        getPane().getChildren().addAll(titleText,text,ledBorder1, leds[0], ledBorder2, leds[1], ledBorder3, leds[2], ledBorder4, leds[3]);
+        getPane().getChildren().addAll(titleText,text, ledBorder1, ledBorder2, ledBorder3, ledBorder4);
+
+        for (Circle led : leds) {
+            getPane().getChildren().add(led);
+        }
     }
 
     @Override
