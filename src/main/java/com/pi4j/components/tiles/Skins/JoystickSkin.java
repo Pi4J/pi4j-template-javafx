@@ -13,15 +13,15 @@ import javafx.scene.text.Text;
 
 public class JoystickSkin extends TileSkin {
 
-    private Circle  button;
+    private Circle      button;
     private Polygon     up;
     private Polygon     down;
     private Polygon     left;
 
     private Polygon     right;
 
-    private Text titleText;
-    private Text text;
+    private Text        titleText;
+    private Text        text;
 
     public JoystickSkin(Tile TILE) {
         super(TILE);
