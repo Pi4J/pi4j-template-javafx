@@ -19,10 +19,8 @@ public class LEDStripSkin extends TileSkin {
     private Circle  ledBorder2;
     private Circle  ledBorder3;
     private Circle  ledBorder4;
-    private Circle  led1;
-    private Circle  led2;
-    private Circle  led3;
-    private Circle  led4;
+
+    private Circle[] leds;
 
     private Text    titleText;
     private Text    text;
@@ -48,25 +46,25 @@ public class LEDStripSkin extends TileSkin {
 
         ledBorder1 = new Circle();
         ledBorder1.setFill(border);
-        led1 = new Circle();
-        led1.setFill(fill);
+        leds[0] = new Circle();
+        leds[0].setFill(fill);
 
         ledBorder2 = new Circle();
         ledBorder2.setFill(border);
-        led2 = new Circle();
-        led2.setFill(fill);
+        leds[1] = new Circle();
+        leds[1].setFill(fill);
 
         ledBorder3 = new Circle();
         ledBorder3.setFill(border);
-        led3 = new Circle();
-        led3.setFill(fill);
+        leds[2] = new Circle();
+        leds[2].setFill(fill);
 
         ledBorder4 = new Circle();
         ledBorder4.setFill(border);
-        led4 = new Circle();
-        led4.setFill(fill);
+        leds[3] = new Circle();
+        leds[3].setFill(fill);
 
-        getPane().getChildren().addAll(titleText,text,ledBorder1, led1, ledBorder2, led2, ledBorder3, led3, ledBorder4, led4);
+        getPane().getChildren().addAll(titleText,text,ledBorder1, leds[0], ledBorder2, leds[1], ledBorder3, leds[2], ledBorder4, leds[3]);
     }
 
     @Override
@@ -126,30 +124,30 @@ public class LEDStripSkin extends TileSkin {
         ledBorder1.setRadius(size * 0.07);
         ledBorder1.setCenterX(width * 0.2);
         ledBorder1.setCenterY(height * 0.5);
-        led1.setRadius(size * 0.045);
-        led1.setCenterX(width * 0.2);
-        led1.setCenterY(height * 0.5);
+        leds[0].setRadius(size * 0.045);
+        leds[0].setCenterX(width * 0.2);
+        leds[0].setCenterY(height * 0.5);
 
         ledBorder2.setRadius(size * 0.07);
         ledBorder2.setCenterX(width * 0.4);
         ledBorder2.setCenterY(height * 0.5);
-        led2.setRadius(size * 0.045);
-        led2.setCenterX(width * 0.4);
-        led2.setCenterY(height * 0.5);
+        leds[1].setRadius(size * 0.045);
+        leds[1].setCenterX(width * 0.4);
+        leds[1].setCenterY(height * 0.5);
 
         ledBorder3.setRadius(size * 0.07);
         ledBorder3.setCenterX(width * 0.6);
         ledBorder3.setCenterY(height * 0.5);
-        led3.setRadius(size * 0.045);
-        led3.setCenterX(width * 0.6);
-        led3.setCenterY(height * 0.5);
+        leds[2].setRadius(size * 0.045);
+        leds[2].setCenterX(width * 0.6);
+        leds[2].setCenterY(height * 0.5);
 
         ledBorder4.setRadius(size * 0.07);
         ledBorder4.setCenterX(width * 0.8);
         ledBorder4.setCenterY(height * 0.5);
-        led4.setRadius(size * 0.045);
-        led4.setCenterX(width * 0.8);
-        led4.setCenterY(height * 0.5);
+        leds[3].setRadius(size * 0.045);
+        leds[3].setCenterX(width * 0.8);
+        leds[3].setCenterY(height * 0.5);
 
     }
 
