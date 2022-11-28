@@ -45,7 +45,7 @@ public class SomeController extends ControllerBase<SomeModel> {
     }
 
     public void ledStripPush(LEDStripInterface tile){
-        tile.setStripColor(LedStripTile.PixelColor.ORANGE);
+        tile.setStripColor(LedStripTile.PixelColor.YELLOW);
         tile.render();
     }
 
@@ -60,6 +60,11 @@ public class SomeController extends ControllerBase<SomeModel> {
 
     public void ledStripDirection(LEDStripInterface tile, int arr){
         tile.setPixelColor(arr,LedStripTile.PixelColor.BLUE);
+        tile.render();
+    }
+
+    public void setStripBrightness(LEDStripInterface tile, double brightness){
+        tile.setBrightness(brightness);
         tile.render();
     }
 }

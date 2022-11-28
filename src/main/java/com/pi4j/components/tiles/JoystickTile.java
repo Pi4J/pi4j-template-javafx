@@ -73,12 +73,17 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
         });
 
         jSkin.getButton().setOnMouseExited(mouseEvent -> {
-            onPushUp.run();
-            isDown = false;
+            if(isDown) {
+                onPushUp.run();
+                isDown = false;
+            }
         });
+
         jSkin.getButton().setOnMouseReleased(mouseEvent -> {
-            onPushUp.run();
-            isDown = false;
+            if(isDown) {
+                onPushUp.run();
+                isDown = false;
+            }
         });
 
         jSkin.getUp().setOnMousePressed(mouseEvent -> {

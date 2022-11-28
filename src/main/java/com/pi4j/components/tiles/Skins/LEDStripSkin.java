@@ -6,9 +6,6 @@ import eu.hansolo.tilesfx.fonts.Fonts;
 import eu.hansolo.tilesfx.skins.TileSkin;
 import eu.hansolo.tilesfx.tools.Helper;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -22,6 +19,8 @@ public class LEDStripSkin extends TileSkin {
 
     public Circle[] leds;
 
+    public Circle[] brightness;
+
     private Text    titleText;
     private Text    text;
 
@@ -33,7 +32,9 @@ public class LEDStripSkin extends TileSkin {
     protected void initGraphics() {
         super.initGraphics();
 
-        leds = new Circle[4];
+        int amountLight = 4;
+        leds = new Circle[amountLight];
+        brightness = new Circle[amountLight];
         titleText = new Text();
         titleText.setFill(tile.getTitleColor());
         Helper.enableNode(titleText, !tile.getTitle().isEmpty());
@@ -47,28 +48,35 @@ public class LEDStripSkin extends TileSkin {
 
         ledBorder1 = new Circle();
         ledBorder1.setFill(border);
-        leds[0] = new Circle();
-        leds[0].setFill(fill);
+//        leds[0] = new Circle();
+//        leds[0].setFill(fill);
 
         ledBorder2 = new Circle();
         ledBorder2.setFill(border);
-        leds[1] = new Circle();
-        leds[1].setFill(fill);
+//        leds[1] = new Circle();
+//        leds[1].setFill(fill);
 
         ledBorder3 = new Circle();
         ledBorder3.setFill(border);
-        leds[2] = new Circle();
-        leds[2].setFill(fill);
+//        leds[2] = new Circle();
+//        leds[2].setFill(fill);
 
         ledBorder4 = new Circle();
         ledBorder4.setFill(border);
-        leds[3] = new Circle();
-        leds[3].setFill(fill);
+//        leds[3] = new Circle();
+//        leds[3].setFill(fill);
 
         getPane().getChildren().addAll(titleText,text, ledBorder1, ledBorder2, ledBorder3, ledBorder4);
 
-        for (Circle led : leds) {
-            getPane().getChildren().add(led);
+        for (int i = 0; i < amountLight; i++){
+            leds[i] = new Circle();
+            brightness[i] = new Circle();
+            leds[i].setFill(fill);
+            brightness[i].setFill(fill);
+            brightness[i].setOpacity(0.0);
+            getPane().getChildren().add(leds[i]);
+            getPane().getChildren().add(brightness[i]);
+
         }
     }
 
@@ -132,6 +140,9 @@ public class LEDStripSkin extends TileSkin {
         leds[0].setRadius(size * 0.045);
         leds[0].setCenterX(width * 0.2);
         leds[0].setCenterY(height * 0.5);
+        brightness[0].setRadius(size * 0.045);
+        brightness[0].setCenterX(width * 0.2);
+        brightness[0].setCenterY(height * 0.5);
 
         ledBorder2.setRadius(size * 0.07);
         ledBorder2.setCenterX(width * 0.4);
@@ -139,6 +150,9 @@ public class LEDStripSkin extends TileSkin {
         leds[1].setRadius(size * 0.045);
         leds[1].setCenterX(width * 0.4);
         leds[1].setCenterY(height * 0.5);
+        brightness[1].setRadius(size * 0.045);
+        brightness[1].setCenterX(width * 0.4);
+        brightness[1].setCenterY(height * 0.5);
 
         ledBorder3.setRadius(size * 0.07);
         ledBorder3.setCenterX(width * 0.6);
@@ -146,6 +160,9 @@ public class LEDStripSkin extends TileSkin {
         leds[2].setRadius(size * 0.045);
         leds[2].setCenterX(width * 0.6);
         leds[2].setCenterY(height * 0.5);
+        brightness[2].setRadius(size * 0.045);
+        brightness[2].setCenterX(width * 0.6);
+        brightness[2].setCenterY(height * 0.5);
 
         ledBorder4.setRadius(size * 0.07);
         ledBorder4.setCenterX(width * 0.8);
@@ -153,6 +170,9 @@ public class LEDStripSkin extends TileSkin {
         leds[3].setRadius(size * 0.045);
         leds[3].setCenterX(width * 0.8);
         leds[3].setCenterY(height * 0.5);
+        brightness[3].setRadius(size * 0.045);
+        brightness[3].setCenterX(width * 0.8);
+        brightness[3].setCenterY(height * 0.5);
 
     }
 

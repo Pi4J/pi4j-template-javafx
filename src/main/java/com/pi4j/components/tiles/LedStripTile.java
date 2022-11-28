@@ -1,6 +1,5 @@
 package com.pi4j.components.tiles;
 
-import com.pi4j.components.components.LEDStrip;
 import com.pi4j.components.interfaces.LEDStripInterface;
 import com.pi4j.components.tiles.Skins.LEDStripSkin;
 import javafx.scene.paint.Color;
@@ -28,6 +27,7 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
         setText("Pin");
         setSkin(ledstrip);
         LEDs = new int[4];
+        setBrightness(1.0);
     }
 
 
@@ -58,16 +58,15 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
     public void render() {
         for (int i = 0; i < LEDs.length; i++) {
 
-            //Scaling the color to the max brightness
-//            LEDs[i] = PixelColor.setRedComponent(LEDs[i], (int) (PixelColor.getRedComponent(LEDs[i]) * brightness));
-//            LEDs[i] = PixelColor.setGreenComponent(LEDs[i], (int) (PixelColor.getGreenComponent(LEDs[i]) * brightness));
-//            LEDs[i] = PixelColor.setBlueComponent(LEDs[i], (int) (PixelColor.getBlueComponent(LEDs[i]) * brightness));
-
             int red = (LEDs[i] >> 16) & 0xff;
             int green = (LEDs[i] >> 8) & 0xff;
             int blue = LEDs[i] & 0xff;
 
             Color c = Color.rgb(red,green,blue);
+
+            double convertBrightness = (brightness-1.0)*-1;
+
+            ledstrip.brightness[i].setOpacity(convertBrightness);
 
             ledstrip.leds[i].setFill(c);
 
@@ -132,78 +131,6 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
                 throw new IllegalArgumentException("Illegal Color value (" + value +
                     ") for '" + color + "' - must be 0.." + Color_COMPONENT_MAX);
             }
-        }
-
-        /**
-         * Get the red value of a color
-         *
-         * @param color provide the color
-         * @return the red value
-         */
-        public static int getRedComponent(int color) {
-            return (color & RED_MASK) >> 16;
-        }
-
-        /**
-         * Set the red value of a color
-         *
-         * @param color provide the color
-         * @param red   provide the desired red value
-         * @return the new color
-         */
-        public static int setRedComponent(final int color, int red) {
-            validateColorComponent("Red", red);
-            int new_Color = color & RED_OFF_MASK;
-            new_Color |= red << 16;
-            return new_Color;
-        }
-
-        /**
-         * Get the green value of a color
-         *
-         * @param color provide the color
-         * @return the green value
-         */
-        public static int getGreenComponent(int color) {
-            return (color & GREEN_MASK) >> 8;
-        }
-
-        /**
-         * Set the green value of a color
-         *
-         * @param color provide the color
-         * @param green provide the desired red value
-         * @return the new color
-         */
-        public static int setGreenComponent(final int color, int green) {
-            validateColorComponent("Green", green);
-            int new_Color = color & GREEN_OFF_MASK;
-            new_Color |= green << 8;
-            return new_Color;
-        }
-
-        /**
-         * Get the blue value of a color
-         *
-         * @param color provide the color
-         * @return the blue value
-         */
-        public static int getBlueComponent(int color) {
-            return color & BLUE_MASK;
-        }
-
-        /**
-         * Set the blue value of a color
-         *
-         * @param color provide the color
-         * @param blue  provide the desired red value
-         * @return the new color
-         */
-        public static int setBlueComponent(final int color, int blue) {
-            validateColorComponent("Blue", blue);
-            int new_Color = color & BLUE_OFF_MASK;
-            new_Color |= blue;
-            return new_Color;
         }
     }
 

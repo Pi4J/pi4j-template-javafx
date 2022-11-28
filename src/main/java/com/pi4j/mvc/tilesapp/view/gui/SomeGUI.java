@@ -111,6 +111,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         joystick.onEastDown(() -> controller.ledStripDirection(ledstrip,1));
         joystick.onSouthDown(() -> controller.ledStripDirection(ledstrip,2));
         joystick.onWestDown(() -> controller.ledStripDirection(ledstrip,3));
+
+        button.onDown(() -> controller.setStripBrightness(ledstrip, 0.6));
     }
 
     @Override
