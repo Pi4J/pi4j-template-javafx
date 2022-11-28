@@ -75,30 +75,19 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         button.onUp  (() -> controller.setButtonPressed(false));
         button.whilePressed(() -> controller.whileMessage("Simple"),5000);
 
-        joystick.onPushDown(() -> controller.setButtonPressed(true));
-        joystick.onPushUp(() -> controller.setButtonPressed(false));
-
         //Send message for short and long press
-        joystick.pushWhilePushed(2000, () -> controller.whileMessage("Joystick"));
-        joystick.onNorthDown(() -> controller.buttonMessage("Up",true));
         joystick.onNorthUp(() -> controller.buttonMessage("Up",false));
         joystick.whileNorth(2000, () -> controller.whileMessage("Up"));
-        joystick.onSouthDown(() -> controller.buttonMessage("Down",true));
         joystick.onSouthUp(() -> controller.buttonMessage("Down",false));
         joystick.whileSouth(2000, () -> controller.whileMessage("Down"));
-        joystick.onWestDown(() -> controller.buttonMessage("Left", true));
         joystick.onWestUp(() -> controller.buttonMessage("Left", false));
         joystick.whileWest(2000, () -> controller.whileMessage("Left"));
-        joystick.onEastDown(() -> controller.buttonMessage("Right",true));
         joystick.onEastUp(() -> controller.buttonMessage("Right",false));
         joystick.whileEast(2000, () -> controller.whileMessage("Right"));
 
         ledButton.onDown(() -> controller.buttonMessage("LED",true));
         ledButton.onUp(controller::setLedButtonReleased);
         ledButton.btnwhilePressed(controller::whilePressedLedButton, 1000);
-
-        //hold change all color of ledstrip
-        joystick.pushWhilePushed(3000,() -> controller.ledStripHold(ledstrip));
 
         //click/push change all color of ledstrip
         joystick.onPushDown(() -> controller.ledStripPush(ledstrip));
@@ -112,7 +101,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         joystick.onSouthDown(() -> controller.ledStripDirection(ledstrip,2));
         joystick.onWestDown(() -> controller.ledStripDirection(ledstrip,3));
 
-        button.onDown(() -> controller.setStripBrightness(ledstrip, 0.6));
+        //hold change brightness all ledstrip lights
+        joystick.pushWhilePushed(3000,() -> controller.setStripBrightness(ledstrip, 0.7));
     }
 
     @Override

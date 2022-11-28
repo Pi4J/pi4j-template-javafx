@@ -31,7 +31,6 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
     }
 
 
-
     @Override
     public void close() {
         allOff();
@@ -58,15 +57,19 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
     public void render() {
         for (int i = 0; i < LEDs.length; i++) {
 
+            //get rgb int value of each color
             int red = (LEDs[i] >> 16) & 0xff;
             int green = (LEDs[i] >> 8) & 0xff;
             int blue = LEDs[i] & 0xff;
 
             Color c = Color.rgb(red,green,blue);
 
-            double convertBrightness = (brightness-1.0)*-1;
+            /* set brightness value to the opposite
+            * convert brightness value for opacity of black overlay
+             */
+            double brightnessToOpacity = (brightness-1.0)*-1;
 
-            ledstrip.brightness[i].setOpacity(convertBrightness);
+            ledstrip.brightness[i].setOpacity(brightnessToOpacity);
 
             ledstrip.leds[i].setFill(c);
 

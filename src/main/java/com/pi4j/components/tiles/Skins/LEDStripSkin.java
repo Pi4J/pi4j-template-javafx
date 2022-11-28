@@ -12,10 +12,7 @@ import javafx.scene.text.Text;
 
 public class LEDStripSkin extends TileSkin {
 
-    private Circle  ledBorder1;
-    private Circle  ledBorder2;
-    private Circle  ledBorder3;
-    private Circle  ledBorder4;
+    public Circle[] ledBorder;
 
     public Circle[] leds;
 
@@ -24,6 +21,8 @@ public class LEDStripSkin extends TileSkin {
     private Text    titleText;
     private Text    text;
 
+    private int amountLight;
+
     public LEDStripSkin(Tile TILE) {
         super (TILE);
     }
@@ -31,10 +30,10 @@ public class LEDStripSkin extends TileSkin {
     @Override
     protected void initGraphics() {
         super.initGraphics();
-
-        int amountLight = 4;
+        amountLight = 4;
         leds = new Circle[amountLight];
         brightness = new Circle[amountLight];
+        ledBorder = new Circle[amountLight];
         titleText = new Text();
         titleText.setFill(tile.getTitleColor());
         Helper.enableNode(titleText, !tile.getTitle().isEmpty());
@@ -46,34 +45,19 @@ public class LEDStripSkin extends TileSkin {
         Color fill = Color.BLACK;
         Color border = Color.GREY;
 
-        ledBorder1 = new Circle();
-        ledBorder1.setFill(border);
-//        leds[0] = new Circle();
-//        leds[0].setFill(fill);
-
-        ledBorder2 = new Circle();
-        ledBorder2.setFill(border);
-//        leds[1] = new Circle();
-//        leds[1].setFill(fill);
-
-        ledBorder3 = new Circle();
-        ledBorder3.setFill(border);
-//        leds[2] = new Circle();
-//        leds[2].setFill(fill);
-
-        ledBorder4 = new Circle();
-        ledBorder4.setFill(border);
-//        leds[3] = new Circle();
-//        leds[3].setFill(fill);
-
-        getPane().getChildren().addAll(titleText,text, ledBorder1, ledBorder2, ledBorder3, ledBorder4);
+        getPane().getChildren().addAll(titleText,text);
 
         for (int i = 0; i < amountLight; i++){
+            ledBorder[i] = new Circle();
             leds[i] = new Circle();
             brightness[i] = new Circle();
+
+            ledBorder[i].setFill(border);
             leds[i].setFill(fill);
             brightness[i].setFill(fill);
             brightness[i].setOpacity(0.0);
+
+            getPane().getChildren().add(ledBorder[i]);
             getPane().getChildren().add(leds[i]);
             getPane().getChildren().add(brightness[i]);
 
@@ -99,7 +83,6 @@ public class LEDStripSkin extends TileSkin {
     }
 
     @Override protected void handleCurrentValue(final double VALUE) {
-//        led.setFill(tile.isActive() ? onFill : offFill);
     }
 
 
@@ -134,45 +117,25 @@ public class LEDStripSkin extends TileSkin {
     @Override
     protected void resize(){
         super.resize();
-        ledBorder1.setRadius(size * 0.07);
-        ledBorder1.setCenterX(width * 0.2);
-        ledBorder1.setCenterY(height * 0.5);
-        leds[0].setRadius(size * 0.045);
-        leds[0].setCenterX(width * 0.2);
-        leds[0].setCenterY(height * 0.5);
-        brightness[0].setRadius(size * 0.045);
-        brightness[0].setCenterX(width * 0.2);
-        brightness[0].setCenterY(height * 0.5);
 
-        ledBorder2.setRadius(size * 0.07);
-        ledBorder2.setCenterX(width * 0.4);
-        ledBorder2.setCenterY(height * 0.5);
-        leds[1].setRadius(size * 0.045);
-        leds[1].setCenterX(width * 0.4);
-        leds[1].setCenterY(height * 0.5);
-        brightness[1].setRadius(size * 0.045);
-        brightness[1].setCenterX(width * 0.4);
-        brightness[1].setCenterY(height * 0.5);
+        for( int i = 0; i< amountLight;i++){
+            double borderRadius = size * 0.07;
+            double ledRadius = size * 0.045;
+            double centerX = this.width * ((1+i)*0.2);
+            double centerY = height * 0.5;
 
-        ledBorder3.setRadius(size * 0.07);
-        ledBorder3.setCenterX(width * 0.6);
-        ledBorder3.setCenterY(height * 0.5);
-        leds[2].setRadius(size * 0.045);
-        leds[2].setCenterX(width * 0.6);
-        leds[2].setCenterY(height * 0.5);
-        brightness[2].setRadius(size * 0.045);
-        brightness[2].setCenterX(width * 0.6);
-        brightness[2].setCenterY(height * 0.5);
+            ledBorder[i].setRadius(borderRadius);
+            ledBorder[i].setCenterX(centerX);
+            ledBorder[i].setCenterY(centerY);
 
-        ledBorder4.setRadius(size * 0.07);
-        ledBorder4.setCenterX(width * 0.8);
-        ledBorder4.setCenterY(height * 0.5);
-        leds[3].setRadius(size * 0.045);
-        leds[3].setCenterX(width * 0.8);
-        leds[3].setCenterY(height * 0.5);
-        brightness[3].setRadius(size * 0.045);
-        brightness[3].setCenterX(width * 0.8);
-        brightness[3].setCenterY(height * 0.5);
+            leds[i].setRadius(ledRadius);
+            leds[i].setCenterX(centerX);
+            leds[i].setCenterY(centerY);
+
+            brightness[i].setRadius(ledRadius);
+            brightness[i].setCenterX(centerX);
+            brightness[i].setCenterY(centerY);
+        }
 
     }
 
