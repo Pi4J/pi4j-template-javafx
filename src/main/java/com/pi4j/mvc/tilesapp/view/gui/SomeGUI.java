@@ -4,6 +4,7 @@ import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.JoystickInterface;
 import com.pi4j.components.interfaces.LEDButtonInterface;
 import com.pi4j.components.interfaces.LEDStripInterface;
+import com.pi4j.components.interfaces.LedMatrixInterface;
 import com.pi4j.components.interfaces.SimpleButtonInterface;
 import com.pi4j.components.interfaces.SimpleLEDInterface;
 import com.pi4j.components.tiles.*;
@@ -27,7 +28,9 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
     private JoystickInterface joystick;
     private LEDButtonInterface ledButton;
 
-    private LEDStripInterface ledstrip;
+    private LEDStripInterface ledStrip;
+
+    private LedMatrixInterface ledMatrix;
 
     public SomeGUI(SomeController controller) {
         super(8,1);
@@ -58,12 +61,13 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         button = new SimpleButtonTile(PIN.D24);
         joystick = new JoystickTile();
         ledButton = new LedButtonTile();
-        ledstrip = new LedStripTile();
+        ledStrip = new LedStripTile(4,1.0);
+        ledMatrix = new LedMatrixTile(4, 3, 0.8);
     }
 
     @Override
     public void layoutParts() {
-        getChildren().addAll((Tile) led, (Tile) button, (Tile) ledButton, (Tile) joystick, (Tile)ledstrip);
+        getChildren().addAll((Tile) led, (Tile) button, (Tile) ledButton, (Tile) joystick, (Tile) ledStrip, (Tile)ledMatrix);
     }
 
     @Override
@@ -90,19 +94,42 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         ledButton.btnwhilePressed(controller::whilePressedLedButton, 1000);
 
         //click/push change all color of ledstrip
-        joystick.onPushDown(() -> controller.ledStripPush(ledstrip));
+        joystick.onPushDown(() -> {
+            controller.ledStripPush(ledStrip);
+            controller.ledMatrixPush(ledMatrix);
+        });
 
         //turn off ledstrip
-        joystick.onPushUp(() -> controller.ledStripOff(ledstrip));
+        joystick.onPushUp(() -> {
+            controller.ledStripOff(ledStrip);
+            controller.ledMatrixOff(ledMatrix);
+        });
 
-        //change one led light
-        joystick.onNorthDown(() -> controller.ledStripDirection(ledstrip,0));
-        joystick.onEastDown(() -> controller.ledStripDirection(ledstrip,1));
-        joystick.onSouthDown(() -> controller.ledStripDirection(ledstrip,2));
-        joystick.onWestDown(() -> controller.ledStripDirection(ledstrip,3));
+        //change one led light of ledstrip
+        //change one led light of second row of matrix
+        joystick.onNorthDown(() -> {
+            controller.ledStripDirection(ledStrip,1);
+            controller.ledMatrixDirection(ledMatrix,2,1);
+        });
+        joystick.onEastDown(() -> {
+            controller.ledStripDirection(ledStrip,2);
+            controller.ledMatrixDirection(ledMatrix,2,2);
+        });
+        joystick.onSouthDown(() -> {
+            controller.ledStripDirection(ledStrip,3);
+            controller.ledMatrixDirection(ledMatrix,2,3);
+        });
+        joystick.onWestDown(() -> {
+            controller.ledStripDirection(ledStrip,4);
+            controller.ledMatrixDirection(ledMatrix,2,4);
+        });
 
-        //hold change brightness all ledstrip lights
-        joystick.pushWhilePushed(3000,() -> controller.setStripBrightness(ledstrip, 0.7));
+        joystick.pushWhilePushed(3000,() -> {
+            //hold change brightness all ledstrip lights
+            controller.setStripBrightness(ledStrip, 0.7);
+            //hold change color of first strip of matrix
+            controller.changeFirstMatrixStrip(ledMatrix);
+        });
     }
 
     @Override

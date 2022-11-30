@@ -1,7 +1,10 @@
 package com.pi4j.mvc.tilesapp.controller;
 
 import com.pi4j.components.interfaces.LEDStripInterface;
+import com.pi4j.components.interfaces.LedMatrixInterface;
+import com.pi4j.components.tiles.LedMatrixTile;
 import com.pi4j.components.tiles.LedStripTile;
+import com.pi4j.components.tiles.helper.PixelColor;
 import com.pi4j.mvc.tilesapp.model.SomeModel;
 import com.pi4j.mvc.util.mvcbase.ControllerBase;
 
@@ -35,6 +38,7 @@ public class SomeController extends ControllerBase<SomeModel> {
         System.out.println(type+" button is still pressed");
     }
 
+    //sends message when pressed or released
     public void buttonMessage(String type, boolean isPressed){
         String state = "released";
         if(isPressed) {
@@ -44,22 +48,48 @@ public class SomeController extends ControllerBase<SomeModel> {
         System.out.println(type +" button is "+ state);
     }
 
+    //change all pixels of matrix to yellow
     public void ledStripPush(LEDStripInterface tile){
-        tile.setStripColor(LedStripTile.PixelColor.YELLOW);
+        tile.setStripColor(PixelColor.YELLOW);
         tile.render();
     }
 
+    //shuts off all pixels of ledstrip
     public void ledStripOff(LEDStripInterface tile){
         tile.allOff();
     }
-
-    public void ledStripDirection(LEDStripInterface tile, int arr){
-        tile.setPixelColor(arr,LedStripTile.PixelColor.GREEN);
+    //change defined pixel of the ledstrip to green
+    public void ledStripDirection(LEDStripInterface tile, int pixel){
+        tile.setPixelColor(pixel-1, PixelColor.GREEN);
         tile.render();
     }
 
+    //change brightness of ledstrip
     public void setStripBrightness(LEDStripInterface tile, double brightness){
         tile.setBrightness(brightness);
+        tile.render();
+    }
+
+    //change defined pixel of the matrix to purple
+    public void ledMatrixDirection(LedMatrixInterface tile, int row, int pixel){
+        tile.setPixelColor(row-1, pixel-1, PixelColor.PURPLE);
+        tile.render();
+    }
+
+    //change all pixels of matrix to red
+    public void ledMatrixPush(LedMatrixInterface tile){
+        tile.setMatrixColor(PixelColor.RED);
+        tile.render();
+    }
+
+    //shuts off all pixels of matrix
+    public void ledMatrixOff(LedMatrixInterface tile){
+        tile.allOff();
+    }
+
+    //change first strip of matrix to blue
+    public void changeFirstMatrixStrip(LedMatrixInterface tile){
+        tile.setStripColor(0, PixelColor.BLUE);
         tile.render();
     }
 }
