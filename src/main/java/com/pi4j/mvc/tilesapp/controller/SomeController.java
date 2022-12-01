@@ -1,5 +1,7 @@
 package com.pi4j.mvc.tilesapp.controller;
 
+import com.pi4j.components.interfaces.LEDStripInterface;
+import com.pi4j.components.tiles.LedStripTile;
 import com.pi4j.mvc.tilesapp.model.SomeModel;
 import com.pi4j.mvc.util.mvcbase.ControllerBase;
 
@@ -40,5 +42,24 @@ public class SomeController extends ControllerBase<SomeModel> {
         }
 
         System.out.println(type +" button is "+ state);
+    }
+
+    public void ledStripPush(LEDStripInterface tile){
+        tile.setStripColor(LedStripTile.PixelColor.YELLOW);
+        tile.render();
+    }
+
+    public void ledStripOff(LEDStripInterface tile){
+        tile.allOff();
+    }
+
+    public void ledStripDirection(LEDStripInterface tile, int arr){
+        tile.setPixelColor(arr,LedStripTile.PixelColor.GREEN);
+        tile.render();
+    }
+
+    public void setStripBrightness(LEDStripInterface tile, double brightness){
+        tile.setBrightness(brightness);
+        tile.render();
     }
 }
