@@ -125,6 +125,13 @@ public class JoystickAnalogSkin extends TileSkin {
         titleText.setFill(tile.getTitleColor());
         text.setFill(tile.getTextColor());
 
+    }
 
+    public Circle getButton() {
+        return button;
+    }
+
+    public Circle getBorder() {
+        return border;
     }
 }

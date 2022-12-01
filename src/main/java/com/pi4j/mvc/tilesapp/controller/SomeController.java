@@ -92,4 +92,8 @@ public class SomeController extends ControllerBase<SomeModel> {
         tile.setStripColor(0, PixelColor.BLUE);
         tile.render();
     }
+
+    public void setX() {
+
+    }
 }

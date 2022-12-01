@@ -5,7 +5,7 @@ import com.pi4j.context.Context;
 
 import java.util.function.Consumer;
 
-public class JoystickAnalog extends Component {
+public class JoystickAnalog extends Component implements com.pi4j.components.interfaces.JoystickAnalogInterface {
     /**
      * potentiometer x axis
      */
@@ -120,6 +120,7 @@ public class JoystickAnalog extends Component {
      *
      * @param task Event handler to call or null to disable
      */
+    @Override
     public void xOnMove(Consumer<Double> task) {
         x.setConsumerSlowReadChan((value) -> {
 
@@ -148,6 +149,7 @@ public class JoystickAnalog extends Component {
      *
      * @param task Event handler to call or null to disable
      */
+    @Override
     public void yOnMove(Consumer<Double> task) {
         y.setConsumerSlowReadChan((value) -> {
             value = value + yOffset;
@@ -177,6 +179,7 @@ public class JoystickAnalog extends Component {
      *
      * @param task Event handler to call or null to disable
      */
+    @Override
     public void pushOnDown(Runnable task) {
         push.onDown(task);
     }
@@ -188,6 +191,7 @@ public class JoystickAnalog extends Component {
      *
      * @param task Event handler to call or null to disable
      */
+    @Override
     public void pushOnUp(Runnable task) {
         push.onUp(task);
     }
@@ -199,6 +203,7 @@ public class JoystickAnalog extends Component {
      *
      * @param task Event handler to call or null to disable
      */
+    @Override
     public void pushWhilePressed(Runnable task, long whilePressedDelay) {
         push.whilePressed(task, whilePressedDelay);
     }
@@ -209,6 +214,7 @@ public class JoystickAnalog extends Component {
      * @param threshold     delta between old and new value to trigger new event (+- voltage)
      * @param readFrequency update frequency to read new value from ad converter
      */
+    @Override
     public void start(double threshold, int readFrequency) {
         x.startSlowContinuousReading(threshold, readFrequency);
         y.startSlowContinuousReading(threshold, readFrequency);
@@ -217,6 +223,7 @@ public class JoystickAnalog extends Component {
     /**
      * Stop reading of joystick value. If triggered no new value from joystick can be read.
      */
+    @Override
     public void stop() {
         x.stopSlowContinuousReading();
         y.stopSlowContinuousReading();
@@ -225,6 +232,7 @@ public class JoystickAnalog extends Component {
     /**
      * disables all the handlers on joystick events
      */
+    @Override
     public void deregisterAll() {
         x.deregisterAll();
         y.deregisterAll();
@@ -234,6 +242,7 @@ public class JoystickAnalog extends Component {
     /**
      * calibrates the center position of the joystick
      */
+    @Override
     public void calibrateJoystick() {
         xOffset = NORMALIZED_CENTER_POSITION - x.singleShotGetNormalizedValue();
         yOffset = NORMALIZED_CENTER_POSITION - y.singleShotGetNormalizedValue();
