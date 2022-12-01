@@ -28,12 +28,14 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
     private JoystickInterface joystick;
     private LEDButtonInterface ledButton;
 
+    private JoystickAnalogTile joystickAnalogTile;
+
     private LEDStripInterface ledStrip;
 
     private LedMatrixInterface ledMatrix;
 
     public SomeGUI(SomeController controller) {
-        super(8,1);
+        super(4,2);
         setHgap(5);
         setVgap(5);
         setAlignment(Pos.CENTER);
@@ -63,11 +65,12 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         ledButton = new LedButtonTile();
         ledStrip = new LedStripTile(4,1.0);
         ledMatrix = new LedMatrixTile(4, 3, 0.8);
+        joystickAnalogTile = new JoystickAnalogTile();
     }
 
     @Override
     public void layoutParts() {
-        getChildren().addAll((Tile) led, (Tile) button, (Tile) ledButton, (Tile) joystick, (Tile) ledStrip, (Tile)ledMatrix);
+        getChildren().addAll((Tile) led, (Tile) button, (Tile) ledButton, (Tile) joystick, (Tile) joystickAnalogTile,(Tile) ledStrip, (Tile)ledMatrix);
     }
 
     @Override
