@@ -11,23 +11,23 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
     /**
      * The array of all pixels
      */
-    private int[] LEDs;
+    private final int[] LEDs;
 
-    private LEDStripSkin ledstrip = new LEDStripSkin(this);
+    private final LEDStripSkin ledstrip = new LEDStripSkin(this);
 
     /**
      * Brightness value between 0 and 1
      */
     private double brightness;
 
-    public LedStripTile(){
+    public LedStripTile(int numLEDs, double brightness){
         minHeight(400);
         minWidth(400);
         setTitle("LED Strip");
         setText("Pin");
         setSkin(ledstrip);
-        LEDs = new int[4];
-        setBrightness(1.0);
+        LEDs = new int[numLEDs];
+        setBrightness(brightness);
     }
 
 
@@ -72,10 +72,6 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
             ledstrip.brightness[i].setOpacity(brightnessToOpacity);
 
             ledstrip.leds[i].setFill(c);
-
-
-            //TODO lastRenderTime?
-
         }
 
     }
@@ -108,33 +104,4 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
         }
         this.brightness = brightness;
     }
-
-    public class PixelColor {
-        public static final int WHITE = 0xFFFFFF;
-        public static final int RED = 0xFF0000;
-        public static final int ORANGE = 0xFFA500;
-        public static final int YELLOW = 0xFFFF00;
-        public static final int GREEN = 0x00FF00;
-        public static final int LIGHT_BLUE = 0xadd8e6;
-        public static final int BLUE = 0x0000FF;
-        public static final int PURPLE = 0x800080;
-        public static final int PINK = 0xFFC0CB;
-
-        public static final int Color_COMPONENT_MAX = 0xff;
-        private static final int WHITE_MASK = 0xffffff;
-        private static final int RED_MASK = 0xff0000;
-        private static final int GREEN_MASK = 0x00ff00;
-        private static final int BLUE_MASK = 0x0000ff;
-        private static final int RED_OFF_MASK = 0x00ffff;
-        private static final int GREEN_OFF_MASK = 0xff00ff;
-        private static final int BLUE_OFF_MASK = 0xffff00;
-
-        public static void validateColorComponent(String color, int value) {
-            if (value < 0 || value >= 256) {
-                throw new IllegalArgumentException("Illegal Color value (" + value +
-                    ") for '" + color + "' - must be 0.." + Color_COMPONENT_MAX);
-            }
-        }
-    }
-
 }

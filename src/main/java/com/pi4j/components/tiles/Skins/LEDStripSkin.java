@@ -21,7 +21,7 @@ public class LEDStripSkin extends TileSkin {
     private Text    titleText;
     private Text    text;
 
-    private int amountLight;
+    private static int amountLight;
 
     public LEDStripSkin(Tile TILE) {
         super (TILE);
@@ -47,21 +47,7 @@ public class LEDStripSkin extends TileSkin {
 
         getPane().getChildren().addAll(titleText,text);
 
-        for (int i = 0; i < amountLight; i++){
-            ledBorder[i] = new Circle();
-            leds[i] = new Circle();
-            brightness[i] = new Circle();
-
-            ledBorder[i].setFill(border);
-            leds[i].setFill(fill);
-            brightness[i].setFill(fill);
-            brightness[i].setOpacity(0.0);
-
-            getPane().getChildren().add(ledBorder[i]);
-            getPane().getChildren().add(leds[i]);
-            getPane().getChildren().add(brightness[i]);
-
-        }
+        initRow(fill, border, ledBorder, leds, brightness);
     }
 
     @Override
@@ -124,17 +110,7 @@ public class LEDStripSkin extends TileSkin {
             double centerX = this.width * ((1+i)*0.2);
             double centerY = height * 0.5;
 
-            ledBorder[i].setRadius(borderRadius);
-            ledBorder[i].setCenterX(centerX);
-            ledBorder[i].setCenterY(centerY);
-
-            leds[i].setRadius(ledRadius);
-            leds[i].setCenterX(centerX);
-            leds[i].setCenterY(centerY);
-
-            brightness[i].setRadius(ledRadius);
-            brightness[i].setCenterX(centerX);
-            brightness[i].setCenterY(centerY);
+            resizeRow(i, borderRadius, ledRadius, centerX, centerY, ledBorder, leds, brightness);
         }
 
     }
@@ -149,5 +125,38 @@ public class LEDStripSkin extends TileSkin {
         titleText.setFill(tile.getTitleColor());
         text.setFill(tile.getTextColor());
 
+    }
+
+    protected void initRow(Color fill, Color border, Circle[] ledBorder, Circle[] leds,
+                        Circle[] brightness) {
+        for (int i = 0; i < amountLight; i++){
+            ledBorder[i] = new Circle();
+            leds[i] = new Circle();
+            brightness[i] = new Circle();
+
+            ledBorder[i].setFill(border);
+            leds[i].setFill(fill);
+            brightness[i].setFill(fill);
+            brightness[i].setOpacity(0.0);
+
+            getPane().getChildren().add(ledBorder[i]);
+            getPane().getChildren().add(leds[i]);
+            getPane().getChildren().add(brightness[i]);
+        }
+    }
+
+     static void resizeRow(int i, double borderRadius, double ledRadius, double centerX, double centerY,
+                           Circle[] ledBorder, Circle[] leds, Circle[] brightness) {
+        ledBorder[i].setRadius(borderRadius);
+        ledBorder[i].setCenterX(centerX);
+        ledBorder[i].setCenterY(centerY);
+
+        leds[i].setRadius(ledRadius);
+        leds[i].setCenterX(centerX);
+        leds[i].setCenterY(centerY);
+
+        brightness[i].setRadius(ledRadius);
+        brightness[i].setCenterX(centerX);
+        brightness[i].setCenterY(centerY);
     }
 }

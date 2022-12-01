@@ -10,7 +10,7 @@ import java.util.Arrays;
 /**
  * Creates an SPI Control for a Neopixel LED Strip
  */
-public class LEDStrip extends Component implements com.pi4j.components.interfaces.LEDStripInterface {
+public class LedStrip extends Component implements com.pi4j.components.interfaces.LEDStripInterface {
     /**
      * Default Channel of the SPI Pins
      */
@@ -69,7 +69,7 @@ public class LEDStrip extends Component implements com.pi4j.components.interface
      * @param numLEDs    How many LEDs are on this Strand
      * @param brightness How bright the leds can be at max, Range 0 - 255
      */
-    public LEDStrip(Context pi4j, int numLEDs, double brightness) {
+    public LedStrip(Context pi4j, int numLEDs, double brightness) {
         this(pi4j, numLEDs, brightness, DEFAULT_SPI_CHANNEL);
     }
 
@@ -81,7 +81,7 @@ public class LEDStrip extends Component implements com.pi4j.components.interface
      * @param brightness How bright the leds can be at max, range 0 - 1
      * @param channel    which channel to use
      */
-    public LEDStrip(Context pi4j, int numLEDs, double brightness, int channel) {
+    public LedStrip(Context pi4j, int numLEDs, double brightness, int channel) {
         if (numLEDs < 1 || brightness < 0 || brightness > 1 || channel < 0 || channel > 1) {
             throw new IllegalArgumentException("Illegal Constructor");
         }
