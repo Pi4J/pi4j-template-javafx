@@ -214,7 +214,6 @@ public class JoystickAnalog extends Component implements com.pi4j.components.int
      * @param threshold     delta between old and new value to trigger new event (+- voltage)
      * @param readFrequency update frequency to read new value from ad converter
      */
-    @Override
     public void start(double threshold, int readFrequency) {
         x.startSlowContinuousReading(threshold, readFrequency);
         y.startSlowContinuousReading(threshold, readFrequency);
@@ -223,7 +222,6 @@ public class JoystickAnalog extends Component implements com.pi4j.components.int
     /**
      * Stop reading of joystick value. If triggered no new value from joystick can be read.
      */
-    @Override
     public void stop() {
         x.stopSlowContinuousReading();
         y.stopSlowContinuousReading();

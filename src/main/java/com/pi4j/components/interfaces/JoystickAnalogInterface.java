@@ -13,10 +13,6 @@ public interface JoystickAnalogInterface {
 
     void pushWhilePressed(Runnable task, long whilePressedDelay);
 
-    void start(double threshold, int readFrequency);
-
-    void stop();
-
     void deregisterAll();
 
     void calibrateJoystick();

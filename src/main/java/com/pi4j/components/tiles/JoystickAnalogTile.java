@@ -66,11 +66,6 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
     }
 
     @Override
-    public void start(double threshold, int readFrequency) {
-
-    }
-
-    @Override
     public void deregisterAll() {
 
     }
