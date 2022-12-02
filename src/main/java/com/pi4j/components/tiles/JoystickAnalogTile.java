@@ -2,7 +2,10 @@ package com.pi4j.components.tiles;
 
 import com.pi4j.components.interfaces.JoystickAnalogInterface;
 import com.pi4j.components.tiles.Skins.JoystickAnalogSkin;
+import javafx.scene.input.KeyCode;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
 public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterface {
@@ -15,6 +18,25 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
 
     private double currentX;
     private double currentY;
+
+    private Runnable pushOnDown = () -> { };
+    private Runnable pushOnUp   = () -> { };
+    private Runnable pushWhilePressed = () -> { };
+
+    private boolean isDown = false;
+    private long whilePressedDelay;
+
+    private final Runnable whilePressedWorker = () -> {
+        while (isDown) {
+            delay(whilePressedDelay);
+
+            if(isDown) {
+                pushWhilePressed.run();
+            }
+        }
+    };
+
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     JoystickAnalogSkin jASkin = new JoystickAnalogSkin(this);
 
@@ -52,8 +74,43 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
             xOnMove.accept(currentX);
             yOnMove.accept(currentY);
         });
+
+        //Run pushOnDown, when Key DOWN is pressed
+        setOnKeyPressed(keyEvent -> {
+            if(keyEvent.getCode() == KeyCode.DOWN) {
+                //Run onDown, when Value not Null
+                if (pushOnDown != null && !isDown) {
+                    pushOnDown.run();
+                    isDown = true;
+                }
+
+                //Run whilePressedWorker, when Value not Null
+                if (pushWhilePressed != null) {
+                    executor.submit(whilePressedWorker);
+                }
+            }
+        });
+
+        //Run pushOnUp, when Key DOWN is released
+        setOnKeyReleased(keyEvent -> {
+            if(keyEvent.getCode() == KeyCode.DOWN) {
+                //Run onDown Runnable, falls Wert nicht Null
+                if (pushOnUp != null && isDown) {
+                    pushOnUp.run();
+                    isDown = false;
+                }
+            }
+        });
     }
 
+    // Set current thread to sleep with given value (milliseconds)
+    void delay(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 
     @Override
     public void xOnMove(Consumer<Double> task) {
@@ -75,17 +132,18 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
 
     @Override
     public void pushOnDown(Runnable task) {
-
+        pushOnDown = task;
     }
 
     @Override
     public void pushOnUp(Runnable task) {
-
+        pushOnUp = task;
     }
 
     @Override
     public void pushWhilePressed(Runnable task, long whilePressedDelay) {
-
+        pushWhilePressed = task;
+        this.whilePressedDelay = whilePressedDelay;
     }
 
     @Override

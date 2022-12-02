@@ -2,8 +2,6 @@ package com.pi4j.mvc.tilesapp.controller;
 
 import com.pi4j.components.interfaces.LEDStripInterface;
 import com.pi4j.components.interfaces.LedMatrixInterface;
-import com.pi4j.components.tiles.LedMatrixTile;
-import com.pi4j.components.tiles.LedStripTile;
 import com.pi4j.components.tiles.helper.PixelColor;
 import com.pi4j.mvc.tilesapp.model.SomeModel;
 import com.pi4j.mvc.util.mvcbase.ControllerBase;
@@ -39,7 +37,7 @@ public class SomeController extends ControllerBase<SomeModel> {
     }
 
     //sends message when pressed or released
-    public void buttonMessage(String type, boolean isPressed) {
+    public void sendMessage(String type, boolean isPressed) {
         String state = "released";
         if (isPressed) {
             state = "pressed";

@@ -1,6 +1,7 @@
 package com.pi4j.mvc.tilesapp.view.gui;
 
 import com.pi4j.components.components.helpers.PIN;
+import com.pi4j.components.interfaces.JoystickAnalogInterface;
 import com.pi4j.components.interfaces.JoystickInterface;
 import com.pi4j.components.interfaces.LEDButtonInterface;
 import com.pi4j.components.interfaces.LEDStripInterface;
@@ -28,7 +29,7 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
     private JoystickInterface joystick;
     private LEDButtonInterface ledButton;
 
-    private JoystickAnalogTile joystickAnalogTile;
+    private JoystickAnalogInterface joystickAnalog;
 
     private LEDStripInterface ledStrip;
 
@@ -65,12 +66,12 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         ledButton = new LedButtonTile();
         ledStrip = new LedStripTile(4,1.0);
         ledMatrix = new LedMatrixTile(4, 3, 0.8);
-        joystickAnalogTile = new JoystickAnalogTile();
+        joystickAnalog = new JoystickAnalogTile();
     }
 
     @Override
     public void layoutParts() {
-        getChildren().addAll((Tile) led, (Tile) button, (Tile) ledButton, (Tile) joystick, (Tile) joystickAnalogTile,(Tile) ledStrip, (Tile)ledMatrix);
+        getChildren().addAll((Tile) led, (Tile) button, (Tile) ledButton, (Tile) joystick, (Tile) joystickAnalog,(Tile) ledStrip, (Tile)ledMatrix);
     }
 
     @Override
@@ -83,16 +84,16 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         button.whilePressed(() -> controller.whileMessage("Simple"),5000);
 
         //Send message for short and long press
-        joystick.onNorthUp(() -> controller.buttonMessage("Up",false));
+        joystick.onNorthUp(() -> controller.sendMessage("Up",false));
         joystick.whileNorth(2000, () -> controller.whileMessage("Up"));
-        joystick.onSouthUp(() -> controller.buttonMessage("Down",false));
+        joystick.onSouthUp(() -> controller.sendMessage("Down",false));
         joystick.whileSouth(2000, () -> controller.whileMessage("Down"));
-        joystick.onWestUp(() -> controller.buttonMessage("Left", false));
+        joystick.onWestUp(() -> controller.sendMessage("Left", false));
         joystick.whileWest(2000, () -> controller.whileMessage("Left"));
-        joystick.onEastUp(() -> controller.buttonMessage("Right",false));
+        joystick.onEastUp(() -> controller.sendMessage("Right",false));
         joystick.whileEast(2000, () -> controller.whileMessage("Right"));
 
-        ledButton.onDown(() -> controller.buttonMessage("LED",true));
+        ledButton.onDown(() -> controller.sendMessage("LED",true));
         ledButton.onUp(controller::setLedButtonReleased);
         ledButton.btnwhilePressed(controller::whilePressedLedButton, 1000);
 
@@ -134,8 +135,12 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
             controller.changeFirstMatrixStrip(ledMatrix);
         });
 
-        joystickAnalogTile.xOnMove(value -> controller.getX(value));
-        joystickAnalogTile.yOnMove(value -> controller.getY(value));
+        joystickAnalog.xOnMove(controller::getX);
+        joystickAnalog.yOnMove(controller::getY);
+
+        joystickAnalog.pushOnDown(() -> controller.sendMessage("Joystick analog", true));
+        joystickAnalog.pushOnUp  (() -> controller.sendMessage("Joystick analog",false));
+        joystickAnalog.pushWhilePressed(() -> controller.whileMessage("Joystick analog"),3000);
     }
 
     @Override
