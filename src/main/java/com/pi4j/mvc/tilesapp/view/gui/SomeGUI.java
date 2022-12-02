@@ -133,6 +133,9 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
             //hold change color of first strip of matrix
             controller.changeFirstMatrixStrip(ledMatrix);
         });
+
+        joystickAnalogTile.xOnMove(value -> controller.getX(value));
+        joystickAnalogTile.yOnMove(value -> controller.getY(value));
     }
 
     @Override
@@ -159,6 +162,16 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
                     ledButton.LEDsetStateOff();
 
                 }
+            });
+
+        onChangeOf(model.currentXPosition)
+            .execute((oldValue, newValue) -> {
+                System.out.println("X Position: " + newValue);
+            });
+
+        onChangeOf(model.currentYPosition)
+            .execute((oldValue, newValue) -> {
+                System.out.println("Y Position: " + newValue);
             });
     }
 }
