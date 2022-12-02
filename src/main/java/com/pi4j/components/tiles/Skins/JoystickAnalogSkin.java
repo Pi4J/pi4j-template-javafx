@@ -49,7 +49,7 @@ public class JoystickAnalogSkin extends TileSkin {
         border.setFill(borderFill);
         border.setStroke(borderBorder);
 
-        getPane().getChildren().addAll(titleText, text, button, border);
+        getPane().getChildren().addAll(titleText, text, border, button);
     }
 
     @Override

@@ -10,8 +10,8 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
     private Consumer<Double> xOnMove;
     private Consumer<Double> yOnMove;
 
-    private double xOffset = 0.0;
-    private double yOffset = 0.0;
+    private double xOffset;
+    private double yOffset;
     private double xMinNormValue;
     private double xMaxNormValue;
     private double yMinNormValue;
@@ -27,10 +27,18 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
         setText("Pin");
         setSkin(jASkin);
 
-//        jASkin.getButton().setOnMouseDragged(mouseEvent -> {
-  //          xOnMove.accept();
-    //    });
+        jASkin.getButton().setOnMousePressed(mouseEvent -> {
+            xOffset = mouseEvent.getSceneX() - jASkin.getButton().getTranslateX();
+            yOffset = mouseEvent.getSceneY() - jASkin.getButton().getTranslateY();
+        });
+
+        jASkin.getButton().setOnMouseDragged(mouseEvent -> {
+            jASkin.getButton().setTranslateX(mouseEvent.getSceneX() -xOffset);
+            jASkin.getButton().setTranslateY(mouseEvent.getSceneY() - yOffset);
+        });
     }
+
+
 
     @Override
     public void xOnMove(Consumer<Double> task) {
