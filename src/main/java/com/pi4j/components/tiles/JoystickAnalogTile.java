@@ -58,12 +58,22 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
         });
 
         jASkin.getButton().setOnMouseDragged(mouseEvent -> {
-            jASkin.getButton().setTranslateX(mouseEvent.getSceneX() - xStart);
-            jASkin.getButton().setTranslateY(mouseEvent.getSceneY() - yStart);
-            currentX = mouseEvent.getSceneX() - xStart;
-            currentY = mouseEvent.getSceneY() - yStart;
-            xOnMove.accept(currentX);
-            yOnMove.accept(currentY);
+            double border = jASkin.getBorder().getRadius();
+
+            if ( mouseEvent.getSceneX()-xStart < border
+                && mouseEvent.getSceneX()-xStart > -border
+                && mouseEvent.getSceneY()-yStart < border
+                && mouseEvent.getSceneY()-yStart > -border){
+                jASkin.getButton().setTranslateX(mouseEvent.getSceneX() - xStart);
+                jASkin.getButton().setTranslateY(mouseEvent.getSceneY() - yStart);
+                currentX = mouseEvent.getSceneX() - xStart;
+                currentY = mouseEvent.getSceneY() - yStart;
+                xOnMove.accept(currentX);
+                yOnMove.accept(currentY);
+            } else {
+                System.out.println("Stop!");
+            }
+
         });
 
         jASkin.getButton().setOnMouseReleased(mouseEvent -> {

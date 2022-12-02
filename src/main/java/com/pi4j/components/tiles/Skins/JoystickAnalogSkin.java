@@ -134,4 +134,5 @@ public class JoystickAnalogSkin extends TileSkin {
     public Circle getBorder() {
         return border;
     }
+
 }
