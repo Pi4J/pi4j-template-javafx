@@ -49,7 +49,7 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
         minHeight(400);
         minWidth(400);
         setTitle("JoystickAnalog");
-        setText("Pin");
+        setText("Pin"); //TODO: AD Wandler PIN, etc..
         setSkin(jASkin);
 
         jASkin.getButton().setOnMousePressed(mouseEvent -> {

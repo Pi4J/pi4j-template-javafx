@@ -20,6 +20,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import com.pi4j.components.tiles.helper.PixelColor;
 
 public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeController> { //all GUI-elements have to implement ViewMixin
 
@@ -65,13 +66,14 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         joystick = new JoystickTile();
         ledButton = new LedButtonTile();
         ledStrip = new LedStripTile(4,1.0);
-        ledMatrix = new LedMatrixTile(4, 3, 0.8);
+        ledMatrix = new LedMatrixTile(4, 4, 0.8);
         joystickAnalog = new JoystickAnalogTile();
     }
 
     @Override
     public void layoutParts() {
-        getChildren().addAll((Tile) led, (Tile) button, (Tile) ledButton, (Tile) joystick, (Tile) joystickAnalog,(Tile) ledStrip, (Tile)ledMatrix);
+        getChildren().addAll((Tile) led, (Tile) button, (Tile) ledButton, (Tile) joystick,
+            (Tile) joystickAnalog,(Tile) ledStrip, (Tile)ledMatrix);
     }
 
     @Override
@@ -99,40 +101,56 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 
         //click/push change all color of ledstrip
         joystick.onPushDown(() -> {
-            controller.ledStripPush(ledStrip);
-            controller.ledMatrixPush(ledMatrix);
+            ledStrip.setStripColor(PixelColor.YELLOW);
+            ledMatrix.setMatrixColor(PixelColor.RED);
+            controller.sendMessage("Joystick",true);
         });
 
         //turn off ledstrip
         joystick.onPushUp(() -> {
-            controller.ledStripOff(ledStrip);
-            controller.ledMatrixOff(ledMatrix);
+            ledStrip.allOff();
+            ledMatrix.allOff();
+            controller.sendMessage("Joystick",false);
         });
 
         //change one led light of ledstrip
         //change one led light of second row of matrix
+        int stripcolor = PixelColor.GREEN;
+        int matrixcolor = PixelColor.PURPLE;
         joystick.onNorthDown(() -> {
-            controller.ledStripDirection(ledStrip,1);
-            controller.ledMatrixDirection(ledMatrix,2,1);
+            int pixel = 0;
+            ledStrip.setPixelColor(pixel,stripcolor);
+            ledMatrix.setPixelColor(1, pixel, matrixcolor);
+            controller.pixelMessage(pixel);
         });
         joystick.onEastDown(() -> {
-            controller.ledStripDirection(ledStrip,2);
-            controller.ledMatrixDirection(ledMatrix,2,2);
+            int pixel = 1;
+            ledStrip.setPixelColor(pixel,stripcolor);
+            ledMatrix.setPixelColor(1, pixel, matrixcolor);
+            controller.pixelMessage(pixel);
         });
+
         joystick.onSouthDown(() -> {
-            controller.ledStripDirection(ledStrip,3);
-            controller.ledMatrixDirection(ledMatrix,2,3);
+            int pixel = 2;
+            ledStrip.setPixelColor(pixel,stripcolor);
+            ledMatrix.setPixelColor(1, pixel, matrixcolor);
+            controller.pixelMessage(pixel);
         });
+
         joystick.onWestDown(() -> {
-            controller.ledStripDirection(ledStrip,4);
-            controller.ledMatrixDirection(ledMatrix,2,4);
+            int pixel = 3;
+            ledStrip.setPixelColor(pixel,stripcolor);
+            ledMatrix.setPixelColor(1, pixel, matrixcolor);
+            controller.pixelMessage(pixel);
         });
 
         joystick.pushWhilePushed(3000,() -> {
             //hold change brightness all ledstrip lights
-            controller.setStripBrightness(ledStrip, 0.7);
+            double brightness = 0.7;
+            ledStrip.setBrightness(brightness);
+            controller.brightnessMessage(brightness);
             //hold change color of first strip of matrix
-            controller.changeFirstMatrixStrip(ledMatrix);
+            ledMatrix.setStripColor(0, PixelColor.BLUE);
         });
 
         joystickAnalog.xOnMove(controller::getX);
@@ -170,13 +188,9 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
             });
 
         onChangeOf(model.currentXPosition)
-            .execute((oldValue, newValue) -> {
-                System.out.println("X Position: " + newValue);
-            });
+            .execute((oldValue, newValue) -> System.out.println("X Position: " + newValue));
 
         onChangeOf(model.currentYPosition)
-            .execute((oldValue, newValue) -> {
-                System.out.println("Y Position: " + newValue);
-            });
+            .execute((oldValue, newValue) -> System.out.println("Y Position: " + newValue));
     }
 }
