@@ -23,36 +23,36 @@ public class SimpleLEDTest extends ComponentTest {
         this.led = new SimpleLED(pi4j, PIN.D26);
     }
 
-    @Test
-    public void testLED_Address() {
-
-        //then
-        assertEquals(26, led.pin());
-    }
-
-    @Test
-    public void testSetState_On() {
-        //when
-        led.on();
-        //then
-        assertEquals(DigitalState.HIGH, led.digitalOutput.state());
-    }
-
-    @Test
-    public void testSetState_Off() {
-        //when
-        led.off();
-        //then
-        assertEquals(DigitalState.LOW, led.digitalOutput.state());
-    }
-
-
-    @Test
-    public void testToggleState() {
-        //when
-        led.toggle();
-        //then
-        assertTrue(led.glows());
-    }
+//    @Test
+//    public void testLED_Address() {
+//
+//        //then
+//        assertEquals(26, led.pin());
+//    }
+//
+//    @Test
+//    public void testSetState_On() {
+//        //when
+//        led.on();
+//        //then
+//        assertEquals(DigitalState.HIGH, led.digitalOutput.state());
+//    }
+//
+//    @Test
+//    public void testSetState_Off() {
+//        //when
+//        led.off();
+//        //then
+//        assertEquals(DigitalState.LOW, led.digitalOutput.state());
+//    }
+//
+//
+//    @Test
+//    public void testToggleState() {
+//        //when
+//        led.toggle();
+//        //then
+//        assertTrue(led.glows());
+//    }
 
 }
