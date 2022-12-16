@@ -1,11 +1,12 @@
 package com.pi4j.components.components;
 
 import com.pi4j.components.components.helpers.PIN;
+import com.pi4j.components.interfaces.JoystickAnalogInterface;
 import com.pi4j.context.Context;
 
 import java.util.function.Consumer;
 
-public class JoystickAnalog extends Component implements com.pi4j.components.interfaces.JoystickAnalogInterface {
+public class JoystickAnalog extends Component implements JoystickAnalogInterface {
     /**
      * potentiometer x axis
      */
