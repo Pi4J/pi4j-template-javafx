@@ -103,6 +103,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         joystick.onPushDown(() -> {
             ledStrip.setStripColor(PixelColor.YELLOW);
             ledMatrix.setMatrixColor(PixelColor.RED);
+            ledStrip.render();
+            ledMatrix.render();
             controller.sendMessage("Joystick",true);
         });
 
@@ -110,6 +112,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         joystick.onPushUp(() -> {
             ledStrip.allOff();
             ledMatrix.allOff();
+            ledStrip.render();
+            ledMatrix.render();
             controller.sendMessage("Joystick",false);
         });
 
@@ -117,16 +121,21 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         //change one led light of second row of matrix
         int stripcolor = PixelColor.GREEN;
         int matrixcolor = PixelColor.PURPLE;
+
         joystick.onNorthDown(() -> {
             int pixel = 0;
             ledStrip.setPixelColor(pixel,stripcolor);
             ledMatrix.setPixelColor(1, pixel, matrixcolor);
+            ledStrip.render();
+            ledMatrix.render();
             controller.pixelMessage(pixel);
         });
         joystick.onEastDown(() -> {
             int pixel = 1;
             ledStrip.setPixelColor(pixel,stripcolor);
             ledMatrix.setPixelColor(1, pixel, matrixcolor);
+            ledStrip.render();
+            ledMatrix.render();
             controller.pixelMessage(pixel);
         });
 
@@ -134,6 +143,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
             int pixel = 2;
             ledStrip.setPixelColor(pixel,stripcolor);
             ledMatrix.setPixelColor(1, pixel, matrixcolor);
+            ledStrip.render();
+            ledMatrix.render();
             controller.pixelMessage(pixel);
         });
 
@@ -141,6 +152,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
             int pixel = 3;
             ledStrip.setPixelColor(pixel,stripcolor);
             ledMatrix.setPixelColor(1, pixel, matrixcolor);
+            ledStrip.render();
+            ledMatrix.render();
             controller.pixelMessage(pixel);
         });
 
@@ -148,9 +161,11 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
             //hold change brightness all ledstrip lights
             double brightness = 0.7;
             ledStrip.setBrightness(brightness);
+            ledStrip.render();
             controller.brightnessMessage(brightness);
             //hold change color of first strip of matrix
             ledMatrix.setStripColor(0, PixelColor.BLUE);
+            ledMatrix.render();
         });
 
         joystickAnalog.xOnMove(controller::getX);

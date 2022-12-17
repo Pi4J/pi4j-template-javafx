@@ -55,7 +55,7 @@ public class SomeController extends ControllerBase<SomeModel> {
     }
 
     public void brightnessMessage(double brightness){
-        System.out.println("LED-Strip & LED-Matrix brightness: "+brightness);
+        System.out.println("LED-Strip brightness: "+brightness);
     }
 
     public void getX(double x) {
