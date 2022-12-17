@@ -13,6 +13,10 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
     private Consumer<Double> xOnMove;
     private Consumer<Double> yOnMove;
 
+    private final double NORMALIZED_CENTER_POSITION = 0.5;
+
+    private boolean normalized0to1 = true;
+
     private double xStart;
     private double yStart;
 
@@ -40,10 +44,10 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
 
     JoystickAnalogSkin jASkin = new JoystickAnalogSkin(this);
 
-    private final double xMinNormValue = jASkin.getBorder().getCenterX() - jASkin.getBorder().getRadius()/2;
-    private final double xMaxNormValue = jASkin.getBorder().getCenterX() + jASkin.getBorder().getRadius()/2;
-    private final double yMinNormValue = jASkin.getBorder().getCenterY() - jASkin.getBorder().getRadius()/2;
-    private final double yMaxNormValue = jASkin.getBorder().getCenterY() + jASkin.getBorder().getRadius()/2;
+    private double xMinNormValue = jASkin.getBorder().getCenterX() - jASkin.getBorder().getRadius();
+    private double xMaxNormValue = jASkin.getBorder().getCenterX() + jASkin.getBorder().getRadius();
+    private double yMinNormValue = jASkin.getBorder().getCenterY() - jASkin.getBorder().getRadius();
+    private double yMaxNormValue = jASkin.getBorder().getCenterY() + jASkin.getBorder().getRadius();
 
     public JoystickAnalogTile() {
         minHeight(400);
@@ -124,8 +128,24 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
 
     @Override
     public void xOnMove(Consumer<Double> task) {
-        xOnMove = task;
+        xOnMove = value -> {
 
+            //check if min max value are ok
+            if (value < xMinNormValue) xMinNormValue = value;
+            if (value > xMaxNormValue) xMaxNormValue = value;
+            //scale axis from 0 to 1
+            if (value < NORMALIZED_CENTER_POSITION) {
+                value = (value - xMinNormValue) / (NORMALIZED_CENTER_POSITION - xMinNormValue) / 2;
+            } else if (value > NORMALIZED_CENTER_POSITION) {
+                value = 1 + (xMaxNormValue - value) / (NORMALIZED_CENTER_POSITION - xMaxNormValue) / 2;
+            }
+
+        if (!normalized0to1) {
+            value = rescaleValue(value);
+        }
+
+            task.accept(value);
+        };
  //       if (value < xMinNormValue) value = xMinNormValue;
    //     if (value > xMaxNormValue) value = xMaxNormValue;
      //   task.accept(value);
@@ -133,7 +153,24 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
 
     @Override
     public void yOnMove(Consumer<Double> task) {
-        yOnMove = task;
+        yOnMove = value -> {
+
+        //check if min max value are ok
+        if (value < yMinNormValue) yMinNormValue = value;
+        if (value > yMaxNormValue) yMaxNormValue = value;
+        //scale axis from 0 to 1
+        if (value < NORMALIZED_CENTER_POSITION) {
+            value = (value - yMinNormValue) / (NORMALIZED_CENTER_POSITION - yMinNormValue) / 2;
+        } else if (value > NORMALIZED_CENTER_POSITION) {
+            value = 1 + (yMaxNormValue - value) / (NORMALIZED_CENTER_POSITION - yMaxNormValue) / 2;
+        }
+
+        if (!normalized0to1) {
+            value = rescaleValue(value);
+        }
+
+        task.accept(value);
+    };
 
    //     if (value < yMinNormValue) value = yMinNormValue;
      //   if (value > yMaxNormValue) value = yMaxNormValue;
@@ -164,6 +201,10 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
     @Override
     public void calibrateJoystick() {
 
+    }
+
+    private double rescaleValue(double in) {
+        return (in - NORMALIZED_CENTER_POSITION) * 2;
     }
 
 }
