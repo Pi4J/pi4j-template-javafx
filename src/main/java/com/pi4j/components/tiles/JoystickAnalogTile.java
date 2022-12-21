@@ -13,7 +13,7 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
     private Consumer<Double> xOnMove;
     private Consumer<Double> yOnMove;
 
-    private final double NORMALIZED_CENTER_POSITION = 0.5;
+    private final double NORMALIZED_CENTER_POSITION = 500;
 
     private boolean normalized0to1 = true;
 
@@ -44,10 +44,10 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
 
     JoystickAnalogSkin jASkin = new JoystickAnalogSkin(this);
 
-    private double xMinNormValue = jASkin.getBorder().getCenterX() - jASkin.getBorder().getRadius();
-    private double xMaxNormValue = jASkin.getBorder().getCenterX() + jASkin.getBorder().getRadius();
-    private double yMinNormValue = jASkin.getBorder().getCenterY() - jASkin.getBorder().getRadius();
-    private double yMaxNormValue = jASkin.getBorder().getCenterY() + jASkin.getBorder().getRadius();
+//    private double xMinNormValue;
+//    private double xMaxNormValue;
+//    private double yMinNormValue;
+//    private double yMaxNormValue;
 
     public JoystickAnalogTile() {
         minHeight(400);
@@ -67,15 +67,13 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
             if ( mouseEvent.getSceneX()-xStart < border
                 && mouseEvent.getSceneX()-xStart > -border
                 && mouseEvent.getSceneY()-yStart < border
-                && mouseEvent.getSceneY()-yStart > -border){
+                && mouseEvent.getSceneY()-yStart > -border) {
                 jASkin.getButton().setTranslateX(mouseEvent.getSceneX() - xStart);
                 jASkin.getButton().setTranslateY(mouseEvent.getSceneY() - yStart);
                 currentX = mouseEvent.getSceneX() - xStart;
                 currentY = mouseEvent.getSceneY() - yStart;
                 xOnMove.accept(currentX);
                 yOnMove.accept(currentY);
-            } else {
-                System.out.println("Stop!");
             }
 
         });
@@ -130,19 +128,17 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
     public void xOnMove(Consumer<Double> task) {
         xOnMove = value -> {
 
-            //check if min max value are ok
-            if (value < xMinNormValue) xMinNormValue = value;
-            if (value > xMaxNormValue) xMaxNormValue = value;
-            //scale axis from 0 to 1
-            if (value < NORMALIZED_CENTER_POSITION) {
-                value = (value - xMinNormValue) / (NORMALIZED_CENTER_POSITION - xMinNormValue) / 2;
-            } else if (value > NORMALIZED_CENTER_POSITION) {
-                value = 1 + (xMaxNormValue - value) / (NORMALIZED_CENTER_POSITION - xMaxNormValue) / 2;
-            }
+            double xMinNormValue = 0 - jASkin.getBorder().getRadius();
+            double xMaxNormValue = jASkin.getBorder().getRadius();
 
-        if (!normalized0to1) {
-            value = rescaleValue(value);
-        }
+            value = currentX;
+            //scale axis from 0 to 1
+                value = - 1 / xMinNormValue * value;
+
+
+//        if (!normalized0to1) {
+//            value = rescaleValue(value);
+//        }
 
             task.accept(value);
         };
@@ -155,19 +151,16 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
     public void yOnMove(Consumer<Double> task) {
         yOnMove = value -> {
 
-        //check if min max value are ok
-        if (value < yMinNormValue) yMinNormValue = value;
-        if (value > yMaxNormValue) yMaxNormValue = value;
-        //scale axis from 0 to 1
-        if (value < NORMALIZED_CENTER_POSITION) {
-            value = (value - yMinNormValue) / (NORMALIZED_CENTER_POSITION - yMinNormValue) / 2;
-        } else if (value > NORMALIZED_CENTER_POSITION) {
-            value = 1 + (yMaxNormValue - value) / (NORMALIZED_CENTER_POSITION - yMaxNormValue) / 2;
-        }
+        double yMinNormValue = 0 - jASkin.getBorder().getRadius();
+        double yMaxNormValue = jASkin.getBorder().getRadius();
 
-        if (!normalized0to1) {
-            value = rescaleValue(value);
-        }
+            value = currentY;
+            //scale axis from 0 to 1
+            if (value < NORMALIZED_CENTER_POSITION) {
+                value = - 1 / yMinNormValue * value;
+            } else if (value > NORMALIZED_CENTER_POSITION) {
+                value = 1 / yMaxNormValue * value;
+            }
 
         task.accept(value);
     };
