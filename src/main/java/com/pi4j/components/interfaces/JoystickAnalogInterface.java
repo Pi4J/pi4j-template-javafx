@@ -16,4 +16,8 @@ public interface JoystickAnalogInterface {
     void deregisterAll();
 
     void calibrateJoystick();
+
+    void start(double threshold, int readFrequency);
+
+    void stop();
 }

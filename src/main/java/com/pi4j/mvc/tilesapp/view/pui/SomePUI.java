@@ -33,9 +33,10 @@ public class SomePUI extends PuiBase<SomeModel, SomeController> {
     public void initializeParts() {
         led    = new SimpleLED(pi4J, PIN.D22);
         button = new SimpleButton(pi4J, PIN.D24, false);
-        joystick = new Joystick(pi4J, PIN.D6, PIN.PWM13, PIN.PWM19, PIN.D20);
+        joystick = new Joystick(pi4J, PIN.D6, PIN.PWM13, PIN.PWM19, PIN.D26);
         ads1115 = new Ads1115(pi4J, 0x01, Ads1115.GAIN.GAIN_4_096V, Ads1115.ADDRESS.GND, 4);
-        joystickAnalog = new JoystickAnalog(pi4J, ads1115, 0, 1, 3.3, false, PIN.D26);
+        joystickAnalog = new JoystickAnalog(pi4J, ads1115, 0, 1, 3.3, true, PIN.D5);                joystickAnalog.start(0.005,10);
+        joystickAnalog.start(0.05,10);
     }
 
     @Override
@@ -56,8 +57,8 @@ public class SomePUI extends PuiBase<SomeModel, SomeController> {
         joystick.whileWest(2000, () -> controller.whileMessage("Left"));
         joystick.whileEast(2000, () -> controller.whileMessage("Right"));
 
-        joystickAnalog.xOnMove(controller::getX);
-        joystickAnalog.yOnMove(controller::getY);
+        joystickAnalog.xOnMove(controller::setX);
+        joystickAnalog.yOnMove(controller::setY);
 
         joystickAnalog.pushOnDown(() -> controller.sendMessage("Joystick analog", true));
         joystickAnalog.pushOnUp  (() -> controller.sendMessage("Joystick analog",false));

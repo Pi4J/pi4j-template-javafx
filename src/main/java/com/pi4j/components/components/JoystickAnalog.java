@@ -168,7 +168,6 @@ public class JoystickAnalog extends Component implements JoystickAnalogInterface
             if (!normalized0to1) {
                 value = rescaleValue(value);
             }
-
             task.accept(value);
         });
     }
@@ -215,6 +214,8 @@ public class JoystickAnalog extends Component implements JoystickAnalogInterface
      * @param threshold     delta between old and new value to trigger new event (+- voltage)
      * @param readFrequency update frequency to read new value from ad converter
      */
+
+    @Override
     public void start(double threshold, int readFrequency) {
         x.startSlowContinuousReading(threshold, readFrequency);
         y.startSlowContinuousReading(threshold, readFrequency);
