@@ -1,6 +1,7 @@
 package com.pi4j.mvc.tilesapp.view.gui;
 
 import com.pi4j.components.components.helpers.PIN;
+import com.pi4j.components.interfaces.JoystickAnalogInterface;
 import com.pi4j.components.interfaces.JoystickInterface;
 import com.pi4j.components.interfaces.LEDButtonInterface;
 import com.pi4j.components.interfaces.LEDStripInterface;
@@ -19,6 +20,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import com.pi4j.components.tiles.helper.PixelColor;
 
 public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeController> { //all GUI-elements have to implement ViewMixin
 
@@ -28,12 +30,14 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
     private JoystickInterface joystick;
     private LEDButtonInterface ledButton;
 
+    private JoystickAnalogInterface joystickAnalog;
+
     private LEDStripInterface ledStrip;
 
     private LedMatrixInterface ledMatrix;
 
     public SomeGUI(SomeController controller) {
-        super(8,1);
+        super(4,2);
         setHgap(5);
         setVgap(5);
         setAlignment(Pos.CENTER);
@@ -62,12 +66,14 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         joystick = new JoystickTile();
         ledButton = new LedButtonTile();
         ledStrip = new LedStripTile(4,1.0);
-        ledMatrix = new LedMatrixTile(4, 3, 0.8);
+        ledMatrix = new LedMatrixTile(4, 4, 0.8);
+        joystickAnalog = new JoystickAnalogTile();
     }
 
     @Override
     public void layoutParts() {
-        getChildren().addAll((Tile) led, (Tile) button, (Tile) ledButton, (Tile) joystick, (Tile) ledStrip, (Tile)ledMatrix);
+        getChildren().addAll((Tile) led, (Tile) button, (Tile) ledButton, (Tile) joystick,
+            (Tile) joystickAnalog,(Tile) ledStrip, (Tile)ledMatrix);
     }
 
     @Override
@@ -80,56 +86,94 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         button.whilePressed(() -> controller.whileMessage("Simple"),5000);
 
         //Send message for short and long press
-        joystick.onNorthUp(() -> controller.buttonMessage("Up",false));
+        joystick.onNorthUp(() -> controller.sendMessage("Up",false));
         joystick.whileNorth(2000, () -> controller.whileMessage("Up"));
-        joystick.onSouthUp(() -> controller.buttonMessage("Down",false));
+        joystick.onSouthUp(() -> controller.sendMessage("Down",false));
         joystick.whileSouth(2000, () -> controller.whileMessage("Down"));
-        joystick.onWestUp(() -> controller.buttonMessage("Left", false));
+        joystick.onWestUp(() -> controller.sendMessage("Left", false));
         joystick.whileWest(2000, () -> controller.whileMessage("Left"));
-        joystick.onEastUp(() -> controller.buttonMessage("Right",false));
+        joystick.onEastUp(() -> controller.sendMessage("Right",false));
         joystick.whileEast(2000, () -> controller.whileMessage("Right"));
 
-        ledButton.onDown(() -> controller.buttonMessage("LED",true));
+        ledButton.onDown(() -> controller.sendMessage("LED",true));
         ledButton.onUp(controller::setLedButtonReleased);
         ledButton.btnwhilePressed(controller::whilePressedLedButton, 1000);
 
         //click/push change all color of ledstrip
         joystick.onPushDown(() -> {
-            controller.ledStripPush(ledStrip);
-            controller.ledMatrixPush(ledMatrix);
+            ledStrip.setStripColor(PixelColor.YELLOW);
+            ledMatrix.setMatrixColor(PixelColor.RED);
+            ledStrip.render();
+            ledMatrix.render();
+            controller.sendMessage("Joystick",true);
         });
 
         //turn off ledstrip
         joystick.onPushUp(() -> {
-            controller.ledStripOff(ledStrip);
-            controller.ledMatrixOff(ledMatrix);
+            ledStrip.allOff();
+            ledMatrix.allOff();
+            ledStrip.render();
+            ledMatrix.render();
+            controller.sendMessage("Joystick",false);
         });
 
         //change one led light of ledstrip
         //change one led light of second row of matrix
+        int stripcolor = PixelColor.GREEN;
+        int matrixcolor = PixelColor.PURPLE;
+
         joystick.onNorthDown(() -> {
-            controller.ledStripDirection(ledStrip,1);
-            controller.ledMatrixDirection(ledMatrix,2,1);
+            int pixel = 0;
+            ledStrip.setPixelColor(pixel,stripcolor);
+            ledMatrix.setPixelColor(1, pixel, matrixcolor);
+            ledStrip.render();
+            ledMatrix.render();
+            controller.pixelMessage(pixel);
         });
         joystick.onEastDown(() -> {
-            controller.ledStripDirection(ledStrip,2);
-            controller.ledMatrixDirection(ledMatrix,2,2);
+            int pixel = 1;
+            ledStrip.setPixelColor(pixel,stripcolor);
+            ledMatrix.setPixelColor(1, pixel, matrixcolor);
+            ledStrip.render();
+            ledMatrix.render();
+            controller.pixelMessage(pixel);
         });
+
         joystick.onSouthDown(() -> {
-            controller.ledStripDirection(ledStrip,3);
-            controller.ledMatrixDirection(ledMatrix,2,3);
+            int pixel = 2;
+            ledStrip.setPixelColor(pixel,stripcolor);
+            ledMatrix.setPixelColor(1, pixel, matrixcolor);
+            ledStrip.render();
+            ledMatrix.render();
+            controller.pixelMessage(pixel);
         });
+
         joystick.onWestDown(() -> {
-            controller.ledStripDirection(ledStrip,4);
-            controller.ledMatrixDirection(ledMatrix,2,4);
+            int pixel = 3;
+            ledStrip.setPixelColor(pixel,stripcolor);
+            ledMatrix.setPixelColor(1, pixel, matrixcolor);
+            ledStrip.render();
+            ledMatrix.render();
+            controller.pixelMessage(pixel);
         });
 
         joystick.pushWhilePushed(3000,() -> {
             //hold change brightness all ledstrip lights
-            controller.setStripBrightness(ledStrip, 0.7);
+            double brightness = 0.7;
+            ledStrip.setBrightness(brightness);
+            ledStrip.render();
+            controller.brightnessMessage(brightness);
             //hold change color of first strip of matrix
-            controller.changeFirstMatrixStrip(ledMatrix);
+            ledMatrix.setStripColor(0, PixelColor.BLUE);
+            ledMatrix.render();
         });
+
+        joystickAnalog.xOnMove(controller::getX);
+        joystickAnalog.yOnMove(controller::getY);
+
+        joystickAnalog.pushOnDown(() -> controller.sendMessage("Joystick analog", true));
+        joystickAnalog.pushOnUp  (() -> controller.sendMessage("Joystick analog",false));
+        joystickAnalog.pushWhilePressed(() -> controller.whileMessage("Joystick analog"),3000);
     }
 
     @Override
@@ -157,5 +201,11 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 
                 }
             });
+
+        onChangeOf(model.currentXPosition)
+            .execute((oldValue, newValue) -> System.out.println("X Position: " + newValue));
+
+        onChangeOf(model.currentYPosition)
+            .execute((oldValue, newValue) -> System.out.println("Y Position: " + newValue));
     }
 }

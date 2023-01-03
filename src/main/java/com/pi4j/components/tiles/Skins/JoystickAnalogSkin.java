@@ -11,22 +11,17 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class JoystickSkin extends TileSkin {
+public class JoystickAnalogSkin extends TileSkin {
 
-    private Circle      button;
-    private Polygon     up;
-    private Polygon     down;
-    private Polygon     left;
+    private Circle  button;
+    private Circle  border;
 
-    private Polygon     right;
+    private Text    titleText;
+    private Text    text;
 
-    private Text        titleText;
-    private Text        text;
-
-    public JoystickSkin(Tile TILE) {
+    public JoystickAnalogSkin(Tile TILE) {
         super(TILE);
     }
-
 
     @Override
     protected void initGraphics (){
@@ -40,39 +35,27 @@ public class JoystickSkin extends TileSkin {
         text.setFill(tile.getUnitColor());
         Helper.enableNode(text, tile.isTextVisible());
 
-        Color fill = Color.RED;
-        Color border = Color.WHITE;
+        Color buttonFill = Color.RED;
+        Color buttonBorder = Color.WHITE;
+        Color borderFill = Color.TRANSPARENT;
+        Color borderBorder = Color.BLACK;
+
 
         button = new Circle();
-        button.setFill(fill);
-        button.setStroke(border);
+        button.setFill(buttonFill);
+        button.setStroke(buttonBorder);
 
-        up = new Polygon();
-        up.setFill(fill);
-        up.setStroke(border);
+        border = new Circle();
+        border.setFill(borderFill);
+        border.setStroke(borderBorder);
 
-        down = new Polygon();
-        down.setFill(fill);
-        down.setStroke(border);
-
-        left = new Polygon();
-        left.setFill(fill);
-        left.setStroke(border);
-
-        right = new Polygon();
-        right.setFill(fill);
-        right.setStroke(border);
-
-
-        getPane().getChildren().addAll(titleText, text, button, up, down, left, right);
-
+        getPane().getChildren().addAll(titleText, text, border, button);
     }
 
     @Override
     protected void registerListeners(){
         super.registerListeners();
     }
-
 
     @Override
     protected void handleEvents(final String EVENT_TYPE) {
@@ -87,9 +70,7 @@ public class JoystickSkin extends TileSkin {
         }
     }
 
-
     @Override protected void handleCurrentValue(final double VALUE) {
-
     }
 
     @Override protected void resizeStaticText() {
@@ -126,25 +107,9 @@ public class JoystickSkin extends TileSkin {
         button.setCenterX(width * 0.5);
         button.setCenterY(height * 0.5);
 
-        up.getPoints().addAll(
-                button.getCenterX(), 35.0,
-                        148.0, 75.0,
-                        102.0, 75.0);
-
-        down.getPoints().addAll(
-            button.getCenterX(), 215.0,
-            148.0, 175.0,
-            102.0, 175.0);
-
-        left.getPoints().addAll(
-             35.0, 125.0,
-            75.0, 102.0,
-            75.0, 148.0);
-
-        right.getPoints().addAll(
-            215.0, 125.0,
-            175.0, 148.0,
-            175.0, 102.0);
+        border.setRadius(size * 0.35);
+        border.setCenterX(width * 0.5);
+        border.setCenterY(height * 0.5);
 
     }
 
@@ -162,44 +127,12 @@ public class JoystickSkin extends TileSkin {
 
     }
 
-
     public Circle getButton() {
         return button;
     }
 
-    public void setButton(Circle button) {
-        this.button = button;
+    public Circle getBorder() {
+        return border;
     }
 
-    public Polygon getUp() {
-        return up;
-    }
-
-    public void setUp(Polygon up) {
-        this.up = up;
-    }
-
-    public Polygon getDown() {
-        return down;
-    }
-
-    public void setDown(Polygon down) {
-        this.down = down;
-    }
-
-    public Polygon getLeft() {
-        return left;
-    }
-
-    public void setLeft(Polygon left) {
-        this.left = left;
-    }
-
-    public Polygon getRight() {
-        return right;
-    }
-
-    public void setRight(Polygon right) {
-        this.right = right;
-    }
 }
