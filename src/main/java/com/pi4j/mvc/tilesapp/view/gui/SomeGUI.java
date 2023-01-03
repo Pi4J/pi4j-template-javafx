@@ -169,8 +169,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
             ledMatrix.render();
         });
 
-        joystickAnalog.xOnMove(controller::getX);
-        joystickAnalog.yOnMove(controller::getY);
+        joystickAnalog.xOnMove(controller::setX);
+        joystickAnalog.yOnMove(controller::setY);
 
         joystickAnalog.pushOnDown(() -> controller.sendMessage("Joystick analog", true));
         joystickAnalog.pushOnUp  (() -> controller.sendMessage("Joystick analog",false));
@@ -204,9 +204,17 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
             });
 
         onChangeOf(model.currentXPosition)
-            .execute((oldValue, newValue) -> System.out.println("X Position: " + newValue));
+            .execute((oldValue, newValue) -> {
+                if (newValue.equals(oldValue)) {
+                    System.out.println("X Position: " + newValue);
+                }
+                    });
 
         onChangeOf(model.currentYPosition)
-            .execute((oldValue, newValue) -> System.out.println("Y Position: " + newValue));
+            .execute((oldValue, newValue) -> {
+                if (newValue.equals(oldValue)) {
+                    System.out.println("Y Position: " + newValue);
+                }
+            });
     }
 }

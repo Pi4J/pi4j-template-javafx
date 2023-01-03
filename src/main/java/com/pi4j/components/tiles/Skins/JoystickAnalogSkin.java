@@ -125,7 +125,7 @@ public class JoystickAnalogSkin extends TileSkin {
         button.setCenterX(width * 0.5);
         button.setCenterY(height * 0.5);
 
-        border.setRadius(size * 0.25);
+        border.setRadius(size * 0.35);
         border.setCenterX(width * 0.5);
         border.setCenterY(height * 0.5);
 

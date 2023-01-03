@@ -44,13 +44,11 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
     @Override
     public void setPixelColor(int pixel, int color) {
         LEDs[pixel] = color;
-
     }
 
     @Override
     public void setStripColor(int color) {
         Arrays.fill(LEDs, color);
-
     }
 
 
@@ -81,8 +79,6 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
     @Override
     public void allOff() {
         Arrays.fill(LEDs, 0);
-
-
     }
 
     @Override
@@ -105,6 +101,5 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
             throw new IllegalArgumentException("Illegal Brightness Value. Must be between 0 and 1");
         }
         this.brightness = brightness;
-
     }
 }

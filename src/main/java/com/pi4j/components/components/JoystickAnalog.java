@@ -1,11 +1,12 @@
 package com.pi4j.components.components;
 
 import com.pi4j.components.components.helpers.PIN;
+import com.pi4j.components.interfaces.JoystickAnalogInterface;
 import com.pi4j.context.Context;
 
 import java.util.function.Consumer;
 
-public class JoystickAnalog extends Component implements com.pi4j.components.interfaces.JoystickAnalogInterface {
+public class JoystickAnalog extends Component implements JoystickAnalogInterface {
     /**
      * potentiometer x axis
      */
@@ -167,7 +168,6 @@ public class JoystickAnalog extends Component implements com.pi4j.components.int
             if (!normalized0to1) {
                 value = rescaleValue(value);
             }
-
             task.accept(value);
         });
     }
@@ -214,6 +214,8 @@ public class JoystickAnalog extends Component implements com.pi4j.components.int
      * @param threshold     delta between old and new value to trigger new event (+- voltage)
      * @param readFrequency update frequency to read new value from ad converter
      */
+
+    @Override
     public void start(double threshold, int readFrequency) {
         x.startSlowContinuousReading(threshold, readFrequency);
         y.startSlowContinuousReading(threshold, readFrequency);

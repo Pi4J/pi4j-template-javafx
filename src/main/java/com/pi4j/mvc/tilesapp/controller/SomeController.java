@@ -58,11 +58,11 @@ public class SomeController extends ControllerBase<SomeModel> {
         System.out.println("LED-Strip brightness: "+brightness);
     }
 
-    public void getX(double x) {
+    public void setX(double x) {
         setValue(model.currentXPosition, x);
     }
 
-    public void getY(double x) {
-        setValue(model.currentYPosition, x);
+    public void setY(double y) {
+        setValue(model.currentYPosition, y);
     }
 }
