@@ -35,7 +35,7 @@ public class SomePUI extends PuiBase<SomeModel, SomeController> {
         button = new SimpleButton(pi4J, PIN.D24, false);
         joystick = new Joystick(pi4J, PIN.D6, PIN.PWM13, PIN.PWM19, PIN.D26);
         ads1115 = new Ads1115(pi4J, 0x01, Ads1115.GAIN.GAIN_4_096V, Ads1115.ADDRESS.GND, 4);
-        joystickAnalog = new JoystickAnalog(pi4J, ads1115, 0, 1, 3.3, true, PIN.D5);                joystickAnalog.start(0.005,10);
+        joystickAnalog = new JoystickAnalog(pi4J, ads1115, 0, 1, 3.3, false, PIN.D5);                joystickAnalog.start(0.005,10);
         joystickAnalog.start(0.05,10);
     }
 

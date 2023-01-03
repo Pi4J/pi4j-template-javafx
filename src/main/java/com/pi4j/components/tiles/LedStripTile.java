@@ -79,7 +79,6 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
     @Override
     public void allOff() {
         Arrays.fill(LEDs, 0);
-
     }
 
     @Override

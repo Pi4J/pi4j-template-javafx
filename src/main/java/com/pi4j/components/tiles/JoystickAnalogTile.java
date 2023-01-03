@@ -13,6 +13,10 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
     private Consumer<Double> xOnMove;
     private Consumer<Double> yOnMove;
 
+    private final double NORMALIZED_CENTER_POSITION = 500;
+
+    private boolean normalized0to1 = true;
+
     private double xStart;
     private double yStart;
 
@@ -40,10 +44,10 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
 
     JoystickAnalogSkin jASkin = new JoystickAnalogSkin(this);
 
-    private final double xMinNormValue = jASkin.getBorder().getCenterX() - jASkin.getBorder().getRadius()/2;
-    private final double xMaxNormValue = jASkin.getBorder().getCenterX() + jASkin.getBorder().getRadius()/2;
-    private final double yMinNormValue = jASkin.getBorder().getCenterY() - jASkin.getBorder().getRadius()/2;
-    private final double yMaxNormValue = jASkin.getBorder().getCenterY() + jASkin.getBorder().getRadius()/2;
+//    private double xMinNormValue;
+//    private double xMaxNormValue;
+//    private double yMinNormValue;
+//    private double yMaxNormValue;
 
     public JoystickAnalogTile() {
         minHeight(400);
@@ -63,15 +67,13 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
             if ( mouseEvent.getSceneX()-xStart < border
                 && mouseEvent.getSceneX()-xStart > -border
                 && mouseEvent.getSceneY()-yStart < border
-                && mouseEvent.getSceneY()-yStart > -border){
+                && mouseEvent.getSceneY()-yStart > -border) {
                 jASkin.getButton().setTranslateX(mouseEvent.getSceneX() - xStart);
                 jASkin.getButton().setTranslateY(mouseEvent.getSceneY() - yStart);
                 currentX = mouseEvent.getSceneX() - xStart;
                 currentY = mouseEvent.getSceneY() - yStart;
                 xOnMove.accept(currentX);
                 yOnMove.accept(currentY);
-            } else {
-                System.out.println("Stop!");
             }
 
         });
@@ -124,8 +126,22 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
 
     @Override
     public void xOnMove(Consumer<Double> task) {
-        xOnMove = task;
+        xOnMove = value -> {
 
+            double xMinNormValue = 0 - jASkin.getBorder().getRadius();
+            double xMaxNormValue = jASkin.getBorder().getRadius();
+
+            value = currentX;
+            //scale axis from 0 to 1
+                value = - 1 / xMinNormValue * value;
+
+
+//        if (!normalized0to1) {
+//            value = rescaleValue(value);
+//        }
+
+            task.accept(value);
+        };
  //       if (value < xMinNormValue) value = xMinNormValue;
    //     if (value > xMaxNormValue) value = xMaxNormValue;
      //   task.accept(value);
@@ -133,7 +149,21 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
 
     @Override
     public void yOnMove(Consumer<Double> task) {
-        yOnMove = task;
+        yOnMove = value -> {
+
+        double yMinNormValue = 0 - jASkin.getBorder().getRadius();
+        double yMaxNormValue = jASkin.getBorder().getRadius();
+
+            value = currentY;
+            //scale axis from 0 to 1
+            if (value < NORMALIZED_CENTER_POSITION) {
+                value = - 1 / yMinNormValue * value;
+            } else if (value > NORMALIZED_CENTER_POSITION) {
+                value = 1 / yMaxNormValue * value;
+            }
+
+        task.accept(value);
+    };
 
    //     if (value < yMinNormValue) value = yMinNormValue;
      //   if (value > yMaxNormValue) value = yMaxNormValue;
@@ -171,4 +201,9 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
 
     @Override
     public void stop(){}
+
+    private double rescaleValue(double in) {
+        return (in - NORMALIZED_CENTER_POSITION) * 2;
+    }
+
 }

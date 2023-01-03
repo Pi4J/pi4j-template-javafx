@@ -161,10 +161,10 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
             //hold change brightness all ledstrip lights
             double brightness = 0.7;
             ledStrip.setBrightness(brightness);
+            ledStrip.render();
             controller.brightnessMessage(brightness);
             //hold change color of first strip of matrix
             ledMatrix.setStripColor(0, PixelColor.BLUE);
-            ledStrip.render();
             ledMatrix.render();
         });
 
