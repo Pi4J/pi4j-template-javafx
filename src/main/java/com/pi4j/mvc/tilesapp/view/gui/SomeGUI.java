@@ -1,6 +1,5 @@
 package com.pi4j.mvc.tilesapp.view.gui;
 
-import com.pi4j.components.components.Ads1115;
 import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.JoystickAnalogInterface;
 import com.pi4j.components.interfaces.JoystickInterface;

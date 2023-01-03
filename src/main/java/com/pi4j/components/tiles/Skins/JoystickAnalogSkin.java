@@ -109,13 +109,13 @@ public class JoystickAnalogSkin extends TileSkin {
         }
         text.setY(height - size * 0.05);
 
-        fontSize = size * 0.1;
         description.setFont(font);
         description.setAlignment(Pos.CENTER_RIGHT);
         description.setWrapText(false);
     }
 
-    @Override protected void resize() {
+    @Override
+    protected void resize() {
         super.resize();
 
         description.setPrefWidth(contentBounds.getWidth());
@@ -125,7 +125,7 @@ public class JoystickAnalogSkin extends TileSkin {
         button.setCenterX(width * 0.5);
         button.setCenterY(height * 0.5);
 
-        border.setRadius(size * 0.35);
+        border.setRadius(size * 0.25);
         border.setCenterX(width * 0.5);
         border.setCenterY(height * 0.5);
 
