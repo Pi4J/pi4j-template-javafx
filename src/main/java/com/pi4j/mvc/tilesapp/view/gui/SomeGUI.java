@@ -203,9 +203,17 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
             });
 
         onChangeOf(model.currentXPosition)
-            .execute((oldValue, newValue) -> System.out.println("X Position: " + newValue));
+            .execute((oldValue, newValue) -> {
+                if (newValue.equals(oldValue)) {
+                    System.out.println("X Position: " + newValue);
+                }
+                    });
 
         onChangeOf(model.currentYPosition)
-            .execute((oldValue, newValue) -> System.out.println("Y Position: " + newValue));
+            .execute((oldValue, newValue) -> {
+                if (newValue.equals(oldValue)) {
+                    System.out.println("Y Position: " + newValue);
+                }
+            });
     }
 }
