@@ -26,11 +26,11 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
      */
     private double brightness;
 
-    public LedMatrixTile(int numLEDs, int numRows, double brightness){
+    public LedMatrixTile(int numLEDs, int numRows, double brightness, String pin){
         minHeight(400);
         minWidth(400);
         setTitle("LED Matrix");
-        setText("Pin");
+        setText("Pin "+pin);
         this.setAmountLeds(numLEDs);
         this.setAmountRow(numRows);
 

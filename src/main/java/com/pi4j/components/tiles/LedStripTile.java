@@ -20,11 +20,11 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
      */
     private double brightness;
 
-    public LedStripTile(int numLEDs, double brightness){
+    public LedStripTile(int numLEDs, double brightness, String pin){
         minHeight(400);
         minWidth(400);
         setTitle("LED Strip");
-        setText("Pin");
+        setText("Pin "+pin);
         setSkin(ledstrip);
         LEDs = new int[numLEDs];
         setBrightness(brightness);

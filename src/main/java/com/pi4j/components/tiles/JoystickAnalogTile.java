@@ -1,5 +1,7 @@
 package com.pi4j.components.tiles;
 
+import com.pi4j.components.components.Ads1115;
+import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.JoystickAnalogInterface;
 import com.pi4j.components.tiles.Skins.JoystickAnalogSkin;
 import javafx.scene.input.KeyCode;
@@ -22,6 +24,10 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
 
     private double currentX;
     private double currentY;
+
+    private double normX;
+
+    private double normY;
 
     private Runnable pushOnDown = () -> { };
     private Runnable pushOnUp   = () -> { };
@@ -49,11 +55,14 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
     private double yMinNormValue = jASkin.getBorder().getCenterY() - jASkin.getBorder().getRadius();
     private double yMaxNormValue = jASkin.getBorder().getCenterY() + jASkin.getBorder().getRadius();
 
-    public JoystickAnalogTile() {
+    public JoystickAnalogTile(PIN pin, String ads_address) {
         minHeight(400);
         minWidth(400);
+        setNormX(0.0);
+        setNormY(0.0);
         setTitle("JoystickAnalog");
-        setText("Pin"); //TODO: AD Wandler PIN, etc..
+        setText("Pin "+pin.getPin()+", ADS: "+ads_address); //TODO: AD Wandler PIN, etc..
+        setDescription("X/Y: ("+String.format("%.2f", getNormX())+"/"+String.format("%.2f", getNormY())+")");
         setSkin(jASkin);
 
         jASkin.getButton().setOnMousePressed(mouseEvent -> {
@@ -144,7 +153,10 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
             value = rescaleValue(value);
         }
 
+            setNormX(value);
+            updatePos();
             task.accept(value);
+
         };
  //       if (value < xMinNormValue) value = xMinNormValue;
    //     if (value > xMaxNormValue) value = xMaxNormValue;
@@ -168,6 +180,9 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
         if (!normalized0to1) {
             value = rescaleValue(value);
         }
+
+        setNormY(value);
+        updatePos();
 
         task.accept(value);
     };
@@ -207,4 +222,23 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
         return (in - NORMALIZED_CENTER_POSITION) * 2;
     }
 
+    public double getNormX() {
+        return normX;
+    }
+
+    public void setNormX(double normX) {
+        this.normX = normX;
+    }
+
+    public double getNormY() {
+        return normY;
+    }
+
+    public void setNormY(double normY) {
+        this.normY = normY;
+    }
+
+    public void updatePos(){
+        setDescription("X/Y: ("+String.format("%.2f", getNormX())+"/"+String.format("%.2f", getNormY())+")");
+    }
 }

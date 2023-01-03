@@ -5,6 +5,8 @@ import eu.hansolo.tilesfx.events.TileEvt;
 import eu.hansolo.tilesfx.fonts.Fonts;
 import eu.hansolo.tilesfx.skins.TileSkin;
 import eu.hansolo.tilesfx.tools.Helper;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
@@ -18,6 +20,8 @@ public class JoystickAnalogSkin extends TileSkin {
 
     private Text    titleText;
     private Text    text;
+
+    private Label   description;
 
     public JoystickAnalogSkin(Tile TILE) {
         super(TILE);
@@ -35,6 +39,10 @@ public class JoystickAnalogSkin extends TileSkin {
         text.setFill(tile.getUnitColor());
         Helper.enableNode(text, tile.isTextVisible());
 
+        description = new Label(tile.getDescription());
+        description.setTextFill(tile.getUnitColor());
+        Helper.enableNode(description, !tile.getDescription().isEmpty());
+
         Color buttonFill = Color.RED;
         Color buttonBorder = Color.WHITE;
         Color borderFill = Color.TRANSPARENT;
@@ -49,7 +57,7 @@ public class JoystickAnalogSkin extends TileSkin {
         border.setFill(borderFill);
         border.setStroke(borderBorder);
 
-        getPane().getChildren().addAll(titleText, text, border, button);
+        getPane().getChildren().addAll(titleText, text, description, border, button);
     }
 
     @Override
@@ -64,6 +72,8 @@ public class JoystickAnalogSkin extends TileSkin {
         if (TileEvt.VISIBILITY.getName().equals(EVENT_TYPE)) {
             Helper.enableNode(titleText, !tile.getTitle().isEmpty());
             Helper.enableNode(text, tile.isTextVisible());
+            Helper.enableNode(description, !tile.getDescription().isEmpty());
+
         }
         else if (TileEvt.REDRAW.getName().equals(EVENT_TYPE)) {
             redraw();
@@ -98,16 +108,24 @@ public class JoystickAnalogSkin extends TileSkin {
         case RIGHT -> text.setX(width - (size * 0.05) - text.getLayoutBounds().getWidth());
         }
         text.setY(height - size * 0.05);
+
+        fontSize = size * 0.1;
+        description.setFont(font);
+        description.setAlignment(Pos.CENTER_RIGHT);
+        description.setWrapText(false);
     }
 
     @Override protected void resize() {
         super.resize();
 
+        description.setPrefWidth(contentBounds.getWidth());
+        description.relocate(contentBounds.getX(), height - size * 0.1);
+
         button.setRadius(size * 0.12);
         button.setCenterX(width * 0.5);
         button.setCenterY(height * 0.5);
 
-        border.setRadius(size * 0.35);
+        border.setRadius(size * 0.25);
         border.setCenterX(width * 0.5);
         border.setCenterY(height * 0.5);
 
@@ -119,11 +137,14 @@ public class JoystickAnalogSkin extends TileSkin {
 
         titleText.setText(tile.getTitle());
         text.setText(tile.getText());
+        description.setText(tile.getDescription());
+        description.setAlignment(tile.getDescriptionAlignment());
 
         resizeStaticText();
 
         titleText.setFill(tile.getTitleColor());
         text.setFill(tile.getTextColor());
+        description.setTextFill(tile.getDescriptionColor());
 
     }
 

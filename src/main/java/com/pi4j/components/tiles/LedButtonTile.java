@@ -1,5 +1,6 @@
 package com.pi4j.components.tiles;
 
+import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.LEDButtonInterface;
 import com.pi4j.components.tiles.Skins.LedButtonSkin;
 
@@ -35,11 +36,11 @@ public class LedButtonTile extends Pi4JTile implements LEDButtonInterface {
         }
     };
 
-    public LedButtonTile() {
+    public LedButtonTile(PIN pin1, PIN pin2) {
         minHeight(400);
         minWidth(400);
         setTitle("LED Button");
-        setText("Pin 22, Pin 24"); //TODO: change to correct way
+        setText("Pin "+ pin1.getPin()+", "+pin2.getPin());
         setSkin(ledButtonSkin);
 
         ledButtonSkin.getLed().setOnMousePressed(mouseEvent -> {
