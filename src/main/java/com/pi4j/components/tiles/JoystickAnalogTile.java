@@ -1,5 +1,7 @@
 package com.pi4j.components.tiles;
 
+import com.pi4j.components.components.Ads1115;
+import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.JoystickAnalogInterface;
 import com.pi4j.components.tiles.Skins.JoystickAnalogSkin;
 import javafx.scene.input.KeyCode;
@@ -13,15 +15,15 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
     private Consumer<Double> xOnMove;
     private Consumer<Double> yOnMove;
 
-    private final double NORMALIZED_CENTER_POSITION = 500;
-
-    private boolean normalized0to1 = true;
-
     private double xStart;
     private double yStart;
 
     private double currentX;
     private double currentY;
+
+    private double normX;
+
+    private double normY;
 
     private Runnable pushOnDown = () -> { };
     private Runnable pushOnUp   = () -> { };
@@ -44,16 +46,14 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
 
     JoystickAnalogSkin jASkin = new JoystickAnalogSkin(this);
 
-//    private double xMinNormValue;
-//    private double xMaxNormValue;
-//    private double yMinNormValue;
-//    private double yMaxNormValue;
-
-    public JoystickAnalogTile() {
+    public JoystickAnalogTile(PIN pin, String ads_address) {
         minHeight(400);
         minWidth(400);
+        setNormX(0.0);
+        setNormY(0.0);
         setTitle("JoystickAnalog");
-        setText("Pin"); //TODO: AD Wandler PIN, etc..
+        setText("Pin "+pin.getPin()+", ADS: "+ads_address);
+        setDescription("X/Y: ("+String.format("%.2f", getNormX())+"/"+String.format("%.2f", getNormY())+")");
         setSkin(jASkin);
 
         jASkin.getButton().setOnMousePressed(mouseEvent -> {
@@ -62,6 +62,7 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
         });
 
         jASkin.getButton().setOnMouseDragged(mouseEvent -> {
+            // Radius of the border
             double border = jASkin.getBorder().getRadius();
 
             if ( mouseEvent.getSceneX()-xStart < border
@@ -128,46 +129,35 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
     public void xOnMove(Consumer<Double> task) {
         xOnMove = value -> {
 
-            double xMinNormValue = 0 - jASkin.getBorder().getRadius();
-            double xMaxNormValue = jASkin.getBorder().getRadius();
+            double xNormValue = jASkin.getBorder().getRadius();
 
             value = currentX;
             //scale axis from 0 to 1
-                value = - 1 / xMinNormValue * value;
+                value = 1 / xNormValue * value;
 
-
-//        if (!normalized0to1) {
-//            value = rescaleValue(value);
-//        }
-
+            setNormX(value);
+            updatePos();
             task.accept(value);
+
         };
- //       if (value < xMinNormValue) value = xMinNormValue;
-   //     if (value > xMaxNormValue) value = xMaxNormValue;
-     //   task.accept(value);
     }
 
     @Override
     public void yOnMove(Consumer<Double> task) {
         yOnMove = value -> {
 
-        double yMinNormValue = 0 - jASkin.getBorder().getRadius();
-        double yMaxNormValue = jASkin.getBorder().getRadius();
+        double yNormValue = jASkin.getBorder().getRadius();
 
+            //ToDo: accepted value is -0.0, should be 0.0
             value = currentY;
             //scale axis from 0 to 1
-            if (value < NORMALIZED_CENTER_POSITION) {
-                value = - 1 / yMinNormValue * value;
-            } else if (value > NORMALIZED_CENTER_POSITION) {
-                value = 1 / yMaxNormValue * value;
-            }
+            value = -1 / yNormValue * value;
+
+        setNormY(value);
+        updatePos();
 
         task.accept(value);
     };
-
-   //     if (value < yMinNormValue) value = yMinNormValue;
-     //   if (value > yMaxNormValue) value = yMaxNormValue;
-       // task.accept(value);
     }
 
     @Override
@@ -196,8 +186,29 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
 
     }
 
-    private double rescaleValue(double in) {
-        return (in - NORMALIZED_CENTER_POSITION) * 2;
+    @Override
+    public void start(double threshold, int readFrequency) {}
+
+    @Override
+    public void stop(){}
+
+    public double getNormX() {
+        return normX;
     }
 
+    public void setNormX(double normX) {
+        this.normX = normX;
+    }
+
+    public double getNormY() {
+        return normY;
+    }
+
+    public void setNormY(double normY) {
+        this.normY = normY;
+    }
+
+    public void updatePos(){
+        setDescription("X/Y: ("+String.format("%.2f", getNormX())+"/"+String.format("%.2f", getNormY())+")");
+    }
 }

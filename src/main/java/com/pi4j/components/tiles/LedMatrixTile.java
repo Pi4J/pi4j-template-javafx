@@ -26,11 +26,11 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
      */
     private double brightness;
 
-    public LedMatrixTile(int numLEDs, int numRows, double brightness){
+    public LedMatrixTile(int numLEDs, int numRows, double brightness, String pin){
         minHeight(400);
         minWidth(400);
         setTitle("LED Matrix");
-        setText("Pin");
+        setText("Pin "+pin);
         this.setAmountLeds(numLEDs);
         this.setAmountRow(numRows);
 
@@ -90,13 +90,11 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
             throw new IllegalArgumentException("the strip or LED specified does not exist");
         }
         ledMatrix[strip][pixel] = color;
-
     }
 
     @Override
     public void setMatrixPixelColor(int pixelNumber, int color) {
         setMPChelper(pixelNumber, color, ledMatrix);
-
     }
 
     @Override
@@ -105,7 +103,6 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
             throw new IllegalArgumentException("the strip specified does not exist");
         }
         Arrays.fill(ledMatrix[strip], color);
-
     }
 
     @Override
@@ -113,7 +110,6 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
         for (int[] strips : ledMatrix) {
             Arrays.fill(strips, color);
         }
-
     }
 
     public double getBrightness() {
@@ -126,7 +122,6 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
             throw new IllegalArgumentException("Illegal Brightness Value. Must be between 0 and 1");
         }
         this.brightness = brightness;
-
     }
 
     public int getAmountRow() {

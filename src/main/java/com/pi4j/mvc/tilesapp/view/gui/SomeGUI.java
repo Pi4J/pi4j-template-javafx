@@ -1,5 +1,6 @@
 package com.pi4j.mvc.tilesapp.view.gui;
 
+import com.pi4j.components.components.Ads1115;
 import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.JoystickAnalogInterface;
 import com.pi4j.components.interfaces.JoystickInterface;
@@ -63,11 +64,11 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
     public void initializeParts() {
         led = new SimpleLEDTile(PIN.D22);
         button = new SimpleButtonTile(PIN.D24);
-        joystick = new JoystickTile();
-        ledButton = new LedButtonTile();
-        ledStrip = new LedStripTile(4,1.0);
-        ledMatrix = new LedMatrixTile(4, 4, 0.8);
-        joystickAnalog = new JoystickAnalogTile();
+        joystick = new JoystickTile(PIN.PWM18,PIN.D23, PIN.PWM12,PIN.D16, PIN.D21);
+        ledButton = new LedButtonTile(PIN.D26,PIN.D20);
+        ledStrip = new LedStripTile(4,1.0, "SPI0 MOSI");
+        ledMatrix = new LedMatrixTile(4, 4, 0.8, "SPI0 MOSI");
+        joystickAnalog = new JoystickAnalogTile(PIN.D6, "0x01");
     }
 
     @Override
@@ -168,8 +169,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
             ledMatrix.render();
         });
 
-        joystickAnalog.xOnMove(controller::getX);
-        joystickAnalog.yOnMove(controller::getY);
+        joystickAnalog.xOnMove(controller::setX);
+        joystickAnalog.yOnMove(controller::setY);
 
         joystickAnalog.pushOnDown(() -> controller.sendMessage("Joystick analog", true));
         joystickAnalog.pushOnUp  (() -> controller.sendMessage("Joystick analog",false));
@@ -203,9 +204,17 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
             });
 
         onChangeOf(model.currentXPosition)
-            .execute((oldValue, newValue) -> System.out.println("X Position: " + newValue));
+            .execute((oldValue, newValue) -> {
+                if (newValue.equals(oldValue)) {
+                    System.out.println("X Position: " + newValue);
+                }
+                    });
 
         onChangeOf(model.currentYPosition)
-            .execute((oldValue, newValue) -> System.out.println("Y Position: " + newValue));
+            .execute((oldValue, newValue) -> {
+                if (newValue.equals(oldValue)) {
+                    System.out.println("Y Position: " + newValue);
+                }
+            });
     }
 }

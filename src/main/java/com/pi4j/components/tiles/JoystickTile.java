@@ -1,5 +1,6 @@
 package com.pi4j.components.tiles;
 
+import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.JoystickInterface;
 import com.pi4j.components.tiles.Skins.JoystickSkin;
 
@@ -17,6 +18,7 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
     private boolean isEast  = false;
     private long millis;
 
+    private boolean isButtonActive;
     JoystickSkin jSkin = new JoystickSkin(this);
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -51,12 +53,128 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
         }
     };
 
-    public JoystickTile(){
+    public JoystickTile(PIN pin1, PIN pin2, PIN pin3, PIN pin4){
         minHeight(400);
         minWidth(400);
         setTitle("Joystick");
-        setText("Pin");
+        setText("Pin "+pin1.getPin()+", "+pin2.getPin()+", "+pin3.getPin()+", "+pin4.getPin());
         setSkin(jSkin);
+        isButtonActive = false;
+        joystickMouseEvent();
+
+    }
+
+    public JoystickTile(PIN pin1, PIN pin2, PIN pin3, PIN pin4, PIN pin5){
+        minHeight(400);
+        minWidth(400);
+        setTitle("Joystick");
+        setText("Pin "+pin1.getPin()+", "+pin2.getPin()+", "+pin3.getPin()+", "+ pin4.getPin()+", "+pin5.getPin());
+        setSkin(jSkin);
+        isButtonActive = true;
+        joystickMouseEvent();
+    }
+
+    void delay(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    @Override
+    public void onNorthDown(Runnable handler) {
+        onNorthDown = handler;
+    }
+
+    @Override
+    public void onNorthUp(Runnable handler) {
+        onNorthUp = handler;
+
+    }
+
+    @Override
+    public void whileNorth(long millis, Runnable method) {
+        this.whileNorth = method;
+        this.millis = millis;
+
+    }
+
+    @Override
+    public void onWestDown(Runnable handler) {
+        onWestDown = handler;
+    }
+
+    @Override
+    public void onWestUp(Runnable handler) {
+        onWestUp = handler;
+    }
+
+    @Override
+    public void whileWest(long millis, Runnable method) {
+        whileWest = method;
+        this.millis = millis;
+
+    }
+
+    @Override
+    public void onSouthDown(Runnable handler) {
+        onSouthDown = handler;
+    }
+
+    @Override
+    public void onSouthUp(Runnable handler) {
+        onSouthUp = handler;
+    }
+
+    @Override
+    public void whileSouth(long millis, Runnable method) {
+        this.whileSouth = method;
+        this.millis = millis;
+
+    }
+
+    @Override
+    public void onEastDown(Runnable handler) {
+        onEastDown = handler;
+    }
+
+    @Override
+    public void onEastUp(Runnable handler) {
+        onEastUp = handler;
+    }
+
+    @Override
+    public void whileEast(long millis, Runnable method) {
+        this.whileEast = method;
+        this.millis = millis;
+
+    }
+
+    @Override
+    public void onPushDown(Runnable handler) {
+        onPushDown = handler;
+
+    }
+
+    @Override
+    public void onPushUp(Runnable method) {
+        onPushUp = method;
+    }
+
+    @Override
+    public void pushWhilePushed(long millis, Runnable method) {
+        this.pushWhilePushed = method;
+        this.millis = millis;
+
+    }
+
+    @Override
+    public void deRegisterAll() {
+
+    }
+
+    public void joystickMouseEvent(){
         jSkin.getButton().setOnMousePressed(mouseEvent -> {
 
             //Run onPushDown Runnable, if value =! Null
@@ -174,10 +292,10 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
         //set value to false, if moving mouse away from button area
 
         jSkin.getUp().setOnMouseExited(mouseEvent -> {
-           if(isNorth) {
-               onNorthUp.run();
-               isNorth = false;
-           }
+            if(isNorth) {
+                onNorthUp.run();
+                isNorth = false;
+            }
         });
 
         jSkin.getDown().setOnMouseExited(mouseEvent -> {
@@ -200,105 +318,5 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
                 isEast = false;
             }
         });
-    }
-
-    void delay(long milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-    }
-
-    @Override
-    public void onNorthDown(Runnable handler) {
-        onNorthDown = handler;
-    }
-
-    @Override
-    public void onNorthUp(Runnable handler) {
-        onNorthUp = handler;
-
-    }
-
-    @Override
-    public void whileNorth(long millis, Runnable method) {
-        this.whileNorth = method;
-        this.millis = millis;
-
-    }
-
-    @Override
-    public void onWestDown(Runnable handler) {
-        onWestDown = handler;
-    }
-
-    @Override
-    public void onWestUp(Runnable handler) {
-        onWestUp = handler;
-    }
-
-    @Override
-    public void whileWest(long millis, Runnable method) {
-        whileWest = method;
-        this.millis = millis;
-
-    }
-
-    @Override
-    public void onSouthDown(Runnable handler) {
-        onSouthDown = handler;
-    }
-
-    @Override
-    public void onSouthUp(Runnable handler) {
-        onSouthUp = handler;
-    }
-
-    @Override
-    public void whileSouth(long millis, Runnable method) {
-        this.whileSouth = method;
-        this.millis = millis;
-
-    }
-
-    @Override
-    public void onEastDown(Runnable handler) {
-        onEastDown = handler;
-    }
-
-    @Override
-    public void onEastUp(Runnable handler) {
-        onEastUp = handler;
-    }
-
-    @Override
-    public void whileEast(long millis, Runnable method) {
-        this.whileEast = method;
-        this.millis = millis;
-
-    }
-
-    @Override
-    public void onPushDown(Runnable handler) {
-        onPushDown = handler;
-
-    }
-
-    @Override
-    public void onPushUp(Runnable method) {
-        onPushUp = method;
-    }
-
-    @Override
-    public void pushWhilePushed(long millis, Runnable method) {
-        this.pushWhilePushed = method;
-        this.millis = millis;
-
-    }
-
-    @Override
-    public void deRegisterAll() {
-
     }
 }
