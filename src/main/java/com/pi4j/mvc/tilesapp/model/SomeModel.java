@@ -22,4 +22,6 @@ public class SomeModel {
     public final ObservableValue<Double> currentXPosition = new ObservableValue<>(0.0);
 
     public final ObservableValue<Double> currentYPosition = new ObservableValue<>(0.0);
+
+    public final ObservableValue<Double> currentPotiPosition = new ObservableValue<>(0.0);
 }

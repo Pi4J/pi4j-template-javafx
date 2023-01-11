@@ -6,6 +6,7 @@ import com.pi4j.components.interfaces.JoystickInterface;
 import com.pi4j.components.interfaces.LEDButtonInterface;
 import com.pi4j.components.interfaces.LEDStripInterface;
 import com.pi4j.components.interfaces.LedMatrixInterface;
+import com.pi4j.components.interfaces.PotentiometerInterface;
 import com.pi4j.components.interfaces.SimpleButtonInterface;
 import com.pi4j.components.interfaces.SimpleLEDInterface;
 import com.pi4j.components.tiles.*;
@@ -35,6 +36,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
     private LEDStripInterface ledStrip;
 
     private LedMatrixInterface ledMatrix;
+
+    private PotentiometerInterface potentiometer;
 
     public SomeGUI(SomeController controller) {
         super(4,2);
@@ -68,12 +71,13 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         ledStrip = new LedStripTile(4,1.0, "SPI0 MOSI");
         ledMatrix = new LedMatrixTile(4, 4, 0.8, "SPI0 MOSI");
         joystickAnalog = new JoystickAnalogTile(PIN.D6, "0x01");
+        potentiometer = new PotentiometerTile(PIN.D5,"0x01");
     }
 
     @Override
     public void layoutParts() {
         getChildren().addAll((Tile) led, (Tile) button, (Tile) ledButton, (Tile) joystick,
-            (Tile) joystickAnalog,(Tile) ledStrip, (Tile)ledMatrix);
+            (Tile) joystickAnalog,(Tile) ledStrip, (Tile)ledMatrix, (Tile)potentiometer);
     }
 
     @Override
@@ -174,6 +178,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         joystickAnalog.pushOnDown(() -> controller.sendMessage("Joystick analog", true));
         joystickAnalog.pushOnUp  (() -> controller.sendMessage("Joystick analog",false));
         joystickAnalog.pushWhilePressed(() -> controller.whileMessage("Joystick analog"),3000);
+
+        potentiometer.setConsumerSlowReadChan(controller::setPotiX);
     }
 
     @Override

@@ -65,4 +65,8 @@ public class SomeController extends ControllerBase<SomeModel> {
     public void setY(double y) {
         setValue(model.currentYPosition, y);
     }
+
+    public void setPotiX(double x){
+        setValue(model.currentPotiPosition,x);
+    }
 }
