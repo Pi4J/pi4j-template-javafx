@@ -31,9 +31,10 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
     public LedMatrixTile(Context pi4j, int[][] matrix, double brightness, int channel) {
         setText("Channel: "+ channel);
         ledMatrix = matrix;
-        constructorValues(brightness);
         setAmountRow(ledMatrix.length);
         setAmountLeds(ledMatrix[0].length);
+        constructorValues(brightness);
+
     }
 
     public LedMatrixTile(Context pi4j, int rows, int columns, double brightness){

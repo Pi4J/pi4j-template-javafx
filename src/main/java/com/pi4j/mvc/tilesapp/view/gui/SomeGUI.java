@@ -39,7 +39,7 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 
 
     private final int DEFAULT_SPI_CHANNEL = 0;
-    private final int[][] matrix = new int[2][4];
+    private final int[][] matrix = new int[3][4];
     Context pi4J;
 
     private Ads1115 ads1115;
