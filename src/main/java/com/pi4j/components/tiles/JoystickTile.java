@@ -57,7 +57,7 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
         minHeight(400);
         minWidth(400);
         setTitle("Joystick");
-        setText("Pin "+pin1.getPin()+", "+pin2.getPin()+", "+pin3.getPin()+", "+pin4.getPin());
+        setText("Pin "+pin1.getPin()+"↑, "+pin2.getPin()+"→, "+pin3.getPin()+"↓, "+pin4.getPin()+"←");
         setSkin(jSkin);
         isButtonActive = false;
         joystickMouseEvent();
@@ -68,7 +68,7 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
         minHeight(400);
         minWidth(400);
         setTitle("Joystick");
-        setText("Pin "+pin1.getPin()+", "+pin2.getPin()+", "+pin3.getPin()+", "+ pin4.getPin()+", "+pin5.getPin());
+        setText("Pin "+pin1.getPin()+"↑, "+pin2.getPin()+"→, "+pin3.getPin()+"↓, "+pin4.getPin() +"←, push:"+pin5.getPin());
         setSkin(jSkin);
         isButtonActive = true;
         joystickMouseEvent();

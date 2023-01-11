@@ -9,24 +9,25 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-import javax.swing.GroupLayout;
-
-public class JoystickAnalogSkin extends TileSkin {
+public class PotentiometerTileSkin extends TileSkin {
 
     private Circle  button;
-    private Circle  border;
+//    private Line line;
+
+    private Rectangle bar;
 
     private Text    titleText;
     private Text    text;
 
     private Text   description;
 
-    public JoystickAnalogSkin(Tile TILE) {
+    public PotentiometerTileSkin(Tile TILE) {
         super(TILE);
     }
 
@@ -46,21 +47,21 @@ public class JoystickAnalogSkin extends TileSkin {
         description.setFill(tile.getUnitColor());
         Helper.enableNode(description, !tile.getDescription().isEmpty());
 
-        Color buttonFill = Color.RED;
-        Color buttonBorder = Color.WHITE;
-        Color borderFill = Color.TRANSPARENT;
-        Color borderBorder = Color.BLACK;
+        Color buttonFill = Color.WHITE;
+        Color buttonBorder = Color.GRAY;
 
+//        line = new Line();
+//        line.setStroke(Color.GRAY);
+
+        bar = new Rectangle();
+        bar.setFill(Color.GRAY);
 
         button = new Circle();
         button.setFill(buttonFill);
         button.setStroke(buttonBorder);
 
-        border = new Circle();
-        border.setFill(borderFill);
-        border.setStroke(borderBorder);
 
-        getPane().getChildren().addAll(titleText, text, description, border, button);
+        getPane().getChildren().addAll(titleText, text, description,bar, button);
     }
 
     @Override
@@ -116,13 +117,24 @@ public class JoystickAnalogSkin extends TileSkin {
     protected void resize() {
         super.resize();
 
-        button.setRadius(size * 0.12);
-        button.setCenterX(width * 0.5);
-        button.setCenterY(height * 0.5);
+        double marginWidth = width*0.1;
+        double centerY = height* 0.5;
 
-        border.setRadius(size * 0.25);
-        border.setCenterX(width * 0.5);
-        border.setCenterY(height * 0.5);
+
+        button.setRadius(size * 0.05);
+        button.setCenterX(marginWidth);
+        button.setCenterY(centerY);
+
+//        line.setStrokeWidth(3);
+//        line.setStartX(marginWidth);
+//        line.setEndX(width-marginWidth);
+//        line.setStartY(centerY);
+//        line.setEndY(centerY);
+
+        bar.setHeight(3);
+        bar.setWidth(width*0.8);
+        bar.setX(marginWidth);
+        bar.setY(centerY);
 
     }
 
@@ -138,18 +150,25 @@ public class JoystickAnalogSkin extends TileSkin {
 
         titleText.setFill(tile.getTitleColor());
         text.setFill(tile.getTextColor());
-        description.setFill(tile.getTextColor());
-
+        description.setFill(tile.getDescriptionColor());
     }
 
     public Circle getButton() {
         return button;
     }
 
-    public Circle getBorder() {
-        return border;
+//    public Line getLine() {
+//        return line;
+//    }
+
+
+    public Rectangle getBar() {
+        return bar;
     }
 
+    public double getBarWidth(){
+        return width*0.8;
+    }
 
     public void textPosition(Text text, TextAlignment alignment){
         double maxWidth = width - size * 0.1;

@@ -5,7 +5,7 @@ import com.pi4j.config.exception.ConfigException;
 
 import java.util.function.Consumer;
 
-public class Potentiometer extends Component {
+public class Potentiometer extends Component implements com.pi4j.components.interfaces.PotentiometerInterface {
     /**
      * ads1115 instance
      */
@@ -91,6 +91,7 @@ public class Potentiometer extends Component {
      *
      * @return normalized value
      */
+    @Override
     public double singleShotGetNormalizedValue() {
         return singleShotGetVoltage() / maxValue;
     }
@@ -102,6 +103,7 @@ public class Potentiometer extends Component {
      *
      * @param method Event handler to call or null to disable
      */
+    @Override
     public void setConsumerFastRead(Consumer<Double> method) {
         ads1115.setConsumerFastRead((value) -> {
             updateMinMaxValue(value);
@@ -117,6 +119,7 @@ public class Potentiometer extends Component {
      *
      * @param method Event handler to call or null to disable
      */
+    @Override
     public void setConsumerSlowReadChan(Consumer<Double> method) {
         switch (channel) {
             case 0:
@@ -169,6 +172,7 @@ public class Potentiometer extends Component {
      * @param readFrequency read frequency to get new value from device, must be lower than 1/2
      *                      sampling rate of device
      */
+    @Override
     public void startSlowContinuousReading(double threshold, int readFrequency) {
         if (fastContinuousReadingActive) {
             throw new ContinuousMeasuringException("fast continuous reading currently active");
@@ -182,6 +186,7 @@ public class Potentiometer extends Component {
     /**
      * stops slow continuous reading
      */
+    @Override
     public void stopSlowContinuousReading() {
         slowContinuousReadingActive = false;
         ads1115.stopSlowReadContinuousReading(channel);
@@ -195,6 +200,7 @@ public class Potentiometer extends Component {
      * @param readFrequency read frequency to get new value from device, must be lower than the
      *                      sampling rate of the device
      */
+    @Override
     public void startFastContinuousReading(double threshold, int readFrequency) {
         if (slowContinuousReadingActive) {
             throw new ContinuousMeasuringException("slow continuous reading currently active");
@@ -210,6 +216,7 @@ public class Potentiometer extends Component {
     /**
      * stops fast continuous reading
      */
+    @Override
     public void stopFastContinuousReading() {
         fastContinuousReadingActive = false;
         //stop continuous reading
