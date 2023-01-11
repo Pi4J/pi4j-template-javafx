@@ -144,8 +144,6 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
 
     // Helper function. Add same content in all constructors
     public void constructorValues(double brightness){
-        minHeight(400);
-        minWidth(400);
         setTitle("LED Strip");
         setSkin(ledstrip);
         setBrightness(brightness);

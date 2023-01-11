@@ -2,10 +2,11 @@ package com.pi4j.components.components;
 
 import com.pi4j.components.components.helpers.ContinuousMeasuringException;
 import com.pi4j.config.exception.ConfigException;
+import com.pi4j.components.interfaces.*;
 
 import java.util.function.Consumer;
 
-public class Potentiometer extends Component implements com.pi4j.components.interfaces.PotentiometerInterface {
+public class Potentiometer extends Component implements PotentiometerInterface {
     /**
      * ads1115 instance
      */

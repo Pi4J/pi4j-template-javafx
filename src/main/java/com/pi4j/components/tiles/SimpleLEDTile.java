@@ -14,11 +14,17 @@ public class SimpleLEDTile extends Pi4JTile implements SimpleLEDInterface {
         setText("Pin " + pin.getPin());
     }
 
+    /**
+     * Sets the LED to on.
+     */
     @Override
     public void on() {
         this.setActive(true);
     }
 
+    /**
+     * Sets the LED to off
+     */
     @Override
     public void off() {
         this.setActive(false);

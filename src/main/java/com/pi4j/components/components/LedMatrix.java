@@ -1,15 +1,15 @@
 package com.pi4j.components.components;
 
-import com.pi4j.components.tiles.LedMatrixTile;
 import com.pi4j.context.Context;
 import com.pi4j.io.spi.Spi;
+import com.pi4j.components.interfaces.*;
 
 import java.util.Arrays;
 
 /**
  * Creates an SPI Control for Neopixel LED Strips
  */
-public class LedMatrix extends Component implements com.pi4j.components.interfaces.LedMatrixInterface {
+public class LedMatrix extends Component implements LedMatrixInterface {
 
     /**
      * Default Channel of the SPI Pins

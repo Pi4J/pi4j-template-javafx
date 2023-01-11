@@ -3,11 +3,12 @@ package com.pi4j.components.components;
 import com.pi4j.context.Context;
 import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.io.gpio.digital.*;
+import com.pi4j.components.interfaces.*;
 
 /**
  * Implementation of a button using GPIO with Pi4J
  */
-public class LEDButton extends Component implements com.pi4j.components.interfaces.LEDButtonInterface {
+public class LEDButton extends Component implements LEDButtonInterface {
     /**
      * Default debounce time in microseconds
      */

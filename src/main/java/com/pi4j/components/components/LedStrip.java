@@ -4,13 +4,14 @@ import com.pi4j.context.Context;
 import com.pi4j.io.spi.Spi;
 import com.pi4j.io.spi.SpiConfig;
 import com.pi4j.io.spi.SpiMode;
+import com.pi4j.components.interfaces.*;
 
 import java.util.Arrays;
 
 /**
  * Creates an SPI Control for a Neopixel LED Strip
  */
-public class LedStrip extends Component implements com.pi4j.components.interfaces.LEDStripInterface {
+public class LedStrip extends Component implements LEDStripInterface {
     /**
      * Default Channel of the SPI Pins
      */

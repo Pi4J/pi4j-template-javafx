@@ -40,7 +40,7 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 
     private final int DEFAULT_SPI_CHANNEL = 0;
     private final int[][] matrix = new int[2][4];
-    Context pi4j;
+    Context pi4J;
 
     private Ads1115 ads1115;
 
@@ -58,25 +58,19 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 
     @Override
     public void initializeSelf() {
-        //load all fonts you need
-      //  loadFonts("/fonts/Lato/Lato-Lig.ttf", "/fonts/fontawesome-webfont.ttf");
-
-        //apply your style
-      //  addStylesheetFiles("/mvc/tilesapp/style.css");
-
         getStyleClass().add("root-pane");
     }
 
     // Initialize all tiles which are in GUI wanted
     @Override
     public void initializeParts() {
-        led = new SimpleLEDTile(pi4j,PIN.D22);
-        button = new SimpleButtonTile(pi4j,PIN.D24,false);
-        joystick = new JoystickTile(pi4j,PIN.PWM18,PIN.D23, PIN.PWM12,PIN.D16, PIN.D21);
-        ledButton = new LedButtonTile(pi4j,PIN.D26,PIN.D20);
-        ledStrip = new LedStripTile(pi4j,4,1.0, DEFAULT_SPI_CHANNEL);
-        ledMatrix = new LedMatrixTile(pi4j, matrix, 0.8, DEFAULT_SPI_CHANNEL);
-        joystickAnalog = new JoystickAnalogTile(pi4j, ads1115, 0, 1, 3.3, false, PIN.D5);
+        led = new SimpleLEDTile(pi4J,PIN.D22);
+        button = new SimpleButtonTile(pi4J,PIN.D24,false);
+        joystick = new JoystickTile(pi4J,PIN.PWM18,PIN.D23, PIN.PWM12,PIN.D16, PIN.D21);
+        ledButton = new LedButtonTile(pi4J,PIN.D26,PIN.D20);
+        ledStrip = new LedStripTile(pi4J,4,1.0, DEFAULT_SPI_CHANNEL);
+        ledMatrix = new LedMatrixTile(pi4J, matrix, 0.8, DEFAULT_SPI_CHANNEL);
+        joystickAnalog = new JoystickAnalogTile(pi4J, ads1115, 0, 1, 3.3, false, PIN.D5);
         potentiometer = new PotentiometerTile(ads1115, DEFAULT_SPI_CHANNEL, 3.3);
     }
 
@@ -144,9 +138,13 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         // On press of up joystick button
         joystick.onNorthDown(() -> {
             int pixel = 0;
+            // changes pixel color of the first led of the LED-Strip
             ledStrip.setPixelColor(pixel,stripcolor);
+            // changes pixel color of the first led of the second strip of the LED-Matrix
             ledMatrix.setPixelColor(1, pixel, matrixcolor);
+            // Re-Render Ledstrip
             ledStrip.render();
+            // Re-Render ledMatrix
             ledMatrix.render();
             controller.pixelMessage(pixel);
         });
@@ -154,39 +152,58 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         // On press of right joystick button
         joystick.onEastDown(() -> {
             int pixel = 1;
+            // changes pixel color of the second led of the LED-Strip
             ledStrip.setPixelColor(pixel,stripcolor);
+            // changes pixel color of the second led of the second strip of the LED-Matrix
             ledMatrix.setPixelColor(1, pixel, matrixcolor);
+            // Re-Render Ledstrip
             ledStrip.render();
+            // Re-Render ledMatrix
             ledMatrix.render();
             controller.pixelMessage(pixel);
         });
 
+        // On press of down joystick button
         joystick.onSouthDown(() -> {
             int pixel = 2;
+            // changes pixel color of the third led of the LED-Strip
             ledStrip.setPixelColor(pixel,stripcolor);
+            // changes pixel color of the third led of the second strip of the LED-Matrix
             ledMatrix.setPixelColor(1, pixel, matrixcolor);
+            // Re-Render Ledstrip
             ledStrip.render();
+            // Re-Render ledMatrix
             ledMatrix.render();
             controller.pixelMessage(pixel);
         });
 
+        // On press of left joystick button
         joystick.onWestDown(() -> {
             int pixel = 3;
+            // changes pixel color of the fourth led of the LED-Strip
             ledStrip.setPixelColor(pixel,stripcolor);
+            // changes pixel color of the fourth led of the second strip of the LED-Matrix
             ledMatrix.setPixelColor(1, pixel, matrixcolor);
+            // Re-Render Ledstrip
             ledStrip.render();
+            // Re-Render ledMatrix
             ledMatrix.render();
             controller.pixelMessage(pixel);
         });
 
+        // Activates after provided time (in milliseconds)
         joystick.pushWhilePushed(3000,() -> {
-            //hold change brightness all ledstrip lights
+
+            // Hold change brightness all ledstrip lights
             double brightness = 0.7;
             ledStrip.setBrightness(brightness);
+            // Re-Render Ledstrip
             ledStrip.render();
             controller.brightnessMessage(brightness);
-            //hold change color of first strip of matrix
+
+            // Hold to change color of first strip of matrix
             ledMatrix.setStripColor(0, PixelColor.BLUE);
+            // Re-Render ledMatrix
             ledMatrix.render();
         });
 
@@ -195,18 +212,22 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 
         // Sends component name and button state boolean true
         joystickAnalog.pushOnDown(() -> controller.sendMessage("Joystick analog", true));
+
+        // Sends component name and button state boolean false
         joystickAnalog.pushOnUp  (() -> controller.sendMessage("Joystick analog",false));
+
+        // Sends component name and amount of delay in milliseconds
         joystickAnalog.pushWhilePressed(() -> controller.whileMessage("Joystick analog"),3000);
 
-
+        // Provide Consumer with normalized position of Potentiometer
         potentiometer.setConsumerSlowReadChan(controller::setPotiX);
     }
 
     @Override
     public void setupModelToUiBindings(SomeModel model) {
 
-        //TODO: GUI-MODEL
-        //press button to turn on/off SimpleLED
+        // Observes isButtonPressed ObservableValue
+        // Press button to turn on/off SimpleLED
         onChangeOf(model.isButtonPressed)
             .execute((oldValue, newValue) -> {
                 if (newValue) {
@@ -217,7 +238,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
                 }
             });
 
-        //press button to turn on/off SimpleLED
+        // Observes isLedButtonActive ObservableValue
+        // Press button to turn on/off LEDButton
         onChangeOf(model.isLedButtonActive)
             .execute((oldValue, newValue) -> {
                 if (newValue) {
@@ -228,6 +250,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
                 }
             });
 
+        // Observes currentXPosition ObservableValue
+        // Prints out normalized X-Position, if value changed
         onChangeOf(model.currentXPosition)
                 .execute((oldValue, newValue) -> System.out.println("Joystick Analog-X Position: " + newValue));
 

@@ -43,6 +43,7 @@ public class SomeController extends ControllerBase<SomeModel> {
         System.out.println(type + " button is " + state);
     }
 
+    // Gives pixel order as switch case back
     public void pixelMessage(int pixel){
         String pixelPos = switch (pixel) {
             case 0 -> "First";
@@ -54,6 +55,7 @@ public class SomeController extends ControllerBase<SomeModel> {
         System.out.println(pixelPos+" pixel is lit up");
     }
 
+    // Print out brightness of LED-Strip
     public void brightnessMessage(double brightness){
         System.out.println("LED-Strip brightness: "+brightness);
     }
@@ -73,6 +75,7 @@ public class SomeController extends ControllerBase<SomeModel> {
         setValue(model.currentPotiPosition,x);
     }
 
+    // Print out current position Potentiometer
     public void singlePotentiometer(double x){
         System.out.println("Current Potentiometer value is "+x+"%");
     }

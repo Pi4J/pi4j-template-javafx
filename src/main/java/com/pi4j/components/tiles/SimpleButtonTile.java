@@ -10,19 +10,20 @@ import java.util.concurrent.Executors;
 
 public class SimpleButtonTile extends Pi4JTile implements SimpleButtonInterface {
 
-    SimpleButtonSkin buttonSkin = new SimpleButtonSkin(this);
+    SimpleButtonSkin buttonSkin             = new SimpleButtonSkin(this);
 
-    private Runnable onDown = () -> { };
-    private Runnable onUp   = () -> { };
-    private Runnable whilePressed = () -> { };
+    private Runnable onDown                 = () -> { };
+    private Runnable onUp                   = () -> { };
+    private Runnable whilePressed           = () -> { };
 
-    private boolean isDown = false;
+    private boolean isDown                  = false;
+
+    private final ExecutorService executor  = Executors.newSingleThreadExecutor();
+
     private long whilePressedDelay;
 
-    /**
-     * Überprüft, ob der Button gedrückt ist und setzt ein Delay ein, Falls Button weiterhin gedrückt ist,
-     * wird der whilePressed Runnable aktiviert.
-      */
+    // Checks if button is pressed and runs delay function.
+    // If button still is pressed, whilePressed is getting active
     private final Runnable whilePressedWorker = () -> {
         while (isDown) {
             delay(whilePressedDelay);
@@ -33,9 +34,6 @@ public class SimpleButtonTile extends Pi4JTile implements SimpleButtonInterface 
         }
     };
 
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
-
-
     public SimpleButtonTile(Context pi4j, PIN address, boolean inverted) {
         constructorValues(address);
     }
@@ -45,7 +43,12 @@ public class SimpleButtonTile extends Pi4JTile implements SimpleButtonInterface 
     }
 
 
-    // Setzt den aktuellen Thread mit dem Wert des gegebenen Parameter (in Millisekunden) zu Schlaf
+    /**
+     * Utility function to sleep for the specified amount of milliseconds.
+     * An {@link InterruptedException} will be catched and ignored while setting the interrupt flag again.
+     *
+     * @param milliseconds Time in milliseconds to sleep
+     */
     void delay(long milliseconds) {
         try {
             Thread.sleep(milliseconds);
@@ -54,16 +57,37 @@ public class SimpleButtonTile extends Pi4JTile implements SimpleButtonInterface 
         }
     }
 
+    /**
+     * Sets or disables the handler for the onDown event.
+     * This event gets triggered whenever the button is pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param task Event handler to call or null to disable
+     */
     @Override
     public void onDown(Runnable task) {
         onDown = task;
     }
 
+    /**
+     * Sets or disables the handler for the onUp event.
+     * This event gets triggered whenever the button is no longer pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param task Event handler to call or null to disable
+     */
     @Override
     public void onUp(Runnable task) {
         onUp = task;
     }
 
+    /**
+     * Sets or disables the handler for the whilePressed event.
+     * This event gets triggered whenever the button is pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param task Event handler to call or null to disable
+     */
     @Override
     public void whilePressed(Runnable task, long whilePressedDelay) {
         this.whilePressed = task;
@@ -71,33 +95,34 @@ public class SimpleButtonTile extends Pi4JTile implements SimpleButtonInterface 
 
     }
 
+    /**
+     * disables all the handlers for the onUp, onDown and WhilePressed Events
+     */
     @Override
     public void deRegisterAll() {
     }
 
     // Helper function. Add same content in all constructors
     public void constructorValues(PIN pin){
-        prefHeight(400);
-        prefWidth(400);
         setTitle("Simple Button");
         setText("Pin " + pin.getPin());
         setSkin(buttonSkin);
 
         buttonSkin.getButtonknob().setOnMousePressed(mouseEvent -> {
 
-            //Run onDown Runnable, falls Wert nicht Null
+            //Runs onDown Runnable, if value is not null
             if (onDown != null) {
                 onDown.run();
                 isDown = true;
             }
 
-            //Läuft whilePressedWorker Runnable, falls Wert nicht Null
+            //Runs whilePressedWorker Runnable, if value is not null
             if (whilePressed != null) {
                 executor.submit(whilePressedWorker);
             }
-
         });
 
+        // If mouse released and button down, run onUp runnable
         buttonSkin.getButtonknob().setOnMouseReleased(mouseEvent -> {
             if(isDown) {
                 onUp.run();
@@ -105,6 +130,7 @@ public class SimpleButtonTile extends Pi4JTile implements SimpleButtonInterface 
             }
         });
 
+        // If mouse released and button down, run onUp runnable
         buttonSkin.getButtonknob().setOnMouseExited(mouseEvent -> {
             if(isDown) {
                 onUp.run();

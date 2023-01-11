@@ -15,6 +15,7 @@ public class PotentiometerTile extends Pi4JTile implements PotentiometerInterfac
 
     private double lineLength;
 
+    private Consumer<Double> xOnMove;
 
     PotentiometerTileSkin potentiometerSkin = new PotentiometerTileSkin(this);
 
@@ -22,25 +23,16 @@ public class PotentiometerTile extends Pi4JTile implements PotentiometerInterfac
         setText("Channel: " + channel + ", MaxVoltage: " + maxVoltage);
         constructorValues();
     }
+
     public PotentiometerTile(Ads1115 ads1115) {
         constructorValues();
     }
 
-
-    public double getNormX() {
-        return normX;
-    }
-
-    public void setNormX(double normX) {
-        this.normX = normX;
-    }
-
-
-
-    public void updatePos(){
-        setDescription(String.format("%.2f", getNormX())+" %");
-    }
-
+    /**
+     * Returns normalized value from 0 to 1
+     *
+     * @return normalized value
+     */
     @Override
     public double singleShotGetNormalizedValue() {
         return normX;
@@ -93,6 +85,20 @@ public class PotentiometerTile extends Pi4JTile implements PotentiometerInterfac
 
     }
 
+    public double getNormX() {
+        return normX;
+    }
+
+    public void setNormX(double normX) {
+        this.normX = normX;
+    }
+
+
+    // Displays current percent on the GUI
+    public void updatePos(){
+        setDescription(String.format("%.2f", getNormX())+" %");
+    }
+
     // Helper function. Add same content in all constructors
     public void constructorValues(){
         setNormX(0.0);
@@ -104,12 +110,13 @@ public class PotentiometerTile extends Pi4JTile implements PotentiometerInterfac
         lineLength = 200;
 
 
+        //Register current position
         potentiometerSkin.getKnob().setOnMousePressed(mouseEvent -> {
             xStart = mouseEvent.getSceneX() - potentiometerSkin.getKnob().getTranslateX();
         });
 
+        // Allow moving knob on the line
         potentiometerSkin.getKnob().setOnMouseDragged(mouseEvent -> {
-
             if (mouseEvent.getSceneX() - xStart < lineLength
                 && mouseEvent.getSceneX() - xStart > 0) {
                 potentiometerSkin.getKnob().setTranslateX(mouseEvent.getSceneX() - xStart);

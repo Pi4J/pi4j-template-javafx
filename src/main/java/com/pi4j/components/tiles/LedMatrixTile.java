@@ -37,20 +37,17 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
     }
 
     public LedMatrixTile(Context pi4j, int rows, int columns, double brightness){
-        setText("");
         this.setAmountLeds(columns);
         this.setAmountRow(rows);
-        constructorValues(brightness);
-
         ledMatrix = new int[amountRow][amountLeds];
+        constructorValues(brightness);
     }
 
     public LedMatrixTile(Context pi4j, int[][] matrix, double brightness) {
-        setText("");
         ledMatrix = matrix;
-        constructorValues(brightness);
         setAmountRow(ledMatrix.length);
         setAmountLeds(ledMatrix[0].length);
+        constructorValues(brightness);
     }
 
     /**
@@ -187,9 +184,8 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
         this.amountLeds = amountLeds;
     }
 
+    // Helper function. Add same content in all constructors
     public void constructorValues(double brightness){
-        minHeight(400);
-        minWidth(400);
         setTitle("LED Matrix");
 
         //compare skin amountRow and numRow from constructor. initGraphics to defined numRow
@@ -199,15 +195,5 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
         skin.initGraphics();
         setBrightness(brightness);
         setSkin(skin);
-    }
-
-    public int findTotalLength(int[][] array)
-    {
-        int sum = 0;
-        for (int[] subArray : array)
-        {
-            sum += subArray.length;
-        }
-        return sum;
     }
 }

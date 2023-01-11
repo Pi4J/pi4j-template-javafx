@@ -13,15 +13,18 @@ public class SomeModel {
     // Observes if the LED is active
     public final ObservableValue<Boolean> isLedActive = new ObservableValue<>(false);
 
-    //Observes if the Button is pressed or not
+    // Observes if the button is pressed
     public final ObservableValue<Boolean> isButtonPressed = new ObservableValue<>(false);
 
     // Observers if the LED-Button is active
     public final ObservableValue<Boolean> isLedButtonActive = new ObservableValue<>(false);
 
+    // Observes the normalized X-position of the Joystick analog
     public final ObservableValue<Double> currentXPosition = new ObservableValue<>(0.0);
 
+    // Observes the normalized Y-position of the Joystick analog
     public final ObservableValue<Double> currentYPosition = new ObservableValue<>(0.0);
 
+    // Observes the position of the potentiometer
     public final ObservableValue<Double> currentPotiPosition = new ObservableValue<>(0.0);
 }

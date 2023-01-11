@@ -10,8 +10,6 @@ import java.util.concurrent.Executors;
 
 public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
-    protected static final long DEFAULT_DEBOUNCE = 10000;
-
     private boolean isDown  = false;
     private boolean isNorth = false;
     private boolean isSouth = false;
@@ -54,6 +52,12 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
         }
     };
 
+    public JoystickTile(Context pi4J,PIN pin1, PIN pin2, PIN pin3, PIN pin4, PIN pin5){
+        constructorValues();
+        setText("Pin "+pin1.getPin()+"↑, "+pin2.getPin()+"→, "+pin3.getPin()+"↓, "+pin4.getPin() +"←, push:"+pin5.getPin());
+        isButtonActive = true;
+    }
+
     public JoystickTile(Context pi4J,PIN pin1, PIN pin2, PIN pin3, PIN pin4){
         constructorValues();
         setText("Pin "+pin1.getPin()+"↑, "+pin2.getPin()+"→, "+pin3.getPin()+"↓, "+pin4.getPin()+"←");
@@ -61,12 +65,12 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
     }
 
-    public JoystickTile(Context pi4J,PIN pin1, PIN pin2, PIN pin3, PIN pin4, PIN pin5){
-        constructorValues();
-        setText("Pin "+pin1.getPin()+"↑, "+pin2.getPin()+"→, "+pin3.getPin()+"↓, "+pin4.getPin() +"←, push:"+pin5.getPin());
-        isButtonActive = true;
-    }
-
+    /**
+     * Utility function to sleep for the specified amount of milliseconds.
+     * An {@link InterruptedException} will be catched and ignored while setting the interrupt flag again.
+     *
+     * @param milliseconds Time in milliseconds to sleep
+     */
     void delay(long milliseconds) {
         try {
             Thread.sleep(milliseconds);
@@ -141,7 +145,7 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
      */
     @Override
     public void whileWest(long millis, Runnable method) {
-        whileWest = method;
+        this.whileWest = method;
         this.millis = millis;
 
     }
@@ -228,11 +232,24 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
     }
 
+    /**
+     * This event gets triggered whenever the button is no longer pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param method Event handler to call or null to disable
+     */
     @Override
     public void onPushUp(Runnable method) {
         onPushUp = method;
     }
 
+
+    /**
+     * This event gets triggered whenever the button is pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param method Event handler to call or null to disable
+     */
     @Override
     public void pushWhilePushed(long millis, Runnable method) {
         this.pushWhilePushed = method;
@@ -244,11 +261,8 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
     public void deRegisterAll() {
 
     }
-
+    // Helper function. Add same content in all constructors
     public void constructorValues(){
-
-        minHeight(400);
-        minWidth(400);
         setTitle("Joystick");
         setSkin(jSkin);
 
@@ -267,6 +281,7 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
         });
 
+        //set value to false, if moving mouse away from button area
         jSkin.getButton().setOnMouseExited(mouseEvent -> {
             if(isDown) {
                 onPushUp.run();
@@ -274,6 +289,7 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
             }
         });
 
+        // If mouse released and button down, run onUp runnable
         jSkin.getButton().setOnMouseReleased(mouseEvent -> {
             if(isDown) {
                 onPushUp.run();
@@ -377,6 +393,7 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
             }
         });
 
+        //set value to false, if moving mouse away from button area
         jSkin.getDown().setOnMouseExited(mouseEvent -> {
             if(isSouth) {
                 onSouthUp.run();

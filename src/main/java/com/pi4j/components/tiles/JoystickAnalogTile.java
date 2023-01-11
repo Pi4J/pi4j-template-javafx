@@ -51,18 +51,17 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
     JoystickAnalogSkin jASkin = new JoystickAnalogSkin(this);
 
     public JoystickAnalogTile(Context pi4J, Ads1115 ads1115, int channelXAxis, int channelYAxis, double maxVoltage, boolean normalized0to1, PIN push) {
-        constructorValue();
+        constructorValues();
         setText("Pin "+push.getPin()+", Channel: "+channelXAxis+" / "+ channelYAxis+ ", MaxVoltage: "+maxVoltage);
     }
 
     public JoystickAnalogTile(Context pi4j, Ads1115 ads1115, PIN push) {
-        constructorValue();
+        constructorValues();
         setText("Pin "+push.getPin());
 
     }
     public JoystickAnalogTile(Potentiometer potentiometerX, Potentiometer potentiometerY, boolean normalized0to1, SimpleButton push) {
-        constructorValue();
-        setText("");
+        constructorValues();
     }
 
 
@@ -211,6 +210,8 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
             yStart = mouseEvent.getSceneY() - jASkin.getButton().getTranslateY();
         });
 
+        // Moves Button inside the radius of the border
+        // Sends X & Y Position to xOnMove & yOnMove
         jASkin.getButton().setOnMouseDragged(mouseEvent -> {
             // Radius of the border
             double border = jASkin.getBorder().getRadius();
@@ -229,6 +230,7 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
 
         });
 
+        // Resets Joystickbutton position
         jASkin.getButton().setOnMouseReleased(mouseEvent -> {
             jASkin.getButton().setTranslateX(jASkin.getInfoRegion().getWidth() * 0.5);
             jASkin.getButton().setTranslateY(jASkin.getInfoRegion().getWidth() * 0.5);

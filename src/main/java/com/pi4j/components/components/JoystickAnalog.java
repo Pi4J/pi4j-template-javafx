@@ -215,7 +215,6 @@ public class JoystickAnalog extends Component implements JoystickAnalogInterface
      * @param readFrequency update frequency to read new value from ad converter
      */
 
-    @Override
     public void start(double threshold, int readFrequency) {
         x.startSlowContinuousReading(threshold, readFrequency);
         y.startSlowContinuousReading(threshold, readFrequency);
@@ -242,7 +241,6 @@ public class JoystickAnalog extends Component implements JoystickAnalogInterface
     /**
      * calibrates the center position of the joystick
      */
-    @Override
     public void calibrateJoystick() {
         xOffset = NORMALIZED_CENTER_POSITION - x.singleShotGetNormalizedValue();
         yOffset = NORMALIZED_CENTER_POSITION - y.singleShotGetNormalizedValue();
