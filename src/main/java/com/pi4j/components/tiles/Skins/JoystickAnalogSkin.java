@@ -12,6 +12,9 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+
+import javax.swing.GroupLayout;
 
 public class JoystickAnalogSkin extends TileSkin {
 
@@ -21,7 +24,7 @@ public class JoystickAnalogSkin extends TileSkin {
     private Text    titleText;
     private Text    text;
 
-    private Label   description;
+    private Text   description;
 
     public JoystickAnalogSkin(Tile TILE) {
         super(TILE);
@@ -39,8 +42,8 @@ public class JoystickAnalogSkin extends TileSkin {
         text.setFill(tile.getUnitColor());
         Helper.enableNode(text, tile.isTextVisible());
 
-        description = new Label(tile.getDescription());
-        description.setTextFill(tile.getUnitColor());
+        description = new Text(tile.getDescription());
+        description.setFill(tile.getUnitColor());
         Helper.enableNode(description, !tile.getDescription().isEmpty());
 
         Color buttonFill = Color.RED;
@@ -101,25 +104,17 @@ public class JoystickAnalogSkin extends TileSkin {
 
         text.setText(tile.getText());
         text.setFont(font);
-        if (text.getLayoutBounds().getWidth() > maxWidth) { Helper.adjustTextSize(text, maxWidth, fontSize); }
-        switch (tile.getTextAlignment()) {
-        case LEFT -> text.setX(size * 0.05);
-        case CENTER -> text.setX((width - text.getLayoutBounds().getWidth()) * 0.5);
-        case RIGHT -> text.setX(width - (size * 0.05) - text.getLayoutBounds().getWidth());
-        }
-        text.setY(height - size * 0.05);
+        textPosition(text, tile.getTextAlignment());
 
+        description.setText(tile.getDescription());
         description.setFont(font);
-        description.setAlignment(Pos.CENTER_RIGHT);
-        description.setWrapText(false);
+        textPosition(description, TextAlignment.RIGHT);
+
     }
 
     @Override
     protected void resize() {
         super.resize();
-
-        description.setPrefWidth(contentBounds.getWidth());
-        description.relocate(contentBounds.getX(), height - size * 0.1);
 
         button.setRadius(size * 0.12);
         button.setCenterX(width * 0.5);
@@ -138,13 +133,12 @@ public class JoystickAnalogSkin extends TileSkin {
         titleText.setText(tile.getTitle());
         text.setText(tile.getText());
         description.setText(tile.getDescription());
-        description.setAlignment(tile.getDescriptionAlignment());
 
         resizeStaticText();
 
         titleText.setFill(tile.getTitleColor());
         text.setFill(tile.getTextColor());
-        description.setTextFill(tile.getDescriptionColor());
+        description.setFill(tile.getTextColor());
 
     }
 
@@ -156,4 +150,16 @@ public class JoystickAnalogSkin extends TileSkin {
         return border;
     }
 
+
+    public void textPosition(Text text, TextAlignment alignment){
+        double maxWidth = width - size * 0.1;
+        double fontSize = size * textSize.factor;
+        if (text.getLayoutBounds().getWidth() > maxWidth) { Helper.adjustTextSize(text, maxWidth, fontSize); }
+        switch (alignment) {
+        case LEFT -> text.setX(size * 0.05);
+        case CENTER -> text.setX((width - text.getLayoutBounds().getWidth()) * 0.5);
+        case RIGHT -> text.setX(width - (size * 0.05) - text.getLayoutBounds().getWidth());
+        }
+        text.setY(height - size * 0.05);
+    }
 }
