@@ -25,9 +25,10 @@ public class PotentiometerTile extends Pi4JTile implements PotentiometerInterfac
         setNormX(0.0);
         setTitle("Potentiometer");
         setText("Pin " + pin.getPin() + ", ADS: " + ads_address);
-        setDescription("X: (" + String.format("%.2f", getNormX()) + ")");
+        setDescription(String.format("%.2f", getNormX()) + " %");
         setSkin(potentiometerSkin);
 
+        //TODO: Wert finden, welches nicht absolut ist
         lineLength = 200;
 
 
@@ -59,12 +60,12 @@ public class PotentiometerTile extends Pi4JTile implements PotentiometerInterfac
 
 
     public void updatePos(){
-        setDescription("X: ("+String.format("%.2f", getNormX())+")");
+        setDescription(String.format("%.2f", getNormX())+" %");
     }
 
     @Override
     public double singleShotGetNormalizedValue() {
-        return 0;
+        return normX;
     }
 
     @Override
@@ -77,7 +78,7 @@ public class PotentiometerTile extends Pi4JTile implements PotentiometerInterfac
         xOnMove = value -> {
 
             value = currentX;
-            //scale axis from 0 to 1
+            //scale axis from 0 to 100
             value = 100 / lineLength * value;
 
             setNormX(value);

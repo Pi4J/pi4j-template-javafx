@@ -85,7 +85,10 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         // look at that: all EventHandlers just trigger an action on 'controller'
         // by calling a single method
 
-        button.onDown(() -> controller.setButtonPressed(true));
+        button.onDown(() -> {
+            controller.setButtonPressed(true);
+            controller.singlePotentiometer(potentiometer.singleShotGetNormalizedValue());
+        });
         button.onUp  (() -> controller.setButtonPressed(false));
         button.whilePressed(() -> controller.whileMessage("Simple"),5000);
 
@@ -179,6 +182,7 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         joystickAnalog.pushOnUp  (() -> controller.sendMessage("Joystick analog",false));
         joystickAnalog.pushWhilePressed(() -> controller.whileMessage("Joystick analog"),3000);
 
+
         potentiometer.setConsumerSlowReadChan(controller::setPotiX);
     }
 
@@ -211,14 +215,21 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         onChangeOf(model.currentXPosition)
             .execute((oldValue, newValue) -> {
                 if (newValue.equals(oldValue)) {
-                    System.out.println("X Position: " + newValue);
+                    System.out.println("Joystick Analog - X Position: " + newValue);
                 }
                     });
 
         onChangeOf(model.currentYPosition)
             .execute((oldValue, newValue) -> {
                 if (newValue.equals(oldValue)) {
-                    System.out.println("Y Position: " + newValue);
+                    System.out.println("Joystick Analog - Y Position: " + newValue);
+                }
+            });
+
+        onChangeOf(model.currentPotiPosition)
+            .execute((oldValue, newValue) -> {
+                if (!newValue.equals(oldValue)) {
+                    System.out.println("Potentiometer - " + newValue+"%");
                 }
             });
     }

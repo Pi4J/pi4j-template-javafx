@@ -69,4 +69,8 @@ public class SomeController extends ControllerBase<SomeModel> {
     public void setPotiX(double x){
         setValue(model.currentPotiPosition,x);
     }
+
+    public void singlePotentiometer(double x){
+        System.out.println("Current Potentiometer value is "+x+"%");
+    }
 }

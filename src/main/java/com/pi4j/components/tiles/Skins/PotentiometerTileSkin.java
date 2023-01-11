@@ -10,13 +10,16 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class PotentiometerTileSkin extends TileSkin {
 
     private Circle  button;
-    private Line line;
+//    private Line line;
+
+    private Rectangle bar;
 
     private Text    titleText;
     private Text    text;
@@ -46,15 +49,18 @@ public class PotentiometerTileSkin extends TileSkin {
         Color buttonFill = Color.WHITE;
         Color buttonBorder = Color.GRAY;
 
-        line = new Line();
-        line.setStroke(Color.GRAY);
+//        line = new Line();
+//        line.setStroke(Color.GRAY);
+
+        bar = new Rectangle();
+        bar.setFill(Color.GRAY);
 
         button = new Circle();
         button.setFill(buttonFill);
         button.setStroke(buttonBorder);
 
 
-        getPane().getChildren().addAll(titleText, text, description, line, button);
+        getPane().getChildren().addAll(titleText, text, description,bar, button);
     }
 
     @Override
@@ -126,11 +132,16 @@ public class PotentiometerTileSkin extends TileSkin {
         button.setCenterX(marginWidth);
         button.setCenterY(centerY);
 
-        line.setStrokeWidth(3);
-        line.setStartX(marginWidth);
-        line.setEndX(width-marginWidth);
-        line.setStartY(centerY);
-        line.setEndY(centerY);
+//        line.setStrokeWidth(3);
+//        line.setStartX(marginWidth);
+//        line.setEndX(width-marginWidth);
+//        line.setStartY(centerY);
+//        line.setEndY(centerY);
+
+        bar.setHeight(3);
+        bar.setWidth(width*0.8);
+        bar.setX(marginWidth);
+        bar.setY(centerY);
 
     }
 
@@ -154,7 +165,16 @@ public class PotentiometerTileSkin extends TileSkin {
         return button;
     }
 
-    public Line getLine() {
-        return line;
+//    public Line getLine() {
+//        return line;
+//    }
+
+
+    public Rectangle getBar() {
+        return bar;
+    }
+
+    public double getBarWidth(){
+        return width*0.8;
     }
 }
