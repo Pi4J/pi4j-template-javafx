@@ -22,18 +22,15 @@ public class LedButtonSkin extends TileSkin {
     private Rectangle   buttonBorder;
     private Circle      led;
 
-    private Paint       borderFill;
     private Paint       onFill;
     private Paint       offFill;
 
-    private Text titleText;
-    private Text text;
-
+    private Text        titleText;
+    private Text        text;
 
     public LedButtonSkin(Tile TILE) {
         super(TILE);
     }
-
 
     @Override
     protected void initGraphics (){
@@ -51,19 +48,15 @@ public class LedButtonSkin extends TileSkin {
         buttonBorder = new Rectangle();
         buttonBorder.setFill(Color.GRAY);
 
-
         tile.setActiveColor(Color.rgb(0,255,0));
 
-
         getPane().getChildren().addAll(titleText, text, buttonBorder, led);
-
     }
 
     @Override
     protected void registerListeners(){
         super.registerListeners();
     }
-
 
     @Override
     protected void handleEvents(final String EVENT_TYPE) {
@@ -79,14 +72,14 @@ public class LedButtonSkin extends TileSkin {
         }
     }
 
-
     @Override protected void handleCurrentValue(final double VALUE) {
         led.setFill(tile.isActive() ? onFill : offFill);
     }
 
     private void updateFills() {
+        Paint borderFill;
         if (tile.isFlatUI()) {
-            borderFill    = Color.rgb(200, 200, 200, 0.5);
+            borderFill = Color.rgb(200, 200, 200, 0.5);
             onFill = tile.getActiveColor();
             offFill = tile.getActiveColor().darker().darker().darker().darker();
             led.setEffect(null);
@@ -140,6 +133,7 @@ public class LedButtonSkin extends TileSkin {
 
         updateFills();
 
+        //size and position of button
         double buttonBorderSize = size*0.4;
         buttonBorder.setHeight(buttonBorderSize);
         buttonBorder.setWidth(buttonBorderSize);
@@ -151,7 +145,6 @@ public class LedButtonSkin extends TileSkin {
         led.setRadius(size * 0.1);
         led.setCenterX(width * 0.5);
         led.setCenterY(height * 0.5);
-
     }
 
     @Override

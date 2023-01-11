@@ -26,7 +26,6 @@ public class SimpleButtonSkin extends TileSkin {
         super(TILE);
     }
 
-
     @Override
     protected void initGraphics (){
         super.initGraphics();
@@ -45,14 +44,12 @@ public class SimpleButtonSkin extends TileSkin {
         buttonknob.setFill(Color.RED);
 
         getPane().getChildren().addAll(titleText, text, buttonBorder, buttonknob);
-
     }
 
     @Override
     protected void registerListeners(){
         super.registerListeners();
     }
-
 
     @Override
     protected void handleEvents(final String EVENT_TYPE) {
@@ -66,7 +63,6 @@ public class SimpleButtonSkin extends TileSkin {
             redraw();
         }
     }
-
 
     @Override protected void handleCurrentValue(final double VALUE) {
     }
@@ -101,7 +97,7 @@ public class SimpleButtonSkin extends TileSkin {
     @Override protected void resize() {
         super.resize();
 
-        //Definiert Grösse & Position des Buttons
+        //size and position of border
         double buttonBorderSize = size*0.4;
         buttonBorder.setHeight(buttonBorderSize);
         buttonBorder.setWidth(buttonBorderSize);
@@ -110,10 +106,10 @@ public class SimpleButtonSkin extends TileSkin {
         buttonBorder.setArcWidth(40);
         buttonBorder.setArcHeight(40);
 
+        //size and position of buttonknob
         buttonknob.setRadius(size * 0.1);
         buttonknob.setCenterX(width * 0.5);
         buttonknob.setCenterY(height * 0.5);
-
     }
 
     @Override
@@ -127,7 +123,6 @@ public class SimpleButtonSkin extends TileSkin {
 
         titleText.setFill(tile.getTitleColor());
         text.setFill(tile.getTextColor());
-
     }
     public Circle getButtonknob() {
         return buttonknob;

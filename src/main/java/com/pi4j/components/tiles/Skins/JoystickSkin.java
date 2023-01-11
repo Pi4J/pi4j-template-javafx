@@ -65,7 +65,6 @@ public class JoystickSkin extends TileSkin {
 
 
         getPane().getChildren().addAll(titleText, text, button, up, down, left, right);
-
     }
 
     @Override
@@ -89,7 +88,6 @@ public class JoystickSkin extends TileSkin {
 
 
     @Override protected void handleCurrentValue(final double VALUE) {
-
     }
 
     @Override protected void resizeStaticText() {
@@ -126,6 +124,7 @@ public class JoystickSkin extends TileSkin {
         button.setCenterX(width * 0.5);
         button.setCenterY(height * 0.5);
 
+        //size and position of arrows
         up.getPoints().addAll(
                 button.getCenterX(), 35.0,
                         148.0, 75.0,
@@ -159,7 +158,6 @@ public class JoystickSkin extends TileSkin {
 
         titleText.setFill(tile.getTitleColor());
         text.setFill(tile.getTextColor());
-
     }
 
 

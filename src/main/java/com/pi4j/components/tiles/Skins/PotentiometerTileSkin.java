@@ -5,11 +5,8 @@ import eu.hansolo.tilesfx.events.TileEvt;
 import eu.hansolo.tilesfx.fonts.Fonts;
 import eu.hansolo.tilesfx.skins.TileSkin;
 import eu.hansolo.tilesfx.tools.Helper;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -17,15 +14,12 @@ import javafx.scene.text.TextAlignment;
 
 public class PotentiometerTileSkin extends TileSkin {
 
-    private Circle  button;
-//    private Line line;
+    private Circle     knob;
+    private Rectangle  bar;
 
-    private Rectangle bar;
-
-    private Text    titleText;
-    private Text    text;
-
-    private Text   description;
+    private Text       titleText;
+    private Text       text;
+    private Text       description;
 
     public PotentiometerTileSkin(Tile TILE) {
         super(TILE);
@@ -50,18 +44,15 @@ public class PotentiometerTileSkin extends TileSkin {
         Color buttonFill = Color.WHITE;
         Color buttonBorder = Color.GRAY;
 
-//        line = new Line();
-//        line.setStroke(Color.GRAY);
-
         bar = new Rectangle();
         bar.setFill(Color.GRAY);
 
-        button = new Circle();
-        button.setFill(buttonFill);
-        button.setStroke(buttonBorder);
+        knob = new Circle();
+        knob.setFill(buttonFill);
+        knob.setStroke(buttonBorder);
 
 
-        getPane().getChildren().addAll(titleText, text, description,bar, button);
+        getPane().getChildren().addAll(titleText, text, description,bar, knob);
     }
 
     @Override
@@ -91,6 +82,7 @@ public class PotentiometerTileSkin extends TileSkin {
         double maxWidth = width - size * 0.1;
         double fontSize = size * textSize.factor;
 
+        //size and position of text
         boolean customFontEnabled = tile.isCustomFontEnabled();
         Font customFont        = tile.getCustomFont();
         Font font              = (customFontEnabled && customFont != null) ? Font.font(customFont.getFamily(), fontSize) : Fonts.latoRegular(fontSize);
@@ -114,17 +106,12 @@ public class PotentiometerTileSkin extends TileSkin {
         double marginWidth = width*0.1;
         double centerY = height* 0.5;
 
+        //size and position of knob
+        knob.setRadius(size * 0.05);
+        knob.setCenterX(marginWidth);
+        knob.setCenterY(centerY);
 
-        button.setRadius(size * 0.05);
-        button.setCenterX(marginWidth);
-        button.setCenterY(centerY);
-
-//        line.setStrokeWidth(3);
-//        line.setStartX(marginWidth);
-//        line.setEndX(width-marginWidth);
-//        line.setStartY(centerY);
-//        line.setEndY(centerY);
-
+        //size and position of bar
         bar.setHeight(3);
         bar.setWidth(width*0.8);
         bar.setX(marginWidth);
@@ -147,21 +134,8 @@ public class PotentiometerTileSkin extends TileSkin {
         description.setFill(tile.getDescriptionColor());
     }
 
-    public Circle getButton() {
-        return button;
-    }
-
-//    public Line getLine() {
-//        return line;
-//    }
-
-
-    public Rectangle getBar() {
-        return bar;
-    }
-
-    public double getBarWidth(){
-        return width*0.8;
+    public Circle getKnob() {
+        return knob;
     }
 
     public void textPosition(Text text, TextAlignment alignment, double maxWidth, double fontSize){

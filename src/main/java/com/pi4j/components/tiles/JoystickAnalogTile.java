@@ -33,8 +33,9 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
     private Runnable pushWhilePressed = () -> { };
 
     private boolean isDown = false;
-    private long whilePressedDelay;
+    private long    whilePressedDelay;
 
+    // delay while button is pressed
     private final Runnable whilePressedWorker = () -> {
         while (isDown) {
             delay(whilePressedDelay);
@@ -48,7 +49,6 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     JoystickAnalogSkin jASkin = new JoystickAnalogSkin(this);
-
 
     public JoystickAnalogTile(Context pi4J, Ads1115 ads1115, int channelXAxis, int channelYAxis, double maxVoltage, boolean normalized0to1, PIN push) {
         constructorValue();
@@ -75,6 +75,12 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
         }
     }
 
+    /**
+     * This event gets triggered whenever the x-axis of the joystick is moving.
+     * Only a single event handler can be registered at once.
+     *
+     * @param task Event handler to call or null to disable
+     */
     @Override
     public void xOnMove(Consumer<Double> task) {
         xOnMove = value -> {
@@ -92,6 +98,12 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
         };
     }
 
+    /**
+     * This event gets triggered whenever the y-axis of the joystick is moving.
+     * Only a single event handler can be registered at once.
+     *
+     * @param task Event handler to call or null to disable
+     */
     @Override
     public void yOnMove(Consumer<Double> task) {
         yOnMove = value -> {
@@ -101,7 +113,7 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
             //ToDo: accepted value is -0.0, should be 0.0
             value = currentY;
             //scale axis from 0 to 1
-            value = -1 / yNormValue * value;
+            value = 1 / yNormValue * value;
 
         setNormY(value);
         updatePos();

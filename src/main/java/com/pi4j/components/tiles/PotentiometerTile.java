@@ -98,15 +98,15 @@ public class PotentiometerTile extends Pi4JTile implements PotentiometerInterfac
         lineLength = 200;
 
 
-        potentiometerSkin.getButton().setOnMousePressed(mouseEvent -> {
-            xStart = mouseEvent.getSceneX() - potentiometerSkin.getButton().getTranslateX();
+        potentiometerSkin.getKnob().setOnMousePressed(mouseEvent -> {
+            xStart = mouseEvent.getSceneX() - potentiometerSkin.getKnob().getTranslateX();
         });
 
-        potentiometerSkin.getButton().setOnMouseDragged(mouseEvent -> {
+        potentiometerSkin.getKnob().setOnMouseDragged(mouseEvent -> {
 
             if (mouseEvent.getSceneX() - xStart < lineLength
                 && mouseEvent.getSceneX() - xStart > 0) {
-                potentiometerSkin.getButton().setTranslateX(mouseEvent.getSceneX() - xStart);
+                potentiometerSkin.getKnob().setTranslateX(mouseEvent.getSceneX() - xStart);
                 currentX = mouseEvent.getSceneX() - xStart;
                 xOnMove.accept(currentX);
             }

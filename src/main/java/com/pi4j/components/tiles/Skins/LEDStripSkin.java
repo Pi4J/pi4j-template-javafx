@@ -12,14 +12,12 @@ import javafx.scene.text.Text;
 
 public class LEDStripSkin extends TileSkin {
 
-    public Circle[] ledBorder;
+    public  Circle[] ledBorder;
+    public  Circle[] leds;
+    public  Circle[] brightness;
 
-    public Circle[] leds;
-
-    public Circle[] brightness;
-
-    private Text    titleText;
-    private Text    text;
+    private Text     titleText;
+    private Text     text;
 
     private static int amountLight;
 
@@ -71,8 +69,6 @@ public class LEDStripSkin extends TileSkin {
     @Override protected void handleCurrentValue(final double VALUE) {
     }
 
-
-
     @Override protected void resizeStaticText() {
         double maxWidth = width - size * 0.1;
         double fontSize = size * textSize.factor;
@@ -104,6 +100,7 @@ public class LEDStripSkin extends TileSkin {
     protected void resize(){
         super.resize();
 
+        //size and position of leds
         for( int i = 0; i< amountLight;i++){
             double borderRadius = size * 0.07;
             double ledRadius = size * 0.045;
@@ -112,7 +109,6 @@ public class LEDStripSkin extends TileSkin {
 
             resizeRow(i, borderRadius, ledRadius, centerX, centerY, ledBorder, leds, brightness);
         }
-
     }
 
     @Override
@@ -124,7 +120,6 @@ public class LEDStripSkin extends TileSkin {
         resizeStaticText();
         titleText.setFill(tile.getTitleColor());
         text.setFill(tile.getTextColor());
-
     }
 
     protected void initRow(Color fill, Color border, Circle[] ledBorder, Circle[] leds,

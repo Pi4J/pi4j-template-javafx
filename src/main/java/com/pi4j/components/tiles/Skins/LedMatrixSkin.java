@@ -12,14 +12,12 @@ import javafx.scene.text.Text;
 
 public class LedMatrixSkin extends TileSkin {
 
-    public Circle[][] ledBorder;
+    public  Circle[][]  ledBorder;
+    public  Circle[][]  leds;
+    public  Circle[][]  brightnessOverlay;
 
-    public Circle[][] leds;
-
-    public Circle[][] brightnessOverlay;
-
-    private Text    titleText;
-    private Text    text;
+    private Text        titleText;
+    private Text        text;
 
     private int amountLeds = 4;
     private int amountRow = 2;
@@ -50,14 +48,11 @@ public class LedMatrixSkin extends TileSkin {
         getPane().getChildren().addAll(titleText,text);
 
         initRow(fill, border, ledBorder, leds, brightnessOverlay);
-
     }
-
 
     @Override
     public void registerListeners(){
         super.registerListeners();
-
     }
 
     @Override
@@ -76,8 +71,6 @@ public class LedMatrixSkin extends TileSkin {
     @Override
     public void handleCurrentValue(final double VALUE) {
     }
-
-
 
     @Override
     public void resizeStaticText() {
@@ -133,10 +126,6 @@ public class LedMatrixSkin extends TileSkin {
         return amountLeds;
     }
 
-    public void setAmountLeds(int amountLeds) {
-        this.amountLeds = amountLeds;
-    }
-
     public void setAmountRow(int amountRow) {
         if(amountRow < 1 || amountRow > 4){
             this.amountRow = 4;
@@ -145,12 +134,11 @@ public class LedMatrixSkin extends TileSkin {
         }
     }
 
-    //initialize Circle[][] ledBorder, Circle[][] leds & Circle[][] brightness and add to the pane
+    //initialize ledBorder, leds & brightness and add to the pane
     protected void initRow(Color fill, Color border, Circle[][] ledBorder, Circle[][] leds,
                            Circle[][] brightness) {
 
         for (int j = 0; j < this.getAmountRow(); j++) {
-
             for (int i = 0; i < this.getAmountLeds(); i++) {
                 ledBorder[j][i] = new Circle();
                 leds[j][i] = new Circle();
@@ -169,8 +157,8 @@ public class LedMatrixSkin extends TileSkin {
 
     void resizeRow(Circle[][] ledBorder, Circle[][] leds, Circle[][] brightness) {
 
+        //size and position of leds
         for (int j = 0; j < this.getAmountRow(); j++) {
-
             for (int i = 0; i < this.getAmountLeds(); i++) {
                 double borderRadius = size * 0.07;
                 double ledRadius = size * 0.045;

@@ -24,7 +24,7 @@ public class JoystickAnalogSkin extends TileSkin {
     private Text    titleText;
     private Text    text;
 
-    private Text   description;
+    private Text    description;
 
     public JoystickAnalogSkin(Tile TILE) {
         super(TILE);
@@ -105,7 +105,6 @@ public class JoystickAnalogSkin extends TileSkin {
         description.setText(tile.getDescription());
         description.setFont(font);
         titlePosition(description, TextAlignment.RIGHT,maxWidth,fontSize);
-
     }
 
     @Override
@@ -119,7 +118,6 @@ public class JoystickAnalogSkin extends TileSkin {
         border.setRadius(size * 0.25);
         border.setCenterX(width * 0.5);
         border.setCenterY(height * 0.5);
-
     }
 
     @Override
@@ -135,7 +133,6 @@ public class JoystickAnalogSkin extends TileSkin {
         titleText.setFill(tile.getTitleColor());
         text.setFill(tile.getTextColor());
         description.setFill(tile.getTitleColor());
-
     }
 
     public Circle getButton() {
