@@ -1,5 +1,6 @@
 package com.pi4j.mvc.tilesapp.view.gui;
 
+import com.pi4j.components.components.Ads1115;
 import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.JoystickAnalogInterface;
 import com.pi4j.components.interfaces.JoystickInterface;
@@ -10,6 +11,7 @@ import com.pi4j.components.interfaces.PotentiometerInterface;
 import com.pi4j.components.interfaces.SimpleButtonInterface;
 import com.pi4j.components.interfaces.SimpleLEDInterface;
 import com.pi4j.components.tiles.*;
+import com.pi4j.context.Context;
 import com.pi4j.mvc.tilesapp.controller.SomeController;
 import com.pi4j.mvc.tilesapp.model.SomeModel;
 import com.pi4j.mvc.util.mvcbase.ViewMixin;
@@ -39,6 +41,13 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 
     private PotentiometerInterface potentiometer;
 
+
+    private final int DEFAULT_SPI_CHANNEL = 0;
+    private final int[][] matrix = new int[2][4];
+    Context pi4j;
+
+    private Ads1115 ads1115;
+
     public SomeGUI(SomeController controller) {
         super(4,2);
         setHgap(5);
@@ -64,14 +73,14 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
 
     @Override
     public void initializeParts() {
-        led = new SimpleLEDTile(PIN.D22);
-        button = new SimpleButtonTile(PIN.D24);
-        joystick = new JoystickTile(PIN.PWM18,PIN.D23, PIN.PWM12,PIN.D16, PIN.D21);
-        ledButton = new LedButtonTile(PIN.D26,PIN.D20);
-        ledStrip = new LedStripTile(4,1.0, "SPI0 MOSI");
-        ledMatrix = new LedMatrixTile(4, 4, 0.8, "SPI0 MOSI");
-        joystickAnalog = new JoystickAnalogTile(PIN.D6, "0x01");
-        potentiometer = new PotentiometerTile(PIN.D5,"0x01");
+        led = new SimpleLEDTile(pi4j,PIN.D22);
+        button = new SimpleButtonTile(pi4j,PIN.D24,false);
+        joystick = new JoystickTile(pi4j,PIN.PWM18,PIN.D23, PIN.PWM12,PIN.D16, PIN.D21);
+        ledButton = new LedButtonTile(pi4j,PIN.D26,PIN.D20);
+        ledStrip = new LedStripTile(pi4j,4,1.0, DEFAULT_SPI_CHANNEL);
+        ledMatrix = new LedMatrixTile(pi4j, matrix, 0.8, DEFAULT_SPI_CHANNEL);
+        joystickAnalog = new JoystickAnalogTile(pi4j, ads1115, 0, 1, 3.3, false, PIN.D5);
+        potentiometer = new PotentiometerTile(ads1115, DEFAULT_SPI_CHANNEL, 3.3);
     }
 
     @Override

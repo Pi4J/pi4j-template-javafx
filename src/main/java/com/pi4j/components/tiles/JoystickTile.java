@@ -3,6 +3,7 @@ package com.pi4j.components.tiles;
 import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.JoystickInterface;
 import com.pi4j.components.tiles.Skins.JoystickSkin;
+import com.pi4j.context.Context;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -53,25 +54,17 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
         }
     };
 
-    public JoystickTile(PIN pin1, PIN pin2, PIN pin3, PIN pin4){
-        minHeight(400);
-        minWidth(400);
-        setTitle("Joystick");
+    public JoystickTile(Context pi4J,PIN pin1, PIN pin2, PIN pin3, PIN pin4){
+        constructorValues();
         setText("Pin "+pin1.getPin()+"↑, "+pin2.getPin()+"→, "+pin3.getPin()+"↓, "+pin4.getPin()+"←");
-        setSkin(jSkin);
         isButtonActive = false;
-        joystickMouseEvent();
 
     }
 
-    public JoystickTile(PIN pin1, PIN pin2, PIN pin3, PIN pin4, PIN pin5){
-        minHeight(400);
-        minWidth(400);
-        setTitle("Joystick");
+    public JoystickTile(Context pi4J,PIN pin1, PIN pin2, PIN pin3, PIN pin4, PIN pin5){
+        constructorValues();
         setText("Pin "+pin1.getPin()+"↑, "+pin2.getPin()+"→, "+pin3.getPin()+"↓, "+pin4.getPin() +"←, push:"+pin5.getPin());
-        setSkin(jSkin);
         isButtonActive = true;
-        joystickMouseEvent();
     }
 
     void delay(long milliseconds) {
@@ -174,7 +167,13 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
     }
 
-    public void joystickMouseEvent(){
+    public void constructorValues(){
+
+        minHeight(400);
+        minWidth(400);
+        setTitle("Joystick");
+        setSkin(jSkin);
+
         jSkin.getButton().setOnMousePressed(mouseEvent -> {
 
             //Run onPushDown Runnable, if value =! Null

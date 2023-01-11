@@ -3,8 +3,7 @@ package com.pi4j.components.tiles;
 import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.SimpleButtonInterface;
 import com.pi4j.components.tiles.Skins.SimpleButtonSkin;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
+import com.pi4j.context.Context;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -36,7 +35,47 @@ public class SimpleButtonTile extends Pi4JTile implements SimpleButtonInterface 
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    public SimpleButtonTile(PIN pin) {
+
+    public SimpleButtonTile(Context pi4j, PIN address, boolean inverted) {
+        constructorValues(address);
+    }
+
+    public SimpleButtonTile(Context pi4j, PIN address, boolean inverted, long debounce){
+        constructorValues(address);
+    }
+
+
+    // Setzt den aktuellen Thread mit dem Wert des gegebenen Parameter (in Millisekunden) zu Schlaf
+    void delay(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    @Override
+    public void onDown(Runnable task) {
+        onDown = task;
+    }
+
+    @Override
+    public void onUp(Runnable task) {
+        onUp = task;
+    }
+
+    @Override
+    public void whilePressed(Runnable task, long whilePressedDelay) {
+        this.whilePressed = task;
+        this.whilePressedDelay = whilePressedDelay;
+
+    }
+
+    @Override
+    public void deRegisterAll() {
+    }
+
+    public void constructorValues(PIN pin){
         prefHeight(400);
         prefWidth(400);
         setTitle("Simple Button");
@@ -71,36 +110,6 @@ public class SimpleButtonTile extends Pi4JTile implements SimpleButtonInterface 
                 isDown = false;
             }
         });
-    }
-
-    // Setzt den aktuellen Thread mit dem Wert des gegebenen Parameter (in Millisekunden) zu Schlaf
-    void delay(long milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-    }
-
-    @Override
-    public void onDown(Runnable task) {
-        onDown = task;
-    }
-
-    @Override
-    public void onUp(Runnable task) {
-        onUp = task;
-    }
-
-    @Override
-    public void whilePressed(Runnable task, long whilePressedDelay) {
-        this.whilePressed = task;
-        this.whilePressedDelay = whilePressedDelay;
-
-    }
-
-    @Override
-    public void deRegisterAll() {
     }
 
 }

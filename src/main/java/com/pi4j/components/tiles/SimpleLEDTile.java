@@ -2,10 +2,11 @@ package com.pi4j.components.tiles;
 
 import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.SimpleLEDInterface;
+import com.pi4j.context.Context;
 
 public class SimpleLEDTile extends Pi4JTile implements SimpleLEDInterface {
 
-    public SimpleLEDTile(PIN pin) {
+    public SimpleLEDTile(Context pi4j, PIN pin) {
         minHeight(400);
         minWidth(400);
         setSkinType(SkinType.LED);

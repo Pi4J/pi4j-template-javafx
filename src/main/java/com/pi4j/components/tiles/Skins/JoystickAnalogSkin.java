@@ -95,20 +95,16 @@ public class JoystickAnalogSkin extends TileSkin {
         Font font              = (customFontEnabled && customFont != null) ? Font.font(customFont.getFamily(), fontSize) : Fonts.latoRegular(fontSize);
 
         titleText.setFont(font);
-        if (titleText.getLayoutBounds().getWidth() > maxWidth) { Helper.adjustTextSize(titleText, maxWidth, fontSize); }
-        switch (tile.getTitleAlignment()) {
-        case LEFT -> titleText.relocate(size * 0.05, size * 0.05);
-        case CENTER -> titleText.relocate((width - titleText.getLayoutBounds().getWidth()) * 0.5, size * 0.05);
-        case RIGHT -> titleText.relocate(width - (size * 0.05) - titleText.getLayoutBounds().getWidth(), size * 0.05);
-        }
+        titlePosition(titleText, tile.getTitleAlignment(),maxWidth, fontSize);
+
 
         text.setText(tile.getText());
         text.setFont(font);
-        textPosition(text, tile.getTextAlignment());
+        textPosition(text, tile.getTextAlignment(), maxWidth, fontSize);
 
         description.setText(tile.getDescription());
         description.setFont(font);
-        textPosition(description, TextAlignment.RIGHT);
+        titlePosition(description, TextAlignment.RIGHT,maxWidth,fontSize);
 
     }
 
@@ -138,7 +134,7 @@ public class JoystickAnalogSkin extends TileSkin {
 
         titleText.setFill(tile.getTitleColor());
         text.setFill(tile.getTextColor());
-        description.setFill(tile.getTextColor());
+        description.setFill(tile.getTitleColor());
 
     }
 
@@ -151,9 +147,7 @@ public class JoystickAnalogSkin extends TileSkin {
     }
 
 
-    public void textPosition(Text text, TextAlignment alignment){
-        double maxWidth = width - size * 0.1;
-        double fontSize = size * textSize.factor;
+    public void textPosition(Text text, TextAlignment alignment, double maxWidth, double fontSize){
         if (text.getLayoutBounds().getWidth() > maxWidth) { Helper.adjustTextSize(text, maxWidth, fontSize); }
         switch (alignment) {
         case LEFT -> text.setX(size * 0.05);
@@ -161,5 +155,14 @@ public class JoystickAnalogSkin extends TileSkin {
         case RIGHT -> text.setX(width - (size * 0.05) - text.getLayoutBounds().getWidth());
         }
         text.setY(height - size * 0.05);
+    }
+
+    public void titlePosition(Text titleText, TextAlignment alignment, double maxWidth, double fontSize){
+        if (titleText.getLayoutBounds().getWidth() > maxWidth) { Helper.adjustTextSize(titleText, maxWidth, fontSize); }
+        switch (alignment) {
+        case LEFT -> titleText.relocate(size * 0.05, size * 0.05);
+        case CENTER -> titleText.relocate((width - titleText.getLayoutBounds().getWidth()) * 0.5, size * 0.05);
+        case RIGHT -> titleText.relocate(width - (size * 0.05) - titleText.getLayoutBounds().getWidth(), size * 0.05);
+        }
     }
 }

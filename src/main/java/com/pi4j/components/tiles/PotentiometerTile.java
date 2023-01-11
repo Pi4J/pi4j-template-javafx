@@ -1,11 +1,9 @@
 package com.pi4j.components.tiles;
 
-import com.pi4j.components.components.helpers.PIN;
+import com.pi4j.components.components.Ads1115;
 import com.pi4j.components.interfaces.PotentiometerInterface;
 import com.pi4j.components.tiles.Skins.PotentiometerTileSkin;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
 public class PotentiometerTile extends Pi4JTile implements PotentiometerInterface {
@@ -21,31 +19,13 @@ public class PotentiometerTile extends Pi4JTile implements PotentiometerInterfac
 
 
     PotentiometerTileSkin potentiometerSkin = new PotentiometerTileSkin(this);
-    public PotentiometerTile(PIN pin, String ads_address) {
-        setNormX(0.0);
-        setTitle("Potentiometer");
-        setText("Pin " + pin.getPin() + ", ADS: " + ads_address);
-        setDescription(String.format("%.2f", getNormX()) + " %");
-        setSkin(potentiometerSkin);
 
-        //TODO: Wert finden, welches nicht absolut ist
-        lineLength = 200;
-
-
-        potentiometerSkin.getButton().setOnMousePressed(mouseEvent -> {
-            xStart = mouseEvent.getSceneX() - potentiometerSkin.getButton().getTranslateX();
-        });
-
-        potentiometerSkin.getButton().setOnMouseDragged(mouseEvent -> {
-
-            if (mouseEvent.getSceneX() - xStart < lineLength
-                && mouseEvent.getSceneX() - xStart > 0) {
-                potentiometerSkin.getButton().setTranslateX(mouseEvent.getSceneX() - xStart);
-                currentX = mouseEvent.getSceneX() - xStart;
-                xOnMove.accept(currentX);
-            }
-
-        });
+    public PotentiometerTile(Ads1115 ads1115, int channel, double maxVoltage) {
+        setText("Channel: " + channel + ", MaxVoltage: " + maxVoltage);
+        constructorValues();
+    }
+    public PotentiometerTile(Ads1115 ads1115) {
+        constructorValues();
     }
 
 
@@ -105,6 +85,33 @@ public class PotentiometerTile extends Pi4JTile implements PotentiometerInterfac
 
     @Override
     public void stopFastContinuousReading() {
+
+    }
+
+    public void constructorValues(){
+        setNormX(0.0);
+        setTitle("Potentiometer");
+        setDescription(String.format("%.2f", getNormX()) + " %");
+        setSkin(potentiometerSkin);
+
+        //TODO: Wert finden, welches nicht absolut ist
+        lineLength = 200;
+
+
+        potentiometerSkin.getButton().setOnMousePressed(mouseEvent -> {
+            xStart = mouseEvent.getSceneX() - potentiometerSkin.getButton().getTranslateX();
+        });
+
+        potentiometerSkin.getButton().setOnMouseDragged(mouseEvent -> {
+
+            if (mouseEvent.getSceneX() - xStart < lineLength
+                && mouseEvent.getSceneX() - xStart > 0) {
+                potentiometerSkin.getButton().setTranslateX(mouseEvent.getSceneX() - xStart);
+                currentX = mouseEvent.getSceneX() - xStart;
+                xOnMove.accept(currentX);
+            }
+
+        });
 
     }
 }
