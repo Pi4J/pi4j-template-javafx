@@ -10,13 +10,13 @@ import com.pi4j.mvc.util.mvcbase.ObservableValue;
  * All the application logic is handled by the 'Controller'
  */
 public class SomeModel {
-    //TODO: MODEL-GUI
-    //Observes if the LED is Active or not
+    // Observes if the LED is active
     public final ObservableValue<Boolean> isLedActive = new ObservableValue<>(false);
 
     //Observes if the Button is pressed or not
     public final ObservableValue<Boolean> isButtonPressed = new ObservableValue<>(false);
 
+    // Observers if the LED-Button is active
     public final ObservableValue<Boolean> isLedButtonActive = new ObservableValue<>(false);
 
     public final ObservableValue<Double> currentXPosition = new ObservableValue<>(0.0);

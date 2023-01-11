@@ -53,12 +53,17 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
         setAmountLeds(ledMatrix[0].length);
     }
 
+    /**
+     * Setting all LEDs off and closing the strip
+     */
     @Override
     public void close() {
         allOff();
     }
 
-    //re-render
+    /**
+     * Rendering the LEDs by setting the pixels on the lED strip component
+     */
     @Override
     public void render() {
         for (int j = 0; j < this.getAmountRow(); j++) {
@@ -85,6 +90,9 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
 
     }
 
+    /**
+     * setting all LEDs off
+     */
     @Override
     public void allOff() {
         for (int i = 0; i < this.getAmountRow(); i++) {
@@ -92,6 +100,12 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
         }
     }
 
+    /**
+     * setting the color of a specified led on the strip
+     *
+     * @param pixel which position on the strip, range 0 - numLEDS-1
+     * @param color the color that is set
+     */
     @Override
     public void setPixelColor(int strip, int pixel, int color) {
         if (strip > ledMatrix.length || strip < 0 || pixel > ledMatrix[strip].length || pixel < 0) {
@@ -100,11 +114,23 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
         ledMatrix[strip][pixel] = color;
     }
 
+    /**
+     * setting the color of a specified LED on the matrix
+     *
+     * @param pixelNumber which position in the matrix,
+     *                    if it was laid out like a single strip
+     * @param color       the color that is set
+     */
     @Override
     public void setMatrixPixelColor(int pixelNumber, int color) {
         setMPChelper(pixelNumber, color, ledMatrix);
     }
 
+    /**
+     * Setting all LEDs of a row to the same color
+     *
+     * @param color the color that is set
+     */
     @Override
     public void setStripColor(int strip, int color) {
         if (strip > ledMatrix.length || strip < 0) {
@@ -113,6 +139,11 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
         Arrays.fill(ledMatrix[strip], color);
     }
 
+    /**
+     * Setting all LEDs in the matrix to the same color
+     *
+     * @param color the color that is set
+     */
     @Override
     public void setMatrixColor(int color) {
         for (int[] strips : ledMatrix) {
@@ -124,6 +155,11 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
         return this.brightness;
     }
 
+    /**
+     * Set the brightness of all LED's
+     *
+     * @param brightness new max. brightness, range 0 - 1
+     */
     @Override
     public void setBrightness(double brightness) {
         if (brightness < 0 || brightness > 1) {

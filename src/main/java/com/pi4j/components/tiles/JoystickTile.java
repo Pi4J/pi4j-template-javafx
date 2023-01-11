@@ -17,28 +17,28 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
     private boolean isSouth = false;
     private boolean isWest  = false;
     private boolean isEast  = false;
-    private long millis;
+    private long    millis;
 
-    private boolean isButtonActive;
+    private final boolean isButtonActive;
     JoystickSkin jSkin = new JoystickSkin(this);
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    private Runnable onPushDown = () -> {};
-    private Runnable onPushUp   = () -> {};
-    private Runnable onNorthDown = () -> {};
-    private Runnable onSouthDown = () -> {};
-    private Runnable onWestDown = () -> {};
-    private Runnable onEastDown = () -> {};
+    private Runnable onPushDown      = () -> {};
+    private Runnable onPushUp        = () -> {};
+    private Runnable onNorthDown     = () -> {};
+    private Runnable onSouthDown     = () -> {};
+    private Runnable onWestDown      = () -> {};
+    private Runnable onEastDown      = () -> {};
 
-    private Runnable onNorthUp    = () -> {};
-    private Runnable onSouthUp    = () -> {};
-    private Runnable onWestUp     = () -> {};
-    private Runnable onEastUp     = () -> {};
+    private Runnable onNorthUp       = () -> {};
+    private Runnable onSouthUp       = () -> {};
+    private Runnable onWestUp        = () -> {};
+    private Runnable onEastUp        = () -> {};
 
-    private Runnable whileNorth    = () -> {};
-    private Runnable whileSouth    = () -> {};
-    private Runnable whileWest     = () -> {};
-    private Runnable whileEast     = () -> {};
+    private Runnable whileNorth      = () -> {};
+    private Runnable whileSouth      = () -> {};
+    private Runnable whileWest       = () -> {};
+    private Runnable whileEast       = () -> {};
 
     private Runnable pushWhilePushed = () -> {};
 
@@ -75,17 +75,35 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
         }
     }
 
+    /**
+     * This event gets triggered whenever the button is pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param handler Event handler to call or null to disable
+     */
     @Override
     public void onNorthDown(Runnable handler) {
         onNorthDown = handler;
     }
 
+    /**
+     * This event gets triggered whenever the button is no longer pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param handler Event handler to call or null to disable
+     */
     @Override
     public void onNorthUp(Runnable handler) {
         onNorthUp = handler;
 
     }
 
+    /**
+     * This event gets triggered whenever the button is pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param method Event handler to call or null to disable
+     */
     @Override
     public void whileNorth(long millis, Runnable method) {
         this.whileNorth = method;
@@ -93,16 +111,34 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
     }
 
+    /**
+     * This event gets triggered whenever the button is pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param handler Event handler to call or null to disable
+     */
     @Override
     public void onWestDown(Runnable handler) {
         onWestDown = handler;
     }
 
+    /**
+     * This event gets triggered whenever the button is no longer pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param handler Event handler to call or null to disable
+     */
     @Override
     public void onWestUp(Runnable handler) {
         onWestUp = handler;
     }
 
+    /**
+     * This event gets triggered whenever the button is pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param method Event handler to call or null to disable
+     */
     @Override
     public void whileWest(long millis, Runnable method) {
         whileWest = method;
@@ -110,16 +146,34 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
     }
 
+    /**
+     * This event gets triggered whenever the button is pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param handler Event handler to call or null to disable
+     */
     @Override
     public void onSouthDown(Runnable handler) {
         onSouthDown = handler;
     }
 
+    /**
+     * This event gets triggered whenever the button is no longer pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param handler Event handler to call or null to disable
+     */
     @Override
     public void onSouthUp(Runnable handler) {
         onSouthUp = handler;
     }
 
+    /**
+     * This event gets triggered whenever the button is pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param method Event handler to call or null to disable
+     */
     @Override
     public void whileSouth(long millis, Runnable method) {
         this.whileSouth = method;
@@ -127,16 +181,34 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
     }
 
+    /**
+     * This event gets triggered whenever the button is pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param handler Event handler to call or null to disable
+     */
     @Override
     public void onEastDown(Runnable handler) {
         onEastDown = handler;
     }
 
+    /**
+     * This event gets triggered whenever the button is no longer pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param handler Event handler to call or null to disable
+     */
     @Override
     public void onEastUp(Runnable handler) {
         onEastUp = handler;
     }
 
+    /**
+     * This event gets triggered whenever the button is pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param method Event handler to call or null to disable
+     */
     @Override
     public void whileEast(long millis, Runnable method) {
         this.whileEast = method;
@@ -144,6 +216,12 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
 
     }
 
+    /**
+     * This event gets triggered whenever the button is pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param handler Event handler to call or null to disable
+     */
     @Override
     public void onPushDown(Runnable handler) {
         onPushDown = handler;
@@ -267,6 +345,7 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
             }
         });
 
+        //set value to false, if releasing mouse
         jSkin.getDown().setOnMouseReleased(mouseEvent -> {
             if(isSouth) {
                 onSouthUp.run();
@@ -274,6 +353,7 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
             }
         });
 
+        //set value to false, if releasing mouse
         jSkin.getLeft().setOnMouseReleased(mouseEvent -> {
             if (isWest) {
                 onWestUp.run();
@@ -281,6 +361,7 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
             }
         });
 
+        //set value to false, if releasing mouse
         jSkin.getRight().setOnMouseReleased(mouseEvent -> {
             if (isWest) {
                 onWestUp.run();
@@ -289,7 +370,6 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
         });
 
         //set value to false, if moving mouse away from button area
-
         jSkin.getUp().setOnMouseExited(mouseEvent -> {
             if(isNorth) {
                 onNorthUp.run();
@@ -304,6 +384,7 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
             }
         });
 
+        //set value to false, if moving mouse away from button area
         jSkin.getLeft().setOnMouseExited(mouseEvent -> {
             if (isWest) {
                 onWestUp.run();
@@ -311,6 +392,7 @@ public class JoystickTile extends Pi4JTile implements JoystickInterface {
             }
         });
 
+        //set value to false, if moving mouse away from button area
         jSkin.getRight().setOnMouseExited(mouseEvent ->   {
             if(isEast) {
                 onEastUp.run();

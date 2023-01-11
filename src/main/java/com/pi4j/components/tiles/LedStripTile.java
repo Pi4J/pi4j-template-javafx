@@ -34,22 +34,41 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
 
     }
 
-
+    /**
+     * Setting all LEDS off and closing the strip
+     */
     @Override
     public void close() {
         allOff();
     }
 
+    /**
+     * function to get the color (as an int) of a specified led
+     *
+     * @param pixel which position on the ledstrip, range 0 - numLEDS-1
+     * @return the color of the specified led on the strip
+     */
     @Override
     public int getPixelColor(int pixel) {
         return LEDs[pixel];
     }
 
+    /**
+     * setting the color of a specified led on the strip
+     *
+     * @param pixel which position on the strip, range 0 - numLEDS-1
+     * @param color the color that is set
+     */
     @Override
     public void setPixelColor(int pixel, int color) {
         LEDs[pixel] = color;
     }
 
+    /**
+     * Setting all leds to the same color
+     *
+     * @param color the color that is set
+     */
     @Override
     public void setStripColor(int color) {
         Arrays.fill(LEDs, color);
@@ -80,11 +99,19 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
 
     }
 
+    /**
+     * setting all LEDs off
+     */
     @Override
     public void allOff() {
         Arrays.fill(LEDs, 0);
     }
 
+    /**
+     * Utility function to sleep for the specified amount of milliseconds.
+     * An {@link InterruptedException} will be caught and ignored while setting the
+     * interrupt flag again.
+     */
     @Override
     public void sleep(long millis, int nanos) {
         try {
@@ -94,11 +121,19 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
         }
     }
 
+    /**
+     * @return the current brightness
+     */
     @Override
     public double getBrightness() {
         return this.brightness;
     }
 
+    /**
+     * Set the brightness of all LEDs
+     *
+     * @param brightness new max. brightness, range 0 - 1
+     */
     @Override
     public void setBrightness(double brightness) {
         if (brightness < 0 || brightness > 1) {
@@ -107,6 +142,7 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
         this.brightness = brightness;
     }
 
+    // Helper function. Add same content in all constructors
     public void constructorValues(double brightness){
         minHeight(400);
         minWidth(400);

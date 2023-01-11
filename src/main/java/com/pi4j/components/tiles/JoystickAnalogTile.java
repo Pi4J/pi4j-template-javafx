@@ -35,7 +35,7 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
     private boolean isDown = false;
     private long    whilePressedDelay;
 
-    // delay while button is pressed
+    // Delay while button is pressed
     private final Runnable whilePressedWorker = () -> {
         while (isDown) {
             delay(whilePressedDelay);
@@ -66,7 +66,12 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
     }
 
 
-    // Set current thread to sleep with given value (milliseconds)
+    /**
+     * Utility function to sleep for the specified amount of milliseconds.
+     * An {@link InterruptedException} will be catched and ignored while setting the interrupt flag again.
+     *
+     * @param milliseconds Time in milliseconds to sleep
+     */
     void delay(long milliseconds) {
         try {
             Thread.sleep(milliseconds);
@@ -88,7 +93,7 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
             double xNormValue = jASkin.getBorder().getRadius();
 
             value = currentX;
-            //scale axis from 0 to 1
+            // Scale axis from 0 to 1
                 value = 1 / xNormValue * value;
 
             setNormX(value);
@@ -110,10 +115,10 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
 
         double yNormValue = jASkin.getBorder().getRadius();
 
-            //ToDo: accepted value is -0.0, should be 0.0
             value = currentY;
             //scale axis from 0 to 1
-            value = 1 / yNormValue * value;
+            value = -1 / yNormValue * value;
+            if (value == -0.0) value = 0.0;
 
         setNormY(value);
         updatePos();
@@ -122,16 +127,34 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
     };
     }
 
+    /**
+     * This event gets triggered whenever the button is pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param task Event handler to call or null to disable
+     */
     @Override
     public void pushOnDown(Runnable task) {
         pushOnDown = task;
     }
 
+    /**
+     * This event gets triggered whenever the button is no longer pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param task Event handler to call or null to disable
+     */
     @Override
     public void pushOnUp(Runnable task) {
         pushOnUp = task;
     }
 
+    /**
+     * This event gets triggered whenever the button is pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param task Event handler to call or null to disable
+     */
     @Override
     public void pushWhilePressed(Runnable task, long whilePressedDelay) {
         pushWhilePressed = task;
@@ -140,19 +163,19 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
 
     @Override
     public void deregisterAll() {
-
     }
 
     @Override
     public void calibrateJoystick() {
-
     }
 
     @Override
-    public void start(double threshold, int readFrequency) {}
+    public void start(double threshold, int readFrequency) {
+    }
 
     @Override
-    public void stop(){}
+    public void stop() {
+    }
 
     public double getNormX() {
         return normX;
@@ -170,11 +193,13 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
         this.normY = normY;
     }
 
+    // Displays current X-Y-Axis on the GUI
     public void updatePos(){
         setDescription("("+String.format("%.2f", getNormX())+"/"+String.format("%.2f", getNormY())+")");
     }
 
-    public void constructorValue(){
+    // Helper function. Add same content in all constructors
+    public void constructorValues(){
         setNormX(0.0);
         setNormY(0.0);
         setTitle("Joystick Analog");

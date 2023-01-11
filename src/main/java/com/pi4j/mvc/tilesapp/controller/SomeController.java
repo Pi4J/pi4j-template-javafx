@@ -18,12 +18,12 @@ public class SomeController extends ControllerBase<SomeModel> {
         setValue(model.isButtonPressed, is);
     }
 
-    //turn off ledbutton led
+    // Turn off ledbutton led
     public void setLedButtonReleased() {
         setValue(model.isLedButtonActive, false);
     }
 
-    //switch led of ledbutton on and off depending on delay
+    // Switch led of ledbutton on and off depending on delay
     public void whilePressedLedButton() {
         setValue(model.isLedButtonActive, !model.isLedButtonActive.getValue());
     }
@@ -33,7 +33,7 @@ public class SomeController extends ControllerBase<SomeModel> {
         System.out.println(type + " button is still pressed");
     }
 
-    //sends message when pressed or released
+    // Sends message when pressed or released
     public void sendMessage(String type, boolean isPressed) {
         String state = "released";
         if (isPressed) {
@@ -58,14 +58,17 @@ public class SomeController extends ControllerBase<SomeModel> {
         System.out.println("LED-Strip brightness: "+brightness);
     }
 
-    public void setX(double x) {
+    // Sets current X-Position of the Analog Joystick
+    public void setJoyAnalogX(double x) {
         setValue(model.currentXPosition, x);
     }
 
-    public void setY(double y) {
+    // Sets current Y-Position of the Analog Joystick
+    public void setJoyAnalogY(double y) {
         setValue(model.currentYPosition, y);
     }
 
+    // Sets current Position of the Potentiometer
     public void setPotiX(double x){
         setValue(model.currentPotiPosition,x);
     }

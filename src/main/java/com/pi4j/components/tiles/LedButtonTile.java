@@ -12,9 +12,9 @@ public class LedButtonTile extends Pi4JTile implements LEDButtonInterface {
 
     LedButtonSkin ledButtonSkin = new LedButtonSkin(this);
 
-    private Runnable onDown = () -> {
+    private Runnable onDown          = () -> {
     };
-    private Runnable onUp = () -> {
+    private Runnable onUp            = () -> {
     };
     private Runnable btnwhilePressed = () -> {
     };
@@ -24,10 +24,8 @@ public class LedButtonTile extends Pi4JTile implements LEDButtonInterface {
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    /**
-     * Überprüft, ob der Button gedrückt ist und setzt ein Delay ein, Falls Button weiterhin gedrückt ist,
-     * wird der whilePressed Runnable aktiviert.
-     */
+    // Checks if button is pressed and runs delay function.
+    // If button still is pressed, whilePressed is getting active
     private final Runnable whilePressedWorker = () -> {
         while (isDown) {
             delay(whilePressedDelay);
@@ -45,7 +43,12 @@ public class LedButtonTile extends Pi4JTile implements LEDButtonInterface {
         constructorValues(pin1,pin2);
     }
 
-    // Setzt den aktuellen Thread mit dem Wert des gegebenen Parameter (in Millisekunden) zu Schlaf
+    /**
+     * Utility function to sleep for the specified amount of milliseconds.
+     * An {@link InterruptedException} will be catched and ignored while setting the interrupt flag again.
+     *
+     * @param milliseconds Time in milliseconds to sleep
+     */
     void delay(long milliseconds) {
         try {
             Thread.sleep(milliseconds);
@@ -54,27 +57,51 @@ public class LedButtonTile extends Pi4JTile implements LEDButtonInterface {
         }
     }
 
+    /**
+     * Sets the LED to on.
+     */
     @Override
     public void LEDsetStateOn() {
         this.setActive(true);
     }
 
+    /**
+     * Sets the LED to off.
+     */
     @Override
     public void LEDsetStateOff() {
         this.setActive(false);
 
     }
 
+    /**
+     * This event gets triggered whenever the button is pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param task Event handler to call or null to disable
+     */
     @Override
     public void onDown(Runnable task) {
         this.onDown = task;
     }
 
+    /**
+     * This event gets triggered whenever the button is no longer pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param task Event handler to call or null to disable
+     */
     @Override
     public void onUp(Runnable task) {
         this.onUp = task;
     }
 
+    /**
+     * This event gets triggered whenever the button is pressed.
+     * Only a single event handler can be registered at once.
+     *
+     * @param method Event handler to call or null to disable
+     */
     @Override
     public void btnwhilePressed(Runnable method, long millis) {
         this.btnwhilePressed = method;

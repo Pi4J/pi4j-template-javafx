@@ -8,8 +8,6 @@ import java.util.function.Consumer;
 
 public class PotentiometerTile extends Pi4JTile implements PotentiometerInterface {
 
-    private Consumer<Double> xOnMove;
-
     private double xStart;
     private double currentX;
 
@@ -53,6 +51,13 @@ public class PotentiometerTile extends Pi4JTile implements PotentiometerInterfac
 
     }
 
+    /**
+     * Sets or disables the handler for the onValueChange event.
+     * This event gets triggered whenever the value changes.
+     * Only a single event handler can be registered at once.
+     *
+     * @param method Event handler to call or null to disable
+     */
     @Override
     public void setConsumerSlowReadChan(Consumer<Double> method) {
         xOnMove = value -> {
@@ -88,6 +93,7 @@ public class PotentiometerTile extends Pi4JTile implements PotentiometerInterfac
 
     }
 
+    // Helper function. Add same content in all constructors
     public void constructorValues(){
         setNormX(0.0);
         setTitle("Potentiometer");

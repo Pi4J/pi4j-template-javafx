@@ -75,6 +75,7 @@ public class SimpleButtonTile extends Pi4JTile implements SimpleButtonInterface 
     public void deRegisterAll() {
     }
 
+    // Helper function. Add same content in all constructors
     public void constructorValues(PIN pin){
         prefHeight(400);
         prefWidth(400);

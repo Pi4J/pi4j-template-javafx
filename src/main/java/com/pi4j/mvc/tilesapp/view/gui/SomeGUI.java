@@ -27,19 +27,15 @@ import com.pi4j.components.tiles.helper.PixelColor;
 
 public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeController> { //all GUI-elements have to implement ViewMixin
 
-    // declare all the UI elements you need
-    private SimpleLEDInterface led;
-    private SimpleButtonInterface button;
-    private JoystickInterface joystick;
-    private LEDButtonInterface ledButton;
-
+    // Declare all the UI elements you need
+    private SimpleLEDInterface      led;
+    private SimpleButtonInterface   button;
+    private JoystickInterface       joystick;
+    private LEDButtonInterface      ledButton;
     private JoystickAnalogInterface joystickAnalog;
-
-    private LEDStripInterface ledStrip;
-
-    private LedMatrixInterface ledMatrix;
-
-    private PotentiometerInterface potentiometer;
+    private LEDStripInterface       ledStrip;
+    private LedMatrixInterface      ledMatrix;
+    private PotentiometerInterface  potentiometer;
 
 
     private final int DEFAULT_SPI_CHANNEL = 0;
@@ -71,6 +67,7 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         getStyleClass().add("root-pane");
     }
 
+    // Initialize all tiles which are in GUI wanted
     @Override
     public void initializeParts() {
         led = new SimpleLEDTile(pi4j,PIN.D22);
@@ -83,25 +80,28 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         potentiometer = new PotentiometerTile(ads1115, DEFAULT_SPI_CHANNEL, 3.3);
     }
 
+    // Sets layout of tiles
     @Override
     public void layoutParts() {
         getChildren().addAll((Tile) led, (Tile) button, (Tile) ledButton, (Tile) joystick,
             (Tile) joystickAnalog,(Tile) ledStrip, (Tile)ledMatrix, (Tile)potentiometer);
     }
 
+    // All EventHandlers from tiles which are needed
     @Override
     public void setupUiToActionBindings(SomeController controller) {
-        // look at that: all EventHandlers just trigger an action on 'controller'
-        // by calling a single method
-
         button.onDown(() -> {
+            // Sends button state boolean false
             controller.setButtonPressed(true);
+            // Sends the current normalized potentiometer position
             controller.singlePotentiometer(potentiometer.singleShotGetNormalizedValue());
         });
+        // Sends component name and button state boolean false
         button.onUp  (() -> controller.setButtonPressed(false));
+        // Sends component name and amount of delay in milliseconds
         button.whilePressed(() -> controller.whileMessage("Simple"),5000);
 
-        //Send message for short and long press
+        // Sends message to controller which direction and if short or long press
         joystick.onNorthUp(() -> controller.sendMessage("Up",false));
         joystick.whileNorth(2000, () -> controller.whileMessage("Up"));
         joystick.onSouthUp(() -> controller.sendMessage("Down",false));
@@ -111,11 +111,14 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         joystick.onEastUp(() -> controller.sendMessage("Right",false));
         joystick.whileEast(2000, () -> controller.whileMessage("Right"));
 
+        // Sends component name and button state boolean true
         ledButton.onDown(() -> controller.sendMessage("LED",true));
+        // Sends  button state boolean false
         ledButton.onUp(controller::setLedButtonReleased);
+        // Sends button state boolean true for the amount of delay in milliseconds
         ledButton.btnwhilePressed(controller::whilePressedLedButton, 1000);
 
-        //click/push change all color of ledstrip
+        // On press of joystick button click/push change all color of ledstrip
         joystick.onPushDown(() -> {
             ledStrip.setStripColor(PixelColor.YELLOW);
             ledMatrix.setMatrixColor(PixelColor.RED);
@@ -124,7 +127,7 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
             controller.sendMessage("Joystick",true);
         });
 
-        //turn off ledstrip
+        // On press of joystick button turn off ledstrip
         joystick.onPushUp(() -> {
             ledStrip.allOff();
             ledMatrix.allOff();
@@ -138,6 +141,7 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         int stripcolor = PixelColor.GREEN;
         int matrixcolor = PixelColor.PURPLE;
 
+        // On press of up joystick button
         joystick.onNorthDown(() -> {
             int pixel = 0;
             ledStrip.setPixelColor(pixel,stripcolor);
@@ -146,6 +150,8 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
             ledMatrix.render();
             controller.pixelMessage(pixel);
         });
+
+        // On press of right joystick button
         joystick.onEastDown(() -> {
             int pixel = 1;
             ledStrip.setPixelColor(pixel,stripcolor);
@@ -184,9 +190,10 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
             ledMatrix.render();
         });
 
-        joystickAnalog.xOnMove(controller::setX);
-        joystickAnalog.yOnMove(controller::setY);
+        joystickAnalog.xOnMove(controller::setJoyAnalogX);
+        joystickAnalog.yOnMove(controller::setJoyAnalogY);
 
+        // Sends component name and button state boolean true
         joystickAnalog.pushOnDown(() -> controller.sendMessage("Joystick analog", true));
         joystickAnalog.pushOnUp  (() -> controller.sendMessage("Joystick analog",false));
         joystickAnalog.pushWhilePressed(() -> controller.whileMessage("Joystick analog"),3000);
@@ -222,19 +229,15 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
             });
 
         onChangeOf(model.currentXPosition)
-            .execute((oldValue, newValue) -> {
-                if (newValue.equals(oldValue)) {
-                    System.out.println("Joystick Analog - X Position: " + newValue);
-                }
-                    });
+                .execute((oldValue, newValue) -> System.out.println("Joystick Analog-X Position: " + newValue));
 
+        // Observes currentYPosition ObservableValue
+        // Prints out normalized Y-Position, if value changed
         onChangeOf(model.currentYPosition)
-            .execute((oldValue, newValue) -> {
-                if (newValue.equals(oldValue)) {
-                    System.out.println("Joystick Analog - Y Position: " + newValue);
-                }
-            });
+                .execute((oldValue, newValue) -> System.out.println("Joystick Analog-Y Position: " + newValue));
 
+        // Observes currentPotiPosition ObservableValue
+        // Prints out Potentiometer position, if value changed
         onChangeOf(model.currentPotiPosition)
             .execute((oldValue, newValue) -> {
                 if (!newValue.equals(oldValue)) {
