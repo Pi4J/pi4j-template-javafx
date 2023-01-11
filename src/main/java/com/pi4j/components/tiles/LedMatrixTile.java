@@ -2,6 +2,8 @@ package com.pi4j.components.tiles;
 
 import com.pi4j.components.interfaces.LedMatrixInterface;
 import com.pi4j.components.tiles.Skins.LedMatrixSkin;
+import com.pi4j.context.Context;
+import com.pi4j.context.ContextConfig;
 import javafx.scene.paint.Color;
 
 import java.util.Arrays;
@@ -26,24 +28,30 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
      */
     private double brightness;
 
-    public LedMatrixTile(int numLEDs, int numRows, double brightness, String pin){
-        minHeight(400);
-        minWidth(400);
-        setTitle("LED Matrix");
-        setText("Pin "+pin);
-        this.setAmountLeds(numLEDs);
-        this.setAmountRow(numRows);
-
-        //compare skin amountRow and numRow from constructor. initGraphics to defined numRow
-        if(skin.getAmountRow() != amountRow){
-            skin.setAmountRow(amountRow);
-        }
-        skin.initGraphics();
-        ledMatrix = new int[amountRow][amountLeds];
-        setBrightness(brightness);
-        setSkin(skin);
+    public LedMatrixTile(Context pi4j, int[][] matrix, double brightness, int channel) {
+        setText("Channel: "+ channel);
+        ledMatrix = matrix;
+        constructorValues(brightness);
+        setAmountRow(ledMatrix.length);
+        setAmountLeds(ledMatrix[0].length);
     }
 
+    public LedMatrixTile(Context pi4j, int rows, int columns, double brightness){
+        setText("");
+        this.setAmountLeds(columns);
+        this.setAmountRow(rows);
+        constructorValues(brightness);
+
+        ledMatrix = new int[amountRow][amountLeds];
+    }
+
+    public LedMatrixTile(Context pi4j, int[][] matrix, double brightness) {
+        setText("");
+        ledMatrix = matrix;
+        constructorValues(brightness);
+        setAmountRow(ledMatrix.length);
+        setAmountLeds(ledMatrix[0].length);
+    }
 
     @Override
     public void close() {
@@ -141,5 +149,29 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
 
     public void setAmountLeds(int amountLeds) {
         this.amountLeds = amountLeds;
+    }
+
+    public void constructorValues(double brightness){
+        minHeight(400);
+        minWidth(400);
+        setTitle("LED Matrix");
+
+        //compare skin amountRow and numRow from constructor. initGraphics to defined numRow
+        if(skin.getAmountRow() != amountRow){
+            skin.setAmountRow(amountRow);
+        }
+        skin.initGraphics();
+        setBrightness(brightness);
+        setSkin(skin);
+    }
+
+    public int findTotalLength(int[][] array)
+    {
+        int sum = 0;
+        for (int[] subArray : array)
+        {
+            sum += subArray.length;
+        }
+        return sum;
     }
 }

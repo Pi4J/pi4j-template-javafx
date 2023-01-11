@@ -2,6 +2,7 @@ package com.pi4j.components.tiles;
 
 import com.pi4j.components.interfaces.LEDStripInterface;
 import com.pi4j.components.tiles.Skins.LEDStripSkin;
+import com.pi4j.context.Context;
 import javafx.scene.paint.Color;
 
 import java.util.Arrays;
@@ -20,14 +21,17 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
      */
     private double brightness;
 
-    public LedStripTile(int numLEDs, double brightness, String pin){
-        minHeight(400);
-        minWidth(400);
-        setTitle("LED Strip");
-        setText("Pin "+pin);
-        setSkin(ledstrip);
+    public LedStripTile(Context pi4j, int numLEDs, double brightness, int channel){
+        constructorValues(brightness);
+        setText("Channel: "+channel);
         LEDs = new int[numLEDs];
-        setBrightness(brightness);
+
+    }
+
+    public LedStripTile(Context pi4j, int numLEDs, double brightness, int[] leDs) {
+        constructorValues(brightness);
+        LEDs = new int[numLEDs];
+
     }
 
 
@@ -101,5 +105,13 @@ public class LedStripTile extends Pi4JTile implements LEDStripInterface {
             throw new IllegalArgumentException("Illegal Brightness Value. Must be between 0 and 1");
         }
         this.brightness = brightness;
+    }
+
+    public void constructorValues(double brightness){
+        minHeight(400);
+        minWidth(400);
+        setTitle("LED Strip");
+        setSkin(ledstrip);
+        setBrightness(brightness);
     }
 }

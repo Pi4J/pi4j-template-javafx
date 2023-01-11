@@ -3,6 +3,7 @@ package com.pi4j.components.tiles;
 import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.LEDButtonInterface;
 import com.pi4j.components.tiles.Skins.LedButtonSkin;
+import com.pi4j.context.Context;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -36,40 +37,12 @@ public class LedButtonTile extends Pi4JTile implements LEDButtonInterface {
         }
     };
 
-    public LedButtonTile(PIN pin1, PIN pin2) {
-        minHeight(400);
-        minWidth(400);
-        setTitle("LED Button");
-        setText("Pin "+ pin1.getPin()+", "+pin2.getPin());
-        setSkin(ledButtonSkin);
+    public LedButtonTile(Context pi4J, PIN pin1, PIN pin2) {
+        constructorValues(pin1,pin2);
+    }
 
-        ledButtonSkin.getLed().setOnMousePressed(mouseEvent -> {
-
-            //Run onDown Runnable, falls Wert nicht Null
-            if (onDown != null) {
-                onDown.run();
-                isDown = true;
-            }
-
-            //Läuft whilePressedWorker Runnable, falls Wert nicht Null
-            if (btnwhilePressed != null) {
-                executor.submit(whilePressedWorker);
-            }
-        });
-
-        ledButtonSkin.getLed().setOnMouseReleased(mouseEvent -> {
-            if (isDown) {
-                onUp.run();
-                isDown = false;
-            }
-        });
-
-        ledButtonSkin.getLed().setOnMouseExited(mouseEvent -> {
-            if (isDown) {
-                onUp.run();
-                isDown = false;
-            }
-        });
+    public LedButtonTile(Context pi4J,PIN pin1, PIN pin2, long debounce) {
+        constructorValues(pin1,pin2);
     }
 
     // Setzt den aktuellen Thread mit dem Wert des gegebenen Parameter (in Millisekunden) zu Schlaf
@@ -107,5 +80,42 @@ public class LedButtonTile extends Pi4JTile implements LEDButtonInterface {
         this.btnwhilePressed = method;
         this.whilePressedDelay = millis;
 
+    }
+
+    public void constructorValues(PIN pin1, PIN pin2){
+        minHeight(400);
+        minWidth(400);
+        setTitle("LED Button");
+        setText("Pin "+ pin1.getPin()+", "+pin2.getPin());
+        setSkin(ledButtonSkin);
+
+
+        ledButtonSkin.getLed().setOnMousePressed(mouseEvent -> {
+
+            //Run onDown Runnable, falls Wert nicht Null
+            if (onDown != null) {
+                onDown.run();
+                isDown = true;
+            }
+
+            //Läuft whilePressedWorker Runnable, falls Wert nicht Null
+            if (btnwhilePressed != null) {
+                executor.submit(whilePressedWorker);
+            }
+        });
+
+        ledButtonSkin.getLed().setOnMouseReleased(mouseEvent -> {
+            if (isDown) {
+                onUp.run();
+                isDown = false;
+            }
+        });
+
+        ledButtonSkin.getLed().setOnMouseExited(mouseEvent -> {
+            if (isDown) {
+                onUp.run();
+                isDown = false;
+            }
+        });
     }
 }

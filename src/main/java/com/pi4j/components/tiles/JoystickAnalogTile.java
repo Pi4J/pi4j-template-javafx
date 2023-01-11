@@ -1,9 +1,12 @@
 package com.pi4j.components.tiles;
 
 import com.pi4j.components.components.Ads1115;
+import com.pi4j.components.components.Potentiometer;
+import com.pi4j.components.components.SimpleButton;
 import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.JoystickAnalogInterface;
 import com.pi4j.components.tiles.Skins.JoystickAnalogSkin;
+import com.pi4j.context.Context;
 import javafx.scene.input.KeyCode;
 
 import java.util.concurrent.ExecutorService;
@@ -46,75 +49,22 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
 
     JoystickAnalogSkin jASkin = new JoystickAnalogSkin(this);
 
-    public JoystickAnalogTile(PIN pin, String ads_address) {
-        minHeight(400);
-        minWidth(400);
-        setNormX(0.0);
-        setNormY(0.0);
-        setTitle("JoystickAnalog");
-        setText("Pin "+pin.getPin()+", ADS: "+ads_address);
-        setDescription("X/Y: ("+String.format("%.2f", getNormX())+"/"+String.format("%.2f", getNormY())+")");
-        setSkin(jASkin);
 
-        jASkin.getButton().setOnMousePressed(mouseEvent -> {
-            xStart = mouseEvent.getSceneX() - jASkin.getButton().getTranslateX();
-            yStart = mouseEvent.getSceneY() - jASkin.getButton().getTranslateY();
-        });
-
-        jASkin.getButton().setOnMouseDragged(mouseEvent -> {
-            // Radius of the border
-            double border = jASkin.getBorder().getRadius();
-
-            if ( mouseEvent.getSceneX()-xStart < border
-                && mouseEvent.getSceneX()-xStart > -border
-                && mouseEvent.getSceneY()-yStart < border
-                && mouseEvent.getSceneY()-yStart > -border) {
-                jASkin.getButton().setTranslateX(mouseEvent.getSceneX() - xStart);
-                jASkin.getButton().setTranslateY(mouseEvent.getSceneY() - yStart);
-                currentX = mouseEvent.getSceneX() - xStart;
-                currentY = mouseEvent.getSceneY() - yStart;
-                xOnMove.accept(currentX);
-                yOnMove.accept(currentY);
-            }
-
-        });
-
-        jASkin.getButton().setOnMouseReleased(mouseEvent -> {
-            jASkin.getButton().setTranslateX(jASkin.getInfoRegion().getWidth() * 0.5);
-            jASkin.getButton().setTranslateY(jASkin.getInfoRegion().getWidth() * 0.5);
-            currentX = jASkin.getInfoRegion().getWidth() * 0.5;
-            currentY = jASkin.getInfoRegion().getWidth() * 0.5;
-            xOnMove.accept(currentX);
-            yOnMove.accept(currentY);
-        });
-
-        //Run pushOnDown, when Key DOWN is pressed
-        setOnKeyPressed(keyEvent -> {
-            if(keyEvent.getCode() == KeyCode.DOWN) {
-                //Run onDown, when Value not Null
-                if (pushOnDown != null && !isDown) {
-                    pushOnDown.run();
-                    isDown = true;
-                }
-
-                //Run whilePressedWorker, when Value not Null
-                if (pushWhilePressed != null) {
-                    executor.submit(whilePressedWorker);
-                }
-            }
-        });
-
-        //Run pushOnUp, when Key DOWN is released
-        setOnKeyReleased(keyEvent -> {
-            if(keyEvent.getCode() == KeyCode.DOWN) {
-                //Run onDown Runnable, falls Wert nicht Null
-                if (pushOnUp != null && isDown) {
-                    pushOnUp.run();
-                    isDown = false;
-                }
-            }
-        });
+    public JoystickAnalogTile(Context pi4J, Ads1115 ads1115, int channelXAxis, int channelYAxis, double maxVoltage, boolean normalized0to1, PIN push) {
+        constructorValue();
+        setText("Pin "+push.getPin()+", Channel: "+channelXAxis+" / "+ channelYAxis+ ", MaxVoltage: "+maxVoltage);
     }
+
+    public JoystickAnalogTile(Context pi4j, Ads1115 ads1115, PIN push) {
+        constructorValue();
+        setText("Pin "+push.getPin());
+
+    }
+    public JoystickAnalogTile(Potentiometer potentiometerX, Potentiometer potentiometerY, boolean normalized0to1, SimpleButton push) {
+        constructorValue();
+        setText("");
+    }
+
 
     // Set current thread to sleep with given value (milliseconds)
     void delay(long milliseconds) {
@@ -209,6 +159,73 @@ public class JoystickAnalogTile extends Pi4JTile implements JoystickAnalogInterf
     }
 
     public void updatePos(){
-        setDescription("X/Y: ("+String.format("%.2f", getNormX())+"/"+String.format("%.2f", getNormY())+")");
+        setDescription("("+String.format("%.2f", getNormX())+"/"+String.format("%.2f", getNormY())+")");
+    }
+
+    public void constructorValue(){
+        setNormX(0.0);
+        setNormY(0.0);
+        setTitle("Joystick Analog");
+        setSkin(jASkin);
+        setDescription("("+String.format("%.2f", getNormX())+"/"+String.format("%.2f", getNormY())+")");
+
+        jASkin.getButton().setOnMousePressed(mouseEvent -> {
+            xStart = mouseEvent.getSceneX() - jASkin.getButton().getTranslateX();
+            yStart = mouseEvent.getSceneY() - jASkin.getButton().getTranslateY();
+        });
+
+        jASkin.getButton().setOnMouseDragged(mouseEvent -> {
+            // Radius of the border
+            double border = jASkin.getBorder().getRadius();
+
+            if ( mouseEvent.getSceneX()-xStart < border
+                && mouseEvent.getSceneX()-xStart > -border
+                && mouseEvent.getSceneY()-yStart < border
+                && mouseEvent.getSceneY()-yStart > -border) {
+                jASkin.getButton().setTranslateX(mouseEvent.getSceneX() - xStart);
+                jASkin.getButton().setTranslateY(mouseEvent.getSceneY() - yStart);
+                currentX = mouseEvent.getSceneX() - xStart;
+                currentY = mouseEvent.getSceneY() - yStart;
+                xOnMove.accept(currentX);
+                yOnMove.accept(currentY);
+            }
+
+        });
+
+        jASkin.getButton().setOnMouseReleased(mouseEvent -> {
+            jASkin.getButton().setTranslateX(jASkin.getInfoRegion().getWidth() * 0.5);
+            jASkin.getButton().setTranslateY(jASkin.getInfoRegion().getWidth() * 0.5);
+            currentX = jASkin.getInfoRegion().getWidth() * 0.5;
+            currentY = jASkin.getInfoRegion().getWidth() * 0.5;
+            xOnMove.accept(currentX);
+            yOnMove.accept(currentY);
+        });
+
+        //Run pushOnDown, when Key DOWN is pressed
+        setOnKeyPressed(keyEvent -> {
+            if(keyEvent.getCode() == KeyCode.DOWN) {
+                //Run onDown, when Value not Null
+                if (pushOnDown != null && !isDown) {
+                    pushOnDown.run();
+                    isDown = true;
+                }
+
+                //Run whilePressedWorker, when Value not Null
+                if (pushWhilePressed != null) {
+                    executor.submit(whilePressedWorker);
+                }
+            }
+        });
+
+        //Run pushOnUp, when Key DOWN is released
+        setOnKeyReleased(keyEvent -> {
+            if(keyEvent.getCode() == KeyCode.DOWN) {
+                //Run onDown Runnable, falls Wert nicht Null
+                if (pushOnUp != null && isDown) {
+                    pushOnUp.run();
+                    isDown = false;
+                }
+            }
+        });
     }
 }
