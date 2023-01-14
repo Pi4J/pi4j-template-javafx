@@ -86,6 +86,16 @@ public abstract class PuiBase<M, C extends ControllerBase<M>> implements Project
     }
 
     /**
+     * First step to register an observer.
+     *
+     * @param observableArray the value that should trigger some PUI-updates
+     * @return an Updater to specify what needs to be done whenever observableValue changes
+     */
+    protected <V> ArrayUpdater<V> onChangeOf(ObservableArray<V> observableArray) {
+        return new ArrayUpdater<>(observableArray);
+    }
+
+    /**
      * Second step to specify an observer.
      *
      * Use 'triggerPUIAction' to specify what needs to be done whenever the observed value changes
@@ -99,6 +109,24 @@ public abstract class PuiBase<M, C extends ControllerBase<M>> implements Project
 
         public void execute(ObservableValue.ValueChangeListener<V> action) {
             observableValue.onChange((oldValue, newValue) -> queue.submit(() -> {
+                action.update(oldValue, newValue);
+                return null;
+            }));
+        }
+    }
+
+    /**
+     * Second step to specify an observer.
+     *
+     * Use 'triggerPUIAction' to specify what needs to be done whenever the observed array changes
+     */
+    public class ArrayUpdater<V> {
+        private final ObservableArray<V> observableArray;
+
+        ArrayUpdater(ObservableArray<V> observableArray) { this.observableArray = observableArray; }
+
+        public void execute(ObservableArray.ValueChangeListener<V> action) {
+            observableArray.onChange((oldValue, newValue) -> queue.submit(() -> {
                 action.update(oldValue, newValue);
                 return null;
             }));

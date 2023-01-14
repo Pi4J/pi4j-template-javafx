@@ -46,6 +46,11 @@ public abstract class ControllerBase<M> {
     }
 
     /**
+     * If anything needs to be run once at startup from the controller
+     */
+    public void startUp(){}
+
+    /**
      * Schedule the given action for execution in strict order in external thread, asynchronously.
      *
      * onDone is called as soon as action is finished
@@ -123,8 +128,38 @@ public abstract class ControllerBase<M> {
         async(() -> observableValue.setValue(newValue));
     }
 
+    /**
+     * Even for setting values in the array the controller is responsible.
+     *
+     * No application specific class can access ObservableValue.setValues
+     *
+     * Values are set asynchronously.
+     */
+    protected <V> void setValues(ObservableArray<V> observableArray, V[] newValues){
+        async(() -> observableArray.setValues(newValues));
+    }
+
+    /**
+     * Even for setting a value in the array the controller is responsible.
+     *
+     * No application specific class can access ObservableValue.setValue
+     *
+     * Value is set asynchronously.
+     */
+    protected <V> void setValue(ObservableArray<V> observableArray, int position, V newValue){
+        async(() -> observableArray.setValue(position, newValue));
+    }
+
     protected <V> V get(ObservableValue<V> observableValue){
         return observableValue.getValue();
+    }
+
+    protected <V> V[] get(ObservableArray<V> observableArray){
+        return observableArray.getValues();
+    }
+
+    protected <V> V get(ObservableArray<V> observableArray, int position){
+        return observableArray.getValue(position);
     }
 
     /**
@@ -135,6 +170,13 @@ public abstract class ControllerBase<M> {
     }
 
     /**
+     * Convenience method to toggle a ObservableArray<Boolean> at position x
+     */
+    protected void toggle(ObservableArray<Boolean> observableArray, int position){
+        async(() -> observableArray.setValue(position, !observableArray.getValue(position)));
+    }
+
+    /**
      * Convenience method to increase a ObservableValue<Integer> by 1
      */
     protected void increase(ObservableValue<Integer> observableValue){
@@ -142,10 +184,24 @@ public abstract class ControllerBase<M> {
     }
 
     /**
+     * Convenience method to increase a ObservableArray<Integer> by 1 at position x
+     */
+    protected void increase(ObservableArray<Integer> observableArray, int position){
+        async(() -> observableArray.setValue(position, observableArray.getValue(position) + 1));
+    }
+
+    /**
      * Convenience method to decrease a ObservableValue<Integer> by 1
      */
     protected void decrease(ObservableValue<Integer> observableValue){
         async(() -> observableValue.setValue(observableValue.getValue() - 1));
+    }
+
+    /**
+     * Convenience method to decrease a ObservableArray<Integer> by 1 at position x
+     */
+    protected void decrease(ObservableArray<Integer> observableArray, int position){
+        async(() -> observableArray.setValue(position, observableArray.getValue(position) - 1));
     }
 
     /**
@@ -182,6 +238,10 @@ public abstract class ControllerBase<M> {
         return new Setter<V>(observableValue, value);
     }
 
+    protected <V> ArraySetter<V> set(ObservableArray<V> observableArray, V[] values){
+        return new ArraySetter<>(observableArray, values);
+    }
+
     protected static class Setter<V> {
         private final ObservableValue<V> observableValue;
         private final V                  value;
@@ -193,6 +253,20 @@ public abstract class ControllerBase<M> {
 
         void setValue() {
             observableValue.setValue(value);
+        }
+    }
+
+    protected static class ArraySetter<V> {
+        private final ObservableArray<V> observableArray;
+        private final V[]                  values;
+
+        private ArraySetter(ObservableArray<V> observableArray, V[] values) {
+            this.observableArray = observableArray;
+            this.values = values;
+        }
+
+        void setValue() {
+            observableArray.setValues(values);
         }
     }
 }

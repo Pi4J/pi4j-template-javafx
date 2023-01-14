@@ -55,4 +55,13 @@ interface Projector<M, C extends ControllerBase<M>> {
      */
 	default void setupModelToUiBindings(M model) {
 	}
+
+    /**
+     * At the Startup, this method gets called.
+     *
+     * Perfect, if a function in the controller or in the pui needs to be run exactly once.
+     */
+    default void startUp(C controller) {
+        controller.startUp();
+    }
 }
