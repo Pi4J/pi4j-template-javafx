@@ -8,9 +8,10 @@ import com.pi4j.mvc.util.Pi4JContext;
 import com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalInput;
 import org.junit.jupiter.api.Test;
 
+import com.pi4j.catalog.ComponentTest;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ExamplePUITest {
+public class ExamplePUITest extends ComponentTest {
 
     @Test
     void testLED() {

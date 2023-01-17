@@ -11,22 +11,37 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class SomeControllerTest {
 
     @Test
-    void testLedOn() {
+    void testActivate() {
         //given
         SomeModel      model      = new SomeModel();
         SomeController controller = new SomeController(model);
 
         //when
-        controller.ledOn();
+        controller.activate();
         controller.awaitCompletion();
 
         //then
-        assertTrue(model.ledGlows.getValue());
-        assertEquals(0, model.counter.getValue());
+        assertTrue(model.busy.getValue());
+        assertEquals(0, model.counter.getValue());  //counter is increased on  'deactivate'
     }
 
     @Test
-    void testLedOff() {
+    void testDeactivate() {
+        //given
+        SomeModel      model      = new SomeModel();
+        SomeController controller = new SomeController(model);
+
+        //when
+        controller.deactivate();
+        controller.awaitCompletion();
+
+        //then
+        assertFalse(model.busy.getValue()); //only busy on'activate'
+        assertEquals(1, model.counter.getValue());
+    }
+
+    @Test
+    void testIsNotBusyAndNotTerminated() {
         //given
         SomeModel      model      = new SomeModel();
         SomeController controller = new SomeController(model);
@@ -35,12 +50,12 @@ class SomeControllerTest {
 
         //when
         for (int i = 0; i < count; i++) {
-            controller.ledOff();
+            controller.deactivate();
         }
         controller.awaitCompletion();
 
         //then
-        assertFalse(model.ledGlows.getValue());
+        assertFalse(model.busy.getValue());
         assertEquals(count, model.counter.getValue());
     }
 
@@ -52,7 +67,7 @@ class SomeControllerTest {
 
         //when
         for (int i = 0; i < controller.terminationCount; i++) {
-            controller.ledOff();
+            controller.deactivate();
         }
         controller.awaitCompletion();
 
@@ -60,7 +75,7 @@ class SomeControllerTest {
         assertFalse(controller.terminateCalled);
 
         //when
-        controller.ledOff();
+        controller.deactivate();
         controller.awaitCompletion();
 
         //then

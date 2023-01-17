@@ -46,14 +46,14 @@ class ApplicationControllerTest {
         controller.awaitCompletion();
         
         //then
-        assertTrue(model.ledGlows.getValue());
+        assertTrue(model.isActive.getValue());
 
         //when
         controller.setLedGlows(false);
         controller.awaitCompletion();
 
         //then
-        assertFalse(model.ledGlows.getValue());
+        assertFalse(model.isActive.getValue());
     }
 
     @Test
@@ -63,7 +63,7 @@ class ApplicationControllerTest {
         ApplicationController controller = new ApplicationController(model);
 
         AtomicInteger counter = new AtomicInteger(-1);
-        model.ledGlows.onChange((oldValue, newValue) -> counter.getAndIncrement());
+        model.isActive.onChange((oldValue, newValue) -> counter.getAndIncrement());
 
         //when
         controller.blink();
@@ -71,7 +71,7 @@ class ApplicationControllerTest {
 
         //then
         assertEquals(8, counter.get());
-        assertFalse(model.ledGlows.getValue());
+        assertFalse(model.isActive.getValue());
     }
 
 }

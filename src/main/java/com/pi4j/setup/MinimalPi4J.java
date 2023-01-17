@@ -1,16 +1,14 @@
 package com.pi4j.setup;
 
 import java.time.Duration;
+import java.util.logging.Logger;
 
 import com.pi4j.Pi4J;
 import com.pi4j.io.gpio.digital.DigitalInput;
 import com.pi4j.io.gpio.digital.PullResistance;
-import com.pi4j.util.Console;
 
 /**
  * Minimal Example for accessing a Button via Pi4J.
- * <p>
- * The arcade consoles typically have just a number of buttons attached to the GPIO of Raspberry Pi, no LED or LCD displays for example.
  * <p>
  * In a RaspPi terminal the command  'gpio readall' will give you all the pin numbers in the different numbering schemes.
  * <p>
@@ -23,6 +21,8 @@ public class MinimalPi4J {
     private static final int PIN_BUTTON = 24;
 
     public static void main(String[] args) {
+        Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
         // ------------------------------------------------------------
         // Initialize the Pi4J Runtime Context
         // ------------------------------------------------------------
@@ -40,17 +40,15 @@ public class MinimalPi4J {
 
         final var pi4j = Pi4J.newAutoContext();
 
-        final var console = new Console();
-
         // Here we will create I/O interfaces for a (GPIO) digital input pin.
         final var buttonConfig = DigitalInput.newConfigBuilder(pi4j)
-                                       .id("BCM_" + PIN_BUTTON)
-                                       .name("Button")
-                                       .address(PIN_BUTTON)
-                                       .pull(PullResistance.PULL_DOWN)
-                                       .debounce(3000L)
-                                       .provider("pigpio-digital-input")
-                                       .build();  //don't forget to build the config
+                                                             .id("BCM_" + PIN_BUTTON)
+                                                             .name("Button")
+                                                             .address(PIN_BUTTON)
+                                                             .pull(PullResistance.PULL_DOWN)
+                                                             .debounce(3000L)
+                                                             .provider("pigpio-digital-input")
+                                                             .build();  //don't forget to build the config
 
 
         //create a DigitalInput for the given buttonConfig
@@ -59,14 +57,14 @@ public class MinimalPi4J {
         // specify some action, that will be triggered whenever the button's state changed
         button.addListener(e -> {
             switch (e.state()) {
-                case HIGH    -> console.println("Button was pressed!");
-                case LOW     -> console.println("Button was depressed!");
-                case UNKNOWN -> console.println("Something unknown happened!!");
-                default      -> console.println("if something else happens, it's a bug in Pi4J, this is the state '" + e.state() + "'");
+                case HIGH    -> logger.info("Button was pressed!");
+                case LOW     -> logger.info("Button was depressed!");
+                case UNKNOWN -> logger.info("Something unknown happened!!");
+                default      -> logger.info("if something else happens, it's a bug in Pi4J, this is the state '" + e.state() + "'");
             }
         });
 
-        console.println("Press the button to see it in action!");
+        logger.info("Press the button to see it in action!");
 
         // Wait for 15 seconds while handling events before exiting
         delay(Duration.ofSeconds(15));
@@ -82,7 +80,8 @@ public class MinimalPi4J {
         // threads/processes are cleanly shutdown and any used memory
         // is returned to the system.
 
-        console.goodbye();
+        logger.info("Goodbye!");
+
         pi4j.shutdown();
     }
 

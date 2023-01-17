@@ -19,7 +19,7 @@ class SomePUITest {
          SomePUI        pui        = new SomePUI(controller, Pi4JContext.createMockContext());
  
          //when
-         controller.ledOn();
+         controller.activate();
          controller.awaitCompletion();
          pui.awaitCompletion();
  
@@ -27,7 +27,7 @@ class SomePUITest {
          assertTrue(pui.led.getDigitalOutput().isOn());
  
          //when
-         controller.ledOff();
+         controller.deactivate();
          controller.awaitCompletion();
          pui.awaitCompletion();
  

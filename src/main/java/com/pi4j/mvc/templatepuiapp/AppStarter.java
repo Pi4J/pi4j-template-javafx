@@ -6,12 +6,7 @@ import com.pi4j.mvc.templatepuiapp.model.SomeModel;
 import com.pi4j.mvc.templatepuiapp.view.pui.SomePUI;
 import com.pi4j.mvc.util.Pi4JContext;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class AppStarter {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AppStarter.class);
 
     public static void main(String[] args) {
         Context pi4J = Pi4JContext.createContext();
@@ -19,7 +14,7 @@ public class AppStarter {
         SomeController controller = new SomeController(new SomeModel());
         new SomePUI(controller, pi4J);
 
-        LOGGER.info("App started");
+        System.out.println("App started");
 
         // This will ensure Pi4J is properly finished. All I/O instances are
         // released by the system and shutdown in the appropriate
@@ -29,7 +24,7 @@ public class AppStarter {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             controller.shutdown();
             pi4J.shutdown();
-            LOGGER.info("App stopped");
+            System.out.println("App stopped");
         }));
 
     }

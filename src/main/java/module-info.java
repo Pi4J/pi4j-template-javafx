@@ -5,17 +5,16 @@ open module com.pi4j.mvc {
     requires com.pi4j.plugin.pigpio;
     requires com.pi4j.plugin.raspberrypi;
     requires com.pi4j.plugin.mock;
+    requires com.pi4j.plugin.linuxfs;
     uses com.pi4j.extension.Extension;
     uses com.pi4j.provider.Provider;
 
     // for logging
-    requires org.slf4j;
-
+    requires java.logging;
 
     // JavaFX
     requires javafx.base;
     requires javafx.controls;
-    requires java.logging;
 
 
     // Module Exports

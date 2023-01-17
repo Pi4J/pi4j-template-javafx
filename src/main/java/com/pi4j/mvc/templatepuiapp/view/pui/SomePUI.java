@@ -27,15 +27,15 @@ public class SomePUI extends PuiBase<SomeModel, SomeController> {
     @Override
     public void setupUiToActionBindings(SomeController controller) {
         //always trigger a Controller action
-        button.onDown(controller::ledOn);
+        button.onDown(controller::activate);
 
         //don't call 'led.off()' here. You will miss the Controller logic (increase the terminationCounter and terminate)
-        button.onUp(controller::ledOff);
+        button.onUp(controller::deactivate);
     }
 
     @Override
     public void setupModelToUiBindings(SomeModel model) {
-        onChangeOf(model.ledGlows)
+        onChangeOf(model.busy)
                 .execute((oldValue, newValue) -> {
                     if (newValue) {
                         led.on();

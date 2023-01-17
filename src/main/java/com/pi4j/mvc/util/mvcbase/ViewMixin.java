@@ -1,14 +1,14 @@
 package com.pi4j.mvc.util.mvcbase;
 
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
-
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
 import javafx.scene.text.Font;
+
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * Use this interface for all of your GUI-parts to assure implementation consistency.

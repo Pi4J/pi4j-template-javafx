@@ -31,7 +31,7 @@ public class ExamplePUI extends PuiBase<ExampleModel, ApplicationController> {
 
     @Override
     public void setupModelToUiBindings(ExampleModel model) {
-        onChangeOf(model.ledGlows)
+        onChangeOf(model.isActive)
                 .execute((oldValue, newValue) -> {
                     if (newValue) {
                         led.on();

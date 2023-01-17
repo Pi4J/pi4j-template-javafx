@@ -10,13 +10,13 @@ import java.util.function.Supplier;
 
 /**
  * Base class for all Controllers.
- *
+ * <p>
  * The whole application logic is located in controller classes.
- *
+ * <p>
  * Controller classes work on and manage the Model. Models encapsulate the whole application state.
- *
+ * <p>
  * Controllers provide the whole core functionality of the application, so called 'Actions'
- *
+ * <p>
  * Execution of Actions is asynchronous. The sequence is kept stable, such that
  * for all actions A and B: if B is submitted after A, B will only be executed after A is finished.
  */
@@ -47,7 +47,7 @@ public abstract class ControllerBase<M> {
 
     /**
      * Schedule the given action for execution in strict order in external thread, asynchronously.
-     *
+     * <p>
      * onDone is called as soon as action is finished
      */
     protected void async(Supplier<M> action, Consumer<M> onDone) {
@@ -80,11 +80,11 @@ public abstract class ControllerBase<M> {
 
     /**
      * Intermediate solution for TestCase support.
-     *
+     * <p>
      * Best solution would be that 'action' of 'runLater' is executed on calling thread.
-     *
+     * <p>
      * Waits until all current actions in actionQueue are completed.
-     *
+     * <p>
      * In most cases it's wrong to call this method from within an application.
      */
     public void awaitCompletion(){
@@ -114,9 +114,9 @@ public abstract class ControllerBase<M> {
 
     /**
      * Even for setting a value the controller is responsible.
-     *
+     * <p>
      * No application specific class can access ObservableValue.setValue
-     *
+     * <p>
      * Value is set asynchronously.
      */
     protected <V> void setValue(ObservableValue<V> observableValue, V newValue){
@@ -130,27 +130,27 @@ public abstract class ControllerBase<M> {
     /**
      * Convenience method to toggle a ObservableValue<Boolean>
      */
-    protected void toggle(ObservableValue<Boolean> observableValue){
+    protected void toggleValue(ObservableValue<Boolean> observableValue){
         async(() -> observableValue.setValue(!observableValue.getValue()));
     }
 
     /**
      * Convenience method to increase a ObservableValue<Integer> by 1
      */
-    protected void increase(ObservableValue<Integer> observableValue){
+    protected void increaseValue(ObservableValue<Integer> observableValue){
         async(() -> observableValue.setValue(observableValue.getValue() + 1));
     }
 
     /**
      * Convenience method to decrease a ObservableValue<Integer> by 1
      */
-    protected void decrease(ObservableValue<Integer> observableValue){
+    protected void decreaseValue(ObservableValue<Integer> observableValue){
         async(() -> observableValue.setValue(observableValue.getValue() - 1));
     }
 
     /**
      * Utility function to pause execution of actions for the specified amount of time.
-     *
+     * <p>
      * An {@link InterruptedException} will be catched and ignored while setting the interrupt flag again.
      *
      * @param duration time to sleep
@@ -167,8 +167,8 @@ public abstract class ControllerBase<M> {
 
     /**
      * Use this if you need to update several ObservableValues in one async call.
-     *
-     * Use 'set' to get an appropriate Setter
+     * <p>
+     * Use 'set', 'increase', 'decrease' or 'toggle' to get an appropriate Setter
      */
     protected void updateModel(Setter<?>... setters){
         async(() -> {
@@ -179,20 +179,34 @@ public abstract class ControllerBase<M> {
     }
 
     protected <V> Setter<V> set(ObservableValue<V> observableValue, V value){
-        return new Setter<V>(observableValue, value);
+        return new Setter<>(observableValue, () -> value);
+    }
+
+    protected Setter<Integer> increase(ObservableValue<Integer> observableValue){
+        return new Setter<>(observableValue, () -> get(observableValue) + 1);
+    }
+
+    protected Setter<Integer> decrease(ObservableValue<Integer> observableValue){
+        return new Setter<>(observableValue, () -> get(observableValue) - 1);
+    }
+
+    protected Setter<Boolean> toggle(ObservableValue<Boolean> observableValue){
+        return new Setter<>(observableValue, () -> !get(observableValue));
     }
 
     protected static class Setter<V> {
         private final ObservableValue<V> observableValue;
-        private final V                  value;
 
-        private Setter(ObservableValue<V> observableValue, V value) {
+        // supplier is used here to get the value at execution time and not at registration time
+        private final Supplier<V> valueSupplier;
+
+        private Setter(ObservableValue<V> observableValue, Supplier<V> valueSupplier) {
             this.observableValue = observableValue;
-            this.value = value;
+            this.valueSupplier   = valueSupplier;
         }
 
         void setValue() {
-            observableValue.setValue(value);
+            observableValue.setValue(valueSupplier.get());
         }
     }
 }

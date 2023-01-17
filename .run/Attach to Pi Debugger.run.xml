@@ -16,7 +16,7 @@
           </option>
           <option name="passParentEnv" value="true" />
           <option name="runMavenInBackground" value="true" />
-          <option name="skipTests" value="false" />
+          <option name="skipTests" value="true" />
           <option name="vmOptions" value="" />
         </MavenRunnerSettings>
       </option>
@@ -33,8 +33,8 @@
           <option name="pomFileName" value="pom.xml" />
           <option name="profilesMap">
             <map>
-              <entry key="jfx-remote-run-X11" value="true" />
               <entry key="debug" value="true" />
+              <entry key="jfx-remote-run-X11" value="true" />
             </map>
           </option>
           <option name="resolveToWorkspace" value="false" />
