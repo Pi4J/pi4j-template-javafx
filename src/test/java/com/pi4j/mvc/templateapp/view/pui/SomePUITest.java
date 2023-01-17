@@ -7,13 +7,14 @@ import com.pi4j.mvc.util.Pi4JContext;
 
 import com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalInput;
 import org.junit.jupiter.api.Test;
+import com.pi4j.catalog.ComponentTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-class SomePUITest {
+class SomePUITest extends ComponentTest {
     @Test
      void testLED() {
          //given

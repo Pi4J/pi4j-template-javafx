@@ -1,379 +1,371 @@
 ![FHNW](assets/FHNW.png)
 
-# Pi4J Applikationen mit JavaFX-basiertem GUI
+[Deutsche Beschreibung ist hier.](README_DE.md)
 
-[![Contributors](https://img.shields.io/github/contributors/DieterHolz/RaspPiFX-Template-Project)](https://github.com/DieterHolz/RaspPiFX-Template-Project/graphs/contributors)
-[![License](https://img.shields.io/github/license/DieterHolz/RaspPiFX-Template-Project)](https://github.com/DieterHolz/RaspPiFX-Template-Project/blob/master/LICENSE)
+# Pi4J Applications with JavaFX based GUI
 
-Dieses Template Projekt wird für die Programmierausbildung an der [Fachhochschule Nordwestschweiz](https://www.fhnw.ch/en/degree-programmes/engineering/icompetence) (FHNW) eingesetzt.
+[![Contributors](https://img.shields.io/github/contributors/Pi4J/pi4j-template-javafx)](https://github.com/Pi4J/pi4j-template-javafx/graphs/contributors)
+[![License](https://img.shields.io/github/license/Pi4J/pi4j-template-javafx)](https://github.com/Pi4J/pi4j-template-javafx/blob/master/LICENSE)
 
-Natürlich ist es auch für Programmierprojekte ausserhalb der FHNW geeignet. Einige Beschreibungen sind jedoch FHNW-spezifisch.
+## Create a repository
 
-## Eigenes Repository anlegen
+This repository should not be cloned directly. This is a template project and one should create their own project by using the `Use this template` Button.
 
-Sie sollten für Ihr Programmier-Projekt auf keinen Fall direkt auf diesem Repository arbeiten. Stattdessen sollten Sie ein eigenes Repository anlegen, entweder unter Ihrem FHNW GitLab- oder GitHub-Account und dieses Template-Respository als "Quelle" importieren.
+## Prepare Raspberry Pi
 
-#### FHNW GitLab
-
-Auf Ihrem GitLab-Account via
-
-`New Project -> Import Project -> Repo by URL`
-
-das Formular ausfüllen, mit `Git repository URL` :
-
-`https://github.com/DieterHolz/RaspPiFX-Template-Project.git`
-
-#### GitHub
-
-`Use this template`-Button dieses Repositories verwenden.
-
-## Raspberry Pi vorbereiten
-
-Verwenden Sie das vom [Pi4J-Team](https://github.com/Pi4J/pi4j-os) vorbereitete CrowPi-Image.
+Use the CrowPi image from [Pi4J-Team](https://github.com/Pi4J/pi4j-os)
 
 - [Download CrowPi Image](https://pi4j-download.com/crowpi-main.img.zip)
-- zip-File auspacken, mit [Raspberry Pi Imager](https://www.raspberrypi.org/blog/raspberry-pi-imager-imaging-utility/) eine SD-Card bespielen und damit den Raspberry Pi starten
+- Extract the ZIP file
+- Use the [Raspberry Pi Imager](https://www.raspberrypi.org/blog/raspberry-pi-imager-imaging-utility/) to write the image to an SD-Card
+- Start the Raspberry Pi with this SD-Card
 
-Das CrowPi-Image enthält bereits alle notwendige Installationen für JavaFX/Pi4J-Applikationen.
+The CrowPi image contains all the necessary packages and software for JavaFX/Pi4j applications.
 
-## Installationen auf dem Entwickler-Laptop
+## Preparing a developer computer
 
-* [Java 17](https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot). Im CrowPi-Image ist JDK17 installiert. Daher verwenden wir diesen JDK auch auf dem Laptop. Hinweis für Mac-Benutzer: Die Verwendung von SDKMAN (s.u.) für die Installation und die Verwaltung von JDKs ist sehr empfehlenswert.
-* [IntelliJ IDEA 2022.2.3](https://www.jetbrains.com/idea/download/). Es ist wichtig, diese neueste Version zu verwenden. Am besten via [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/) installieren. Empfehlenswert ist die Verwendung der Ultimate Edition. Studierende erhalten, nach Anmeldung, eine kostenlose Lizenz. Registrieren Sie sich unter [https://www.jetbrains.com/student/](https://www.jetbrains.com/student/) mit Ihrer FHNW E-Mail-Adresse. Für die Community-Edition benötigt man keine Lizenz.
-* [Git](https://git-scm.com/downloads). Als Sourcecode-Repository verwenden wir git.
-* [GitLab](https://gitlab.fhnw.ch/) oder [GitHub-Account](https://github.com/). Verwenden Sie ihren FHNW Gitlab oder GitHub Account.
-* `ssh`. Die Verbindung zum Raspberry Pi wird mit `ssh` hergestellt. Ist normalerweise auf allen Laptops vorinstalliert.
-* [VNC Viewer](https://www.realvnc.com/en/connect/download/viewer/). Ermöglicht ein komfortables Arbeiten auf dem Raspberry Pi vom Laptop aus. Dadurch spart man sich das Anschliessen von Monitor, Tastatur und Maus direkt am Raspberry Pi.
+* [Java 17](https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot). The CrowPi image uses JDK17, thus the developer computer should use the same. Note for Linux and Mac users: The usage of SDKMAN is recommended for the management of JDKs.
+* [IntelliJ IDEA](https://www.jetbrains.com/idea/download/).
+* Using the latest version is important. Installing via [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/) is recommended. The Ultimate Edition is also recommended.
+* [Git](https://git-scm.com/downloads). The source code repository is a git repository
+* `ssh`. The connection to the Raspberry Pi is done using `ssh`. Most computers have SSH preinstalled.
+* [VNC Viewer](https://www.realvnc.com/en/connect/download/viewer/). A VNC Viewer allows for comfortable access to the Raspberry Pi's desktop, without the need of physically connecting monitor, keyboard and mouse to the Raspberry Pi.
 
-## Empfehlung zur Installation des JDK für MacOS (und Linux)
+## Recommendation for installing the JDK on Linux and MacOS
 
-Für MacOs und Linux gibt es ein sehr empfehlenswertes Tool zur Verwaltung unterschiedlicher Software Development Kits: [SDKMAN](https://sdkman.io)
+[SDKMAN](https://sdkman.io) is an ideal tool for managing JDK versions and other development tools on Linux and MacOS.
 
-Insbesondere wenn, wie üblich, mehrere Java JDKs verwendet werden, hilft SDKMAN.
+#### Installing SDKMAN
 
-#### Installation von SDKMAN
-
-Folgenden Befehl in einem Terminal eingeben:
+Enter the following command in a terminal:
 
 ```shell
 export SDKMAN_DIR="$HOME/sdkman" && curl -s "https://get.sdkman.io" | bash
 ```
 
-Falls Sie SDKMAN bereits früher installiert haben, müssen Sie SDKMAN auf den neuesten Stand bringen:
+If SDKMAN has already been installed, it can be updated with the following command:
 
 ```shell
 sdk update
 ```
 
-#### Installation des JDK
+Note: After installing it might be necessary to close and open the terminal for the SDKMAN command `sdk` to be accessible.
 
-In einem neuen Terminal-Window diesen Befehl eingeben:
+#### Installation of the JDK
+
+In a new terminal window, enter the following command:
 
 ```shell
-sdk install java 17.0.5-tem
+sdk install java 17.0.4-tem
 ```
 
-Danach liegt der JDK in ihrer Home-Directory im Folder `sdkman/candidates/java`. Von dort können Sie es dann in IntelliJ als neues SDK anlegen und im Projekt verwenden.
+This installs the JDK in your home directory `sdkman/candidates/java`. It can then be used from this directory in IntelliJ.
 
-Mit:
+The following command lists which JDKs are available for installation:
 
 ```shell
 sdk ls java
 ```
 
-können Sie sich auflisten lassen, welche anderen JDKs zur Installation zur Verfügung stehen.
+## Validate Java Version
 
-## Java Version überprüfen
-
-In einem Terminal-Window eingeben
+Enter the following command in a new terminal:
 
 ```shell
 java -version
 ```
 
-Das sollte diese Ausgabe erzeugen
+The resulting output should be similar to the following:
 
 ```shell
-openjdk version "17.0.5" 2022-10-18
-OpenJDK Runtime Environment Temurin-17.0.5+8 (build 17.0.5+8)
-OpenJDK 64-Bit Server VM Temurin-17.0.5+8 (build 17.0.5+8, mixed mode)
+openjdk version "17.0.4" 2022-07-19
+OpenJDK Runtime Environment Temurin-17.0.4+8 (build 17.0.4+8)
+OpenJDK 64-Bit Server VM Temurin-17.0.4+8 (build 17.0.4+8, mixed mode)
 ```
 
-Falls das nicht der Fall ist, muss der Default-JDK umgestellt werden. Mit SDKMAN geht das einfach:
+Should JDK 17.x not be the default, then it can be changed with the following command:
 
 ```shell
-sdk default java 17.0.5-tem
+sdk default java 17.0.4-tem
 ```
 
-## Verbindung zum Raspberry Pi herstellen
+## Connect to the Raspberry Pi
 
-Der Laptop und der Raspberry Pi müssen das gleiche WLAN verwenden.
+The developer computer and the Raspberry Pi must be on the same WLAN.
 
-Eine einfache Variante, dies sicherzustellen, ist das Aufsetzen eines Hotspots auf einem Smartphone, idealerweise mit diesen Parametern:
+A simple solution for this is to create a Hotspot with a smartphone. For instance with these parameters:
 
-- ssid: `Pi4J-Spot`
-- password: `MayTheSourceBeWithYou!`
+* SSID: `Pi4J-Spot`
+* Password: `MayTheSourceBeWithYou!`
 
-Auf diesen Hotspot connected sich der RaspPi mit dem CrowPi-Image automatisch und zeigt die IP-Nummer im Hintergrundbild an.
+The CrowPi image is configured to automatically connect to this hotspot and shows its IP address in the background image.
 
-Den Laptop ebenfalls mit dem Pi4J-Spot verbinden.
+Connect your developer PC also to the hotspot `Pi4J-Spot`.
 
-#### Verbindung via SSH
+#### Connecting via SSH
 
-In einem Terminal-Window des Laptops:
+Enter the following in a terminal of the developer computer:
 
 ```shell
 ssh pi@<ip.number>
 Passwort: 'crowpi'
 ```
 
-z.B.
+e.g.:
 
 ```shell
 ssh pi@192.168.183.86
 Passwort: 'crowpi'
 ```
 
-#### Verbindung via VNC
+If your Raspberry Pi is the only one connected to your hotspot, you can use `crowpi.local` instead of the ip-number.
 
-Mit derselben IP-Nummer kann auch via VNC auf den RaspPi zugegriffen werden. Man erhält auf dem Laptop ein Fenster, das den kompletten Desktop des Raspberry Pis anzeigt.
+```shell
+ssh pi@crowpi.local
+Passwort: 'crowpi'
+```
 
-Das Ganze sieht dann so aus (mit der gestarteten ExampleApp)
+#### Connecting via VNC
+
+Using the same IP address (or `crowpi.local`) a VNC connection to the Raspberry Pi can be made. The VNC client shows a window which gives access to the entire desktop of the Raspberry Pi.
+
+The following shows an example session with the started ExampleApp:
 
 ![VNC Viewer](assets/VNC_Viewer.png)
 
 ## Build System
 
-Dieses Projekt verwendet Maven, um die Applikationen zu bauen und entweder lokal auf dem Laptop oder auf dem Raspberry Pi auszuführen.
+This project uses Apache Maven for building the projects. Building can be done either locally on your developer computer or on the Raspberry Pi.
 
-Die Artefakte werden dabei auf dem Laptop gebaut, anschliessend auf den Raspberry Pi kopiert und dort gestartet. Die Entwicklung direkt auf dem Raspberry Pi ist zwar ebenfalls möglich, wird aber nicht empfohlen. Besser ist es, die Applikation auf dem Laptop zu entwickeln und sie auf dem Raspberry Pi lediglich ausführen zu lassen.
+During a local build, the resulting artifacts are copied to the Raspberry Pi and then started there. Development *can* be done on the Raspberry Pi, but is not recommended. It is far more comfortable to do development on your local development computer and then run the application on the Raspberry Pi.
 
-Dazu müssen nur wenige Konfigurationen verändert werden.
+To build locally and run on the Raspberry Pi, a few configuration changes are needed.
 
-#### Einstellungen im `pom.xml`
+#### Configuration in `pom.xml`
 
-- `launcher.class` **(required):** gibt an, welche Applikation gestartet werden soll. Im `pom.xml` ist bereits eine Liste von Kandidaten enthalten. Man muss nur bei der jeweils gewünschte Applikation die Kommentare entfernen.
-- `pi.ipnumber` **(optional):** Die aktuelle IP-Nummer des Raspberry Pi, z.B. `192.168.1.2`, wird für SCP/SSH benötigt.
+- `launcher.class` **(required):** defines which application to start. The `pom.xml` already contains a lists of candidates, simply uncomment the desired application, commenting out the rest.
+- `pi.ipnumber` **(optional):** The current IP of the Raspberry Pi, e.g. `192.168.1.2`, is used for SCP/SSH.
 
-Mit diesen Einstellungen kann die Applikation mittels Maven-Befehl auf dem Raspberry Pi gestartet werden. Besser ist es jedoch, die Run-Konfigurationen von IntelliJ zu verwenden.
+With these changes the application can be started through a Maven command on the Raspberry Pi. A more comfortable method is using IntelliJ run configurations.
 
-#### Einstellungen in den Run-Konfigurationen
+#### Configuration of the IntelliJ run configurations
 
-Im Projekt sind insgesamt vier Run-Konfigurationen vordefiniert, zwei zum Starten der Applikation, zwei zum Debuggen der Applikation auf dem RaspPi.
+Four run configurations are already predefined. Two for starting the project, either locally or remote, and two for debugging the application on the Raspberry Pi.
 
-- `Run Local` startet das Programm, das in `launcher.class` eingestellt wurde, auf dem Laptop. Wird vor allem während der GUI-Entwicklung gebraucht (also noch ohne die Verwendung von an den Raspberry Pi angeschlossenen Sensoren und Aktuatoren).
-- `Run on Pi` startet das Programm auf dem Raspberry Pi.
-- `Debug on Pi` startet das Programm auf dem Raspberry Pi im Debug-Modus.
-- `Attach to Pi Debugger` verbindet die IDE des Laptops mit dem via `Debug on Pi` gestarteten Programm.
+- `Run Local` starts the program defined in `launcher.class` on the developer computer. This is used especially for GUI development, thus without access to the sensors and actuators attached to the Raspberry Pi.
+- `Run on Pi` starts the program on the Raspberry Pi.
+- `Debug on Pi` starts the program on the Raspberry Pi im debug mode.
+- `Attach to Pi Debugger` connects IntelliJ on the developer computer with the application already running through `Debug on Pi`.
 
-In `Run on Pi` und `Debug on Pi` muss die IP-Adresse des RaspPi eingestellt werden. Dazu  `Edit Configurations` wählen.
+For `Run on Pi` and `Debug on Pi` the IP address of the Raspberry Pi must be configured. To configure the IP, open `Edit Configurations`.
 
 ![Edit Configurations ...](assets/edit-configurations.png)
 
-Für beide Run Konfigurationen unter `Properties` die `pi.ipnumber` auf die IP-Adresse des RaspPis setzen.
+For both run configurations set `pi.ipnumber` under `Properties`
 
-Falls der RaspPi als einziger im ausgewählten WLAN angemeldet ist, kann anstatt der IP-Nummer auch `crowpi.local` eingetragen werden.
+If the Raspberry Pi is the only device connected to the designated WLAN, then one can use `crowpi.local`.
 
 ![Einstellungen für Run on Pi und Debug on Pi](assets/run-configurations.png)
 
-Analog in `Attach to Pi Debugger` unter `Host` ebenfalls die IP-Nummer des RaspPis eintragen.
+Also change the IP address in `Attach to Pi Debugger` under `Host`.
 
 ![Einstellungen für Attach to Pi Debugger](assets/attach_to_debugger.png)
 
-## Die enthaltenen Beispiel-Programme
+## The example applications
 
 #### HelloFX
 
-Dient ausschliesslich der Überprüfung der JavaFX-Basis-Installation. Auf keinen Fall als Vorlage für die eigenen JavaFX-Applikationen verwenden.
+Used only to test if the JavaFX libraries are installed correctly. Should not be used as a template for one's own JavaFX applications.
 
-Zum Starten:
+To start:
 
-- `launcher.class` im `pom.xml` auswählen
+- Set `launcher.class` in `pom.xml`:
   - `<launcher.class>com.pi4j.mvc/com.pi4j.setup.HelloFX</launcher.class>`
-- mit `Run local` auf dem Laptop starten
-- mit `Run on Pi` auf dem RaspPi starten
+- With `Run local` starts locally on the developer computer
+- With `Run on Pi` starts remotely on the Raspberry Pi
 
-Sobald der JavaFX-Setup überprüft ist, kann HelloFX gelöscht werden.
+Once the JavaFX setup has been tested, HelloFX can be deleted.
 
 #### Wiring
 
-Die beiden anderen Beispielprogramme verwenden eine LED und einen Button. Diese müssen folgendermassen verdrahtet werden:
+The other example applications use an LED and a button. These must be wired as is shown in the following diagram:
 
 ![Wiring](assets/led-button_bb.png)
 
 #### MinimalPi4J
 
-Ist eine reine Pi4J-Applikation ohne GUI. Auch sie dient ausschliesslich der Überprüfung des Setups.
+The MinimalPi4j application is a Pi4j only application without a GUI. This application is also only used to test the setup and can be deleted after testing.
 
-Zum Starten:
+To start:
 
-- `launcher.class` im `pom.xml` auswählen
+- Set `launcher.class` in `pom.xml`:
   - `<launcher.class>com.pi4j.mvc/com.pi4j.setup.MinimalPi4J</launcher.class> `
-- `Run local` macht für dieses Beispiel keinen Sinn. An den Laptop sind weder Button noch LED angeschlossen
-- mit `Run on Pi` auf dem RaspPi starten
+- `Run local` does not make sense for this example, as no LEDs or buttons are connected to the local development computer.
+- With `Run on Pi` starts remotely on the Raspberry Pi
 
-Wenn der Button gedrückt wird, wird eine entsprechende Meldung auf dem Bildschirm ausgegeben.
+Pressing the button should generate a message in the console.
 
-Sobald der Pi4J-Setup überprüft ist, kann MinimalPi4J gelöscht werden.
+Once the Pi4J setup has been tested, MinimalPi4J can be deleted.
 
 #### TemplateApp
 
-Sie zeigt das Zusammenspiel eines JavaFX-basiertes Graphical-User-Interfaces (GUI) mit an den RaspPi angeschlossenen Sensoren und Aktuatoren, dem Physical-User-Interface (PUI).
+This application shows the interaction between a JavaFX based Graphical User Interface (GUI) and the Raspberry Pi connected sensors and actuators, the Physical User Interface (PUI).
 
-Es dient als Vorlage für Ihre eigene Applikation. Das umfasst auch die enthaltenen TestCases.
+This application is to be used as a template for one's own applications. This includes the existing test cases.
 
-Sie sollten zunächst das Beispiel kennenlernen und verstehen. Für Ihre eigene Applikation sollten Sie anschliessend die `TemplateApp kopieren und entsprechend abändern, ohne dabei die Grundregeln des MVC-Konzepts zu verletzen (s.u.).
+You should first get to know and understand the example. For your own applications you should then copy the `TemplateApp` and modify it for your project, however without violating the rules of the MVC concept, which is described below.
 
-Zum Starten:
+To start:
 
-- `launcher.class` im `pom.xml` auswählen
+- Set `launcher.class` in `pom.xml`:
   - `<launcher.class>com.pi4j.mvc/com.pi4j.mvc.templateapp.AppStarter</launcher.class>`
-- mit `Run local` (oder direkt aus der IDE heraus) auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz des RaspPis entwickelt werden
-  - in `AppStarter` kann zusätzlich noch ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
-- mit `Run on Pi` auf dem RaspPi starten (jetzt natürlich inklusive PUI)
+- With `Run local` (or directly from the IDE) starts locally on the development computer. Useful for the GUI development. The PUI is not available on the local computer. The GUI can largely be developed without the need for a Raspberry Pi.
+  - in `AppStarter` a simple `PuiEmulator` can be started, so that the interaction between GUI and PUI can also be tested on the local development computer.
+- With `Run on Pi` starts remotely on the Raspberry Pi (now including the PUI)
 
 #### TemplatePUIApp
 
-Das MVC-Konzept sollte auch für Applikationen ohne GUI verwendet werden.
+The MVC concept should also be used for applications without a GUI.
 
-Falls Sie eine reine PUI-Applikation entwickeln oder erst später ein GUI hinzufügen wollen, sollten Sie die `TemplatePUIApp` als Vorlage nehmen.
+When developing PUI only applications, or when adding the GUI later, then one should use the `TemplatePUIApp` as template.
 
-Zum Starten:
+To start:
 
-- `launcher.class` im `pom.xml` auswählen
+- Set `launcher.class` in `pom.xml`:
   - `<launcher.class>com.pi4j.mvc/com.pi4j.mvc.templatepuiapp.AppStarter</launcher.class>`
-- `Run local` ist bei reinen PUI-Applikationen nicht sinnvoll
-- mit `Run on Pi` auf dem RaspPi starten
+- `Run local` makes no sense for PUI only applications
+- With `Run on Pi` starts remotely on the Raspberry Pi
 
-## Applikation im Debugger starten
+## Start application in debugger
 
-Zum Starten einer Applikation auf dem RaspPi im Debug-Mode werden die beiden Run-Konfigurationen `Debug on Pi` und `Attach to Pi Debugger` benötigt.
+To start the application on the Raspberry Pi in debug mode the two run configurations `Debug on Pi` and `Attach to Pi Debugger` are required.
 
-Wichtig dabei ist die Reihenfolge, mit der die
-Konfigurationen gestartet werden:
+The sequence of starting the run configurations is critical:
 
-1. Start von `Debug on Pi` via des **Run**-Knopfs
-2. Warten bis die Konsolenausgabe meldet `Listening for transport dt_socket at address: 5005 (Attach debugger)`
-3. Starten von `Attach to Pi Debugger` mit dem Debug-Knopf
-4. Erst danach erscheint das GUI auf dem RaspPi-Bildschirm
+1. Start `Debug on Pi` using the **Run** button
+2. Wait till the console contains the following message: `Listening for transport dt_socket at address: 5005 (Attach debugger)`
+3. Start `Attach to Pi Debugger` using the **Debug** button
+4. Only now will the GUI be shown on the Raspberry Pi screen
 
-Nun können Sie wie gewohnt den Debugger von IntelliJ IDEA verwenden und beispielsweise Breakpoints setzen oder das Programm schrittweise ausführen.
+Now one can use the debugger from IntelliJ IDEA, setting breakpoints and stepping through the application.
 
-## Das MVC-Konzept
+## The MVC concept
 
-Beim klassischen Model-View-Controller-Konzept sind neben der Starter-Klasse mindestens 3 Klassen beteiligt. Das Zusammenspiel dieser Klassen ist klar geregelt:
+The classic Model-View-Controller concept contains in addition to the starter class at least 3 more classes. The interaction is clearly defined:
 
 ![MVC Concept](assets/mvc-concept.png)
 
-- _Model Klassen_
+- _Model classes_
 
-  - enthalten den gesamten zu visualisierenden Zustand. Wir nennen diese Klassen daher _Presentation-Model_
-  - sind komplett unabhängig von Controller und View
-- _Controller Klassen_
+  - contain the complete state which is to be visualized, thus these classes are called _Presentation-Model_
+  - are completely separate to the Controller and View classes, i.e. they may not interact with those classes
+- _Controller classes_
 
-  - stellen die gesamte Funktionalität, die sogenannten Actions, in Form von Methoden zur Verfügung
-  - verwalten die Model-Klassen gemäss der zugrundeliegenden Business-Logik
-  - haben keinen Zugriff auf die View-Klassen
-- _View Klassen_
+  - define the entire functionality, i.e. the so-called actions, in the form of methods
+  - manage the model classes by definition of the business logic
+  - have no access to the view classes
+- _View classes_
 
-  - rufen ausschliesslich Methoden auf dem Controller auf, sie "triggern Actions"
-  - werden vom Model über Zustandsänderungen notifiziert
-    - observieren den Status des Models
-  - ändern das Model nie direkt
-- _Starter Klasse._ Ist eine Subklasse von `javafx.application.Application`. Instanziiert die drei anderen Klassen und startet die Applikation.
+  - only calls methods on the controller, i.e. triggering actions
+  - are notified of the model of state changes
+    - observes the state of the model
+  - never change the model directly
+- _Starter class._
 
-In unserem Fall gibt es mindestens zwei View-Klassen
+  - Is a subclass of `javafx.application.Application`. Instantiates the three other classes and starts the application.
 
-- _GUI Klasse._ Das Graphical-User-Interface. JavaFX-basierte Implementierung des auf dem Bildschirm angezeigten UIs.
-- _PUI Klasse._ Das Physical-User-Interface. Pi4J-basierte Implementierung der Sensoren und Aktuatoren. Verwendet  Component-Klassen, wie Sie sie aus dem [CrowPi-Tutorial](https://fhnw-ip5-ip6.github.io/CrowPiGoesJavaTutorial/de/) kennen.
+In our case at least two view classes exist:
 
-GUI und PUI sind komplett voneinander getrennt, z.B. hat der GUI-Button zum Anschalten der LED keinen direkten Zugriff auf die LED-Component des PUIs. Stattdessen triggert der GUI-Button lediglich eine entsprechende Action im Controller, der wiederum die on-Property im Model auf den neuen Wert setzt. In einem separaten Schritt reagiert die LED-Component des PUIs auf diese Wertänderung und schaltet die LED an- bzw. aus.
+- _GUI class._ The Graphical-User-Interface. JavaFX based implementation of the visualisation of the UI on the screen.
+- _PUI class._ The Physical-User-Interface. Pi4J based implementation of the sensors and actors. Uses `Component` classes, as is used in [Pi4J Example Components](https://github.com/Pi4J/pi4j-example-components.git).
 
-GUI und PUI arbeiten mit dem identischen Controller und damit auch mit dem identischen Model.
+GUI and PUI are completely separated from each other, i.e a GUI button to turn an LED on has no direct access to the LED component of the PUI. Instead the GUI button triggers a corresponding action in the controller which then sets the `on` state property in the model. The PUI listening on this state then turns the actual LED on or off.
 
-Es ist wichtig, dass Sie dieses Konzept verstehen und für Ihr Projekt anwenden können. Gehen Sie bei Fragen auf die Fachcoaches oder OOP-Dozierenden zu.
+GUI and PUI work with the same identical controller and thus also the same identical model.
 
-Jede Benutzer-Interaktion durchläuft im MVC-Konzept den immer gleichen Kreislauf:
+It is important that one understands this concept and then apply the concepts to one's own project. Should you have questions, contact the Pi4j team.
+
+In the MVC concept, every user interaction traverses the exact same cycle:
 
 ![MVC Concept](assets/mvc-interaction.png)
 
 #### Projector Pattern
 
-Unsere View-Klassen, also GUI und PUI, setzen das von Prof. Dierk König veröffentlichte [Projector Pattern](https://jaxenter.de/effiziente-oberflaechen-mit-dem-projektor-pattern-42119) um.
+The view classes, i.e. GUI and PUI, implement the Projector-Pattern published by Prof. Dierk König  [Projector Pattern](https://dierk.github.io/Home/projectorPattern/ProjectorPattern.html).
 
-Die grundlegenden Aufgaben von GUI und PUI sind gleich. Auf Code-Ebene ist dies erkennbar:
-sie implementieren das gemeinsames Interface `Projector`, können also auf die gleiche Weise verwendet werden.
+The basic tasks of the GUI and PUI are the same. When looking at the code, this is visible:
+they implement the common interface `Projector` and can thus be used in the same way.
 
-Weitere Konsequenzen
+Consequences of this design:
 
-- Es können weitere UIs hinzugefügt werden, ohne dass es Code-Änderungen bei den bestehenden Klassen (ausser der Starter-Klasse) nach sich zieht.
-  - Ein Beispiel dafür ist der `PuiEmulator`, der bei Bedarf zusätzlich gestartet werden kann.
-- Diese Architektur ist auch geeignet für
-  - reine GUI-Applikationen und
-  - reine PUI-Applikationen (siehe `TemplatePUIApp`).
+- Additional UIs can be added, without having to change existing classes, except for the starter class
+  - An example for this is the `PuiEmulator`, which can be started when necessary.
+- This architecture is also useful for
+  - GUI only applications and
+  - PUI only applications (see `TemplatePUIApp`).
 
-### Implementierung des MVC-Konzepts
+### Implementing the MVC concept
 
-Die Basis-Klassen, die für die Implementierung des MVC-Konzepts notwendig sind, sind im Package `com.pi4j.mvc.util.mvcbase`. Die Klassen sind im Code ausführlich dokumentiert.
+The base classes, required by the MVC concept, are in the package `com.pi4j.mvc.util.mvcbase`. The classes have extensive documentation.
 
 ## MultiControllerApp
 
-Ein etwas fortgeschritteneres Beispiel ist die `MultiControllerApp`. Sie zeigt den Einsatz und die Notwendigkeit von mehreren Controllern in einer Applikation.
+An more advanced example is the `MultiControllerApp`. It shows the usage and relevancy of multiple controllers in an application.
 
-Für einen einzelnen Controller gilt:
+For any controller the following is imperative:
 
-- jede Action wird asynchron und reihenfolgetreu ausgeführt
-- dafür hat jeder Controller eine eigene `ConcurrentTaskQueue` integriert
-- das UI wird dadurch während der Ausführung einer Action nicht blockiert
-- falls vom UI weitere Actions getriggert während eine Action gerade in Bearbeitung ist, werden diese in der `ConcurrentTaskQueue` aufgesammelt und ausgeführt, sobald die vorherigen Actions abgearbeitet sind.
+- each action is asynchronous and follows the sequence of actions explicitly
+- for this each controller uses its own `ConcurrentTaskQueue`
+- the UI is thus never blocked by an action
+- if a UI triggers additional actions when an action is in execution, there this action is stored in the `ConcurrentTaskQueue` and executed after the current action has completed.
 
-Für einfache Applikationen reicht ein einzelner Controller meist aus.
+For simple applications, a single controller will suffice.
 
-Es gibt aber Situationen, bei denen Actions ausgeführt werden sollen, während eine andere Action noch läuft.
+There are situations where actions are to be executed in parallel.
 
-Die `MultiControllerApp` zeigt so ein Beispiel. Es soll möglich sein, den Counter zu verändern _während die LED blinkt_ .
+The `MultiControllerApp` shows such an example. It should be possible to change the counter, _while an LED is blinking_.
 
-- Mit einem einzigen Controller ist das nicht umsetzbar. Der Controller würde beispielsweise die 'Decrease-Action' erst ausführen, nachdem die 'Blink-Action' abgeschlossen ist.
-- Bei zwei Controllern ist es jedoch einfach: `LedController` und `CounterController` haben jeder eine `ConcurrentTaskQueue`. Actions, die die LED betreffen, werden also unabhängig von den Actions, die den Counter verändern, ausgeführt.
-- Es sollte zusätzlich ein `ApplicationController` implementiert werden, der die anderen Controller koordiniert und das für das UI sichtbare API zur Verfügung stellt.
+- With a single controller this would not be accomplishable. The controller would execute the `Decrease-Action` only after the `Blink-Action` is complete.
+- With two controllers this is simple: `LedController` and `CounterController` each have a `ConcurrentTaskQueue`. Actions which concern the LED are thus executed independent of actions which modify the counter.
+- An `ApplicationController` is implemented to coordinate the other controllers, thus giving the UI only a singly visible API.
 
-Zum Starten:
+To start:
 
-- `launcher.class` im `pom.xml` auswählen
+- Set `launcher.class` in `pom.xml`:
   - `<launcher.class>com.pi4j.mvc/com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class>`
-- mit `Run local` (oder direkt aus der IDE heraus) auf dem Laptop starten.
-  - in `AppStarter` kann zusätzlich noch ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
-- mit `Run on Pi` auf dem RaspPi starten
+- With `Run local` (or directly from the IDE) starts locally on the development computer
+  - A rudimentary `PuiEmulator` can be started in `AppStarter`, to test the interaction of the GUI and PUI.
+- With `Run on Pi` starts remotely on the Raspberry Pi
 
-## Junit Tests
+## JUnit Tests
 
-Durch die klare Trennung in Model, View und Controller können grosse Teile der Applikation mittels einfachen JUnit-Tests automatisiert getestet werden. Diese Tests werden in der Regel auf dem Laptop, also nicht auf dem RaspPi, ausgeführt.
+Through the clear separation in model, view and controller, testing of large parts of the application can be automated. These tests are usually executed on the local development computer, i.e. not on the Raspberry Pi.
 
 #### Controller Tests
 
-Der Controller implementiert die gesamte zur Verfügung stehende Grund-Funktionalität. Er sollte mit ausführlichen TestCases automatisch überprüft werden.
+The controller implements the entirety of the base functionality. It should be validated with extensive test cases.
 
-Dabei gilt es zu beachten, dass der Controller alle Veränderungen auf dem Model asynchron ausführt. Eine Überprüfung der Resultate ist also erst möglich, wenn die asynchrone Task beendet ist.
+It should be pointed out, that all changes to the model are performed asynchronously, thus validation can only be done after the asynchronous Tasks are completed.
 
-Ein Beispiel sehen Sie in `ExampleControllerTest`.
+An example can be seen in `ExampleControllerTest`.
 
 #### Presentation-Model Tests
 
-Das Model ist lediglich eine Ansammlung von `ObservableValues` und bietet darüber hinaus keine weitere Funktionalität. Daher sind normalerweise auch keine weiteren TestCases notwendig.
+The model is simply a collection of `ObservableValues` and doesn't offer any additional functionality, thus it does not require any additional test cases.
 
-#### Tests für einzelne PUI-Components
+#### Tests for individual PUI-Components
 
-Die einzelnen PUI-Components können sehr gut via der in Pi4J integrierten `MockPlatform` getestet werden. Diese Tests werden auf dem Laptop ausgeführt. Ein RaspPi ist nicht notwendig.
+The individual PUI-components can be tested easily using the Pi4J integrated `MockPlatform`. These tests can be executed locally on the development computer. A Raspberry Pi is not needed.
 
-Beispiele für solche Component-Test sehen Sie im [CrowPi-Tutorial](https://fhnw-ip5-ip6.github.io/CrowPiGoesJavaTutorial/de/) und in diesem Projekt im Package `com.pi4j.mvc.templateapp.view.pui.components`.
+Examples for such component tests can be seen in the [CrowPi-Tutorial](https://github.com/Pi4J/pi4j-example-crowpi/tree/main/src/test/java/com/pi4j/crowpi/components) and in the package `com.pi4j.mvc.templateapp.view.pui.components`.
 
 #### PUI Tests
 
-Das PUI ihrer Applikation kann ebenfalls gut mittels JUnit getestet werden.
+The PUI can also be tested quite well with JUnit tests.
 
-Auch hier müssen die Test berücksichtigen, dass die Actions asynchron ausgeführt werden.
+It should be pointed out, that the actions are again executed asynchronously.
 
-Ein Beispiel ist `ExamplePUITest`.
+An example is the `ExamplePUITest`.
 
 ## LICENSE
 

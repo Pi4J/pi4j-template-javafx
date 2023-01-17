@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.pi4j.mvc</groupId>
-    <artifactId>raspifx-template</artifactId>
-    <name>RaspPiFX template project</name>
+    <artifactId>Raspifx-template</artifactId>
+    <name>RaspPiFX</name>
     <description>Starter and example project how to integrate JavaFX and Pi4J in a single application.</description>
     <version>0.0.1</version>
 
@@ -14,11 +14,11 @@
     <properties>
         <!-- The class that will be started, choose one and only one -->
 
-        <launcher.class>com.pi4j.mvc/com.pi4j.setup.HelloFX</launcher.class>
+        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.setup.HelloFX</launcher.class>-->
         <!-- <launcher.class>com.pi4j.mvc/com.pi4j.setup.MinimalPi4J</launcher.class> -->
         <!-- <launcher.class>com.pi4j.mvc/com.pi4j.mvc.templateapp.AppStarter</launcher.class> -->
         <!-- <launcher.class>com.pi4j.mvc/com.pi4j.mvc.templatepuiapp.AppStarter</launcher.class> -->
-        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class> -->
+        <launcher.class>com.pi4j.mvc/com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class>
 
 
         <!-- Setup for the RaspPi -->
@@ -28,6 +28,9 @@
         <pi.port>22</pi.port>
         <pi.deploydirectory>/home/pi/deploy</pi.deploydirectory>
         <pi.remote.jvmOptions/>
+
+        <!-- If a mouse is attached to Pi use 'true' -->
+        <pi.drm.enable.cursor>true</pi.drm.enable.cursor>
 
         <!-- Java Compiler Version -->
         <java.version>17</java.version>
@@ -47,8 +50,8 @@
         <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-dependency-plugin.version>3.2.0</maven-dependency-plugin.version>
-        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
-        <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
+        <maven-jar-plugin.version>3.2.1</maven-jar-plugin.version>
+        <maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
 
@@ -62,10 +65,22 @@
 
         <!-- Ant Dependencies -->
         <ant-jsch.version>1.10.9</ant-jsch.version>
+
+        <!-- gluonfx properties -->
+        <app.identifier>${launcher.class}</app.identifier>
+        <app.description>RaspPiFX app</app.description>
+        <package.type/>
+        <mac.app.store/>
+        <mac.signing.user.name/>
+        <bundle.version/>
+        <bundle.short.version/>
     </properties>
 
+    <!-- DEPENDENCY REPOSITORIES -->
+
+
     <dependencies>
-        <!-- JavaFX basics -->
+        <!-- JavaFX  -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
@@ -105,6 +120,12 @@
             <version>${pi4j.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.pi4j</groupId>
+            <artifactId>pi4j-plugin-linuxfs</artifactId>
+            <version>${pi4j.version}</version>
+        </dependency>
+
         <!-- Pi4J Mock Platform -->
         <dependency>
             <groupId>com.pi4j</groupId>
@@ -112,20 +133,6 @@
             <version>${pi4j.version}</version>
             <!-- <scope>test</scope> -->
         </dependency>
-
-        <!-- SLF4J  -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-
 
         <!-- JUnit -->
         <dependency>
@@ -161,6 +168,11 @@
                 <configuration>
                     <target>${gluonfx.target}</target>
                     <mainClass>${launcher.class}</mainClass>
+                    <releaseConfiguration>
+                        <vendor>Pi4J</vendor>
+                        <description>${app.description}</description>
+                        <skipSigning>true</skipSigning>
+                    </releaseConfiguration>
                 </configuration>
             </plugin>
 
@@ -218,8 +230,7 @@
                             <overWriteSnapshots>true</overWriteSnapshots>
                             <overWriteIfNewer>true</overWriteIfNewer>
                             <!--
-                            On the Raspberry Pi we use specific JavaFX dependencies,
-                            so we exclude them here and they are added in the run-script.
+                            On the Raspberry Pi we use specific JavaFX dependencies, so we exclude them here.
                             -->
                             <excludeGroupIds>org.openjfx</excludeGroupIds>
                         </configuration>
@@ -319,11 +330,18 @@
                                             </fileset>
                                         </scp>
 
+                                        <!-- Stop all running Java processes -->
+                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
+                                                 username="${pi.username}" password="${pi.password}" trust="true"
+                                                 failonerror="false" usepty="true" useSystemIn="true"
+                                                 suppresssystemerr="true" suppresssystemout="true"
+                                                 command="sudo killall -9 java"/>
+
                                         <!-- Run JFX application on Raspberry Pi -->
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"
                                                  username="${pi.username}" password="${pi.password}" trust="true"
                                                  failonerror="false" usepty="true" useSystemIn="true"
-                                                 command="sudo  java-kiosk  ${pi.remote.jvmOptions} -Xmx1G --module-path ${pi.deploydirectory} --module ${launcher.class} "/>
+                                                 command="sudo  java-kiosk  ${pi.remote.jvmOptions} -Xmx1G --module-path ${pi.deploydirectory} --module ${launcher.class} -Dmonocle.cursor.enabled=${pi.drm.enable.cursor}"/>
                                     </target>
                                 </configuration>
                             </execution>
@@ -370,6 +388,13 @@
                                             </fileset>
                                         </scp>
 
+                                        <!-- Stop all running Java processes -->
+                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
+                                                 username="${pi.username}" password="${pi.password}" trust="true"
+                                                 failonerror="false" usepty="true" useSystemIn="true"
+                                                 suppresssystemerr="true" suppresssystemout="true"
+                                                 command="sudo killall -9 java"/>
+
                                         <!-- Run JFX application on Raspberry Pi -->
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"
                                                  username="${pi.username}" password="${pi.password}" trust="true"
@@ -397,6 +422,21 @@
                 <pi.remote.jvmOptions>
                     -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005
                 </pi.remote.jvmOptions>
+            </properties>
+        </profile>
+        <profile>
+            <id>desktop</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <gluonfx.target>host</gluonfx.target>
+            </properties>
+        </profile>
+        <profile>
+            <id>pi</id>
+            <properties>
+                <gluonfx.target>linux-aarch64</gluonfx.target>
             </properties>
         </profile>
     </profiles>
