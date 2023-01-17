@@ -47,12 +47,12 @@ public final class ObservableArray<V> {
         if (Arrays.equals(values, newValues)) {  // no notification if value hasn't changed
             return;
         }
-        V[] oldValue = values;
+        V[] oldValues = values.clone();
         values = newValues;
 
         listeners.forEach(listener -> {
             if (Arrays.equals(values, newValues)) { // pre-ordered listeners might have changed this and thus the callback no longer applies
-                listener.update(oldValue, newValues);
+                listener.update(oldValues, newValues);
             }
         });
     }
@@ -72,7 +72,7 @@ public final class ObservableArray<V> {
         if (Objects.equals(values[position], newValue)) {  // no notification if value hasn't changed
             return;
         }
-        V[] oldValues = values;
+        V[] oldValues = values.clone();
         values[position] = newValue;
 
         listeners.forEach(listener -> listener.update(oldValues, values));
