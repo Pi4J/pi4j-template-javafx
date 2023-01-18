@@ -75,8 +75,8 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
 
                 Color c = Color.rgb(red, green, blue);
 
-                /* set brightness value to the opposite
-                 * convert brightness value for opacity of black overlay
+                /** set brightness value to the opposite
+                 *  convert brightness value for opacity of black overlay
                  */
 
                 double brightnessToOpacity = (brightness-1.0)*-1;
@@ -189,7 +189,9 @@ public class LedMatrixTile extends Pi4JTile implements LedMatrixInterface {
     public void constructorValues(double brightness){
         setTitle("LED Matrix");
 
-        //compare skin amountRow and numRow from constructor. initGraphics to defined numRow
+        // Compare amountRow of the skin and numRow from constructor.
+        // The amount of rows in skin gets adjusted to the defined value in constructor.
+        // 2 <= value <= 4
         if(skin.getAmountRow() != amountRow){
             skin.setAmountRow(amountRow);
         }

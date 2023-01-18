@@ -70,13 +70,13 @@ public class SomeController extends ControllerBase<SomeModel> {
         setValue(model.currentYPosition, y);
     }
 
-    // Sets current Position of the Potentiometer
+    // Sets current Position of the Potentiometer from 0 to 1
     public void setPotiX(double x){
         setValue(model.currentPotiPosition,x);
     }
 
     // Print out current position Potentiometer
     public void singlePotentiometer(double x){
-        System.out.println("Current Potentiometer value is "+x+"%");
+        System.out.println("Current Potentiometer value is "+x);
     }
 }

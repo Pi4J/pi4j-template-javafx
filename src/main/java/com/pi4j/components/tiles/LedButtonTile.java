@@ -36,12 +36,12 @@ public class LedButtonTile extends Pi4JTile implements LEDButtonInterface {
         }
     };
 
-    public LedButtonTile(Context pi4J, PIN pin1, PIN pin2) {
-        constructorValues(pin1,pin2);
+    public LedButtonTile(Context pi4j, PIN buttonaddress, Boolean inverted, PIN ledaddress) {
+        constructorValues(buttonaddress,ledaddress);
     }
 
-    public LedButtonTile(Context pi4J,PIN pin1, PIN pin2, long debounce) {
-        constructorValues(pin1,pin2);
+    public LedButtonTile(Context pi4j, PIN buttonaddress, boolean inverted, PIN ledaddress, long debounce) {
+        constructorValues(buttonaddress,ledaddress);
     }
 
     /**
@@ -110,9 +110,9 @@ public class LedButtonTile extends Pi4JTile implements LEDButtonInterface {
     }
 
     // Helper function. Add same content in all constructors
-    public void constructorValues(PIN pin1, PIN pin2){
+    public void constructorValues(PIN buttonadress, PIN ledaddress){
         setTitle("LED Button");
-        setText("Pin "+ pin1.getPin()+", "+pin2.getPin());
+        setText("Pin "+ buttonadress.getPin()+", "+ledaddress.getPin());
         setSkin(ledButtonSkin);
 
 

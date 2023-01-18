@@ -55,8 +55,8 @@ public class PotentiometerTile extends Pi4JTile implements PotentiometerInterfac
         xOnMove = value -> {
 
             value = currentX;
-            //scale axis from 0 to 100
-            value = 100 / lineLength * value;
+            //scale axis from 0 to 1
+            value = 1 / lineLength * value;
 
             setNormX(value);
             updatePos();
@@ -96,14 +96,14 @@ public class PotentiometerTile extends Pi4JTile implements PotentiometerInterfac
 
     // Displays current percent on the GUI
     public void updatePos(){
-        setDescription(String.format("%.2f", getNormX())+" %");
+        setDescription(String.format("%.2f", getNormX()));
     }
 
     // Helper function. Add same content in all constructors
     public void constructorValues(){
         setNormX(0.0);
         setTitle("Potentiometer");
-        setDescription(String.format("%.2f", getNormX()) + " %");
+        setDescription(String.format("%.2f", getNormX()));
         setSkin(potentiometerSkin);
 
         //TODO: Wert finden, welches nicht absolut ist

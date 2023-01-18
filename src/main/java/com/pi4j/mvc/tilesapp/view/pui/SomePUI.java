@@ -21,6 +21,11 @@ public class SomePUI extends PuiBase<SomeModel, SomeController> {
     protected JoystickAnalogInterface joystickAnalog;
     Ads1115 ads1115;
 
+    protected PotentiometerInterface potentiometer;
+
+    private final int DEFAULT_SPI_CHANNEL = 0;
+
+
     public SomePUI(SomeController controller, Context pi4J) {
         super(controller, pi4J);
     }
@@ -28,12 +33,14 @@ public class SomePUI extends PuiBase<SomeModel, SomeController> {
     // Initialize all hardware components attached to RaspPi
     @Override
     public void initializeParts() {
-        led    = new SimpleLED(pi4J, PIN.D22);
+        led    = new SimpleLED(pi4J, PIN.D17);
         button = new SimpleButton(pi4J, PIN.D24, false);
-        ledButton = new LEDButton(pi4J,PIN.D11,false,PIN.CE1);
-        joystick = new Joystick(pi4J, PIN.D6, PIN.PWM13, PIN.PWM19, PIN.D26);
+        ledButton = new LEDButton(pi4J,PIN.PWM18,false,PIN.D22);
+        joystick = new Joystick(pi4J, PIN.D5, PIN.D6, PIN.PWM13, PIN.PWM19);
         ads1115 = new Ads1115(pi4J, 0x01, Ads1115.GAIN.GAIN_4_096V, Ads1115.ADDRESS.GND, 4);
-        joystickAnalog = new JoystickAnalog(pi4J, ads1115, 0, 1, 3.3, false, PIN.D5);
+        potentiometer = new Potentiometer(ads1115, DEFAULT_SPI_CHANNEL, 3.3);
+        potentiometer.startSlowContinuousReading(0.05,10);
+        joystickAnalog = new JoystickAnalog(pi4J, ads1115, 1, 2, 3.3, false, PIN.D26);
         joystickAnalog.start(0.05,10);
     }
 
@@ -44,6 +51,9 @@ public class SomePUI extends PuiBase<SomeModel, SomeController> {
         button.onDown(() -> {
             // Sends button state boolean false
             controller.setButtonPressed(true);
+            // Sends the current normalized potentiometer position
+            controller.singlePotentiometer(potentiometer.singleShotGetNormalizedValue());
+
         });
         // Sends component name and button state boolean false
         button.onUp  (() -> controller.setButtonPressed(false));
@@ -67,17 +77,20 @@ public class SomePUI extends PuiBase<SomeModel, SomeController> {
         // Sends button state boolean true for the amount of delay in milliseconds
         ledButton.btnwhilePressed(controller::whilePressedLedButton, 1000);
 
-        joystickAnalog.xOnMove(controller::setJoyAnalogX);
-        joystickAnalog.yOnMove(controller::setJoyAnalogY);
+//        joystickAnalog.xOnMove(controller::setJoyAnalogX);
+//        joystickAnalog.yOnMove(controller::setJoyAnalogY);
+//
+//        // Sends component name and button state boolean true
+//        joystickAnalog.pushOnDown(() -> controller.sendMessage("Joystick analog", true));
+//
+//        // Sends component name and button state boolean false
+//        joystickAnalog.pushOnUp  (() -> controller.sendMessage("Joystick analog",false));
+//
+//        // Sends component name and amount of delay in milliseconds
+//        joystickAnalog.pushWhilePressed(() -> controller.whileMessage("Joystick analog"),3000);
 
-        // Sends component name and button state boolean true
-        joystickAnalog.pushOnDown(() -> controller.sendMessage("Joystick analog", true));
-
-        // Sends component name and button state boolean false
-        joystickAnalog.pushOnUp  (() -> controller.sendMessage("Joystick analog",false));
-
-        // Sends component name and amount of delay in milliseconds
-        joystickAnalog.pushWhilePressed(() -> controller.whileMessage("Joystick analog"),3000);
+        // Provide Consumer with normalized position of Potentiometer
+        potentiometer.setConsumerSlowReadChan(controller::setPotiX);
     }
 
     @Override

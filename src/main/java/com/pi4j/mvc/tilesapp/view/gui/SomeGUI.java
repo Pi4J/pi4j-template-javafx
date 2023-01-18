@@ -64,21 +64,21 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
     // Initialize all tiles which are in GUI wanted
     @Override
     public void initializeParts() {
-        led = new SimpleLEDTile(pi4J,PIN.D22);
+        led = new SimpleLEDTile(pi4J,PIN.D17);
         button = new SimpleButtonTile(pi4J,PIN.D24,false);
-        joystick = new JoystickTile(pi4J,PIN.PWM18,PIN.D23, PIN.PWM12,PIN.D16, PIN.D21);
-        ledButton = new LedButtonTile(pi4J,PIN.D26,PIN.D20);
+        ledButton = new LedButtonTile(pi4J,PIN.PWM18,false,PIN.D20);
+        joystick = new JoystickTile(pi4J, PIN.D5, PIN.D6, PIN.PWM13, PIN.PWM19);
+        potentiometer = new PotentiometerTile(ads1115, DEFAULT_SPI_CHANNEL, 3.3);
+        joystickAnalog = new JoystickAnalogTile(pi4J, ads1115, 1, 2, 3.3, false, PIN.D26);
         ledStrip = new LedStripTile(pi4J,4,1.0, DEFAULT_SPI_CHANNEL);
         ledMatrix = new LedMatrixTile(pi4J, matrix, 0.8, DEFAULT_SPI_CHANNEL);
-        joystickAnalog = new JoystickAnalogTile(pi4J, ads1115, 0, 1, 3.3, false, PIN.D5);
-        potentiometer = new PotentiometerTile(ads1115, DEFAULT_SPI_CHANNEL, 3.3);
     }
 
     // Sets layout of tiles
     @Override
     public void layoutParts() {
         getChildren().addAll((Tile) led, (Tile) button, (Tile) ledButton, (Tile) joystick,
-            (Tile) joystickAnalog,(Tile) ledStrip, (Tile)ledMatrix, (Tile)potentiometer);
+            (Tile) joystickAnalog, (Tile)potentiometer,(Tile) ledStrip, (Tile)ledMatrix);
     }
 
     // All EventHandlers from tiles which are needed
@@ -265,7 +265,7 @@ public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeCo
         onChangeOf(model.currentPotiPosition)
             .execute((oldValue, newValue) -> {
                 if (!newValue.equals(oldValue)) {
-                    System.out.println("Potentiometer - " + newValue+"%");
+                    System.out.println("Potentiometer - " + newValue);
                 }
             });
     }
