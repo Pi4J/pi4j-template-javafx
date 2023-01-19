@@ -12,7 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-public class PotentiometerTileSkin extends TileSkin {
+public class PotentiometerSkin extends TileSkin {
 
     private Circle     knob;
     private Rectangle  bar;
@@ -21,7 +21,7 @@ public class PotentiometerTileSkin extends TileSkin {
     private Text       text;
     private Text       description;
 
-    public PotentiometerTileSkin(Tile TILE) {
+    public PotentiometerSkin(Tile TILE) {
         super(TILE);
     }
 

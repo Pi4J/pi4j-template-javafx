@@ -345,6 +345,15 @@ Zum Starten:
     - in `AppStarter` kann zusätzlich noch ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
 - mit `Run on Pi` auf dem RaspPi starten
 
+## Tiles
+
+Ein Tile dient als eine graphische Darstellung der Sensoren und Aktuatoren (PUI), welches am Raspberry Pi angeschlossen wird. Die Tiles werden zusammen als Dashboard nebeneinander platziert und stellt das Graphical-User-Interfaces (GUI) der Applikation dar. Das GUI und das PUI verwenden das MVC in einer identischen Weise, welches die Implementation beider Klassen vereinfacht. Das GUI sollte die Funktionen der PUI simulieren und es möglich machen, den eigenen Code auch ohne Raspberry Pi testen zu können.
+
+Das GUI könnte beispielsweise so aussehen:
+
+![Tiles GUI](assets/Tiles_GUI.png)
+
+[Mehr Informationen findet man hier.](README_Tiles.md)
 
 ## Junit Tests
 

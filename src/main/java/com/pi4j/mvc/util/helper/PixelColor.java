@@ -1,4 +1,4 @@
-package com.pi4j.components.tiles.helper;
+package com.pi4j.mvc.util.helper;
 
 public class PixelColor {
     public static final int WHITE = 0xFFFFFF;
