@@ -3,7 +3,6 @@ package com.pi4j.mvc.tilesapp.view.pui;
 import com.pi4j.components.components.*;
 import com.pi4j.components.components.helpers.PIN;
 import com.pi4j.components.interfaces.*;
-import com.pi4j.components.tiles.helper.PixelColor;
 import com.pi4j.context.Context;
 import com.pi4j.mvc.tilesapp.controller.SomeController;
 import com.pi4j.mvc.tilesapp.model.SomeModel;

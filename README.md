@@ -337,6 +337,16 @@ To start:
   - A rudimentary `PuiEmulator` can be started in `AppStarter`, to test the interaction of the GUI and PUI.
 - With `Run on Pi` starts remotely on the Raspberry Pi
 
+## Tiles
+
+The tile serves as a graphical interface for the sensors and actuators (PUI), which are used by the Raspberry Pi. The tiles placed together form to a dashboard and is the graphical-user-interface (GUI) of the application. The GUI and the PUI use the MVC in an identical way, which simplifies the implementation of the classes. The GUI should imitate the functions of the PUI and makes it possible to test the own code without a Raspberry Pi.
+
+The GUI could look like this:
+
+![Tiles GUI](assets/Tiles_GUI.png)
+
+[More information can be found here. (German)](README_Tiles.md)
+
 ## JUnit Tests
 
 Through the clear separation in model, view and controller, testing of large parts of the application can be automated. These tests are usually executed on the local development computer, i.e. not on the Raspberry Pi.

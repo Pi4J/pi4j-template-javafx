@@ -23,7 +23,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
-import com.pi4j.components.tiles.helper.PixelColor;
+import com.pi4j.mvc.util.helper.PixelColor;
 
 public class SomeGUI extends FlowGridPane implements ViewMixin<SomeModel, SomeController> { //all GUI-elements have to implement ViewMixin
 

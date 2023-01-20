@@ -2,7 +2,7 @@ package com.pi4j.components.tiles;
 
 import com.pi4j.components.components.Ads1115;
 import com.pi4j.components.interfaces.PotentiometerInterface;
-import com.pi4j.components.tiles.Skins.PotentiometerTileSkin;
+import com.pi4j.components.tiles.Skins.PotentiometerSkin;
 
 import java.util.function.Consumer;
 
@@ -17,7 +17,7 @@ public class PotentiometerTile extends Pi4JTile implements PotentiometerInterfac
 
     private Consumer<Double> xOnMove;
 
-    PotentiometerTileSkin potentiometerSkin = new PotentiometerTileSkin(this);
+    PotentiometerSkin potentiometerSkin = new PotentiometerSkin(this);
 
     public PotentiometerTile(Ads1115 ads1115, int channel, double maxVoltage) {
         setText("Channel: " + channel + ", MaxVoltage: " + maxVoltage);
