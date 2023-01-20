@@ -14,8 +14,7 @@ Der Name «Tile» stammt von der JavaFX Library «TilesFX», auf welches die gra
 
 Ein Tile ist auf zwei Klassen aufgebaut, einer Skin-Klasse und einer Tile-Klasse. Die Skin-Klasse ist die Oberfläche eines Tiles und ist rein für die Gestaltung da. Die Tile-Klasse umfasst die Interaktivität des Tiles, bzgl. Mouse Click oder Drag Funktionen. Die Tile-Klasse implementiert das gleichnamige Interface und verwendet die gleichen Methoden wie die gleichnamige Hardware-Komponenten Klasse.
 
-<img src="assets/Interface_Implementation.png" width="400" alt="Interface_Implementation">
-
+![Interface_Implementation](assets/Interface_Implementation.png)
 ## Integrieren der Komponente (GUI & PUI)
 
 _Die Integration der Tiles zur Komponenten Katalog hat noch nicht stattgefunden. Geplant ist, dass die Tiles mit den Skins im Katalog vorhanden werden soll._
@@ -61,7 +60,8 @@ Nachdem die Hardware-Komponente Klasse in das Projekt hinzugefügt wird, muss ma
 
 Mit Intelij kann man die Methoden von der Klasse als Interface extrahieren, indem man auf die Hardware-Komponente Klasse in der Projektübersicht rechtsklickt, auf Refactor und dann auf Extract Interface navigiert.
 
-<img src="assets/Intelij_Extract_Interface.png" width="800" alt="Intelij_Extract_Interface">
+
+![Intelij_Extract_Interface](assets/Intelij_Extract_Interface.png)
 
 Das Interface sollte, wie die anderen Interfaces, in der interfaces Directory platziert werden. Die Hardware-Komponente Klasse implementiert jetzt die extrahierten Methoden.
 
