@@ -106,7 +106,6 @@ public class PotentiometerTile extends Pi4JTile implements PotentiometerInterfac
         setDescription(String.format("%.2f", getNormX()));
         setSkin(potentiometerSkin);
 
-        //TODO: Wert finden, welches nicht absolut ist
         lineLength = 200;
 
 

@@ -76,17 +76,17 @@ public class SomePUI extends PuiBase<SomeModel, SomeController> {
         // Sends button state boolean true for the amount of delay in milliseconds
         ledButton.btnwhilePressed(controller::whilePressedLedButton, 1000);
 
-//        joystickAnalog.xOnMove(controller::setJoyAnalogX);
-//        joystickAnalog.yOnMove(controller::setJoyAnalogY);
-//
-//        // Sends component name and button state boolean true
-//        joystickAnalog.pushOnDown(() -> controller.sendMessage("Joystick analog", true));
-//
-//        // Sends component name and button state boolean false
-//        joystickAnalog.pushOnUp  (() -> controller.sendMessage("Joystick analog",false));
-//
-//        // Sends component name and amount of delay in milliseconds
-//        joystickAnalog.pushWhilePressed(() -> controller.whileMessage("Joystick analog"),3000);
+        joystickAnalog.xOnMove(controller::setJoyAnalogX);
+        joystickAnalog.yOnMove(controller::setJoyAnalogY);
+
+        // Sends component name and button state boolean true
+        joystickAnalog.pushOnDown(() -> controller.sendMessage("Joystick analog", true));
+
+        // Sends component name and button state boolean false
+        joystickAnalog.pushOnUp  (() -> controller.sendMessage("Joystick analog",false));
+
+        // Sends component name and amount of delay in milliseconds
+        joystickAnalog.pushWhilePressed(() -> controller.whileMessage("Joystick analog"),3000);
 
         // Provide Consumer with normalized position of Potentiometer
         potentiometer.setConsumerSlowReadChan(controller::setPotiX);
