@@ -26,13 +26,13 @@ jobs:
         run: mkdir -p staging/raspifx
 
       - name: Get Pi4J libs
-        run: wget https://github.com/Pi4J/download/raw/main/pi4j-2.1.1.zip
+        run: wget https://github.com/Pi4J/download/raw/main/pi4j-2.3.0.zip
 
       - name: Unzip Pi4J
-        run: unzip pi4j-2.1.1.zip
+        run: unzip pi4j-2.3.0.zip
 
       - name: Unzip pigpio.jar
-        run: unzip -o pi4j-2.1.1/lib/pi4j-library-pigpio.jar
+        run: unzip -o pi4j-2.3.0/lib/pi4j-library-pigpio.jar
 
       - name: Copy libs to staging
         run: cp lib/aarch64/libpi4j-pigpio.so staging/raspifx
