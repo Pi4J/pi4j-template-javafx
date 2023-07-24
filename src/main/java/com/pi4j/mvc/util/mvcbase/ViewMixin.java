@@ -12,7 +12,7 @@ import javafx.scene.text.Font;
 
 /**
  * Use this interface for all of your GUI-parts to assure implementation consistency.
- *
+ * <p>
  * It provides the basic functionality to make MVC run.
  */
 public interface ViewMixin<M,  C extends ControllerBase<M>> extends Projector<M, C> {

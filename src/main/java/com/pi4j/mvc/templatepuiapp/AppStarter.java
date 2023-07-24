@@ -27,7 +27,6 @@ public class AppStarter {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             controller.shutdown();
             pi4J.shutdown();
-            LOGGER.logInfo("App stopped");
         }));
 
     }

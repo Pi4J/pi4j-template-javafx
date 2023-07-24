@@ -7,7 +7,7 @@ import com.pi4j.mvc.util.mvcbase.ControllerBase;
 
 /**
  * Handles all the functionality needed to manage the 'LED'.
- *
+ * <p>
  * All methods are intentionally 'package private'. Only 'ApplicationController' can access them.
  */
 class LEDController extends ControllerBase<ExampleModel> {

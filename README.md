@@ -13,18 +13,20 @@ This repository should not be cloned directly. This is a template project and on
 
 ## Prepare Raspberry Pi
 
-Use the CrowPi image from [Pi4J-Team](https://github.com/Pi4J/pi4j-os)
+Use the Pi4J-Basis-OS image from [Pi4J-Team](https://github.com/Pi4J/pi4j-os)
 
 - [Download CrowPi Image](https://pi4j-download.com/crowpi-main.img.zip)
 - Extract the ZIP file
-- Use the [Raspberry Pi Imager](https://www.raspberrypi.org/blog/raspberry-pi-imager-imaging-utility/) to write the image to an SD-Card
+- Use  [Raspberry Pi Imager](https://www.raspberrypi.org/blog/raspberry-pi-imager-imaging-utility/). 
+  - Specify a new user `pi` with password `pi4j` in preferences of  `Imager`. 
+  - Write the image to an SD-Card
 - Start the Raspberry Pi with this SD-Card
 
 The CrowPi image contains all the necessary packages and software for JavaFX/Pi4j applications.
 
 ## Preparing a developer computer
 
-* [Java 17](https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot). The CrowPi image uses JDK17, thus the developer computer should use the same. Note for Linux and Mac users: The usage of SDKMAN is recommended for the management of JDKs.
+* [Java 17](https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot). The Pi4J-Basic-OS image uses JDK17, thus the developer computer should use the same. Note for Linux and Mac users: The usage of SDKMAN is recommended for the management of JDKs.
 * [IntelliJ IDEA](https://www.jetbrains.com/idea/download/).
 * Using the latest version is important. Installing via [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/) is recommended. The Ultimate Edition is also recommended.
 * [Git](https://git-scm.com/downloads). The source code repository is a git repository
@@ -56,7 +58,7 @@ Note: After installing it might be necessary to close and open the terminal for 
 In a new terminal window, enter the following command:
 
 ```shell
-sdk install java 17.0.4-tem
+sdk install java 17.0.8-tem
 ```
 
 This installs the JDK in your home directory `sdkman/candidates/java`. It can then be used from this directory in IntelliJ.
@@ -78,27 +80,27 @@ java -version
 The resulting output should be similar to the following:
 
 ```shell
-openjdk version "17.0.4" 2022-07-19
-OpenJDK Runtime Environment Temurin-17.0.4+8 (build 17.0.4+8)
-OpenJDK 64-Bit Server VM Temurin-17.0.4+8 (build 17.0.4+8, mixed mode)
+openjdk version "17.0.8" 2023-07-18
+OpenJDK Runtime Environment Temurin-17.0.8+7 (build 17.0.8+7)
+OpenJDK 64-Bit Server VM Temurin-17.0.8+7 (build 17.0.8+7, mixed mode)
 ```
 
 Should JDK 17.x not be the default, then it can be changed with the following command:
 
 ```shell
-sdk default java 17.0.4-tem
+sdk default java 17.0.8-tem
 ```
 
 ## Connect to the Raspberry Pi
 
 The developer computer and the Raspberry Pi must be on the same WLAN.
 
-A simple solution for this is to create a Hotspot with a smartphone. For instance with these parameters:
+A simple solution for this is to create a hotspot with a smartphone. For instance with these parameters:
 
 * SSID: `Pi4J-Spot`
 * Password: `MayTheSourceBeWithYou!`
 
-The CrowPi image is configured to automatically connect to this hotspot and shows its IP address in the background image.
+The Pi4J-Basis-OS image is configured to automatically connect to this hotspot and shows its IP address in the background image.
 
 Connect your developer PC also to the hotspot `Pi4J-Spot`.
 
@@ -108,26 +110,26 @@ Enter the following in a terminal of the developer computer:
 
 ```shell
 ssh pi@<ip.number>
-Passwort: 'crowpi'
+Passwort: 'pi4j'
 ```
 
 e.g.:
 
 ```shell
 ssh pi@192.168.183.86
-Passwort: 'crowpi'
+Passwort: 'pi4j'
 ```
 
-If your Raspberry Pi is the only one connected to your hotspot, you can use `crowpi.local` instead of the ip-number.
+If your Raspberry Pi is the only one connected to your hotspot, you can use `pi4j.local` instead of the ip-number.
 
 ```shell
-ssh pi@crowpi.local
-Passwort: 'crowpi'
+ssh pi@pi4j.local
+Passwort: 'pi4j'
 ```
 
 #### Connecting via VNC
 
-Using the same IP address (or `crowpi.local`) a VNC connection to the Raspberry Pi can be made. The VNC client shows a window which gives access to the entire desktop of the Raspberry Pi.
+Using the same IP address (or `pi4j.local`) a VNC connection to the Raspberry Pi can be made. The VNC client shows a window which gives access to the entire desktop of the Raspberry Pi.
 
 The following shows an example session with the started ExampleApp:
 
@@ -143,10 +145,11 @@ To build locally and run on the Raspberry Pi, a few configuration changes are ne
 
 #### Configuration in `pom.xml`
 
-- `launcher.class` **(required):** defines which application to start. The `pom.xml` already contains a lists of candidates, simply uncomment the desired application, commenting out the rest.
-- `pi.ipnumber` **(optional):** The current IP of the Raspberry Pi, e.g. `192.168.1.2`, is used for SCP/SSH.
+- `launcher.class`: defines which application to start. The `pom.xml` already contains a lists of candidates, simply uncomment the desired application, commenting out the rest.
+- `pi.hostname`: The hostname of the Raspberry Pi, e.g. `pi4j`. Is shown on RaspPi's monitor. 
+- `pi.ipnumber`: The current IP of the Raspberry Pi, e.g. `192.168.1.2`, is used for SCP/SSH. Also shown on the monitor
 
-With these changes the application can be started through a Maven command on the Raspberry Pi. A more comfortable method is using IntelliJ run configurations.
+Using this setup the application can be started through a Maven command on the Raspberry Pi. A more comfortable method is using IntelliJ run configurations.
 
 #### Configuration of the IntelliJ run configurations
 
@@ -156,20 +159,6 @@ Four run configurations are already predefined. Two for starting the project, ei
 - `Run on Pi` starts the program on the Raspberry Pi.
 - `Debug on Pi` starts the program on the Raspberry Pi im debug mode.
 - `Attach to Pi Debugger` connects IntelliJ on the developer computer with the application already running through `Debug on Pi`.
-
-For `Run on Pi` and `Debug on Pi` the IP address of the Raspberry Pi must be configured. To configure the IP, open `Edit Configurations`.
-
-![Edit Configurations ...](assets/edit-configurations.png)
-
-For both run configurations set `pi.ipnumber` under `Properties`
-
-If the Raspberry Pi is the only device connected to the designated WLAN, then one can use `crowpi.local`.
-
-![Einstellungen für Run on Pi und Debug on Pi](assets/run-configurations.png)
-
-Also change the IP address in `Attach to Pi Debugger` under `Host`.
-
-![Einstellungen für Attach to Pi Debugger](assets/attach_to_debugger.png)
 
 ## The example applications
 
@@ -188,13 +177,13 @@ Once the JavaFX setup has been tested, HelloFX can be deleted.
 
 #### Wiring
 
-The other example applications use an LED and a button. These must be wired as is shown in the following diagram:
+The other example applications use a LED and a button. These must be wired as is shown in the following diagram:
 
 ![Wiring](assets/led-button_bb.png)
 
 #### MinimalPi4J
 
-The MinimalPi4j application is a Pi4j only application without a GUI. This application is also only used to test the setup and can be deleted after testing.
+The MinimalPi4j application is a Pi4J only application without a GUI. This application is also only used to test the setup and can be deleted after testing.
 
 To start:
 
@@ -205,7 +194,6 @@ To start:
 
 Pressing the button should generate a message in the console.
 
-Once the Pi4J setup has been tested, MinimalPi4J can be deleted.
 
 #### TemplateApp
 
@@ -213,7 +201,7 @@ This application shows the interaction between a JavaFX based Graphical User Int
 
 This application is to be used as a template for one's own applications. This includes the existing test cases.
 
-You should first get to know and understand the example. For your own applications you should then copy the `TemplateApp` and modify it for your project, however without violating the rules of the MVC concept, which is described below.
+You should first get to know and understand the example. For your own applications you should then copy the TemplateApp and modify it for your project, however without violating the rules of the MVC concept, which is described below.
 
 To start:
 
@@ -347,7 +335,7 @@ The controller implements the entirety of the base functionality. It should be v
 
 It should be pointed out, that all changes to the model are performed asynchronously, thus validation can only be done after the asynchronous Tasks are completed.
 
-An example can be seen in `ExampleControllerTest`.
+An example can be seen in `SomeControllerTest`.
 
 #### Presentation-Model Tests
 
@@ -365,7 +353,7 @@ The PUI can also be tested quite well with JUnit tests.
 
 It should be pointed out, that the actions are again executed asynchronously.
 
-An example is the `ExamplePUITest`.
+An example is the `SomePUITest`.
 
 ## LICENSE
 
