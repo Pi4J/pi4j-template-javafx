@@ -13,20 +13,21 @@ This repository should not be cloned directly. This is a template project and on
 
 ## Prepare Raspberry Pi
 
-Use the Pi4J-Basis-OS image from [Pi4J-Team](https://github.com/Pi4J/pi4j-os)
+Use the Pi4J-Basic-OS image from [Pi4J-Team](https://github.com/Pi4J/pi4j-os)
 
-- [Download CrowPi Image](https://pi4j-download.com/crowpi-main.img.zip)
-- Extract the ZIP file
+- Download [Pi4J-Basic-OS](https://pi4j-download.com/latest.php?flavor=basic) Image.
+- Extract the ZIP file.
 - Use  [Raspberry Pi Imager](https://www.raspberrypi.org/blog/raspberry-pi-imager-imaging-utility/). 
   - Specify a new user `pi` with password `pi4j` in preferences of  `Imager`. 
-  - Write the image to an SD-Card
-- Start the Raspberry Pi with this SD-Card
+  - Write the image to an SD-Card.
+- Start the Raspberry Pi with this SD-Card.
 
-The CrowPi image contains all the necessary packages and software for JavaFX/Pi4j applications.
+The Pi4J-Basic-OS image contains all the necessary packages and software for JavaFX/Pi4j applications.
 
 ## Preparing a developer computer
 
-* [Java 17](https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot). The Pi4J-Basic-OS image uses JDK17, thus the developer computer should use the same. Note for Linux and Mac users: The usage of SDKMAN is recommended for the management of JDKs.
+* [Java 17](https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot). The Pi4J-Basic-OS image uses JDK17, thus the developer computer should use the same. 
+  * Note for Linux and Mac users: The usage of SDKMAN is recommended for the management of JDKs.
 * [IntelliJ IDEA](https://www.jetbrains.com/idea/download/).
 * Using the latest version is important. Installing via [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/) is recommended. The Ultimate Edition is also recommended.
 * [Git](https://git-scm.com/downloads). The source code repository is a git repository

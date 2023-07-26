@@ -31,7 +31,7 @@ das Formular ausfüllen, mit `Git repository URL` :
 
 ## Raspberry Pi vorbereiten
 Verwenden Sie das vom [Pi4J-Team](https://github.com/Pi4J/pi4j-os) vorbereitete Pi4J-Basis-OS Image.
-- [Download Pi4J-Basic-OS Image](https://pi4j-download.com/crowpi-main.img.zip)
+- Download [Pi4J-Basic-OS](https://pi4j-download.com/latest.php?flavor=basic) Image
 - zip-File auspacken, mit [Raspberry Pi Imager](https://www.raspberrypi.org/blog/raspberry-pi-imager-imaging-utility/) den Benutzer `pi` mit Passwort `pi4j` definieren, eine SD-Card bespielen und damit den Raspberry Pi starten
 
 Das Pi4J-Basic-OS Image enthält bereits alle notwendige Installationen für JavaFX/Pi4J-Applikationen.
