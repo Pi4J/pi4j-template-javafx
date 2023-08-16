@@ -57,13 +57,13 @@
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
 
         <!-- Maven Plugin Versions -->
-        <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>3.2.0</maven-dependency-plugin.version>
-        <maven-jar-plugin.version>3.2.1</maven-jar-plugin.version>
-        <maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-        <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
+        <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.6.0</maven-dependency-plugin.version>
+        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+        <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
+        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+        <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
 
         <!-- Maven Properties -->
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -73,7 +73,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Ant Dependencies -->
-        <ant-jsch.version>1.10.9</ant-jsch.version>
+        <ant-jsch.version>1.10.13</ant-jsch.version>
 
     </properties>
 
