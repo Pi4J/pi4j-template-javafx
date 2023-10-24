@@ -74,7 +74,7 @@ sdk update
 In einem neuen Terminal-Window diesen Befehl eingeben:
 
 ```shell
-sdk install java 17.0.8-tem
+sdk install java 17.0.9-tem
 ```
 
 Danach liegt der JDK in ihrer Home-Directory im Folder `sdkman/candidates/java`. Von dort können Sie es dann in IntelliJ als neues SDK anlegen und im Projekt verwenden.
@@ -96,15 +96,15 @@ java -version
 
 Das sollte diese Ausgabe erzeugen
 ```shell
-openjdk version "17.0.8" 2023-07-18
-OpenJDK Runtime Environment Temurin-17.0.8+7 (build 17.0.8+7)
-OpenJDK 64-Bit Server VM Temurin-17.0.8+7 (build 17.0.8+7, mixed mode)
+openjdk version "17.0.9" 2023-10-17
+OpenJDK Runtime Environment Temurin-17.0.9+9 (build 17.0.9+9)
+OpenJDK 64-Bit Server VM Temurin-17.0.9+9 (build 17.0.9+9, mixed mode)
 ```
 
 Falls das nicht der Fall ist, muss der Default-JDK umgestellt werden. Mit SDKMAN geht das einfach:
 
 ```shell
-sdk default java 17.0.8-tem
+sdk default java 17.0.9-tem
 ```
 
 ## Verbindung zum Raspberry Pi herstellen
@@ -193,7 +193,7 @@ Sobald der JavaFX-Setup überprüft ist, kann HelloFX gelöscht werden.
 #### Wiring
 Die anderen Beispielprogramme verwenden eine LED und einen Button. Diese müssen folgendermassen verdrahtet werden:
 
-![Wiring](assets/led-button_bb.png)
+![Wiring](assets/wiring_bb.png)
 
 
 #### MinimalPi4J

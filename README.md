@@ -28,8 +28,9 @@ The Pi4J-Basic-OS image contains all the necessary packages and software for Jav
 
 * [Java 17](https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot). The Pi4J-Basic-OS image uses JDK17, thus the developer computer should use the same. 
   * Note for Linux and Mac users: The usage of SDKMAN is recommended for the management of JDKs.
-* [IntelliJ IDEA](https://www.jetbrains.com/idea/download/).
-* Using the latest version is important. Installing via [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/) is recommended. The Ultimate Edition is also recommended.
+* [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)
+  * Using the latest version is important. 
+  * Installing via [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/) is recommended. The Ultimate Edition is also recommended.
 * [Git](https://git-scm.com/downloads). The source code repository is a git repository
 * `ssh`. The connection to the Raspberry Pi is done using `ssh`. Most computers have SSH preinstalled.
 * [VNC Viewer](https://www.realvnc.com/en/connect/download/viewer/). A VNC Viewer allows for comfortable access to the Raspberry Pi's desktop, without the need of physically connecting monitor, keyboard and mouse to the Raspberry Pi.
@@ -59,7 +60,7 @@ Note: After installing it might be necessary to close and open the terminal for 
 In a new terminal window, enter the following command:
 
 ```shell
-sdk install java 17.0.8-tem
+sdk install java 17.0.9-tem
 ```
 
 This installs the JDK in your home directory `sdkman/candidates/java`. It can then be used from this directory in IntelliJ.
@@ -81,15 +82,15 @@ java -version
 The resulting output should be similar to the following:
 
 ```shell
-openjdk version "17.0.8" 2023-07-18
-OpenJDK Runtime Environment Temurin-17.0.8+7 (build 17.0.8+7)
-OpenJDK 64-Bit Server VM Temurin-17.0.8+7 (build 17.0.8+7, mixed mode)
+openjdk version "17.0.9" 2023-10-17
+OpenJDK Runtime Environment Temurin-17.0.9+9 (build 17.0.9+9)
+OpenJDK 64-Bit Server VM Temurin-17.0.9+9 (build 17.0.9+9, mixed mode)
 ```
 
 Should JDK 17.x not be the default, then it can be changed with the following command:
 
 ```shell
-sdk default java 17.0.8-tem
+sdk default java 17.0.9-tem
 ```
 
 ## Connect to the Raspberry Pi
@@ -148,7 +149,7 @@ To build locally and run on the Raspberry Pi, a few configuration changes are ne
 
 - `launcher.class`: defines which application to start. The `pom.xml` already contains a lists of candidates, simply uncomment the desired application, commenting out the rest.
 - `pi.hostname`: The hostname of the Raspberry Pi, e.g. `pi4j`. Is shown on RaspPi's monitor. 
-- `pi.ipnumber`: The current IP of the Raspberry Pi, e.g. `192.168.1.2`, is used for SCP/SSH. Also shown on the monitor
+- `pi.ipnumber`: The current IP of the Raspberry Pi, e.g. `192.168.1.2`, is used for SCP/SSH. Also shown on the monitor.
 
 Using this setup the application can be started through a Maven command on the Raspberry Pi. A more comfortable method is using IntelliJ run configurations.
 
@@ -180,7 +181,7 @@ Once the JavaFX setup has been tested, HelloFX can be deleted.
 
 The other example applications use a LED and a button. These must be wired as is shown in the following diagram:
 
-![Wiring](assets/led-button_bb.png)
+![Wiring](assets/wiring_bb.png)
 
 #### MinimalPi4J
 

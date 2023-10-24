@@ -20,7 +20,7 @@ import com.pi4j.context.Context;
  * <p>
  * For JavaFX-based GUIs that's already available (the JavaFX Application Thread).
  * <p>
- * For PUIs we need to do that ourselves. It's implemented as a provider/consumer-pattern (see {@link ConcurrentTaskQueue}.
+ * For PUIs we need to do that ourselves. It's implemented as a provider/consumer-pattern (see {@link ConcurrentTaskQueue}).
  */
 public abstract class PuiBase<M, C extends ControllerBase<M>> implements Projector<M, C>{
 
@@ -115,12 +115,11 @@ public abstract class PuiBase<M, C extends ControllerBase<M>> implements Project
         }
 
         public void execute(Consumer<V> action){
-            observableValue.onChange((oldValue, newValue) -> {
-                queue.submit(() -> {
-                    action.accept(newValue);
-                    return null;
-                });
-            });
+            observableValue.onChange((oldValue, newValue) ->
+                    queue.submit(() -> {
+                       action.accept(newValue);
+                       return null;
+                    }));
         }
     }
 

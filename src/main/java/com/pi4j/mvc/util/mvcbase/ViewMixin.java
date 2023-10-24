@@ -1,6 +1,7 @@
 package com.pi4j.mvc.util.mvcbase;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -35,7 +36,7 @@ public interface ViewMixin<M,  C extends ControllerBase<M>> extends Projector<M,
      */
     default void addStylesheetFiles(String... stylesheetFiles){
         for(String file : stylesheetFiles){
-            String stylesheet = getClass().getResource(file).toExternalForm();
+            String stylesheet = Objects.requireNonNull(getClass().getResource(file)).toExternalForm();
             getStylesheets().add(stylesheet);
         }
     }
