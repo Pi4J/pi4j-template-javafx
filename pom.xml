@@ -50,7 +50,7 @@
 
         <!-- Project Dependency Versions-->
         <javafx.version>21.0.1</javafx.version>
-        <pi4j.version>2.3.0-SNAPSHOT</pi4j.version>
+        <pi4j.version>2.4.0</pi4j.version>
         <junit.version>5.10.0</junit.version>
 
         <!-- Plugin Versions-->
