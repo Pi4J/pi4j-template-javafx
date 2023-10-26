@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import com.pi4j.io.gpio.digital.DigitalState;
 import com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalInput;
 
-import com.pi4j.components.ComponentTest;
+import com.pi4j.catalog.ComponentTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -30,7 +30,7 @@ class SomePUITest extends ComponentTest {
          pui.awaitCompletion();
  
          //then
-         assertTrue(pui.led.glows());
+         assertTrue(pui.led.isOn());
  
          //when
          controller.setIsActive(false);
@@ -38,7 +38,7 @@ class SomePUITest extends ComponentTest {
          pui.awaitCompletion();
  
          //then
-         assertFalse(pui.led.glows());
+         assertFalse(pui.led.isOn());
      }
  
      @Test
@@ -50,7 +50,7 @@ class SomePUITest extends ComponentTest {
  
          int initialCounter = model.counter.getValue();
 
-         MockDigitalInput digitalInput = toMock(pui.button.getDigitalInput());
+         MockDigitalInput digitalInput = pui.button.mock();
          digitalInput.mockState(DigitalState.HIGH);
  
          //when

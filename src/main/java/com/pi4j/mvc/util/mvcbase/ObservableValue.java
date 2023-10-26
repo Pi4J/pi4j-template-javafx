@@ -6,7 +6,7 @@ import java.util.Set;
 
 /**
  * A basic implementation of the Observable-Pattern.
- *
+ * <p>
  * Be prepared to enhance this according to your requirements.
  */
 public final class ObservableValue<V>  {
@@ -31,11 +31,11 @@ public final class ObservableValue<V>  {
 
     /**
      * That's the core functionality of an 'ObservableValue'.
-     *
+     * <p>
      * Every time the value changes, all the listeners will be notified.
-     *
+     * <p>
      * This is method is 'package private', only 'ControllerBase' is allowed to set a new value.
-     *
+     * <p>
      * For the UIs setValue is not accessible
      *
      * @param newValue the new value

@@ -11,16 +11,16 @@ import com.pi4j.context.Context;
 
 /**
  * Base class for all PUIs.
- *
+ * <p>
  * In our scenario we also have a GUI.
- *
+ * <p>
  * We have to avoid that one of the UIs is blocked because the other UI has to perform a long-running task.
- *
+ * <p>
  * Therefore, we need an additional "worker-thread" in both UIs.
- *
+ * <p>
  * For JavaFX-based GUIs that's already available (the JavaFX Application Thread).
- *
- * For PUIs we need to do that ourselves. It's implemented as a provider/consumer-pattern (see {@link ConcurrentTaskQueue}.
+ * <p>
+ * For PUIs we need to do that ourselves. It's implemented as a provider/consumer-pattern (see {@link ConcurrentTaskQueue}).
  */
 public abstract class PuiBase<M, C extends ControllerBase<M>> implements Projector<M, C>{
 
@@ -52,9 +52,9 @@ public abstract class PuiBase<M, C extends ControllerBase<M>> implements Project
 
     /**
      * Intermediate solution for TestCase support.
-     *
+     * <p>
      * Best solution would be that 'action' of 'runLater' is executed on calling thread.
-     *
+     * <p>
      * Waits until all current actions in actionQueue are completed.
      *
      */
@@ -97,7 +97,7 @@ public abstract class PuiBase<M, C extends ControllerBase<M>> implements Project
 
     /**
      * Second step to specify an observer.
-     *
+     * <p>
      * Use 'triggerPUIAction' to specify what needs to be done whenever the observed value changes
      */
     public class Updater<V> {
@@ -115,18 +115,17 @@ public abstract class PuiBase<M, C extends ControllerBase<M>> implements Project
         }
 
         public void execute(Consumer<V> action){
-            observableValue.onChange((oldValue, newValue) -> {
-                queue.submit(() -> {
-                    action.accept(newValue);
-                    return null;
-                });
-            });
+            observableValue.onChange((oldValue, newValue) ->
+                    queue.submit(() -> {
+                       action.accept(newValue);
+                       return null;
+                    }));
         }
     }
 
     /**
      * Second step to specify an observer.
-     *
+     * <p>
      * Use 'triggerPUIAction' to specify what needs to be done whenever the observed array changes
      */
     public class ArrayUpdater<V> {

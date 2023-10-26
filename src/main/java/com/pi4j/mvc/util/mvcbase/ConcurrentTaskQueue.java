@@ -12,12 +12,12 @@ import java.util.function.Supplier;
 
 /**
  * A device where tasks can be submitted for execution.
- *
+ * <p>
  * Execution is asynchronous - possibly in a different thread - but the sequence is kept stable, such that
  * for all tasks A and B: if B is submitted after A, B will only be executed after A is finished.
- *
+ * <p>
  * New tasks can be submitted while tasks are running.
- *
+ * <p>
  * Task submission itself is supposed to be thread-confined,
  * i.e. creation of the ConcurrentTaskQueue and task submission is expected to run in the same thread,
  * most likely the JavaFX UI Application Thread.
@@ -32,7 +32,7 @@ public final class ConcurrentTaskQueue<R> {
 
     private boolean running = false; // for non-thread-confined submissions, we might need an AtomicBoolean
 
-    public ConcurrentTaskQueue(){
+    public ConcurrentTaskQueue() {
         this(Duration.ofSeconds(5));
     }
 
@@ -42,15 +42,16 @@ public final class ConcurrentTaskQueue<R> {
         this.buffer      = new ConcurrentLinkedQueue<>();
     }
 
-    public void shutdown(){
+    public void shutdown() {
         executor.shutdown();
     }
 
-    public void submit(Supplier<R> todo){
-        submit(todo, r -> {});
+    public void submit(Supplier<R> todo) {
+        submit(todo, r -> {
+        });
     }
 
-    public void submit(Supplier<R> todo, Consumer<R> onDone){
+    public void submit(Supplier<R> todo, Consumer<R> onDone) {
         buffer.add(new Task<>(todo, onDone));
         execute();
     }

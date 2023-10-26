@@ -18,11 +18,13 @@ public class SomeController extends ControllerBase<SomeModel> {
     }
 
     public void decreaseCounter() {
+        //use updateModel if several values need an update in this action
         updateModel(decrease(model.counter),
                     set(model.isActive, false));
     }
 
     public void setIsActive(boolean is){
+        //use setValue if a single value needs to be updated in this action
         setValue(model.isActive, is);
     }
 }

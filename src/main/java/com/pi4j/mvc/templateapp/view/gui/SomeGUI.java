@@ -68,8 +68,7 @@ public class SomeGUI extends BorderPane implements ViewMixin<SomeModel, SomeCont
 
     @Override
     public void setupUiToActionBindings(SomeController controller) {
-        // look at that: all EventHandlers just trigger an action on 'controller'
-        // by calling a single method
+        // look at that: all EventHandlers just trigger an action on 'controller' by calling a single method
 
         increaseButton.setOnAction  (event -> controller.increaseCounter());
         ledButton.setOnMousePressed (event -> controller.setIsActive(true));
