@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import com.pi4j.Pi4J;
 import com.pi4j.context.Context;
 
 /**
@@ -29,10 +30,10 @@ public abstract class PuiBase<M, C extends ControllerBase<M>> implements Project
 
     protected final Context pi4J;
 
-    public PuiBase(C controller, Context pi4J) {
-        Objects.requireNonNull(pi4J);
+    public PuiBase(C controller) {
+        Objects.requireNonNull(controller);
 
-        this.pi4J = pi4J;
+        pi4J = Pi4J.newAutoContext();
 
         init(controller);
     }

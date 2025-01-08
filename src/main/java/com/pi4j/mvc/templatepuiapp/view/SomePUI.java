@@ -19,8 +19,8 @@ public class SomePUI extends PuiBase<SomeModel, SomeController> {
     protected SimpleLed led;
     protected SimpleButton button;
 
-    public SomePUI(SomeController controller, Context pi4J) {
-        super(controller, pi4J);
+    public SomePUI(SomeController controller) {
+        super(controller);
     }
 
     @Override

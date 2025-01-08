@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run Local" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="Restart on Pi" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />
@@ -11,15 +11,14 @@
           </option>
           <option name="goals">
             <list>
-              <option value="install" />
+              <option value="validate" />
             </list>
           </option>
           <option name="multimoduleDir" />
           <option name="pomFileName" value="pom.xml" />
           <option name="profilesMap">
             <map>
-              <entry key="release" value="true" />
-              <entry key="run-local" value="true" />
+              <entry key="restart-on-Pi" value="true" />
             </map>
           </option>
           <option name="projectsCmdOptionValues">

@@ -2,7 +2,6 @@ package com.pi4j.mvc.templateapp.view.pui;
 
 import com.pi4j.mvc.templateapp.controller.SomeController;
 import com.pi4j.mvc.templateapp.model.SomeModel;
-import com.pi4j.mvc.util.Pi4JContext;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +21,7 @@ class SomePUITest extends ComponentTest {
          //given
          SomeModel      model      = new SomeModel();
          SomeController controller = new SomeController(model);
-         SomePUI        pui        = new SomePUI(controller, Pi4JContext.createMockContext());
+         SomePUI        pui        = new SomePUI(controller);
  
          //when
          controller.setIsActive(true);
@@ -46,7 +45,7 @@ class SomePUITest extends ComponentTest {
          //given
          SomeModel      model      = new SomeModel();
          SomeController controller = new SomeController(model);
-         SomePUI        pui        = new SomePUI(controller, Pi4JContext.createMockContext());
+         SomePUI        pui        = new SomePUI(controller);
  
          int initialCounter = model.counter.getValue();
 

@@ -1,6 +1,5 @@
 package com.pi4j.mvc.multicontrollerapp;
 
-import com.pi4j.mvc.multicontrollerapp.view.gui.ExamplePuiEmulator;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -15,7 +14,6 @@ import com.pi4j.mvc.multicontrollerapp.controller.ApplicationController;
 import com.pi4j.mvc.multicontrollerapp.model.ExampleModel;
 import com.pi4j.mvc.multicontrollerapp.view.gui.ExampleGUI;
 import com.pi4j.mvc.multicontrollerapp.view.pui.ExamplePUI;
-import com.pi4j.mvc.util.Pi4JContext;
 
 public class AppStarter extends Application {
 
@@ -30,7 +28,7 @@ public class AppStarter extends Application {
         controller = new ApplicationController(model);
 
         //both gui and pui are working on the same controller
-        pui = new ExamplePUI(controller, Pi4JContext.createContext());
+        pui = new ExamplePUI(controller);
 
         Pane gui = new ExampleGUI(controller);
 

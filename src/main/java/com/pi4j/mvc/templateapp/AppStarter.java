@@ -13,9 +13,7 @@ import javafx.stage.Stage;
 import com.pi4j.mvc.templateapp.controller.SomeController;
 import com.pi4j.mvc.templateapp.model.SomeModel;
 import com.pi4j.mvc.templateapp.view.gui.SomeGUI;
-import com.pi4j.mvc.templateapp.view.gui.SomePuiEmulator;
 import com.pi4j.mvc.templateapp.view.pui.SomePUI;
-import com.pi4j.mvc.util.Pi4JContext;
 
 public class AppStarter extends Application {
 
@@ -30,7 +28,7 @@ public class AppStarter extends Application {
         controller = new SomeController(model);
 
         //both gui and pui are working on the same controller
-        pui = new SomePUI(controller, Pi4JContext.createContext());
+        pui = new SomePUI(controller);
 
         Pane gui = new SomeGUI(controller);
 

@@ -47,7 +47,6 @@ public class MinimalPi4J {
                                                              .address(PIN_BUTTON)
                                                              .pull(PullResistance.PULL_DOWN)
                                                              .debounce(3000L)
-                                                             .provider("pigpio-digital-input")
                                                              .build();  //don't forget to build the config
 
 
