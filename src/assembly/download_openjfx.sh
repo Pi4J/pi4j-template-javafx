@@ -3,7 +3,7 @@
 # Variables
 URL="https://download2.gluonhq.com/openjfx/23.0.1/openjfx-23.0.1_linux-aarch64_bin-sdk.zip"
 SHA_URL="https://download2.gluonhq.com/openjfx/23.0.1/openjfx-23.0.1_linux-aarch64_bin-sdk.zip.sha256"
-TARGET_DIR="target/openjfx"
+TARGET_DIR="$HOME/openjfx"
 SUBDIR="extracted_files"
 TEMP_DIR=$(mktemp -d)
 

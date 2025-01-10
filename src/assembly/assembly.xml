@@ -7,8 +7,8 @@
 
 	<fileSets>
 		<fileSet>
-			<directory>${project.build.directory}/distribution</directory>
-			<outputDirectory>distribution</outputDirectory>
+			<directory>${project.build.directory}/libs</directory>
+			<outputDirectory>libs</outputDirectory>
 			<filtered>false</filtered>
 			<excludes>
 				<exclude>javafx*.jar</exclude>

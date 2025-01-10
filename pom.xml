@@ -27,9 +27,9 @@
     <properties>
         <!-- The class that will be started, choose one and only one -->
 
-        <!-- <launcher.class>com.pi4j.setup.HelloFX</launcher.class> -->
-        <!-- <launcher.class>com.pi4j.mvc.templateapp.AppStarter</launcher.class> -->
-        <launcher.class>com.pi4j.mvc.templatepuiapp.AppStarter</launcher.class>
+        <!--  <launcher.class>com.pi4j.setup.HelloFX</launcher.class> -->
+         <launcher.class>com.pi4j.mvc.templateapp.AppStarter</launcher.class>
+        <!-- <launcher.class>com.pi4j.mvc.templatepuiapp.AppStarter</launcher.class> -->
         <!-- <launcher.class>com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class> -->
 
         <jar.name>JFXApp</jar.name>
@@ -43,6 +43,7 @@
         <pi.password>pi4j</pi.password>
         <pi.deploydirectory>/home/pi/deploy</pi.deploydirectory>
         <pi.startScript>start.sh</pi.startScript>
+        <pi.restartScript>restart.sh</pi.restartScript>
 
         <!-- Java Compiler Version -->
         <java.version>21</java.version>
@@ -243,16 +244,13 @@
                                 </goals>
                                 <configuration>
                                     <outputDirectory>
-                                        ${project.build.directory}/distribution
+                                        ${project.build.directory}/libs
                                     </outputDirectory>
                                     <includeScope>runtime</includeScope>
                                     <excludeTransitive>false</excludeTransitive>
                                     <overWriteReleases>false</overWriteReleases>
                                     <overWriteSnapshots>true</overWriteSnapshots>
                                     <overWriteIfNewer>true</overWriteIfNewer>
-                                    <!-- exclude platform specific dependencies, as we add the runtime in the assembly-->
-                                    <excludeClassifiers>linux,win,mac</excludeClassifiers>
-
                                 </configuration>
                             </execution>
                         </executions>
@@ -264,7 +262,7 @@
                             <archive>
                                 <manifest>
                                     <addClasspath>true</addClasspath>
-                                    <classpathPrefix>distribution/</classpathPrefix>
+                                    <classpathPrefix>libs/</classpathPrefix>
                                     <mainClass>${launcher.class}</mainClass>
                                     <useUniqueVersions>false</useUniqueVersions>
                                 </manifest>
@@ -311,7 +309,7 @@
                         </executions>
                         <configuration>
                             <executable>java</executable>
-                            <commandlineArgs>--module-path "${project.build.directory}/distribution" --add-modules javafx.controls -jar "${project.build.directory}/${jar.name}.jar"</commandlineArgs>
+                            <commandlineArgs>--module-path "${project.build.directory}/libs" --add-modules javafx.controls -jar "${project.build.directory}/${jar.name}.jar"</commandlineArgs>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -327,33 +325,6 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
                         <executions>
-                            <execution>
-                                <id>copy</id>
-                                <phase>package</phase>
-                                <configuration>
-                                    <target>
-                                        <echo message="Running OpenJFX download script..."/>
-                                        <exec executable="/bin/bash" osfamily="unix">
-                                            <arg line="${project.basedir}/download_openjfx.sh"/>
-                                        </exec>
-                                        <exec executable="cmd" osfamily="windows">
-                                            <arg line="/c ${project.basedir}\download_openjfx.bat"/>
-                                        </exec>
-
-                                        <echo message="Copying distribution files..."/>
-                                        <copy todir="${project.build.directory}/distribution" overwrite="true" flatten="true">
-                                            <fileset dir="assets" includes="*.sh"/>
-                                        </copy>
-                                        <copy todir="${project.build.directory}/distribution/openjfx" overwrite="true">
-                                            <fileset dir="${project.build.directory}/openjfx/extracted_files/openjfx"/>
-                                        </copy>
-                                        <chmod dir="${project.build.directory}/distribution" perm="ugo+rx" includes="**/*.sh"/>
-                                    </target>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
                             <execution>
                                 <id>transfer</id>
                                 <phase>install</phase>
@@ -421,7 +392,7 @@
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"
                                                  username="${pi.username}" password="${pi.password}" trust="true"
                                                  failonerror="false" usepty="true" useSystemIn="true"
-                                                 command="${pi.deploydirectory}/${jar.name}/${pi.startScript} ${pi.deploydirectory}/${jar.name} ${jar.name}"/>
+                                                 command="${pi.deploydirectory}/${jar.name}/${pi.restartScript} ${pi.deploydirectory}/${jar.name} ${jar.name}"/>
                                     </target>
                                 </configuration>
                             </execution>
