@@ -1,14 +1,14 @@
 package com.pi4j.mvc.templateapp.view.gui;
 
+import com.pi4j.mvc.templateapp.controller.SomeController;
+import com.pi4j.mvc.templateapp.model.SomeModel;
+import com.pi4j.mvc.util.mvcbase.ViewMixin;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-
-import com.pi4j.mvc.templateapp.controller.SomeController;
-import com.pi4j.mvc.templateapp.model.SomeModel;
-import com.pi4j.mvc.util.mvcbase.ViewMixin;
 
 public class SomePuiEmulator extends VBox implements ViewMixin<SomeModel, SomeController> {
 

@@ -1,14 +1,12 @@
 package com.pi4j.mvc.templatepuiapp;
 
-import com.pi4j.context.Context;
 import com.pi4j.mvc.templatepuiapp.controller.SomeController;
 import com.pi4j.mvc.templatepuiapp.model.SomeModel;
 import com.pi4j.mvc.templatepuiapp.view.SomePUI;
-import com.pi4j.mvc.util.mvcbase.MvcLogger;
+
+import static com.pi4j.mvc.util.mvcbase.MvcLogger.LOGGER;
 
 public class AppStarter {
-
-    private static final MvcLogger LOGGER = new MvcLogger();
 
     public static void main(String[] args) {
         SomeController controller = new SomeController(new SomeModel());

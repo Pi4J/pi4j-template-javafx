@@ -27,18 +27,17 @@
     <properties>
         <!-- The class that will be started, choose one and only one -->
 
-        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.setup.HelloFX</launcher.class> -->
-        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.setup.MinimalPi4J</launcher.class> -->
-        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.mvc.templateapp.AppStarter</launcher.class> -->
-        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.mvc.templatepuiapp.AppStarter</launcher.class> -->
-        <launcher.class>com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class>
+        <!-- <launcher.class>com.pi4j.setup.HelloFX</launcher.class> -->
+        <!-- <launcher.class>com.pi4j.mvc.templateapp.AppStarter</launcher.class> -->
+        <launcher.class>com.pi4j.mvc.templatepuiapp.AppStarter</launcher.class>
+        <!-- <launcher.class>com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class> -->
 
         <jar.name>JFXApp</jar.name>
 
         <!-- Setup for the RaspPi -->
         <pi.hostname>pi4j</pi.hostname>
-        <pi.ipnumber>10.175.12.156</pi.ipnumber>
-        <!-- <pi.ipnumber>${pi.hostname}.local</pi.ipnumber> -->
+        <!-- <pi.ipnumber>10.175.12.156</pi.ipnumber> -->
+        <pi.ipnumber>${pi.hostname}.local</pi.ipnumber>
         <pi.port>22</pi.port>
         <pi.username>pi</pi.username>
         <pi.password>pi4j</pi.password>

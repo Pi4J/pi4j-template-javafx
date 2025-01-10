@@ -7,7 +7,9 @@ import java.util.logging.Logger;
 public final class MvcLogger {
     private final Logger logger = Logger.getLogger("Pi4J Template Project");;
 
-    public MvcLogger(){
+    public static final MvcLogger LOGGER = new MvcLogger();
+
+    private MvcLogger(){
         Level appropriateLevel = Level.INFO;
         //Level appropriateLevel = Level.FINE; //use if 'debug'
 

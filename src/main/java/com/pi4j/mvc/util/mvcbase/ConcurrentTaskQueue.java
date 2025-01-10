@@ -1,7 +1,6 @@
 package com.pi4j.mvc.util.mvcbase;
 
 import java.time.Duration;
-
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,7 +18,7 @@ import java.util.function.Supplier;
  * New tasks can be submitted while tasks are running.
  * <p>
  * Task submission itself is supposed to be thread-confined,
- * i.e. creation of the ConcurrentTaskQueue and task submission is expected to run in the same thread,
+ * i.e., creation of the ConcurrentTaskQueue and task submission is expected to run in the same thread,
  * most likely the JavaFX UI Application Thread.
  *
  * @author Dierk Koenig

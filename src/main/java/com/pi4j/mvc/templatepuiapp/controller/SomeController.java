@@ -2,11 +2,10 @@ package com.pi4j.mvc.templatepuiapp.controller;
 
 import com.pi4j.mvc.templatepuiapp.model.SomeModel;
 import com.pi4j.mvc.util.mvcbase.ControllerBase;
-import com.pi4j.mvc.util.mvcbase.MvcLogger;
+
+import static com.pi4j.mvc.util.mvcbase.MvcLogger.LOGGER;
 
 public class SomeController extends ControllerBase<SomeModel> {
-
-    private final MvcLogger logger = new MvcLogger();
 
     protected final int terminationCount = 10;
 
@@ -25,7 +24,7 @@ public class SomeController extends ControllerBase<SomeModel> {
 
         //using 'runLater' assures that new value is set on model
         runLater(m -> {
-                     logger.logInfo("Number of activations: %d", m.counter.getValue());
+                     LOGGER.logInfo("Number of activations: %d", m.counter.getValue());
                      if (m.counter.getValue() > terminationCount) {
                          terminate();
                      }
@@ -33,7 +32,7 @@ public class SomeController extends ControllerBase<SomeModel> {
     }
 
     protected void terminate() {
-        logger.logInfo("Goodbye!");
+        LOGGER.logInfo("Goodbye!");
         System.exit(0);
     }
 }

@@ -1,15 +1,12 @@
 package com.pi4j.mvc.templateapp.view.pui;
 
-import com.pi4j.context.Context;
-
-
-import com.pi4j.catalog.components.SimpleButton;
-import com.pi4j.catalog.components.SimpleLed;
-import com.pi4j.catalog.components.base.PIN;
-
 import com.pi4j.mvc.templateapp.controller.SomeController;
 import com.pi4j.mvc.templateapp.model.SomeModel;
 import com.pi4j.mvc.util.mvcbase.PuiBase;
+
+import com.pi4j.catalog.components.base.PIN;
+import com.pi4j.catalog.components.SimpleButton;
+import com.pi4j.catalog.components.SimpleLed;
 
 public class SomePUI extends PuiBase<SomeModel, SomeController> {
     //declare all hardware components attached to RaspPi
