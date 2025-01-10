@@ -33,11 +33,11 @@ Dient ausschliesslich der Überprüfung der [JavaFX](https://openjfx.io)-Basis-I
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.mvc/com.pi4j.setup.HelloFX</launcher.class>`
-- mit `Run local` auf dem Laptop starten
+  - `<launcher.class>com.pi4j.setup.HelloFX</launcher.class>`
+- mit `Run Local` auf dem Laptop starten
 - mit `Run on Pi` auf dem RaspPi starten
 
-Sobald der JavaFX-Setup überprüft ist, kann HelloFX gelöscht werden.
+Sobald der JavaFX-Setup überprüft ist, kann `HelloFX` gelöscht werden.
 
 #### Wiring
 Die anderen Beispielprogramme verwenden eine LED und einen Button. Diese müssen folgendermassen verdrahtet werden:
@@ -55,8 +55,8 @@ Sie sollten zunächst das Beispiel kennenlernen und verstehen. Für Ihre eigene 
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.mvc/com.pi4j.mvc.templateapp.AppStarter</launcher.class>`
-- mit `Run local` (oder direkt aus der IDE heraus) auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz des RaspPis entwickelt werden 
+  - `<launcher.class>com.pi4j.mvc.templateapp.AppStarter</launcher.class>`
+- mit `Run Local` (oder direkt aus der IDE heraus) auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz des RaspPis entwickelt werden 
     - in `AppStarter` kann zusätzlich noch ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
 - mit `Run on Pi` auf dem RaspPi starten (jetzt natürlich inklusive "echtem" PUI)
 
@@ -69,8 +69,8 @@ Falls Sie eine reine PUI-Applikation entwickeln oder erst später ein GUI hinzuf
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.mvc/com.pi4j.mvc.templatepuiapp.AppStarter</launcher.class>`
-- `Run local` ist bei reinen PUI-Applikationen nicht sinnvoll
+  - `<launcher.class>com.pi4j.mvc.templatepuiapp.AppStarter</launcher.class>`
+- `Run Local` ist bei reinen PUI-Applikationen nicht sinnvoll
 - mit `Run on Pi` auf dem RaspPi starten
 
 
@@ -150,7 +150,7 @@ Die `MultiControllerApp` zeigt so ein Beispiel. Es soll möglich sein, den Count
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.mvc/com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class>`
+  - `<launcher.class>com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class>`
 - mit `Run local` (oder direkt aus der IDE heraus) auf dem Laptop starten.  
     - in `AppStarter` kann zusätzlich noch ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
 - mit `Run on Pi` auf dem RaspPi starten
@@ -176,7 +176,6 @@ Das Model ist lediglich eine Ansammlung von `ObservableValues` und bietet darüb
 
 Die einzelnen PUI-Components können sehr gut via der in Pi4J integrierten `MockPlatform` getestet werden. Diese Tests werden auf dem Laptop ausgeführt. Ein RaspPi ist nicht notwendig.
 
-Beispiele für solche Component-Tests sehen Sie im [CrowPi-Tutorial](https://fhnw-ip5-ip6.github.io/CrowPiGoesJavaTutorial/de/) und in diesem Projekt im Package `com.pi4j.mvc.templateapp.view.pui.components`.
 
 #### PUI Tests
 Das PUI ihrer Applikation kann ebenfalls gut mittels JUnit getestet werden.
