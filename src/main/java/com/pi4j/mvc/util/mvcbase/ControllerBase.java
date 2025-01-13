@@ -1,7 +1,6 @@
 package com.pi4j.mvc.util.mvcbase;
 
 import java.time.Duration;
-
 import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -28,7 +27,7 @@ public abstract class ControllerBase<M> {
     protected final M model;
 
     /**
-     * Controller needs a Model.
+     * The Controller needs a Model.
      *
      * @param model Model managed by this Controller
      */
@@ -86,7 +85,7 @@ public abstract class ControllerBase<M> {
     /**
      * Intermediate solution for TestCase support.
      * <p>
-     * Best solution would be that 'action' of 'runLater' is executed on calling thread.
+     * The best solution would be that 'action' of 'runLater' is executed on calling thread.
      * <p>
      * Waits until all current actions in actionQueue are completed.
      * <p>
@@ -120,18 +119,18 @@ public abstract class ControllerBase<M> {
     /**
      * Even for setting a value the controller is responsible.
      * <p>
-     * No application specific class can access ObservableValue.setValue
+     * No application-specific class can access ObservableValue.setValue
      * <p>
-     * Value is set asynchronously.
+     * The value is set asynchronously.
      */
     protected <V> void setValue(ObservableValue<V> observableValue, V newValue){
         async(() -> observableValue.setValue(newValue));
     }
 
     /**
-     * Even for setting values in the array the controller is responsible.
+     * Even for setting values in the array, the controller is responsible.
      * <p>
-     * No application specific class can access ObservableValue.setValues
+     * No application-specific class can access ObservableValue.setValues
      * <p>
      * Values are set asynchronously.
      */
@@ -140,11 +139,11 @@ public abstract class ControllerBase<M> {
     }
 
     /**
-     * Even for setting a value in the array the controller is responsible.
+     * Even for setting a value in the array, the controller is responsible.
      * <p>
-     * No application specific class can access ObservableValue.setValue
+     * No application-specific class can access ObservableValue.setValue
      * <p>
-     * Value is set asynchronously.
+     * The value is set asynchronously.
      */
     protected <V> void setValue(ObservableArray<V> observableArray, int position, V newValue){
         async(() -> observableArray.setValue(position, newValue));

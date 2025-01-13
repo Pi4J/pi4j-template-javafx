@@ -62,7 +62,7 @@ public abstract class Component {
             long nanos = duration.toNanos();
             long millis = nanos / 1_000_000;
             int remainingNanos = (int) (nanos % 1_000_000);
-            Thread.currentThread().sleep(millis, remainingNanos);
+            Thread.sleep(millis, remainingNanos);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

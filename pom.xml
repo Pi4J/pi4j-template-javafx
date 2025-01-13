@@ -27,65 +27,59 @@
     <properties>
         <!-- The class that will be started, choose one and only one -->
 
-        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.setup.HelloFX</launcher.class> -->
-        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.setup.MinimalPi4J</launcher.class> -->
-        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.mvc.templateapp.AppStarter</launcher.class> -->
-        <!-- <launcher.class>com.pi4j.mvc/com.pi4j.mvc.templatepuiapp.AppStarter</launcher.class> -->
-        <launcher.class>com.pi4j.mvc/com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class>
+        <!--  <launcher.class>com.pi4j.setup.HelloFX</launcher.class> -->
+         <launcher.class>com.pi4j.mvc.templateapp.AppStarter</launcher.class>
+        <!-- <launcher.class>com.pi4j.mvc.templatepuiapp.AppStarter</launcher.class> -->
+        <!-- <launcher.class>com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class> -->
+
+        <jar.name>JFXApp</jar.name>
 
         <!-- Setup for the RaspPi -->
         <pi.hostname>pi4j</pi.hostname>
-        <pi.ipnumber>${pi.hostname}.local</pi.ipnumber>  <!-- change to concrete ip-number if hostname is not unique in wlan -->
+        <!-- <pi.ipnumber>10.175.12.156</pi.ipnumber> -->
+        <pi.ipnumber>${pi.hostname}.local</pi.ipnumber>
         <pi.port>22</pi.port>
         <pi.username>pi</pi.username>
         <pi.password>pi4j</pi.password>
         <pi.deploydirectory>/home/pi/deploy</pi.deploydirectory>
-        <pi.jvmOptions/>
-
-        <!-- If a mouse is attached to Pi use 'true' -->
-        <pi.drm.enable.cursor>true</pi.drm.enable.cursor>
+        <pi.startScript>start.sh</pi.startScript>
+        <pi.restartScript>restart.sh</pi.restartScript>
 
         <!-- Java Compiler Version -->
-        <java.version>17</java.version>
+        <java.version>21</java.version>
 
         <!-- Project Dependency Versions-->
-        <javafx.version>21.0.1</javafx.version>
-        <pi4j.version>2.4.0</pi4j.version>
-        <junit.version>5.10.0</junit.version>
+        <javafx.version>23.0.1</javafx.version>
+        <pi4j.version>2.7.0</pi4j.version>
+        <jSerialComm.version>2.11.0</jSerialComm.version>
+        <junit.version>5.11.4</junit.version>
+        <mockito.version>5.15.2</mockito.version>
 
         <!-- Plugin Versions-->
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
 
+        <ant-jsch.version>1.10.15</ant-jsch.version>
+
         <!-- Maven Plugin Versions -->
-        <maven-clean-plugin.version>3.3.1</maven-clean-plugin.version>
-        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>3.6.1</maven-dependency-plugin.version>
-        <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
-        <maven-install-plugin.version>3.1.1</maven-install-plugin.version>
-        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
-        <maven-javadoc-plugin.version>3.6.0</maven-javadoc-plugin.version>
+        <maven-clean-plugin.version>3.4.0</maven-clean-plugin.version>
+        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.8.0</maven-dependency-plugin.version>
+        <exec-maven-plugin.version>3.4.1</exec-maven-plugin.version>
+        <maven-install-plugin.version>3.1.3</maven-install-plugin.version>
+        <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
+        <maven-javadoc-plugin.version>3.10.0</maven-javadoc-plugin.version>
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
-        <maven-surefire-plugin.version>3.2.1</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
         <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
 
         <!-- Maven Properties -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-
-        <!-- PROJECT ENCODING PROPERTIES -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <!-- Ant Dependencies -->
-        <ant-jsch.version>1.10.14</ant-jsch.version>
     </properties>
 
     <dependencies>
         <!-- JavaFX  -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-base</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
@@ -97,7 +91,18 @@
             <version>${javafx.version}</version>
         </dependency>
 
-        <!-- Pi4J  -->
+        <!-- Pi4J libraries -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.12</version>
+        </dependency>
+
         <dependency>
             <groupId>com.pi4j</groupId>
             <artifactId>pi4j-core</artifactId>
@@ -105,18 +110,20 @@
         </dependency>
         <dependency>
             <groupId>com.pi4j</groupId>
-            <artifactId>pi4j-plugin-raspberrypi</artifactId>
-            <version>${pi4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.pi4j</groupId>
-            <artifactId>pi4j-plugin-pigpio</artifactId>
+            <artifactId>pi4j-plugin-gpiod</artifactId>
             <version>${pi4j.version}</version>
         </dependency>
         <dependency>
             <groupId>com.pi4j</groupId>
             <artifactId>pi4j-plugin-linuxfs</artifactId>
             <version>${pi4j.version}</version>
+        </dependency>
+
+        <!-- jSerialComm library for serial connections -->
+        <dependency>
+            <groupId>com.fazecast</groupId>
+            <artifactId>jSerialComm</artifactId>
+            <version>${jSerialComm.version}</version>
         </dependency>
 
         <!-- Pi4J Mock Platform -->
@@ -144,98 +151,25 @@
 
     <build>
         <plugins>
+
             <plugin>
-                <groupId>org.openjfx</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>${javafx.plugin.version}</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
                 <configuration>
-                    <mainClass>${launcher.class}</mainClass>
+                    <!-- This is an app, so we don't want to install it in the local Maven repository -->
+                    <skip>true</skip>
                 </configuration>
             </plugin>
-
-            <!-- JAVA COMPILER -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <release>${java.version}</release>
-                    <showDeprecation>true</showDeprecation>
-                    <showWarnings>true</showWarnings>
-                    <verbose>false</verbose>
-                </configuration>
-            </plugin>
-
-            <!-- DEFAULT JAR EXECUTABLE CLASS -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>${exec-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <executable>java</executable>
-                    <arguments>
-                        <argument>--module-path</argument>
-                        <argument>${project.build.directory}/distribution</argument>
-                        <argument>--module</argument>
-                        <argument>${launcher.class}</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-            <!-- Copy runtime dependencies into distribution folder -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/distribution</outputDirectory>
-                            <includeScope>runtime</includeScope>
-                            <excludeTransitive>false</excludeTransitive>
-                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>true</overWriteSnapshots>
-                            <overWriteIfNewer>true</overWriteIfNewer>
-                            <!--
-                            On the Raspberry Pi we use specific JavaFX dependencies, so we exclude them here.
-                            -->
-                            <excludeGroupIds>org.openjfx</excludeGroupIds>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Build final JAR file -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <outputDirectory>${project.build.directory}/distribution</outputDirectory>
-                </configuration>
-            </plugin>
-
-            <!-- Javadoc -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <additionalOptions>
-                        <additionalOption>--module-path</additionalOption>
-                        <additionalOption>${project.build.directory}/distribution</additionalOption>
-                    </additionalOptions>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
         </plugins>
+
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -291,67 +225,100 @@
             </plugins>
         </pluginManagement>
     </build>
+
     <profiles>
         <profile>
-            <id>jfx-remote-run-kiosk</id>
+            <id>release</id>
             <build>
+                <finalName>${jar.name}</finalName>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
+                        <artifactId>maven-dependency-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>transfer</id>
-                                <phase>install</phase>
+                                <id>copy-dependencies</id>
+                                <phase>prepare-package</phase>
                                 <goals>
-                                    <goal>run</goal>
+                                    <goal>copy-dependencies</goal>
                                 </goals>
                                 <configuration>
-                                    <target>
-                                        <!-- Ensure target directory exists on RaspPi -->
-                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
-                                                 username="${pi.username}" password="${pi.password}"
-                                                 trust="true" command="mkdir --parents ${pi.deploydirectory}; rm -f ${pi.deploydirectory}/*.jar"/>
-
-                                        <!-- Transfer distribution folder to RaspPi via SCP -->
-                                        <scp trust="true"
-                                             todir="${pi.username}:${pi.password}@${pi.ipnumber}:${pi.deploydirectory}"
-                                             port="${pi.port}">
-                                            <fileset dir="${project.build.directory}/distribution">
-                                                <exclude name="javafx*.jar"/>/>
-                                            </fileset>
-                                        </scp>
-
-                                        <!-- Stop all running Java processes -->
-                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
-                                                 username="${pi.username}" password="${pi.password}" trust="true"
-                                                 failonerror="false" usepty="true" useSystemIn="false"
-                                                 suppresssystemerr="true" suppresssystemout="true"
-                                                 command="sudo killall -9 java"/>
-
-                                        <!-- Run JFX application on Raspberry Pi -->
-                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
-                                                 username="${pi.username}" password="${pi.password}" trust="true"
-                                                 failonerror="false" usepty="true" useSystemIn="true"
-                                                 command="sudo  java-kiosk  ${pi.jvmOptions} -Xmx1G --module-path ${pi.deploydirectory} --module ${launcher.class} -Dmonocle.cursor.enabled=${pi.drm.enable.cursor}"/>
-                                    </target>
+                                    <outputDirectory>
+                                        ${project.build.directory}/libs
+                                    </outputDirectory>
+                                    <includeScope>runtime</includeScope>
+                                    <excludeTransitive>false</excludeTransitive>
+                                    <overWriteReleases>false</overWriteReleases>
+                                    <overWriteSnapshots>true</overWriteSnapshots>
+                                    <overWriteIfNewer>true</overWriteIfNewer>
                                 </configuration>
                             </execution>
                         </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.apache.ant</groupId>
-                                <artifactId>ant-jsch</artifactId>
-                                <version>${ant-jsch.version}</version>
-                            </dependency>
-                        </dependencies>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <addClasspath>true</addClasspath>
+                                    <classpathPrefix>libs/</classpathPrefix>
+                                    <mainClass>${launcher.class}</mainClass>
+                                    <useUniqueVersions>false</useUniqueVersions>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>src/assembly/assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>all</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
         </profile>
 
+        <!-- Run the JAR file locally -->
         <profile>
-            <id>jfx-remote-run-X11</id>
+            <id>run-local</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <executable>java</executable>
+                            <commandlineArgs>--module-path "${project.build.directory}/libs" --add-modules javafx.controls -jar "${project.build.directory}/${jar.name}.jar"</commandlineArgs>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Transfer and run JAR with dependencies on remote Raspberry -->
+        <profile>
+            <id>run-on-Pi</id>
             <build>
                 <plugins>
                     <plugin>
@@ -366,32 +333,28 @@
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <!-- Stop all running Java processes -->
-                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
-                                                 username="${pi.username}" password="${pi.password}" trust="true"
-                                                 failonerror="false" usepty="true" useSystemIn="false"
-                                                 suppresssystemerr="true" suppresssystemout="true"
-                                                 command="sudo killall -9 java"/>
-
                                         <!-- Ensure target directory exists on RaspPi -->
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"
                                                  username="${pi.username}" password="${pi.password}"
-                                                 trust="true" command="mkdir --parents ${pi.deploydirectory}; rm -f ${pi.deploydirectory}/*"/>
+                                                 trust="true" command="mkdir --parents ${pi.deploydirectory}; rm -r -f ${pi.deploydirectory}/*"/>
 
                                         <!-- Transfer distribution folder to RaspPi via SCP -->
                                         <scp trust="true"
+                                             localFile = "${project.build.directory}/${jar.name}.zip"
                                              todir="${pi.username}:${pi.password}@${pi.ipnumber}:${pi.deploydirectory}"
                                              port="${pi.port}">
-                                            <fileset dir="${project.build.directory}/distribution">
-                                                <exclude name="javafx*.jar"/>/>
-                                            </fileset>
                                         </scp>
 
-                                        <!-- Run JFX application on Raspberry Pi -->
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"
                                                  username="${pi.username}" password="${pi.password}" trust="true"
                                                  failonerror="false" usepty="true" useSystemIn="true"
-                                                 command="DISPLAY=:0 XAUTHORITY=/home/pi/.Xauthority sudo -E java -XX:+UseZGC -Xmx1G  ${pi.jvmOptions} --module-path /opt/javafx-sdk/lib:${pi.deploydirectory} --add-modules javafx.controls -Dglass.platform=gtk --module ${launcher.class}"/>
+                                                 command="unzip '${pi.deploydirectory}/${jar.name}.zip' -d '${pi.deploydirectory}'"/>
+
+                                        <!-- Run application on Raspberry Pi -->
+                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
+                                                 username="${pi.username}" password="${pi.password}" trust="true"
+                                                 failonerror="false" usepty="true" useSystemIn="true"
+                                                 command="${pi.deploydirectory}/${jar.name}/${pi.startScript} ${pi.deploydirectory}/${jar.name} ${jar.name} "/>
                                     </target>
                                 </configuration>
                             </execution>
@@ -407,13 +370,52 @@
                 </plugins>
             </build>
         </profile>
-        <!-- Activate JDWP server on Pi, can be used for local and remote runs -->
+
+        <!-- Rerun the app on remote Raspberry without deploying any changes-->
+        <profile>
+            <id>restart-on-Pi</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>transfer</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <!-- Run application on Raspberry Pi -->
+                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
+                                                 username="${pi.username}" password="${pi.password}" trust="true"
+                                                 failonerror="false" usepty="true" useSystemIn="true"
+                                                 command="${pi.deploydirectory}/${jar.name}/${pi.restartScript} ${pi.deploydirectory}/${jar.name} ${jar.name}"/>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.apache.ant</groupId>
+                                <artifactId>ant-jsch</artifactId>
+                                <version>${ant-jsch.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+
+                </plugins>
+
+            </build>
+        </profile>
+
+        <!-- Activate JDWP server on Raspberry, can be used for local and remote runs -->
         <profile>
             <id>debug</id>
             <properties>
-                <pi.jvmOptions>
-                    -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005
-                </pi.jvmOptions>
+                <pi.startScript>startInDebugMode.sh</pi.startScript>
             </properties>
         </profile>
     </profiles>

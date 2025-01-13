@@ -6,189 +6,38 @@
 [![Contributors](https://img.shields.io/github/contributors/DieterHolz/RaspPiFX-Template-Project)](https://github.com/DieterHolz/RaspPiFX-Template-Project/graphs/contributors)
 [![License](https://img.shields.io/github/license/DieterHolz/RaspPiFX-Template-Project)](https://github.com/DieterHolz/RaspPiFX-Template-Project/blob/master/LICENSE)
 
-Dieses Template Projekt wird für die Programmierausbildung an der [Fachhochschule Nordwestschweiz](https://www.fhnw.ch/en/degree-programmes/engineering/icompetence) (FHNW) eingesetzt. 
 
-Natürlich ist es auch für Programmierprojekte ausserhalb der FHNW geeignet. Einige Beschreibungen sind jedoch FHNW-spezifisch.
+Dieses Template Projekt wird für die Programmierausbildung in den IP12-Projekten an der [Fachhochschule Nordwestschweiz](https://www.fhnw.ch/en/degree-programmes/engineering/icompetence) (FHNW) eingesetzt.
 
+Es enthält Beschreibungen und Beispiele wie ein [JavaFX](https://openjfx.io)-basiertes Graphical-User-Interface (GUI) mit mittels der [Pi4J-Library](https://www.pi4j.com) an den Raspberry Pi angeschlossenen Aktoren und Sensoren kombiniert werden können.
 
-## Eigenes Repository anlegen
-Sie sollten für Ihr Programmier-Projekt auf keinen Fall direkt auf diesem Repository arbeiten. Stattdessen sollten Sie ein eigenes Repository anlegen, entweder unter Ihrem FHNW GitLab- oder GitHub-Account und dieses Template-Repository als "Quelle" importieren.
+Insbesondere sind Template-Projekte enthalten, die als Startpunkt für eigene Projekte dienen.
 
-#### FHNW GitLab
 
-Auf Ihrem GitLab-Account via
+## Setup von Raspberry Pi und Entwickler-Laptop
 
-`New Project -> Import Project -> Repo by URL`
+Bitte stellen Sie sicher, dass ihr Laptop und der von Ihnen verwendete Raspberry Pi 5 wie im [Hello Pi5 Projekt](https://gitlab.fhnw.ch/ip_12_preparation/hellopi5.git) beschrieben vorbereitet ist.
 
-das Formular ausfüllen, mit `Git repository URL` :
 
-`https://github.com/Pi4J/pi4j-template-javafx.git `
+## Entwicklungsprozess
 
+Unser Entwicklungsprozess für die IP12-Projekte ist ebenfalls im Projekt [Hello Pi5 Projekt](https://gitlab.fhnw.ch/ip_12_preparation/hellopi5.git) beschrieben.
 
-#### GitHub
-
-`Use this template`-Button dieses Repositories verwenden.
-
-## Raspberry Pi vorbereiten
-Verwenden Sie das vom [Pi4J-Team](https://github.com/Pi4J/pi4j-os) vorbereitete Pi4J-Basis-OS Image.
-- Download [Pi4J-Basic-OS](https://pi4j-download.com/latest.php?flavor=basic) Image
-- zip-File auspacken, mit [Raspberry Pi Imager](https://www.raspberrypi.org/blog/raspberry-pi-imager-imaging-utility/) den Benutzer `pi` mit Passwort `pi4j` definieren, eine SD-Card bespielen und damit den Raspberry Pi starten
-
-Das Pi4J-Basic-OS Image enthält bereits alle notwendige Installationen für JavaFX/Pi4J-Applikationen.
-
-
-## Installationen auf dem Entwickler-Laptop
-
-* [Java 17](https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot). Im Pi4J-Basic-OS Image ist JDK17 installiert. Daher verwenden wir diesen JDK auch auf dem Laptop. Hinweis für Mac-Benutzer: Die Verwendung von SDKMAN (s.u.) für die Installation und die Verwaltung von JDKs ist sehr empfehlenswert.
-
-* [IntelliJ IDEA](https://www.jetbrains.com/idea/download/). Es ist wichtig, die neueste Version zu verwenden. Am besten via [JetBrains Toolbox](https://www.jetbrains.com/toolbox-app/) installieren. Empfehlenswert ist die Verwendung der Ultimate Edition. Studierende erhalten, nach Anmeldung, eine kostenlose Lizenz. Registrieren Sie sich unter [https://www.jetbrains.com/student/](https://www.jetbrains.com/student/) mit Ihrer FHNW E-Mail-Adresse. Für die Community-Edition benötigt man keine Lizenz.
-
-* [Git](https://git-scm.com/downloads). Als Sourcecode-Repository verwenden wir git. 
-
-* [GitLab](https://gitlab.fhnw.ch/) oder [GitHub-Account](https://github.com/). Verwenden Sie ihren FHNW Gitlab oder GitHub Account. 
-
-* `ssh`. Die Verbindung zum Raspberry Pi wird mit `ssh` hergestellt. Ist normalerweise auf allen Laptops vorinstalliert.
-
-* [VNC Viewer](https://www.realvnc.com/en/connect/download/viewer/). Ermöglicht ein komfortables Arbeiten auf dem Raspberry Pi vom Laptop aus. Dadurch spart man sich das Anschliessen von Monitor, Tastatur und Maus direkt am Raspberry Pi.
-
-
-## Empfehlung zur Installation des JDK für MacOS (und Linux)
-
-Für MacOs und Linux gibt es ein sehr empfehlenswertes Tool zur Verwaltung unterschiedlicher Software Development Kits: [SDKMAN](https://sdkman.io)
-
-Insbesondere wenn, wie üblich, mehrere Java JDKs verwendet werden, hilft SDKMAN.
-
-#### Installation von SDKMAN
-Folgenden Befehl in einem Terminal eingeben:
- ```shell
- export SDKMAN_DIR="$HOME/sdkman" && curl -s "https://get.sdkman.io" | bash
- ```
-
-Falls Sie SDKMAN bereits früher installiert haben, müssen Sie SDKMAN auf den neuesten Stand bringen:
-
-```shell
-sdk update
-```
-
-#### Installation des JDK 
-In einem neuen Terminal-Window diesen Befehl eingeben:
-
-```shell
-sdk install java 17.0.9-tem
-```
-
-Danach liegt der JDK in ihrer Home-Directory im Folder `sdkman/candidates/java`. Von dort können Sie es dann in IntelliJ als neues SDK anlegen und im Projekt verwenden.
-
-Mit: 
-
-```shell
-sdk ls java
-```
-
-können Sie sich auflisten lassen, welche anderen JDKs zur Installation zur Verfügung stehen.
-
-## Java Version überprüfen
-
-In einem Terminal-Window eingeben
-```shell
-java -version
-```
-
-Das sollte diese Ausgabe erzeugen
-```shell
-openjdk version "17.0.9" 2023-10-17
-OpenJDK Runtime Environment Temurin-17.0.9+9 (build 17.0.9+9)
-OpenJDK 64-Bit Server VM Temurin-17.0.9+9 (build 17.0.9+9, mixed mode)
-```
-
-Falls das nicht der Fall ist, muss der Default-JDK umgestellt werden. Mit SDKMAN geht das einfach:
-
-```shell
-sdk default java 17.0.9-tem
-```
-
-## Verbindung zum Raspberry Pi herstellen
-Der Laptop und der Raspberry Pi müssen das gleiche WLAN verwenden.
-
-Eine einfache Variante, dies sicherzustellen, ist das Aufsetzen eines Hotspots auf einem Smartphone, idealerweise mit diesen Parametern:
-
-- ssid: `Pi4J-Spot`
-- password: `MayTheSourceBeWithYou!`
-
-Auf diesen Hotspot connected sich der RaspPi mit dem Pi4J-Basic-OS Image automatisch und zeigt die IP-Nummer im Hintergrundbild an.
-
-Den Laptop ebenfalls mit dem Pi4J-Spot verbinden.
-
-#### Verbindung via SSH
-
-In einem Terminal-Window des Laptops:
-
-```shell
-ssh pi@<ip.number>
-Passwort: 'pi4j'
-```
-
-z.B.
-
-```shell
-ssh pi@192.168.183.86
-Passwort: 'pi4j'
-```
-
-
-Falls der Raspberry Pi der einzige mit dem Hotspot verbundene ist, kann `pi4j.local` anstatt der IP-Nummer verwendet werden.
-
-```shell
-ssh pi@pi4j.local
-Passwort: 'pi4j'
-```
-
-#### Verbindung via VNC
-
-Mit derselben IP-Nummer (oder `pi4j.local`) kann auch via VNC auf den RaspPi zugegriffen werden. Man erhält auf dem Laptop ein Fenster, das den kompletten Desktop des Raspberry Pis anzeigt. 
-
-Das Ganze sieht dann so aus (mit der gestarteten ExampleApp)
-
-![VNC Viewer](assets/VNC_Viewer.png)
-
-
-## Build System
-
-Dieses Projekt verwendet Maven, um die Applikationen zu bauen und entweder lokal auf dem Laptop oder auf dem Raspberry Pi auszuführen.
-
-Die Artefakte werden dabei auf dem Laptop gebaut, anschliessend auf den Raspberry Pi kopiert und dort gestartet. Die Entwicklung direkt auf dem Raspberry Pi ist zwar ebenfalls möglich, wird aber nicht empfohlen. Besser ist es, die Applikation auf dem Laptop zu entwickeln und sie auf dem Raspberry Pi lediglich ausführen zu lassen.
-
-Dazu müssen nur wenige Konfigurationen verändert werden.
-
-#### Einstellungen im `pom.xml`
-
-- `launcher.class`: gibt an, welche Applikation gestartet werden soll. Im `pom.xml` ist bereits eine Liste von Kandidaten enthalten. Man muss nur bei der jeweils gewünschte Applikation die Kommentare entfernen.
-- `pi.hostname`: Der Hostname des Raspberry Pis, z.B. `pi4j`, wird auf dem Monitor des Pis eingeblendet.
-- `pi.ipnumber`: Die aktuelle IP-Nummer des Raspberry Pi, z.B. `192.168.1.2`, wird für SCP/SSH benötigt und wird ebenfalls auf dem Monitor angezeigt 
-
-Mit diesen Einstellungen kann die Applikation mittels Maven-Befehl auf dem Raspberry Pi gestartet werden. Besser ist es jedoch, die Run-Konfigurationen von IntelliJ zu verwenden.
-
-#### Einstellungen in den Run-Konfigurationen
-
-Im Projekt sind insgesamt vier Run-Konfigurationen vordefiniert, zwei zum Starten der Applikation, zwei zum Debuggen der Applikation auf dem RaspPi.
-- `Run Local` startet das Programm, das in `launcher.class` eingestellt wurde, auf dem Laptop. Wird vor allem während der GUI-Entwicklung gebraucht (also noch ohne die Verwendung von an den Raspberry Pi angeschlossenen Sensoren und Aktuatoren).
-- `Run on Pi` startet das Programm auf dem Raspberry Pi.
-- `Debug on Pi` startet das Programm auf dem Raspberry Pi im Debug-Modus.
-- `Attach to Pi Debugger` verbindet die IDE des Laptops mit dem via `Debug on Pi` gestarteten Programm. 
+Lesen Sie insbesondere die Kapitel _Entwicklungsprozess_ und _Applikation im Debugger starten_.
 
 
 ## Die enthaltenen Beispiel-Programme
 
 #### HelloFX
-Dient ausschliesslich der Überprüfung der JavaFX-Basis-Installation. Auf keinen Fall als Vorlage für die eigenen JavaFX-Applikationen verwenden.
+Dient ausschliesslich der Überprüfung der [JavaFX](https://openjfx.io)-Basis-Installation. Auf keinen Fall als Vorlage für die eigenen [JavaFX](https://openjfx.io)-Applikationen verwenden.
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.mvc/com.pi4j.setup.HelloFX</launcher.class>`
-- mit `Run local` auf dem Laptop starten
+  - `<launcher.class>com.pi4j.setup.HelloFX</launcher.class>`
+- mit `Run Local` auf dem Laptop starten
 - mit `Run on Pi` auf dem RaspPi starten
 
-Sobald der JavaFX-Setup überprüft ist, kann HelloFX gelöscht werden.
+Sobald der JavaFX-Setup überprüft ist, kann `HelloFX` gelöscht werden.
 
 #### Wiring
 Die anderen Beispielprogramme verwenden eine LED und einen Button. Diese müssen folgendermassen verdrahtet werden:
@@ -196,31 +45,18 @@ Die anderen Beispielprogramme verwenden eine LED und einen Button. Diese müssen
 ![Wiring](assets/wiring_bb.png)
 
 
-#### MinimalPi4J
-Ist eine reine Pi4J-Applikation ohne GUI. Auch sie dient ausschliesslich der Überprüfung des Setups.
-
-Zum Starten:
-- `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.mvc/com.pi4j.setup.MinimalPi4J</launcher.class> `
-- `Run local` macht für dieses Beispiel keinen Sinn. An den Laptop sind weder Button noch LED angeschlossen.
-- mit `Run on Pi` auf dem RaspPi starten
-
-Wenn der Button gedrückt wird, wird eine entsprechende Meldung in der Konsole ausgegeben.
-
-Sobald der Pi4J-Setup überprüft ist, kann MinimalPi4J ebenfalls gelöscht werden.
-
 #### TemplateApp
 
-TemplateApp zeigt das Zusammenspiel eines JavaFX-basiertes Graphical-User-Interfaces (GUI) mit an den RaspPi angeschlossenen Sensoren und Aktuatoren, dem Physical-User-Interface (PUI).
+`TemplateApp` zeigt das Zusammenspiel eines [JavaFX](https://openjfx.io)-basierten Graphical-User-Interfaces (GUI) mit an den RaspPi angeschlossenen Sensoren und Aktuatoren, dem Physical-User-Interface (PUI).
 
 Es dient als Vorlage für Ihre eigene Applikation. Das umfasst auch die enthaltenen TestCases.
 
-Sie sollten zunächst das Beispiel kennenlernen und verstehen. Für Ihre eigene Applikation sollten Sie anschliessend die TemplateApp kopieren und entsprechend abändern, ohne dabei die Grundregeln des MVC-Konzepts zu verletzen (s.u.). 
+Sie sollten zunächst das Beispiel kennenlernen und verstehen. Für Ihre eigene Applikation sollten Sie anschliessend die `TemplateApp` kopieren und entsprechend abändern, ohne dabei die Grundregeln des MVC-Konzepts zu verletzen (s.u.). 
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.mvc/com.pi4j.mvc.templateapp.AppStarter</launcher.class>`
-- mit `Run local` (oder direkt aus der IDE heraus) auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz des RaspPis entwickelt werden 
+  - `<launcher.class>com.pi4j.mvc.templateapp.AppStarter</launcher.class>`
+- mit `Run Local` (oder direkt aus der IDE heraus) auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz des RaspPis entwickelt werden 
     - in `AppStarter` kann zusätzlich noch ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
 - mit `Run on Pi` auf dem RaspPi starten (jetzt natürlich inklusive "echtem" PUI)
 
@@ -233,23 +69,10 @@ Falls Sie eine reine PUI-Applikation entwickeln oder erst später ein GUI hinzuf
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.mvc/com.pi4j.mvc.templatepuiapp.AppStarter</launcher.class>`
-- `Run local` ist bei reinen PUI-Applikationen nicht sinnvoll
+  - `<launcher.class>com.pi4j.mvc.templatepuiapp.AppStarter</launcher.class>`
+- `Run Local` ist bei reinen PUI-Applikationen nicht sinnvoll
 - mit `Run on Pi` auf dem RaspPi starten
 
-
-## Applikation im Debugger starten
-Zum Starten einer Applikation auf dem RaspPi im Debug-Mode werden die beiden Run-Konfigurationen `Debug on Pi` und `Attach to Pi Debugger` benötigt.
-
-Wichtig dabei ist die Reihenfolge, mit der die
-Konfigurationen gestartet werden:
-
-1. Start von `Debug on Pi` via des **Run**-Knopfs
-2. Warten bis die Konsolenausgabe meldet `Listening for transport dt_socket at address: 5005 (Attach debugger)`
-3. Starten von `Attach to Pi Debugger` mit dem Debug-Knopf
-4. Erst danach erscheint das GUI auf dem RaspPi-Bildschirm
-
-Nun können Sie wie gewohnt den Debugger von IntelliJ IDEA verwenden und beispielsweise Breakpoints setzen oder das Programm schrittweise ausführen.
 
 ## Das MVC-Konzept
 
@@ -276,7 +99,7 @@ Beim klassischen Model-View-Controller-Konzept sind neben der Starter-Klasse min
 
 In unserem Fall gibt es mindestens zwei View-Klassen
 
-- _GUI Klasse._ Das Graphical-User-Interface. JavaFX-basierte Implementierung des auf dem Bildschirm angezeigten UIs.
+- _GUI Klasse._ Das Graphical-User-Interface. [JavaFX](https://openjfx.io)-basierte Implementierung des auf dem Bildschirm angezeigten UIs.
 - _PUI Klasse._ Das Physical-User-Interface. Pi4J-basierte Implementierung der Sensoren und Aktuatoren. Verwendet Component-Klassen, wie Sie sie aus dem sogenannten [Pi4J Component Catalogue](https://github.com/Pi4J/pi4j-example-components.git) kennen.
 
 GUI und PUI sind komplett voneinander getrennt, z.B. hat der GUI-Button zum Anschalten der LED keinen direkten Zugriff auf die LED-Component des PUIs. Stattdessen triggert der GUI-Button lediglich eine entsprechende Action im Controller, der wiederum die on-Property im Model auf den neuen Wert setzt. In einem separaten Schritt reagiert die LED-Component des PUIs auf diese Wertänderung und schaltet die LED an bzw. aus.
@@ -313,7 +136,7 @@ Ein etwas fortgeschritteneres Beispiel ist die `MultiControllerApp`. Sie zeigt d
 Für einen einzelnen Controller gilt:
 - jede Action wird asynchron und reihenfolgetreu ausgeführt 
 - dafür hat jeder Controller eine eigene `ConcurrentTaskQueue` integriert
-- das UI wird dadurch während der Ausführung einer Action nicht blockiert
+- das UI wird dadurch während der Ausführung einer Action _nicht_ blockiert
 - werden vom UI weitere Actions getriggert während eine Action gerade in Bearbeitung ist, werden diese in der `ConcurrentTaskQueue` aufgesammelt und ausgeführt, sobald die vorherigen Actions abgearbeitet sind.
 
 Für einfache Applikationen reicht ein einzelner Controller meist aus.
@@ -327,7 +150,7 @@ Die `MultiControllerApp` zeigt so ein Beispiel. Es soll möglich sein, den Count
 
 Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
-  - `<launcher.class>com.pi4j.mvc/com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class>`
+  - `<launcher.class>com.pi4j.mvc.multicontrollerapp.AppStarter</launcher.class>`
 - mit `Run local` (oder direkt aus der IDE heraus) auf dem Laptop starten.  
     - in `AppStarter` kann zusätzlich noch ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
 - mit `Run on Pi` auf dem RaspPi starten
@@ -353,7 +176,6 @@ Das Model ist lediglich eine Ansammlung von `ObservableValues` und bietet darüb
 
 Die einzelnen PUI-Components können sehr gut via der in Pi4J integrierten `MockPlatform` getestet werden. Diese Tests werden auf dem Laptop ausgeführt. Ein RaspPi ist nicht notwendig.
 
-Beispiele für solche Component-Tests sehen Sie im [CrowPi-Tutorial](https://fhnw-ip5-ip6.github.io/CrowPiGoesJavaTutorial/de/) und in diesem Projekt im Package `com.pi4j.mvc.templateapp.view.pui.components`.
 
 #### PUI Tests
 Das PUI ihrer Applikation kann ebenfalls gut mittels JUnit getestet werden.

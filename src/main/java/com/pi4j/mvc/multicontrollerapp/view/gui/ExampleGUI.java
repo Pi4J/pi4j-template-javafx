@@ -1,5 +1,9 @@
 package com.pi4j.mvc.multicontrollerapp.view.gui;
 
+import com.pi4j.mvc.multicontrollerapp.controller.ApplicationController;
+import com.pi4j.mvc.multicontrollerapp.model.ExampleModel;
+import com.pi4j.mvc.util.mvcbase.ViewMixin;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -10,13 +14,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-import com.pi4j.mvc.multicontrollerapp.controller.ApplicationController;
-import com.pi4j.mvc.multicontrollerapp.model.ExampleModel;
-import com.pi4j.mvc.util.mvcbase.ViewMixin;
-
 public class ExampleGUI extends BorderPane implements ViewMixin<ExampleModel, ApplicationController> {
-    private static final String LIGHT_BULB = "\uf0eb";  // the unicode of the lightbulb-icon in fontawesome font
-    private static final String HEARTBEAT  = "\uf21e";  // the unicode of the heartbeat-icon in fontawesome font
+    private static final String LIGHT_BULB = "\uf0eb";  // the Unicode of the lightbulb-icon in fontawesome font
+    private static final String HEARTBEAT  = "\uf21e";  // the Unicode of the heartbeat-icon in fontawesome font
 
     // declare all the UI elements you need
     private Button ledButton;
@@ -26,7 +26,7 @@ public class ExampleGUI extends BorderPane implements ViewMixin<ExampleModel, Ap
     private Label  infoLabel;
 
     public ExampleGUI(ApplicationController controller) {
-        init(controller); //don't forget to call init
+        init(controller); //remember to call init
     }
 
     @Override
@@ -92,7 +92,7 @@ public class ExampleGUI extends BorderPane implements ViewMixin<ExampleModel, Ap
         onChangeOf(model.systemInfo)                       // the value we need to observe, in this case that's an ObservableValue<String>, no need to convert it
                 .update(infoLabel.textProperty());         // keeps textProperty and systemInfo in sync
 
-        onChangeOf(model.counter)                          // the value we need to observe, in this case that's an ObservableValue<Integer>
+        onChangeOf(model.counter)                          // the value we need to observe, in this case, that's an ObservableValue<Integer>
                 .convertedBy(String::valueOf)              // we have to convert the Integer to a String
                 .update(counterLabel.textProperty());      // keeps textProperty and counter in sync
     }

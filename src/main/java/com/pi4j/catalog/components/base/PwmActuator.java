@@ -8,7 +8,7 @@ import com.pi4j.io.pwm.PwmConfig;
 import com.pi4j.plugin.mock.provider.pwm.MockPwm;
 
 public class PwmActuator extends Component {
-    protected static final List<PIN> AVAILABLE_PWM_PINS = List.of(PIN.PWM12, PIN.PWM13, PIN.PWM18, PIN.PWM19);
+    protected static final List<PIN> AVAILABLE_PWM_PINS = List.of(PIN.PWM18, PIN.PWM19);
 
     protected final Pwm pwm;
 

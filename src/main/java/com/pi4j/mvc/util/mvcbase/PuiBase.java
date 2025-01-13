@@ -7,12 +7,13 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import com.pi4j.Pi4J;
 import com.pi4j.context.Context;
 
 /**
  * Base class for all PUIs.
  * <p>
- * In our scenario we also have a GUI.
+ * In our scenario, we also have a GUI.
  * <p>
  * We have to avoid that one of the UIs is blocked because the other UI has to perform a long-running task.
  * <p>
@@ -20,7 +21,7 @@ import com.pi4j.context.Context;
  * <p>
  * For JavaFX-based GUIs that's already available (the JavaFX Application Thread).
  * <p>
- * For PUIs we need to do that ourselves. It's implemented as a provider/consumer-pattern (see {@link ConcurrentTaskQueue}).
+ * For PUIs, we need to do that ourselves. It's implemented as a provider/consumer-pattern (see {@link ConcurrentTaskQueue}).
  */
 public abstract class PuiBase<M, C extends ControllerBase<M>> implements Projector<M, C>{
 
@@ -29,10 +30,10 @@ public abstract class PuiBase<M, C extends ControllerBase<M>> implements Project
 
     protected final Context pi4J;
 
-    public PuiBase(C controller, Context pi4J) {
-        Objects.requireNonNull(pi4J);
+    public PuiBase(C controller) {
+        Objects.requireNonNull(controller);
 
-        this.pi4J = pi4J;
+        pi4J = Pi4J.newAutoContext();
 
         init(controller);
     }
@@ -53,7 +54,7 @@ public abstract class PuiBase<M, C extends ControllerBase<M>> implements Project
     /**
      * Intermediate solution for TestCase support.
      * <p>
-     * Best solution would be that 'action' of 'runLater' is executed on calling thread.
+     * The best solution would be that 'action' of 'runLater' is executed on calling thread.
      * <p>
      * Waits until all current actions in actionQueue are completed.
      *

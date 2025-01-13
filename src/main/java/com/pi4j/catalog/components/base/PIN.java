@@ -12,6 +12,8 @@ public enum PIN {
     D5(5),
     D6(6),
     D11(11),
+    D12(12),
+    D13(13),
     D16(16),
     D17(17),
     D20(20),
@@ -26,8 +28,6 @@ public enum PIN {
     MISO(9),
     CEO(8),
     CE1(7),
-    PWM12(12),
-    PWM13(13),
     PWM18(18),
     PWM19(19);
 

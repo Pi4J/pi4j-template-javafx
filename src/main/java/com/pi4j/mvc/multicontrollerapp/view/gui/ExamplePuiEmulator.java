@@ -1,19 +1,19 @@
 package com.pi4j.mvc.multicontrollerapp.view.gui;
 
+import com.pi4j.mvc.multicontrollerapp.controller.ApplicationController;
+import com.pi4j.mvc.multicontrollerapp.model.ExampleModel;
+import com.pi4j.mvc.util.mvcbase.ViewMixin;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-import com.pi4j.mvc.multicontrollerapp.controller.ApplicationController;
-import com.pi4j.mvc.multicontrollerapp.model.ExampleModel;
-import com.pi4j.mvc.util.mvcbase.ViewMixin;
-
 
 public class ExamplePuiEmulator extends VBox implements ViewMixin<ExampleModel, ApplicationController> {
 
-    // for each PUI component, declare a corresponding JavaFX-control
+    // for each PUI component, declare a corresponding JavaFX control
     private Label  led;
     private Button decreaseButton;
 
@@ -43,14 +43,12 @@ public class ExamplePuiEmulator extends VBox implements ViewMixin<ExampleModel, 
     @Override
     public void setupUiToActionBindings(ApplicationController controller) {
         //trigger the same actions as the real PUI
-
         decreaseButton.setOnAction(event -> controller.decreaseCounter());
     }
 
     @Override
     public void setupModelToUiBindings(ExampleModel model) {
         //observe the same values as the real PUI
-
         onChangeOf(model.isActive)
                 .convertedBy(glows -> glows ? "on" : "off")
                 .update(led.textProperty());

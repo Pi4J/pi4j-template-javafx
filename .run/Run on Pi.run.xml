@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run on Pi (DRM)" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="Run on Pi" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings">
@@ -20,6 +20,7 @@
       </option>
       <option name="myRunnerParameters">
         <MavenRunnerParameters>
+          <option name="cmdOptions" />
           <option name="profiles">
             <set />
           </option>
@@ -28,11 +29,16 @@
               <option value="install" />
             </list>
           </option>
+          <option name="multimoduleDir" />
           <option name="pomFileName" value="pom.xml" />
           <option name="profilesMap">
             <map>
-              <entry key="jfx-remote-run-kiosk" value="true" />
+              <entry key="release" value="true" />
+              <entry key="run-on-Pi" value="true" />
             </map>
+          </option>
+          <option name="projectsCmdOptionValues">
+            <list />
           </option>
           <option name="resolveToWorkspace" value="false" />
           <option name="workingDirPath" value="$PROJECT_DIR$" />

@@ -2,7 +2,6 @@ package com.pi4j.mvc.multicontrollerapp.view.pui;
 
 import com.pi4j.mvc.multicontrollerapp.controller.ApplicationController;
 import com.pi4j.mvc.multicontrollerapp.model.ExampleModel;
-import com.pi4j.mvc.util.Pi4JContext;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +21,7 @@ public class ExamplePUITest extends ComponentTest {
         //given
         ExampleModel          model      = new ExampleModel();
         ApplicationController controller = new ApplicationController(model);
-        ExamplePUI            pui        = new ExamplePUI(controller, Pi4JContext.createMockContext());
+        ExamplePUI            pui        = new ExamplePUI(controller);
 
         //when
         controller.setLedGlows(true);
@@ -46,7 +45,7 @@ public class ExamplePUITest extends ComponentTest {
         //given
         ExampleModel          model      = new ExampleModel();
         ApplicationController controller = new ApplicationController(model);
-        ExamplePUI            pui        = new ExamplePUI(controller, Pi4JContext.createMockContext());
+        ExamplePUI            pui        = new ExamplePUI(controller);
 
         int initialCounter = model.counter.getValue();
 
