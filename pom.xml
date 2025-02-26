@@ -50,7 +50,7 @@
 
         <!-- Project Dependency Versions-->
         <javafx.version>23.0.1</javafx.version>
-        <pi4j.version>2.7.0</pi4j.version>
+        <pi4j.version>2.8.0</pi4j.version>
         <jSerialComm.version>2.11.0</jSerialComm.version>
         <junit.version>5.11.4</junit.version>
         <mockito.version>5.15.2</mockito.version>
