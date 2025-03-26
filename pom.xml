@@ -36,24 +36,26 @@
 
         <!-- Setup for the RaspPi -->
         <pi.hostname>pi4j</pi.hostname>
-        <!-- <pi.ipnumber>10.175.12.156</pi.ipnumber> -->
-        <pi.ipnumber>${pi.hostname}.local</pi.ipnumber>
+        <pi.ipnumber>10.175.62.110</pi.ipnumber>
+        <!-- <pi.ipnumber>${pi.hostname}.local</pi.ipnumber>-->
         <pi.port>22</pi.port>
         <pi.username>pi</pi.username>
         <pi.password>pi4j</pi.password>
         <pi.deploydirectory>/home/pi/deploy</pi.deploydirectory>
         <pi.startScript>start.sh</pi.startScript>
         <pi.restartScript>restart.sh</pi.restartScript>
+        <pi.startInDebugModeScript>startInDebugMode.sh</pi.startInDebugModeScript>
+        <pi.downloadJfxScript>download_openjfx.sh</pi.downloadJfxScript>
 
         <!-- Java Compiler Version -->
-        <java.version>21</java.version>
+        <java.version>24</java.version>
 
         <!-- Project Dependency Versions-->
-        <javafx.version>23.0.1</javafx.version>
-        <pi4j.version>2.8.0</pi4j.version>
+        <javafx.version>24</javafx.version>
+        <pi4j.version>3.0.1</pi4j.version>
         <jSerialComm.version>2.11.0</jSerialComm.version>
-        <junit.version>5.11.4</junit.version>
-        <mockito.version>5.15.2</mockito.version>
+        <junit.version>5.12.1</junit.version>
+        <mockito.version>5.16.1</mockito.version>
 
         <!-- Plugin Versions-->
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
@@ -351,6 +353,22 @@
                                                  command="unzip '${pi.deploydirectory}/${jar.name}.zip' -d '${pi.deploydirectory}'"/>
 
                                         <!-- Run application on Raspberry Pi -->
+                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
+                                                 username="${pi.username}" password="${pi.password}" trust="true"
+                                                 failonerror="false" usepty="true" useSystemIn="true"
+                                                 command="chmod u+x ${pi.deploydirectory}/${jar.name}/${pi.downloadJfxScript}"/>
+                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
+                                                 username="${pi.username}" password="${pi.password}" trust="true"
+                                                 failonerror="false" usepty="true" useSystemIn="true"
+                                                 command="chmod u+x ${pi.deploydirectory}/${jar.name}/${pi.restartScript}"/>
+                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
+                                                 username="${pi.username}" password="${pi.password}" trust="true"
+                                                 failonerror="false" usepty="true" useSystemIn="true"
+                                                 command="chmod u+x ${pi.deploydirectory}/${jar.name}/${pi.startInDebugModeScript}"/>
+                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
+                                                 username="${pi.username}" password="${pi.password}" trust="true"
+                                                 failonerror="false" usepty="true" useSystemIn="true"
+                                                 command="chmod u+x ${pi.deploydirectory}/${jar.name}/${pi.startScript}"/>
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"
                                                  username="${pi.username}" password="${pi.password}" trust="true"
                                                  failonerror="false" usepty="true" useSystemIn="true"
