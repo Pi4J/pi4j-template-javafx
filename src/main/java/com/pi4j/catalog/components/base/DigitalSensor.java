@@ -1,5 +1,7 @@
 package com.pi4j.catalog.components.base;
 
+import java.util.Objects;
+
 import com.pi4j.context.Context;
 import com.pi4j.io.gpio.digital.DigitalInput;
 import com.pi4j.io.gpio.digital.DigitalInputConfig;
@@ -12,6 +14,9 @@ public abstract class DigitalSensor extends Component  {
     protected final DigitalInput digitalInput;
 
     protected DigitalSensor(Context pi4j, DigitalInputConfig config){
+        Objects.requireNonNull(pi4j);
+        Objects.requireNonNull(config);
+
         digitalInput = pi4j.create(config);
     }
 

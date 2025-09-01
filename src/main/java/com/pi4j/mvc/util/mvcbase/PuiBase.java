@@ -15,7 +15,7 @@ import com.pi4j.context.Context;
  * <p>
  * In our scenario, we also have a GUI.
  * <p>
- * We have to avoid that one of the UIs is blocked because the other UI has to perform a long-running task.
+ * We must ensure that one UI isn’t blocked while the other is performing a long-running task.
  * <p>
  * Therefore, we need an additional "worker-thread" in both UIs.
  * <p>
@@ -99,7 +99,7 @@ public abstract class PuiBase<M, C extends ControllerBase<M>> implements Project
     /**
      * Second step to specify an observer.
      * <p>
-     * Use 'triggerPUIAction' to specify what needs to be done whenever the observed value changes
+     * Use 'execute' to specify what needs to be done whenever the observed value changes
      */
     public class Updater<V> {
         private final ObservableValue<V> observableValue;

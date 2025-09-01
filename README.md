@@ -13,10 +13,10 @@ This repository should not be cloned directly. It is a template project and one 
 
 ## Prepare Raspberry Pi and Developer Laptop
 
-Please make sure that your Raspberry Pi and your developer laptop are prepared as described in the [Hello Pi5 Projekt](https://gitlab.fhnw.ch/ip_12_preparation/hellopi5.git).
+Please make sure that your Raspberry Pi and your developer laptop are prepared as described in the [Hello Pi5 Project](https://gitlab.fhnw.ch/ip_12_preparation/hellopi5.git).
 
 ## Development process
-The recommended development process is also described in the [Hello Pi5 Projekt](https://gitlab.fhnw.ch/ip_12_preparation/hellopi5.git).
+The recommended development process is also described in the [Hello Pi5 Project](https://gitlab.fhnw.ch/ip_12_preparation/hellopi5.git).
 
 Please read the chapters _Entwicklungsprozess_ and _Applikation im Debugger starten_.
 
@@ -74,14 +74,14 @@ To start:
 
 ## The MVC concept
 
-The classic Model-View-Controller concept contains in addition to the starter class at least 3 more classes. The interaction is clearly defined:
+The classic Model-View-Controller concept contains, in addition to the starter class, at least 3 more classes. The interaction is clearly defined:
 
 ![MVC Concept](assets/mvc-concept.png)
 
 - _Model classes_
 
   - contain the complete state which is to be visualized, thus these classes are called _Presentation-Model_
-  - are completely separate to the Controller and View classes, i.e. they may not interact with those classes
+  - are completely separate to the Controller and View classes, i.e., they may not interact with those classes
 - _Controller classes_
 
   - define the entire functionality, i.e. the so-called actions, in the form of methods
@@ -124,8 +124,8 @@ Consequences of this design:
 - Additional UIs can be added, without having to change existing classes, except for the starter class
   - An example for this is the `PuiEmulator`, which can be started when necessary.
 - This architecture is also useful for
-  - GUI only applications and
-  - PUI only applications (see `TemplatePUIApp`).
+  - GUI-only applications and
+  - PUI-only applications (see `TemplatePUIApp`).
 
 ### Implementing the MVC concept
 

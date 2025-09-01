@@ -25,7 +25,7 @@
 
     <!-- BUILD PROPERTIES -->
     <properties>
-        <!-- The class that will be started, choose one and only one -->
+        <!-- The class that will be started. Choose one and only one -->
 
         <!--  <launcher.class>com.pi4j.setup.HelloFX</launcher.class> -->
          <launcher.class>com.pi4j.mvc.templateapp.AppStarter</launcher.class>
@@ -36,7 +36,7 @@
 
         <!-- Setup for the RaspPi -->
         <pi.hostname>pi4j</pi.hostname>
-        <pi.ipnumber>10.175.62.110</pi.ipnumber>
+        <pi.ipnumber>10.175.56.36</pi.ipnumber>
         <!-- <pi.ipnumber>${pi.hostname}.local</pi.ipnumber>-->
         <pi.port>22</pi.port>
         <pi.username>pi</pi.username>
@@ -51,27 +51,27 @@
         <java.version>24</java.version>
 
         <!-- Project Dependency Versions-->
-        <javafx.version>24</javafx.version>
-        <pi4j.version>3.0.1</pi4j.version>
-        <jSerialComm.version>2.11.0</jSerialComm.version>
-        <junit.version>5.12.1</junit.version>
-        <mockito.version>5.16.1</mockito.version>
+        <javafx.version>24.0.2</javafx.version>
+        <pi4j.version>3.0.2</pi4j.version>
+        <jSerialComm.version>2.11.2</jSerialComm.version>
+        <junit.version>5.13.4</junit.version>
+        <mockito.version>5.19.0</mockito.version>
 
         <!-- Plugin Versions-->
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
 
         <ant-jsch.version>1.10.15</ant-jsch.version>
 
-        <!-- Maven Plugin Versions -->
-        <maven-clean-plugin.version>3.4.0</maven-clean-plugin.version>
-        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>3.8.0</maven-dependency-plugin.version>
-        <exec-maven-plugin.version>3.4.1</exec-maven-plugin.version>
-        <maven-install-plugin.version>3.1.3</maven-install-plugin.version>
+      <!-- Maven Plugin Versions -->
+        <maven-clean-plugin.version>3.4.1</maven-clean-plugin.version>
+        <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
+        <exec-maven-plugin.version>3.5.0</exec-maven-plugin.version>
+        <maven-install-plugin.version>3.1.4</maven-install-plugin.version>
         <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
-        <maven-javadoc-plugin.version>3.10.0</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
-        <maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
         <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
 
         <!-- Maven Properties -->
@@ -95,17 +95,6 @@
 
         <!-- Pi4J libraries -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>2.0.12</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>2.0.12</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.pi4j</groupId>
             <artifactId>pi4j-core</artifactId>
             <version>${pi4j.version}</version>
@@ -121,19 +110,19 @@
             <version>${pi4j.version}</version>
         </dependency>
 
-        <!-- jSerialComm library for serial connections -->
-        <dependency>
-            <groupId>com.fazecast</groupId>
-            <artifactId>jSerialComm</artifactId>
-            <version>${jSerialComm.version}</version>
-        </dependency>
-
         <!-- Pi4J Mock Platform -->
         <dependency>
             <groupId>com.pi4j</groupId>
             <artifactId>pi4j-plugin-mock</artifactId>
             <version>${pi4j.version}</version>
             <!-- <scope>test</scope> -->
+        </dependency>
+
+        <!-- jSerialComm library for serial connections -->
+        <dependency>
+            <groupId>com.fazecast</groupId>
+            <artifactId>jSerialComm</artifactId>
+            <version>${jSerialComm.version}</version>
         </dependency>
 
         <!-- JUnit -->
@@ -153,7 +142,6 @@
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>

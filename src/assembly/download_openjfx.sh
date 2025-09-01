@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Variables
-URL="https://download2.gluonhq.com/openjfx/24/openjfx-24_linux-aarch64_bin-sdk.zip"
-SHA_URL="https://download2.gluonhq.com/openjfx/24/openjfx-24_linux-aarch64_bin-sdk.zip.sha256"
+URL="https://download2.gluonhq.com/openjfx/24.0.2/openjfx-24.0.2_linux-aarch64_bin-sdk.zip"
+SHA_URL="https://download2.gluonhq.com/openjfx/24.0.2/openjfx-24.0.2_linux-aarch64_bin-sdk.zip.sha256"
 TARGET_DIR="$HOME/openjfx"
 SUBDIR="extracted_files"
 TEMP_DIR=$(mktemp -d)

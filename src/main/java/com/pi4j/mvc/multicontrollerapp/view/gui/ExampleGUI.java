@@ -41,7 +41,7 @@ public class ExampleGUI extends BorderPane implements ViewMixin<ExampleModel, Ap
     }
 
     @Override
-    public void initializeParts() {
+    public void initializeComponents() {
         ledButton = new Button(LIGHT_BULB);
         ledButton.getStyleClass().add("icon-button");
 
@@ -58,7 +58,7 @@ public class ExampleGUI extends BorderPane implements ViewMixin<ExampleModel, Ap
     }
 
     @Override
-    public void layoutParts() {
+    public void layoutComponents() {
         // consider to use GridPane instead
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
@@ -77,7 +77,7 @@ public class ExampleGUI extends BorderPane implements ViewMixin<ExampleModel, Ap
     }
 
     @Override
-    public void setupUiToActionBindings(ApplicationController controller) {
+    public void setupEventHandler(ApplicationController controller) {
         // look at that: all EventHandlers just trigger an action on Controller
         // by calling a single method
 
@@ -88,7 +88,7 @@ public class ExampleGUI extends BorderPane implements ViewMixin<ExampleModel, Ap
     }
 
     @Override
-    public void setupModelToUiBindings(ExampleModel model) {
+    public void updateComponents(ExampleModel model) {
         onChangeOf(model.systemInfo)                       // the value we need to observe, in this case that's an ObservableValue<String>, no need to convert it
                 .update(infoLabel.textProperty());         // keeps textProperty and systemInfo in sync
 

@@ -7,6 +7,9 @@ open module com.pi4j.mvc {
     uses com.pi4j.extension.Extension;
     uses com.pi4j.provider.Provider;
 
+    //for serial port
+    requires com.fazecast.jSerialComm;
+
     // for logging
     requires java.logging;
 

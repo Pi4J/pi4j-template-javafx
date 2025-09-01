@@ -1,6 +1,7 @@
 package com.pi4j.catalog.components.base;
 
 import java.time.Duration;
+import java.util.Objects;
 
 import com.pi4j.context.Context;
 import com.pi4j.io.i2c.I2C;
@@ -21,19 +22,21 @@ public abstract class I2CDevice extends Component {
 
 
     protected I2CDevice(Context pi4j, int device, String name){
+        Objects.requireNonNull(pi4j);
+
         i2c = pi4j.create(I2C.newConfigBuilder(pi4j)
-                .id("I2C-" + DEFAULT_BUS + "@" + device)
-                .name(name+ "@" + device)
-                .bus(DEFAULT_BUS)
-                .device(device)
-                .build());
+                  .id("I2C-" + DEFAULT_BUS + "@" + device)
+                  .name(name+ "@" + device)
+                  .bus(DEFAULT_BUS)
+                  .device(device)
+                  .build());
         init(i2c);
         logDebug("I2C device %s initialized", name);
     }
 
 
     /**
-     * send a single command to device
+     * send a single command to the device
      */
     protected void sendCommand(byte cmd) {
         i2c.write(cmd);
@@ -54,7 +57,7 @@ public abstract class I2CDevice extends Component {
     }
 
     /**
-     * send some data to device
+     * send some data to the device
      *
      * @param data
      */

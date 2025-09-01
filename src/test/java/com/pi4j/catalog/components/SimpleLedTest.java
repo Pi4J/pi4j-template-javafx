@@ -1,18 +1,19 @@
 package com.pi4j.catalog.components;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import com.pi4j.io.gpio.digital.DigitalState;
 import com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalOutput;
 
 import com.pi4j.catalog.ComponentTest;
 import com.pi4j.catalog.components.base.PIN;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SimpleLedTest extends ComponentTest {
+class SimpleLedTest extends ComponentTest {
 
     private SimpleLed led;
     private MockDigitalOutput digitalOutput;

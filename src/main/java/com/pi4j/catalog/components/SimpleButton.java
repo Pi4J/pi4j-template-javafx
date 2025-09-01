@@ -190,7 +190,7 @@ public class SimpleButton extends DigitalSensor {
      * disables all the handlers for the onUp, onDown and WhileDown Events
      */
     @Override
-    public void reset() {
+    public void shutdown() {
         onDown    = null;
         onUp      = null;
         whileDown = null;

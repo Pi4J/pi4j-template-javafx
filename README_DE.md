@@ -16,7 +16,7 @@ Insbesondere sind Template-Projekte enthalten, die als Startpunkt für eigene Pr
 
 ## Setup von Raspberry Pi und Entwickler-Laptop
 
-Bitte stellen Sie sicher, dass ihr Laptop und der von Ihnen verwendete Raspberry Pi 5 wie im [Hello Pi5 Projekt](https://gitlab.fhnw.ch/ip_12_preparation/hellopi5.git) beschrieben vorbereitet ist.
+Bitte stellen Sie sicher, dass ihr Laptop und der von Ihnen verwendete Raspberry Pi 5 wie im [Hello Pi5 Projekt](https://gitlab.fhnw.ch/ip_12_preparation/hellopi5.git) beschrieben vorbereitet sind.
 
 
 ## Entwicklungsprozess
@@ -57,7 +57,7 @@ Zum Starten:
 - `launcher.class` im `pom.xml` auswählen
   - `<launcher.class>com.pi4j.mvc.templateapp.AppStarter</launcher.class>`
 - mit `Run Local` (oder direkt aus der IDE heraus) auf dem Laptop starten. Sinnvoll für die GUI-Entwicklung. Das PUI steht auf dem Laptop nicht zur Verfügung. Das GUI kann jedoch weitgehend ohne Einsatz des RaspPis entwickelt werden 
-    - in `AppStarter` kann zusätzlich noch ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
+    - in `AppStarter` kann zusätzlich ein rudimentärer PuiEmulator gestartet werden, so dass das Zusammenspiel zwischen GUI und PUI auch auf dem Laptop überprüft werden kann.
 - mit `Run on Pi` auf dem RaspPi starten (jetzt natürlich inklusive "echtem" PUI)
 
 
@@ -106,7 +106,7 @@ GUI und PUI sind komplett voneinander getrennt, z.B. hat der GUI-Button zum Ansc
 
 GUI und PUI arbeiten mit dem identischen Controller und damit auch mit dem identischen Model. 
 
-Es ist wichtig, dass Sie dieses Konzept verstehen und für Ihr Projekt anwenden können. Gehen Sie bei Fragen auf die Fachcoaches oder OOP-Dozierenden zu.
+Es ist wichtig, dass Sie dieses Konzept verstehen und für Ihr Projekt anwenden können. Gehen Sie bei Fragen auf die Fachcoaches oder EIDI/PROG1-Dozierenden zu.
 
 Jede Benutzer-Interaktion durchläuft im MVC-Konzept den immer gleichen Kreislauf:
 
@@ -137,13 +137,13 @@ Für einen einzelnen Controller gilt:
 - jede Action wird asynchron und reihenfolgetreu ausgeführt 
 - dafür hat jeder Controller eine eigene `ConcurrentTaskQueue` integriert
 - das UI wird dadurch während der Ausführung einer Action _nicht_ blockiert
-- werden vom UI weitere Actions getriggert während eine Action gerade in Bearbeitung ist, werden diese in der `ConcurrentTaskQueue` aufgesammelt und ausgeführt, sobald die vorherigen Actions abgearbeitet sind.
+- werden vom UI weitere Actions getriggert, während eine Action gerade in Bearbeitung ist, werden diese in der `ConcurrentTaskQueue` aufgesammelt und ausgeführt, sobald die vorherigen Actions abgearbeitet sind.
 
 Für einfache Applikationen reicht ein einzelner Controller meist aus.
 
 Es gibt aber Situationen, bei denen Actions ausgeführt werden sollen, während eine andere Action noch läuft.
 
-Die `MultiControllerApp` zeigt so ein Beispiel. Es soll möglich sein, den Counter zu verändern _während die LED blinkt_ . 
+Die `MultiControllerApp` zeigt so ein Beispiel. Es soll möglich sein, den Counter zu verändern _während die LED blinkt_. 
 - Mit einem einzigen Controller ist das nicht umsetzbar. Der Controller würde beispielsweise die 'Decrease-Action' erst ausführen, nachdem die 'Blink-Action' abgeschlossen ist.
 - Bei zwei Controllern ist es jedoch einfach: `LedController` und `CounterController` haben jeder eine `ConcurrentTaskQueue`. Actions, die die LED betreffen, werden also unabhängig von den Actions, die den Counter verändern, ausgeführt.
 - Es sollte zusätzlich ein `ApplicationController` implementiert werden, der die anderen Controller koordiniert und das für das UI sichtbare API zur Verfügung stellt.
@@ -158,13 +158,13 @@ Zum Starten:
 
 ## JUnit Tests
 
-Durch die klare Trennung in Model, View und Controller können grosse Teile der Applikation mittels einfachen JUnit-Tests automatisiert getestet werden. Diese Tests werden in der Regel auf dem Laptop, also nicht auf dem RaspPi, ausgeführt.
+Durch die klare Trennung in Model, View und Controller können grosse Teile der Applikation mittels einfacher JUnit-Tests automatisiert getestet werden. Diese Tests werden in der Regel auf dem Laptop, also nicht auf dem RaspPi, ausgeführt.
 
 #### Controller Tests
 
 Der Controller implementiert die gesamte zur Verfügung stehende Grund-Funktionalität. Er sollte mit ausführlichen TestCases automatisch überprüft werden.
 
-Dabei gilt es zu beachten, dass der Controller alle Veränderungen auf dem Model asynchron ausführt. Eine Überprüfung der Resultate ist also erst möglich, wenn die asynchrone Task beendet ist.
+Dabei gilt es zu beachten, dass der Controller alle Veränderungen auf dem Model asynchron ausführt. Eine Überprüfung der Resultate ist also erst möglich, wenn der asynchrone Task beendet ist.
 
 Ein Beispiel sehen Sie in `SomeControllerTest`.
 
@@ -178,7 +178,7 @@ Die einzelnen PUI-Components können sehr gut via der in Pi4J integrierten `Mock
 
 
 #### PUI Tests
-Das PUI ihrer Applikation kann ebenfalls gut mittels JUnit getestet werden.
+Das PUI Ihrer Applikation kann ebenfalls gut mittels JUnit getestet werden.
 
 Auch hier müssen die Tests berücksichtigen, dass die Actions asynchron ausgeführt werden.
 

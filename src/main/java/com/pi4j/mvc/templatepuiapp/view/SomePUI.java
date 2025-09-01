@@ -20,13 +20,13 @@ public class SomePUI extends PuiBase<SomeModel, SomeController> {
     }
 
     @Override
-    public void initializeParts() {
+    public void initializeComponents() {
         led    = new SimpleLed(pi4J, PIN.D22);
         button = new SimpleButton(pi4J, PIN.D24, false);
     }
 
     @Override
-    public void setupUiToActionBindings(SomeController controller) {
+    public void setupEventHandler(SomeController controller) {
         //if the user interacts with one of the parts, always trigger a Controller action
         button.onDown(controller::activate);
 
@@ -35,7 +35,7 @@ public class SomePUI extends PuiBase<SomeModel, SomeController> {
     }
 
     @Override
-    public void setupModelToUiBindings(SomeModel model) {
+    public void updateComponents(SomeModel model) {
         onChangeOf(model.busy)
                 .execute((oldValue, newValue) -> {
                     if (newValue) {

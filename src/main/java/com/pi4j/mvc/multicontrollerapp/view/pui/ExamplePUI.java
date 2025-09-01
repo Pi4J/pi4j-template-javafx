@@ -19,18 +19,18 @@ public class ExamplePUI extends PuiBase<ExampleModel, ApplicationController> {
     }
 
     @Override
-    public void initializeParts() {
+    public void initializeComponents() {
         led    = new SimpleLed(pi4J, PIN.D22);
         button = new SimpleButton(pi4J, PIN.D24, false);
     }
 
     @Override
-    public void setupUiToActionBindings(ApplicationController controller) {
+    public void setupEventHandler(ApplicationController controller) {
         button.onUp(controller::decreaseCounter);
     }
 
     @Override
-    public void setupModelToUiBindings(ExampleModel model) {
+    public void updateComponents(ExampleModel model) {
         onChangeOf(model.isActive)
                 .execute((oldValue, newValue) -> {
                     if (newValue) {

@@ -12,7 +12,7 @@ import javafx.beans.property.Property;
 import javafx.scene.text.Font;
 
 /**
- * Use this interface for all of your GUI-parts to assure implementation consistency.
+ * Use this interface for all of your GUI parts to ensure implementation consistency.
  * <p>
  * It provides the basic functionality to make MVC run.
  */
@@ -21,13 +21,13 @@ public interface ViewMixin<M,  C extends ControllerBase<M>> extends Projector<M,
     @Override
     default void init(C controller) {
         Projector.super.init(controller);
-        layoutParts();
+        layoutComponents();
     }
 
     /**
      * the method name says it all
      */
-	void layoutParts();
+	void layoutComponents();
 
     /**
      * just a convenience method to load stylesheet files
@@ -64,7 +64,10 @@ public interface ViewMixin<M,  C extends ControllerBase<M>> extends Projector<M,
     }
 
     /**
+     * A utility class that facilitates reacting to changes in an ObservableValue
+     * and updating a Property directly or via a conversion function.
      *
+     * @param <V> the type of the value held by the ObservableValue
      */
     record Converter<V>(ObservableValue<V> observableValue) {
 
@@ -112,14 +115,36 @@ public interface ViewMixin<M,  C extends ControllerBase<M>> extends Projector<M,
         }
     }
 
+    /**
+     * Registers an observer to track changes of the specified {@code Property}.
+     * When the property value changes, an {@code ActionTrigger} is returned to
+     * define and execute actions based on these changes.
+     *
+     * @param <V> the type of the value contained within the {@code Property}
+     * @param property the property to observe for value changes
+     * @return an {@code ActionTrigger} allowing the definition of actions to execute on property value changes
+     */
     default <V> ActionTrigger<V> onChangeOf(Property<V> property){
         return new ActionTrigger<>(property);
     }
 
+    /**
+     * Registers an observer for changes on the provided {@link DoubleProperty}.
+     * When the property value changes, the associated action can be triggered.
+     *
+     * @param property the {@link DoubleProperty} to observe for changes
+     * @return an {@link ActionTrigger} for specifying the action to execute on value change
+     */
     default ActionTrigger<Double> onChangeOf(DoubleProperty property){
         return new ActionTrigger<>(property);
     }
 
+    /**
+     * Registers an action to be triggered whenever the given IntegerProperty changes.
+     *
+     * @param property the IntegerProperty to observe for changes
+     * @return an ActionTrigger that allows specifying the action to be executed upon property changes
+     */
     default ActionTrigger<Integer> onChangeOf(IntegerProperty property){
         return new ActionTrigger<>(property);
     }

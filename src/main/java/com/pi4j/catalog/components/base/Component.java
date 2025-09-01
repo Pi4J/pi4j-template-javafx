@@ -5,6 +5,8 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.pi4j.boardinfo.util.BoardInfoHelper;
+
 public abstract class Component {
     /**
      * Logger instance
@@ -31,7 +33,7 @@ public abstract class Component {
     /**
      * Override this method to clean up all used resources
      */
-    public void reset(){
+    public void shutdown(){
         //nothing to do by default
     }
 
@@ -66,6 +68,10 @@ public abstract class Component {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    protected static boolean runningOnPi5(){
+        return BoardInfoHelper.runningOnRaspberryPi() && BoardInfoHelper.getBoardName().contains("Pi 5");
     }
 
     protected <T> T asMock(Class<T> type, Object instance) {

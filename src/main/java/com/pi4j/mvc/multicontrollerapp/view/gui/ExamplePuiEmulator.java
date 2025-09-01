@@ -27,13 +27,13 @@ public class ExamplePuiEmulator extends VBox implements ViewMixin<ExampleModel, 
     }
 
     @Override
-    public void initializeParts() {
+    public void initializeComponents() {
         led = new Label();
         decreaseButton = new Button("Decrease");
     }
 
     @Override
-    public void layoutParts() {
+    public void layoutComponents() {
         setPadding(new Insets(20));
         setSpacing(20);
         setAlignment(Pos.CENTER);
@@ -41,13 +41,13 @@ public class ExamplePuiEmulator extends VBox implements ViewMixin<ExampleModel, 
     }
 
     @Override
-    public void setupUiToActionBindings(ApplicationController controller) {
+    public void setupEventHandler(ApplicationController controller) {
         //trigger the same actions as the real PUI
         decreaseButton.setOnAction(event -> controller.decreaseCounter());
     }
 
     @Override
-    public void setupModelToUiBindings(ExampleModel model) {
+    public void updateComponents(ExampleModel model) {
         //observe the same values as the real PUI
         onChangeOf(model.isActive)
                 .convertedBy(glows -> glows ? "on" : "off")

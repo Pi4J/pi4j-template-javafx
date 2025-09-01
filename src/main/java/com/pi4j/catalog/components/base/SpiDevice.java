@@ -1,11 +1,13 @@
 package com.pi4j.catalog.components.base;
 
+import java.util.Objects;
+
 import com.pi4j.context.Context;
 import com.pi4j.io.spi.Spi;
 import com.pi4j.io.spi.SpiConfig;
 import com.pi4j.plugin.mock.provider.spi.MockSpi;
 
-public class SpiDevice extends Component {
+public abstract class SpiDevice extends Component {
     /**
      * The PI4J SPI
      */
@@ -13,6 +15,9 @@ public class SpiDevice extends Component {
     private final Context pi4j;
 
     protected SpiDevice(Context pi4j, SpiConfig config){
+        Objects.requireNonNull(pi4j);
+        Objects.requireNonNull(config);
+
         this.pi4j = pi4j;
         spi = pi4j.create(config);
         logDebug("SPI is open");
@@ -23,8 +28,8 @@ public class SpiDevice extends Component {
     }
 
     @Override
-    public void reset() {
-        super.reset();
+    public void shutdown() {
+        super.shutdown();
         spi.close();
         spi.shutdown(pi4j);
         logDebug("SPI closed");

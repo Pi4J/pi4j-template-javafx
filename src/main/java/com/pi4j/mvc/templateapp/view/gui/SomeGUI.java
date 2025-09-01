@@ -38,7 +38,7 @@ public class SomeGUI extends BorderPane implements ViewMixin<SomeModel, SomeCont
     }
 
     @Override
-    public void initializeParts() {
+    public void initializeComponents() {
         ledButton = new Button(LIGHT_BULB);
         ledButton.getStyleClass().add("icon-button");
 
@@ -52,7 +52,7 @@ public class SomeGUI extends BorderPane implements ViewMixin<SomeModel, SomeCont
     }
 
     @Override
-    public void layoutParts() {
+    public void layoutComponents() {
         HBox topBox = new HBox(ledButton);
         topBox.setAlignment(Pos.CENTER);
 
@@ -67,7 +67,7 @@ public class SomeGUI extends BorderPane implements ViewMixin<SomeModel, SomeCont
     }
 
     @Override
-    public void setupUiToActionBindings(SomeController controller) {
+    public void setupEventHandler(SomeController controller) {
         // look at that: all EventHandlers just trigger an action on 'controller' by calling a single method
         increaseButton.setOnAction  (event -> controller.increaseCounter());
         ledButton.setOnMousePressed (event -> controller.setIsActive(true));
@@ -75,7 +75,7 @@ public class SomeGUI extends BorderPane implements ViewMixin<SomeModel, SomeCont
     }
 
     @Override
-    public void setupModelToUiBindings(SomeModel model) {
+    public void updateComponents(SomeModel model) {
         onChangeOf(model.systemInfo)                       // the value we need to observe, in this case that's an ObservableValue<String>, no need to convert it
                 .update(infoLabel.textProperty());         // keeps textProperty and systemInfo in sync
 

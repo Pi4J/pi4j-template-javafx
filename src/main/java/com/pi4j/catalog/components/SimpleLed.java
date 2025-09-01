@@ -62,7 +62,7 @@ public class SimpleLed extends DigitalActuator {
     }
 
     @Override
-    public void reset() {
+    public void shutdown() {
         off();
     }
 }

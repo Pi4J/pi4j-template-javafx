@@ -11,8 +11,13 @@ import com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalInput;
 import com.pi4j.catalog.ComponentTest;
 import com.pi4j.catalog.components.base.PIN;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import static java.lang.Thread.sleep;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SimpleButtonTest extends ComponentTest {
 
@@ -103,7 +108,7 @@ public class SimpleButtonTest extends ComponentTest {
         assertEquals(2, counter.count);
 
         //when
-        button.reset();
+        button.shutdown();
 
         //then
         assertTrue(button.isInInitialState());
@@ -187,7 +192,7 @@ public class SimpleButtonTest extends ComponentTest {
         button.whilePressed(task, Duration.ofMillis(10));
 
         //when
-        button.reset();
+        button.shutdown();
 
         //then
         assertTrue(button.isInInitialState());

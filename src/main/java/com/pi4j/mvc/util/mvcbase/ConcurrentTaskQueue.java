@@ -42,7 +42,11 @@ public final class ConcurrentTaskQueue<R> {
     }
 
     public void shutdown() {
-        executor.shutdown();
+        executor.shutdownNow();
+    }
+
+    public boolean isShutdown(){
+        return executor.isShutdown();
     }
 
     public void submit(Supplier<R> todo) {
@@ -68,6 +72,9 @@ public final class ConcurrentTaskQueue<R> {
 
         running = true;
 
+        if(executor.isShutdown()){
+            return;
+        }
         final Future<R> todoFuture = executor.submit(task.todo::get);
 
         Runnable onDoneRunnable = () -> {

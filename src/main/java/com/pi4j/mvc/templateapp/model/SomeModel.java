@@ -7,7 +7,7 @@ import com.pi4j.mvc.util.mvcbase.ObservableValue;
  * <p>
  * There should be no need for additional methods.
  * <p>
- * All the application logic is handled by the 'Controller'
+ * The 'Controller' handles all the application logic
  */
 public class SomeModel {
     public final ObservableValue<String>  systemInfo = new ObservableValue<>("JavaFX " + System.getProperty("javafx.version") + ", running on Java " + System.getProperty("java.version") + ".");
