@@ -36,7 +36,7 @@
 
         <!-- Setup for the RaspPi -->
         <pi.hostname>pi4j</pi.hostname>
-        <pi.ipnumber>10.175.56.36</pi.ipnumber>
+        <pi.ipnumber>10.175.52.181</pi.ipnumber>
         <!-- <pi.ipnumber>${pi.hostname}.local</pi.ipnumber>-->
         <pi.port>22</pi.port>
         <pi.username>pi</pi.username>
@@ -48,14 +48,14 @@
         <pi.downloadJfxScript>download_openjfx.sh</pi.downloadJfxScript>
 
         <!-- Java Compiler Version -->
-        <java.version>24</java.version>
+        <java.version>25</java.version>
 
         <!-- Project Dependency Versions-->
-        <javafx.version>24.0.2</javafx.version>
-        <pi4j.version>3.0.2</pi4j.version>
+        <javafx.version>25</javafx.version>
+        <pi4j.version>3.0.3</pi4j.version>
         <jSerialComm.version>2.11.2</jSerialComm.version>
-        <junit.version>5.13.4</junit.version>
-        <mockito.version>5.19.0</mockito.version>
+        <junit.version>5.14.0</junit.version>
+        <mockito.version>5.20.0</mockito.version>
 
         <!-- Plugin Versions-->
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
