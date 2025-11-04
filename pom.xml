@@ -36,14 +36,13 @@
 
         <!-- Setup for the RaspPi -->
         <pi.hostname>pi4j</pi.hostname>
-        <pi.ipnumber>10.175.52.181</pi.ipnumber>
+        <pi.ipnumber>10.175.58.58</pi.ipnumber>
         <!-- <pi.ipnumber>${pi.hostname}.local</pi.ipnumber>-->
         <pi.port>22</pi.port>
         <pi.username>pi</pi.username>
         <pi.password>pi4j</pi.password>
         <pi.deploydirectory>/home/pi/deploy</pi.deploydirectory>
         <pi.startScript>start.sh</pi.startScript>
-        <pi.restartScript>restart.sh</pi.restartScript>
         <pi.startInDebugModeScript>startInDebugMode.sh</pi.startInDebugModeScript>
         <pi.downloadJfxScript>download_openjfx.sh</pi.downloadJfxScript>
 
@@ -51,28 +50,25 @@
         <java.version>25</java.version>
 
         <!-- Project Dependency Versions-->
-        <javafx.version>25</javafx.version>
+        <javafx.version>25.0.1</javafx.version>
         <pi4j.version>3.0.3</pi4j.version>
         <jSerialComm.version>2.11.2</jSerialComm.version>
-        <junit.version>5.14.0</junit.version>
-        <mockito.version>5.20.0</mockito.version>
-
-        <!-- Plugin Versions-->
-        <javafx.plugin.version>0.0.8</javafx.plugin.version>
-
-        <ant-jsch.version>1.10.15</ant-jsch.version>
+        <junit.version>6.0.0</junit.version>
 
       <!-- Maven Plugin Versions -->
-        <maven-clean-plugin.version>3.4.1</maven-clean-plugin.version>
-        <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
-        <exec-maven-plugin.version>3.5.0</exec-maven-plugin.version>
+        <maven-clean-plugin.version>3.5.0</maven-clean-plugin.version>
+        <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.9.0</maven-dependency-plugin.version>
+        <exec-maven-plugin.version>3.6.2</exec-maven-plugin.version>
         <maven-install-plugin.version>3.1.4</maven-install-plugin.version>
         <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
-        <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
-        <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
-        <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
+        <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
+        <maven-antrun-plugin.version>3.2.0</maven-antrun-plugin.version>
+
+        <!-- Ant Dependencies -->
+        <ant-jsch.version>1.10.15</ant-jsch.version>
 
         <!-- Maven Properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -344,14 +340,6 @@
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"
                                                  username="${pi.username}" password="${pi.password}" trust="true"
                                                  failonerror="false" usepty="true" useSystemIn="true"
-                                                 command="chmod u+x ${pi.deploydirectory}/${jar.name}/${pi.downloadJfxScript}"/>
-                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
-                                                 username="${pi.username}" password="${pi.password}" trust="true"
-                                                 failonerror="false" usepty="true" useSystemIn="true"
-                                                 command="chmod u+x ${pi.deploydirectory}/${jar.name}/${pi.restartScript}"/>
-                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
-                                                 username="${pi.username}" password="${pi.password}" trust="true"
-                                                 failonerror="false" usepty="true" useSystemIn="true"
                                                  command="chmod u+x ${pi.deploydirectory}/${jar.name}/${pi.startInDebugModeScript}"/>
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"
                                                  username="${pi.username}" password="${pi.password}" trust="true"
@@ -398,7 +386,7 @@
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"
                                                  username="${pi.username}" password="${pi.password}" trust="true"
                                                  failonerror="false" usepty="true" useSystemIn="true"
-                                                 command="${pi.deploydirectory}/${jar.name}/${pi.restartScript} ${pi.deploydirectory}/${jar.name} ${jar.name}"/>
+                                                 command="${pi.deploydirectory}/${jar.name}/${pi.startScript} ${pi.deploydirectory}/${jar.name} ${jar.name}"/>
                                     </target>
                                 </configuration>
                             </execution>
