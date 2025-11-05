@@ -44,7 +44,6 @@
         <pi.deploydirectory>/home/pi/deploy</pi.deploydirectory>
         <pi.startScript>start.sh</pi.startScript>
         <pi.startInDebugModeScript>startInDebugMode.sh</pi.startInDebugModeScript>
-        <pi.downloadJfxScript>download_openjfx.sh</pi.downloadJfxScript>
 
         <!-- Java Compiler Version -->
         <java.version>25</java.version>
@@ -52,7 +51,7 @@
         <!-- Project Dependency Versions-->
         <javafx.version>25.0.1</javafx.version>
         <pi4j.version>3.0.3</pi4j.version>
-        <jSerialComm.version>2.11.2</jSerialComm.version>
+        <jSerialComm.version>2.11.4</jSerialComm.version>
         <junit.version>6.0.0</junit.version>
 
       <!-- Maven Plugin Versions -->
