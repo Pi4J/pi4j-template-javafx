@@ -7,6 +7,12 @@ import com.pi4j.io.gpio.digital.DigitalInput;
 import com.pi4j.io.gpio.digital.DigitalInputConfig;
 import com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalInput;
 
+/**
+ * Abstract class representing a digital sensor component in the system.
+ * This class provides a foundation for components that utilize digital input functionality, such as buttons or switches.
+ *
+ * It integrates with Pi4J's `DigitalInput` API to interact with hardware-level digital GPIO pins.
+ */
 public abstract class DigitalSensor extends Component  {
     /**
      * Pi4J digital input instance used by this component (that's the low-level Pi4J Class)
@@ -21,7 +27,7 @@ public abstract class DigitalSensor extends Component  {
     }
 
     public int pinNumber(){
-        return digitalInput.address().intValue();
+        return digitalInput.bcm();
     }
 
 

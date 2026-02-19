@@ -1,8 +1,10 @@
 package com.pi4j.catalog.components;
 
 import java.time.Duration;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import com.pi4j.context.Context;
 import com.pi4j.io.gpio.digital.DigitalInput;
@@ -14,26 +16,36 @@ import com.pi4j.catalog.components.base.PIN;
 
 import static com.pi4j.io.gpio.digital.DigitalInput.DEFAULT_DEBOUNCE;
 
+/**
+ * Represents a simple digital button component, built on the DigitalSensor base class.
+ * <p>
+ * This class provides methods to handle various button states and behaviors such as
+ * pressed, released, and while-pressed event handling.
+ */
 public class SimpleButton extends DigitalSensor {
     /**
-     * Specifies if button state is inverted, e.g., HIGH = depressed, LOW = pressed
+     * Specifies if the button state is inverted, e.g., HIGH = depressed, LOW = pressed
      * This will also automatically switch the pull resistance to PULL_UP
      */
     private final boolean inverted;
+
     /**
-     * Runnable Code when button is depressed
+     * Runnable Code when the button is depressed
      */
     private Runnable onUp;
+
     /**
-     * Runnable Code when button is pressed
+     * Runnable Code when the button is pressed
      */
     private Runnable onDown;
+
     /**
-     * Handler while button is pressed
+     * Handler while the button is pressed
      */
     private Runnable whileDown;
+
     /**
-     * Timer while button is pressed
+     * Timer while the button is pressed
      */
     private Duration whilePressedDelay;
 
@@ -48,9 +60,16 @@ public class SimpleButton extends DigitalSensor {
                 whileDown.run();
             }
         }
+        whileDownFuture = null;
     };
 
     private ExecutorService executor;
+
+    private Future<?> whileDownFuture = null;
+
+    public SimpleButton(Context pi4j, PIN address) {
+        this(pi4j, address, false, DEFAULT_DEBOUNCE);
+    }
 
     /**
      * Creates a new button component
@@ -62,11 +81,11 @@ public class SimpleButton extends DigitalSensor {
     }
 
     /**
-     * Creates a new button component with custom GPIO address and debounce time.
+     * Creates a new button component with a custom BCM-Pin and debounce time.
      *
      * @param pi4j     Pi4J context
      * @param address  GPIO address of button
-     * @param inverted Specify if button state is inverted
+     * @param inverted Specify if the button state is inverted
      * @param debounce Debounce time in microseconds
      */
     public SimpleButton(Context pi4j, PIN address, boolean inverted, long debounce) {
@@ -74,7 +93,7 @@ public class SimpleButton extends DigitalSensor {
               DigitalInput.newConfigBuilder(pi4j)
                       .id("BCM" + address)
                       .name("Button #" + address)
-                      .address(address.getPin())
+                      .bcm(address.getPin())
                       .debounce(debounce)
                       .pull(inverted ? PullResistance.PULL_UP : PullResistance.PULL_DOWN)
                       .build());
@@ -98,8 +117,8 @@ public class SimpleButton extends DigitalSensor {
                         logDebug("onDown triggered");
                         onDown.run();
                     }
-                    if (whileDown != null) {
-                        executor.submit(whileDownWorker);
+                    if (whileDown != null && whileDownFuture == null) {
+                        whileDownFuture = executor.submit(whileDownWorker);
                     }
                 }
                 case LOW -> {
@@ -111,32 +130,33 @@ public class SimpleButton extends DigitalSensor {
                 case UNKNOWN -> logError("Button is in State UNKNOWN");
             }
         });
+
+        logDebug("Created new SimpleButton component on pin %s", address);
     }
 
     /**
-     * Checks if button is currently pressed.
+     * Checks if the button is currently pressed.
      * <P>
      * For a not-inverted button this means: if the button is pressed, then full voltage is present
      * at the GPIO-Pin. Therefore, the DigitalState is HIGH
      *
-     * @return true if button is pressed
+     * @return true if the button is pressed
      */
     public boolean isDown() {
         return getState() == DigitalState.HIGH;
     }
 
     /**
-     * Checks if button is currently depressed (= NOT pressed)
+     * Checks if the button is currently depressed (= NOT pressed)
      * <P>
      * For a not-inverted button this means: if the button is depressed, then no voltage is present
      * at the GPIO-Pin. Therefore, the DigitalState is LOW
      *
-     * @return true if button is depressed
+     * @return true if the button is depressed
      */
     public boolean isUp() {
         return getState() == DigitalState.LOW;
     }
-
 
     /**
      * Sets or disables the handler for the onDown event.
@@ -165,13 +185,15 @@ public class SimpleButton extends DigitalSensor {
     /**
      * Sets or disables the handler for the whilePressed event.
      * <P>
-     * This event gets triggered whenever the button is pressed.
+     * This event gets triggered as long as the button is pressed.
      * Only a single event handler can be registered at once.
      *
      * @param task Event handler to call or null to disable
-     * @param delay delay between two executions of task
+     * @param delay delay between two executions of the task
      */
     public void whilePressed(Runnable task, Duration delay) {
+        Objects.requireNonNull(delay);
+
         whileDown = task;
         whilePressedDelay = delay;
         if(executor != null){
@@ -191,13 +213,16 @@ public class SimpleButton extends DigitalSensor {
      */
     @Override
     public void shutdown() {
-        onDown    = null;
-        onUp      = null;
-        whileDown = null;
+        onDown          = null;
+        onUp            = null;
+        whileDown       = null;
+        whileDownFuture = null;
+
         if(executor != null){
             executor.shutdown();
         }
         executor = null;
+        super.shutdown();
     }
 
     /**

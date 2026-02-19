@@ -2,7 +2,7 @@
 
 [Deutsche Beschreibung ist hier.](README_DE.md)
 
-# Pi4J Applications with JavaFX based GUI
+# Pi4J Applications with JavaFX-based GUI
 
 [![Contributors](https://img.shields.io/github/contributors/Pi4J/pi4j-template-javafx)](https://github.com/Pi4J/pi4j-template-javafx/graphs/contributors)
 [![License](https://img.shields.io/github/license/Pi4J/pi4j-template-javafx)](https://github.com/Pi4J/pi4j-template-javafx/blob/master/LICENSE)
@@ -13,7 +13,19 @@ This repository should not be cloned directly. It is a template project and one 
 
 ## Prepare Raspberry Pi and Developer Laptop
 
-Please make sure that your Raspberry Pi and your developer laptop are prepared as described in the [Hello Pi5 Project](https://gitlab.fhnw.ch/ip_12_preparation/hellopi5.git).
+Make sure that your Raspberry Pi and your developer laptop are prepared as described in the [Hello Pi5 Project](https://gitlab.fhnw.ch/ip_12_preparation/hellopi5.git).
+
+
+<div style="border-left:4px solid red; padding:0.5em;">
+<strong>IMPORTANT:</strong> Additionally, you have to install a JDK that includes [JavaFX](https://openjfx.io).
+</div>
+
+Install [JDK](https://www.azul.com/downloads/?package=jdk-fx#zulu) on _both_ your laptop and on the Rasberry Pi, using [SDKMAN](https://sdkman.io), and make it the default JDK.
+```shell
+sdk install java 25.0.2.fx-zulu
+sdk default java 25.0.2.fx-zulu
+```
+In IntelliJ use this JDK in your project (via `File -> Project Structure ... -> SDK`)
 
 ## Development process
 The recommended development process is also described in the [Hello Pi5 Project](https://gitlab.fhnw.ch/ip_12_preparation/hellopi5.git).

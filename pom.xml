@@ -4,21 +4,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.pi4j.mvc</groupId>
+    <groupId>com.pi4j.jfx</groupId>
     <artifactId>Raspifx-template</artifactId>
     <name>RaspPiFX</name>
     <description>Starter and example project how to integrate JavaFX and Pi4J in a single application.</description>
-    <version>0.0.1</version>
-    
+    <version>1.0</version>
+    <packaging>jar</packaging>
+
     <repositories>
         <repository>
             <id>oss.sonatype.org-snapshot</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <releases>
+           <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+           <releases>
                 <enabled>false</enabled>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
+                <updatePolicy>interval:30</updatePolicy>
             </snapshots>
         </repository>
     </repositories>
@@ -36,7 +38,7 @@
 
         <!-- Setup for the RaspPi -->
         <pi.hostname>pi4j</pi.hostname>
-        <pi.ipnumber>10.175.62.70</pi.ipnumber>
+        <pi.ipnumber>10.70.193.141</pi.ipnumber>
         <!-- <pi.ipnumber>${pi.hostname}.local</pi.ipnumber>-->
         <pi.port>22</pi.port>
         <pi.username>pi</pi.username>
@@ -49,20 +51,20 @@
         <java.version>25</java.version>
 
         <!-- Project Dependency Versions-->
-        <javafx.version>25.0.1</javafx.version>
-        <pi4j.version>3.0.3</pi4j.version>
+        <pi4j.version>4.0.0-SNAPSHOT</pi4j.version>
         <jSerialComm.version>2.11.4</jSerialComm.version>
-        <junit.version>6.0.0</junit.version>
 
-      <!-- Maven Plugin Versions -->
+        <junit.version>6.0.3</junit.version>
+
+        <!-- Maven Plugin Versions -->
         <maven-clean-plugin.version>3.5.0</maven-clean-plugin.version>
-        <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>3.9.0</maven-dependency-plugin.version>
-        <exec-maven-plugin.version>3.6.2</exec-maven-plugin.version>
+        <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.10.0</maven-dependency-plugin.version>
+        <exec-maven-plugin.version>3.6.3</exec-maven-plugin.version>
         <maven-install-plugin.version>3.1.4</maven-install-plugin.version>
-        <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
+        <maven-jar-plugin.version>3.5.0</maven-jar-plugin.version>
         <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
-        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+        <maven-resources-plugin.version>3.4.0</maven-resources-plugin.version>
         <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
         <maven-antrun-plugin.version>3.2.0</maven-antrun-plugin.version>
 
@@ -76,19 +78,17 @@
     </properties>
 
     <dependencies>
-        <!-- JavaFX  -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-
         <!-- Pi4J libraries -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.17</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.17</version>
+        </dependency>
         <dependency>
             <groupId>com.pi4j</groupId>
             <artifactId>pi4j-core</artifactId>
@@ -96,15 +96,9 @@
         </dependency>
         <dependency>
             <groupId>com.pi4j</groupId>
-            <artifactId>pi4j-plugin-gpiod</artifactId>
+            <artifactId>pi4j-plugin-ffm</artifactId>
             <version>${pi4j.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.pi4j</groupId>
-            <artifactId>pi4j-plugin-linuxfs</artifactId>
-            <version>${pi4j.version}</version>
-        </dependency>
-
         <!-- Pi4J Mock Platform -->
         <dependency>
             <groupId>com.pi4j</groupId>
@@ -154,7 +148,6 @@
                 </configuration>
             </plugin>
         </plugins>
-
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -228,14 +221,10 @@
                                     <goal>copy-dependencies</goal>
                                 </goals>
                                 <configuration>
+                                    <overWriteSnapshots>true</overWriteSnapshots>
                                     <outputDirectory>
                                         ${project.build.directory}/libs
                                     </outputDirectory>
-                                    <includeScope>runtime</includeScope>
-                                    <excludeTransitive>false</excludeTransitive>
-                                    <overWriteReleases>false</overWriteReleases>
-                                    <overWriteSnapshots>true</overWriteSnapshots>
-                                    <overWriteIfNewer>true</overWriteIfNewer>
                                 </configuration>
                             </execution>
                         </executions>
@@ -275,7 +264,6 @@
                 </plugins>
             </build>
         </profile>
-
         <!-- Run the JAR file locally -->
         <profile>
             <id>run-local</id>
@@ -294,14 +282,12 @@
                         </executions>
                         <configuration>
                             <executable>java</executable>
-                            <commandlineArgs>--module-path "${project.build.directory}/libs" --add-modules javafx.controls -jar "${project.build.directory}/${jar.name}.jar"</commandlineArgs>
+                            <commandlineArgs>-jar "${project.build.directory}/${jar.name}.jar"</commandlineArgs>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
         </profile>
-
-        <!-- Transfer and run JAR with dependencies on remote Raspberry -->
         <profile>
             <id>run-on-Pi</id>
             <build>
@@ -339,11 +325,11 @@
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"
                                                  username="${pi.username}" password="${pi.password}" trust="true"
                                                  failonerror="false" usepty="true" useSystemIn="true"
-                                                 command="chmod u+x ${pi.deploydirectory}/${jar.name}/${pi.startInDebugModeScript}"/>
+                                                 command="chmod u+x ${pi.deploydirectory}/${jar.name}/${pi.startScript}"/>
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"
                                                  username="${pi.username}" password="${pi.password}" trust="true"
                                                  failonerror="false" usepty="true" useSystemIn="true"
-                                                 command="chmod u+x ${pi.deploydirectory}/${jar.name}/${pi.startScript}"/>
+                                                 command="chmod u+x ${pi.deploydirectory}/${jar.name}/${pi.startInDebugModeScript}"/>
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"
                                                  username="${pi.username}" password="${pi.password}" trust="true"
                                                  failonerror="false" usepty="true" useSystemIn="true"
@@ -363,8 +349,6 @@
                 </plugins>
             </build>
         </profile>
-
-        <!-- Rerun the app on remote Raspberry without deploying any changes-->
         <profile>
             <id>restart-on-Pi</id>
             <build>
@@ -385,7 +369,15 @@
                                         <sshexec host="${pi.ipnumber}" port="${pi.port}"
                                                  username="${pi.username}" password="${pi.password}" trust="true"
                                                  failonerror="false" usepty="true" useSystemIn="true"
-                                                 command="${pi.deploydirectory}/${jar.name}/${pi.startScript} ${pi.deploydirectory}/${jar.name} ${jar.name}"/>
+                                                 command="chmod u+x ${pi.deploydirectory}/${jar.name}/${pi.startInDebugModeScript}"/>
+                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
+                                                 username="${pi.username}" password="${pi.password}" trust="true"
+                                                 failonerror="false" usepty="true" useSystemIn="true"
+                                                 command="chmod u+x ${pi.deploydirectory}/${jar.name}/${pi.startScript}"/>
+                                        <sshexec host="${pi.ipnumber}" port="${pi.port}"
+                                                 username="${pi.username}" password="${pi.password}" trust="true"
+                                                 failonerror="false" usepty="true" useSystemIn="true"
+                                                 command="${pi.deploydirectory}/${jar.name}/${pi.startScript} ${pi.deploydirectory}/${jar.name} ${jar.name} "/>
                                     </target>
                                 </configuration>
                             </execution>
@@ -412,4 +404,5 @@
             </properties>
         </profile>
     </profiles>
+
 </project>

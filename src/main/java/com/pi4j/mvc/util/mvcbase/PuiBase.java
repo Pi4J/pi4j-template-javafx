@@ -8,7 +8,13 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import com.pi4j.Pi4J;
+import com.pi4j.boardinfo.util.BoardInfoHelper;
 import com.pi4j.context.Context;
+import com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalInputProviderImpl;
+import com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalOutputProviderImpl;
+import com.pi4j.plugin.mock.provider.i2c.MockI2CProviderImpl;
+import com.pi4j.plugin.mock.provider.pwm.MockPwmProviderImpl;
+import com.pi4j.plugin.mock.provider.spi.MockSpiProviderImpl;
 
 /**
  * Base class for all PUIs.
@@ -33,7 +39,15 @@ public abstract class PuiBase<M, C extends ControllerBase<M>> implements Project
     public PuiBase(C controller) {
         Objects.requireNonNull(controller);
 
-        pi4J = Pi4J.newAutoContext();
+        pi4J = (BoardInfoHelper.runningOnRaspberryPi()) ?
+                Pi4J.newAutoContext() :
+                Pi4J.newContextBuilder()
+                        .add(new MockDigitalInputProviderImpl())
+                        .add(new MockDigitalOutputProviderImpl())
+                        .add(new MockPwmProviderImpl())
+                        .add(new MockSpiProviderImpl())
+                        .add(new MockI2CProviderImpl())
+                        .build();
 
         init(controller);
     }

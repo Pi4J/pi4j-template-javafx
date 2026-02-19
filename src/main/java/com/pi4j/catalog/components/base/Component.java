@@ -7,6 +7,11 @@ import java.util.logging.Logger;
 
 import com.pi4j.boardinfo.util.BoardInfoHelper;
 
+/**
+ * Base abstract class representing a Component in the system.
+ * This class provides common functionality for managing logging, resource cleanup,
+ * and utility methods such as delays or system-specific checks.
+ */
 public abstract class Component {
     /**
      * Logger instance
@@ -59,7 +64,7 @@ public abstract class Component {
      *
      * @param duration Time to sleep
      */
-    protected void delay(Duration duration) {
+    public static void delay(Duration duration) {
         try {
             long nanos = duration.toNanos();
             long millis = nanos / 1_000_000;

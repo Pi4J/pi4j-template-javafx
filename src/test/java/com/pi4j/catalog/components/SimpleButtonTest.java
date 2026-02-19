@@ -1,8 +1,5 @@
 package com.pi4j.catalog.components;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.time.Duration;
 
 import com.pi4j.io.gpio.digital.DigitalState;

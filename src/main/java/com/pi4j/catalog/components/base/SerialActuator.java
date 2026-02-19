@@ -7,6 +7,19 @@ import com.pi4j.boardinfo.util.BoardInfoHelper;
 
 import com.fazecast.jSerialComm.SerialPort;
 
+/**
+ * An abstract base class for components that interact with serial ports.
+ * This class manages the lifecycle of a serial port, including initialization,
+ * writing data, and resource cleanup.
+ *
+ * It is meant for serial output devices like an LED strip.
+ *
+ * You can check the status of your Raspberry Pi's serial port with
+ * 'jbang https://github.com/pi4j/pi4j-os/blob/main/iochecks/IOChecker.java serial'
+ *
+ * It is designed to be used on Raspberry Pi devices and contains logic
+ * to handle specific port configurations based on the hardware platform.
+ */
 public abstract class SerialActuator extends Component {
     private static final int QUEUE_SIZE = 8192;
 
@@ -19,8 +32,8 @@ public abstract class SerialActuator extends Component {
 
     @Override
     public void shutdown() {
-        super.shutdown();
         closePort();
+        super.shutdown();
     }
 
     protected void write(byte[] data) {

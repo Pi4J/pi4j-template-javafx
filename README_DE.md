@@ -19,6 +19,18 @@ Insbesondere sind Template-Projekte enthalten, die als Startpunkt für eigene Pr
 Bitte stellen Sie sicher, dass ihr Laptop und der von Ihnen verwendete Raspberry Pi 5 wie im [Hello Pi5 Projekt](https://gitlab.fhnw.ch/ip_12_preparation/hellopi5.git) beschrieben vorbereitet sind.
 
 
+<div style="border-left:4px solid red; padding:0.5em;">
+<strong>IMPORTANT:</strong> Zusätzlich muss ein JDK, der [JavaFX](https://openjfx.io) enthält, installiert werden.
+</div>
+
+Die Installation des [JDK](https://www.azul.com/downloads/?package=jdk-fx#zulu) muss sowohl auf dem Laptop als auch auf dem Rasberry Pi durchgeführt werden. Am besten mittels [SDKMAN](https://sdkman.io) installieren und als Default JDK setzen.
+```shell
+sdk install java 25.0.2.fx-zulu
+sdk default java 25.0.2.fx-zulu
+```
+
+In IntelliJ use this JDK in your project (via `File -> Project Structure ... -> SDK`)
+
 ## Entwicklungsprozess
 
 Unser Entwicklungsprozess für die IP12-Projekte ist ebenfalls im Projekt [Hello Pi5 Projekt](https://gitlab.fhnw.ch/ip_12_preparation/hellopi5.git) beschrieben.

@@ -6,6 +6,14 @@ import com.pi4j.io.gpio.digital.DigitalOutput;
 import com.pi4j.catalog.components.base.DigitalActuator;
 import com.pi4j.catalog.components.base.PIN;
 
+/**
+ * Represents a simple LED component controlled through a digital GPIO pin.
+ *
+ * This class provides methods to turn the LED on, off, and toggle its state.
+ *
+ * It extends the {@link DigitalActuator} class to utilize the base functionality
+ * for interacting with digital output pins.
+ */
 public class SimpleLed extends DigitalActuator {
 
     /**
@@ -19,9 +27,9 @@ public class SimpleLed extends DigitalActuator {
               DigitalOutput.newConfigBuilder(pi4j)
                       .id("BCM" + address)
                       .name("LED #" + address)
-                      .address(address.getPin())
+                      .bcm(address.getPin())
                       .build());
-        logDebug("Created new SimpleLed component");
+        logDebug("Created new SimpleLed component on pin %s", address);
         digitalOutput.off();
     }
 
@@ -64,5 +72,6 @@ public class SimpleLed extends DigitalActuator {
     @Override
     public void shutdown() {
         off();
+        super.shutdown();
     }
 }
