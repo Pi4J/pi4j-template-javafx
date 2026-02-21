@@ -38,7 +38,7 @@
 
         <!-- Setup for the RaspPi -->
         <pi.hostname>pi4j</pi.hostname>
-        <pi.ipnumber>10.70.193.141</pi.ipnumber>
+        <pi.ipnumber>192.168.178.105</pi.ipnumber>
         <!-- <pi.ipnumber>${pi.hostname}.local</pi.ipnumber>-->
         <pi.port>22</pi.port>
         <pi.username>pi</pi.username>
@@ -51,7 +51,7 @@
         <java.version>25</java.version>
 
         <!-- Project Dependency Versions-->
-        <pi4j.version>4.0.0-SNAPSHOT</pi4j.version>
+        <pi4j.version>4.0.0</pi4j.version>
         <jSerialComm.version>2.11.4</jSerialComm.version>
 
         <junit.version>6.0.3</junit.version>

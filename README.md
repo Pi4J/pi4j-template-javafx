@@ -13,19 +13,46 @@ This repository should not be cloned directly. It is a template project and one 
 
 ## Prepare Raspberry Pi and Developer Laptop
 
-Make sure that your Raspberry Pi and your developer laptop are prepared as described in the [Hello Pi5 Project](https://gitlab.fhnw.ch/ip_12_preparation/hellopi5.git).
+Make sure that your Raspberry Pi and your developer laptop are prepared as described [here](https://github.com/pi4J/pi4j-os), or, especially if you are an FHNW-student, in the [Hello Pi5 Project](https://gitlab.fhnw.ch/ip_12_preparation/hellopi5.git).
 
 
-<div style="border-left:4px solid red; padding:0.5em;">
-<strong>IMPORTANT:</strong> Additionally, you have to install a JDK that includes [JavaFX](https://openjfx.io).
-</div>
 
-Install [JDK](https://www.azul.com/downloads/?package=jdk-fx#zulu) on _both_ your laptop and on the Rasberry Pi, using [SDKMAN](https://sdkman.io), and make it the default JDK.
+**IMPORTANT:** In addition to this basic setup, you have to install a JDK that includes [JavaFX](https://openjfx.io).
+
+Install the [JDK including JavaFX](https://www.azul.com/downloads/?package=jdk-fx#zulu) on _both_ your laptop and on the Rasberry Pi, using [SDKMAN](https://sdkman.io), and make it the default JDK.
 ```shell
 sdk install java 25.0.2.fx-zulu
 sdk default java 25.0.2.fx-zulu
 ```
 In IntelliJ use this JDK in your project (via `File -> Project Structure ... -> SDK`)
+
+Check the JDK in a terminal window on your laptop _and on the Raspberry Pi_:
+```shell
+java -version
+```
+
+It should return
+```shell
+openjdk version "25.0.2" 2026-01-20 LTS
+OpenJDK Runtime Environment Zulu25.32+21-CA (build 25.0.2+10-LTS)
+OpenJDK 64-Bit Server VM Zulu25.32+21-CA (build 25.0.2+10-LTS, mixed mode, sharing)
+```
+
+To be sure that JavaFX is included:
+```shell
+java --list-modules | grep javafx
+```
+Should return:
+```shell
+javafx.base@25.0.2
+javafx.controls@25.0.2
+javafx.fxml@25.0.2
+javafx.graphics@25.0.2
+javafx.media@25.0.2
+javafx.swing@25.0.2
+javafx.web@25.0.2
+```
+
 
 ## Development process
 The recommended development process is also described in the [Hello Pi5 Project](https://gitlab.fhnw.ch/ip_12_preparation/hellopi5.git).

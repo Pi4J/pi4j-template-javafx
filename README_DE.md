@@ -16,20 +16,46 @@ Insbesondere sind Template-Projekte enthalten, die als Startpunkt für eigene Pr
 
 ## Setup von Raspberry Pi und Entwickler-Laptop
 
-Bitte stellen Sie sicher, dass ihr Laptop und der von Ihnen verwendete Raspberry Pi 5 wie im [Hello Pi5 Projekt](https://gitlab.fhnw.ch/ip_12_preparation/hellopi5.git) beschrieben vorbereitet sind.
+Bitte stellen Sie sicher, dass ihr Laptop und der von Ihnen verwendete Raspberry Pi 5 wie im [Hello Pi5 Projekt](https://gitlab.fhnw.ch/ip_12_preparation/hellopi5.git) oder [hier](https://github.com/pi4J/pi4j-os) beschrieben vorbereitet sind.
 
 
-<div style="border-left:4px solid red; padding:0.5em;">
-<strong>IMPORTANT:</strong> Zusätzlich muss ein JDK, der [JavaFX](https://openjfx.io) enthält, installiert werden.
-</div>
+**IMPORTANT:** Zusätzlich zu diesem Basis-Setup muss ein JDK, der [JavaFX](https://openjfx.io) enthält, installiert werden.
 
-Die Installation des [JDK](https://www.azul.com/downloads/?package=jdk-fx#zulu) muss sowohl auf dem Laptop als auch auf dem Rasberry Pi durchgeführt werden. Am besten mittels [SDKMAN](https://sdkman.io) installieren und als Default JDK setzen.
+Die Installation des [JDK inklusive JavaFX](https://www.azul.com/downloads/?package=jdk-fx#zulu) muss sowohl auf dem Laptop als auch auf dem Rasberry Pi durchgeführt werden. Am besten mittels [SDKMAN](https://sdkman.io) installieren und als Default JDK setzen.
 ```shell
 sdk install java 25.0.2.fx-zulu
 sdk default java 25.0.2.fx-zulu
 ```
 
-In IntelliJ use this JDK in your project (via `File -> Project Structure ... -> SDK`)
+In IntelliJ diesen JDK im Projekt setzen (via `File -> Project Structure ... -> SDK`)
+
+JDK in einem Terminal-Window auf dem Laptop _und dem Raspberry Pi_ überprüfen:
+```shell
+java -version
+```
+
+Sollte ausgeben:
+```shell
+openjdk version "25.0.2" 2026-01-20 LTS
+OpenJDK Runtime Environment Zulu25.32+21-CA (build 25.0.2+10-LTS)
+OpenJDK 64-Bit Server VM Zulu25.32+21-CA (build 25.0.2+10-LTS, mixed mode, sharing)
+```
+
+Sicherstellen, dass JavaFX enthalten ist:
+```shell
+java --list-modules | grep javafx
+```
+sollte ausgeben:
+```shell
+javafx.base@25.0.2
+javafx.controls@25.0.2
+javafx.fxml@25.0.2
+javafx.graphics@25.0.2
+javafx.media@25.0.2
+javafx.swing@25.0.2
+javafx.web@25.0.2
+```
+
 
 ## Entwicklungsprozess
 
