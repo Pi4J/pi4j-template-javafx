@@ -51,10 +51,11 @@
         <java.version>25</java.version>
 
         <!-- Project Dependency Versions-->
-        <pi4j.version>4.0.0</pi4j.version>
+        <pi4j.version>4.0.1</pi4j.version>
         <jSerialComm.version>2.11.4</jSerialComm.version>
 
         <junit.version>6.0.3</junit.version>
+        <sl4j.version>2.0.17</sl4j.version>
 
         <!-- Maven Plugin Versions -->
         <maven-clean-plugin.version>3.5.0</maven-clean-plugin.version>
@@ -82,12 +83,12 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.17</version>
+            <version>${sl4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>2.0.17</version>
+            <version>${sl4j.version}</version>
         </dependency>
         <dependency>
             <groupId>com.pi4j</groupId>
@@ -396,7 +397,7 @@
             </build>
         </profile>
 
-        <!-- Activate JDWP server on Raspberry, can be used for local and remote runs -->
+        <!-- Activate JDWP server on Pi, can be used for local and remote runs -->
         <profile>
             <id>debug</id>
             <properties>
