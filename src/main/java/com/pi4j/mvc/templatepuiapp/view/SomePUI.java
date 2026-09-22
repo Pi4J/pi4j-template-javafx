@@ -5,15 +5,17 @@ import com.pi4j.mvc.templatepuiapp.model.SomeModel;
 import com.pi4j.mvc.util.mvcbase.PuiBase;
 
 import com.pi4j.catalog.components.base.PIN;
-import com.pi4j.catalog.components.SimpleButton;
-import com.pi4j.catalog.components.SimpleLed;
+import com.pi4j.catalog.components.button.Button;
+import com.pi4j.catalog.components.button.GpioButton;
+import com.pi4j.catalog.components.led.GpioLed;
+import com.pi4j.catalog.components.led.Led;
 
 
 public class SomePUI extends PuiBase<SomeModel, SomeController> {
     //declare all hardware components attached to RaspPi
     //these are protected to give unit tests access to them
-    protected SimpleLed    led;
-    protected SimpleButton button;
+    protected Led led;
+    protected Button button;
 
     public SomePUI(SomeController controller) {
         super(controller);
@@ -21,8 +23,8 @@ public class SomePUI extends PuiBase<SomeModel, SomeController> {
 
     @Override
     public void initializeComponents() {
-        led    = new SimpleLed(pi4J, PIN.D22);
-        button = new SimpleButton(pi4J, PIN.D24, false);
+        led    = new GpioLed(pi4J, PIN.D22);
+        button = new GpioButton(pi4J, PIN.D24, false);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.pi4j.catalog.components;
+package com.pi4j.catalog.components.button;
 
 import java.time.Duration;
 
@@ -16,15 +16,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SimpleButtonTest extends ComponentTest {
+public class GpioButtonTest extends ComponentTest {
 
-    private SimpleButton button;
+    private GpioButton button;
     private MockDigitalInput digitalInput;
     private final PIN pinNumber = PIN.D26;
 
     @BeforeEach
     public void setUp() {
-        button = new SimpleButton(pi4j, pinNumber, false);
+        button = new GpioButton(pi4j, pinNumber, false);
         digitalInput = button.mock();
     }
 
@@ -34,7 +34,7 @@ public class SimpleButtonTest extends ComponentTest {
         digitalInput.mockState(DigitalState.HIGH);
 
         //then
-        assertTrue(button.isDown());
+        assertTrue(button.isPressed());
         assertFalse(button.isUp());
 
         //when
@@ -42,27 +42,27 @@ public class SimpleButtonTest extends ComponentTest {
 
         //then
         assertTrue(button.isUp());
-        assertFalse(button.isDown());
+        assertFalse(button.isPressed());
     }
 
     @Test
     public void testButtonStateOfInvertedButton(){
         //given
-        SimpleButton invertedButton = new SimpleButton(pi4j, PIN.D21, true);
+        GpioButton invertedButton = new GpioButton(pi4j, PIN.D21, true);
         digitalInput = invertedButton.mock();
 
         //when
         digitalInput.mockState(DigitalState.LOW);
 
         //then
-        assertTrue(invertedButton.isDown());
+        assertTrue(invertedButton.isPressed());
         assertFalse(invertedButton.isUp());
 
         //when
         digitalInput.mockState(DigitalState.HIGH);
 
         //then
-        assertFalse(invertedButton.isDown());
+        assertFalse(invertedButton.isPressed());
         assertTrue(invertedButton.isUp());
     }
 

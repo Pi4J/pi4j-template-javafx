@@ -1,4 +1,4 @@
-package com.pi4j.catalog.components;
+package com.pi4j.catalog.components.led;
 
 import com.pi4j.context.Context;
 import com.pi4j.io.gpio.digital.DigitalOutput;
@@ -14,22 +14,22 @@ import com.pi4j.catalog.components.base.PIN;
  * It extends the {@link DigitalActuator} class to utilize the base functionality
  * for interacting with digital output pins.
  */
-public class SimpleLed extends DigitalActuator {
+public class GpioLed extends DigitalActuator implements Led {
 
     /**
-     * Creates a new SimpleLed component with a custom BCM pin.
+     * Creates a new GpioLed component with a custom BCM pin.
      *
      * @param pi4j    Pi4J context
      * @param address Custom BCM pin address
      */
-    public SimpleLed(Context pi4j, PIN address) {
+    public GpioLed(Context pi4j, PIN address) {
         super(pi4j,
               DigitalOutput.newConfigBuilder(pi4j)
                       .id("BCM" + address)
                       .name("LED #" + address)
                       .bcm(address.getPin())
                       .build());
-        logDebug("Created new SimpleLed component on pin %s", address);
+        logDebug("Created new GpioLed component on pin %s", address);
         digitalOutput.off();
     }
 

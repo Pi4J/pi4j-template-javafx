@@ -59,7 +59,7 @@ public class ExampleGUI extends BorderPane implements ViewMixin<ExampleModel, Ap
 
     @Override
     public void layoutComponents() {
-        // consider to use GridPane instead
+        // consider using GridPane instead
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 

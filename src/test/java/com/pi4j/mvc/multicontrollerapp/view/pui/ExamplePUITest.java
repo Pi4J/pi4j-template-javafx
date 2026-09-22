@@ -1,14 +1,13 @@
 package com.pi4j.mvc.multicontrollerapp.view.pui;
 
+import com.pi4j.io.gpio.digital.DigitalState;
 import com.pi4j.mvc.multicontrollerapp.controller.ApplicationController;
 import com.pi4j.mvc.multicontrollerapp.model.ExampleModel;
-
-import org.junit.jupiter.api.Test;
-
-import com.pi4j.io.gpio.digital.DigitalState;
 import com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalInput;
 
 import com.pi4j.catalog.ComponentTest;
+
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

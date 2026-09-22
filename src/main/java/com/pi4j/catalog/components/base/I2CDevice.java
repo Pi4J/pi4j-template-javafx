@@ -29,7 +29,7 @@ public abstract class I2CDevice extends Component {
     /**
      * The PI4J I2C component
      */
-    private final I2C i2c;
+    protected final I2C i2c;
 
     protected I2CDevice(Context pi4j, int device, String name){
         Objects.requireNonNull(pi4j);
@@ -64,7 +64,7 @@ public abstract class I2CDevice extends Component {
     }
 
     protected int readRegister(int register) {
-        return i2c.readRegisterWord(register);
+        return i2c.readRegister(register);
     }
 
     /**
@@ -73,7 +73,7 @@ public abstract class I2CDevice extends Component {
      * @param config custom configuration
      */
     protected void writeRegister(int register, int config) {
-        i2c.writeRegisterWord(register, config);
+        i2c.writeRegister(register, config);
     }
 
     /**
