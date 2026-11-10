@@ -23,8 +23,8 @@ Bitte stellen Sie sicher, dass ihr Laptop und der von Ihnen verwendete Raspberry
 
 Die Installation des [JDK inklusive JavaFX](https://www.azul.com/downloads/?package=jdk-fx#zulu) muss sowohl auf dem Laptop als auch auf dem Rasberry Pi durchgeführt werden. Am besten mittels [SDKMAN](https://sdkman.io) installieren und als Default JDK setzen.
 ```shell
-sdk install java 26.0.2.fx-zulu
-sdk default java 26.0.2.fx-zulu
+sdk install java 25.0.5.0-fx+3.1-zulu
+sdk default java 25.0.5.0-fx+3.1-zulu
 ```
 
 In IntelliJ diesen JDK im Projekt setzen (via `File -> Project Structure ... -> SDK`)
@@ -36,9 +36,9 @@ java -version
 
 Sollte ausgeben:
 ```shell
-openjdk version "26.0.2" 2026-07-21
-OpenJDK Runtime Environment Zulu26.32+13-CA (build 26.0.2+10)
-OpenJDK 64-Bit Server VM Zulu26.32+13-CA (build 26.0.2+10, mixed mode, sharing)
+openjdk version "25.0.5.0.3" 2026-10-24 LTS
+OpenJDK Runtime Environment Zulu25.38+109-CA (build 25.0.5.0.3+1-LTS)
+OpenJDK 64-Bit Server VM Zulu25.38+109-CA (build 25.0.5.0.3+1-LTS, mixed mode, sharing)
 ```
 
 Sicherstellen, dass JavaFX enthalten ist:
@@ -47,13 +47,13 @@ java --list-modules | grep javafx
 ```
 sollte ausgeben:
 ```shell
-javafx.base@26.0.2
-javafx.controls@26.0.2
-javafx.fxml@26.0.2
-javafx.graphics@26.0.2
-javafx.media@26.0.2
-javafx.swing@26.0.2
-javafx.web@26.0.2
+javafx.base@25.0.5.0.3
+javafx.controls@25.0.5.0.3
+javafx.fxml@25.0.5.0.3
+javafx.graphics@25.0.5.0.3
+javafx.media@25.0.5.0.3
+javafx.swing@25.0.5.0.3
+javafx.web@25.0.5.0.3
 ```
 
 
